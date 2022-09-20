@@ -1,0 +1,11 @@
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.cursor-grab {
+    cursor: grabbing;
+}
+
+.container {
+    max-width: 1800px;
+}

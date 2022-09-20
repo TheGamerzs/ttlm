@@ -1,0 +1,172 @@
+{
+    "code": "200",
+    "storages": [
+        {
+            "name": "biz_granny",
+            "inventory": {
+                "scrap_gold": {
+                    "amount": 6
+                },
+                "refined_gold": {
+                    "amount": 1
+                },
+                "scrap_emerald": {
+                    "amount": 9
+                }
+            }
+        },
+        {
+            "name": "biz_yellowjack",
+            "inventory": {
+                "petrochem_sulfur": {
+                    "amount": 225
+                },
+                "petrochem_oil": {
+                    "amount": 1
+                },
+                "petrochem_diesel": {
+                    "amount": 99
+                },
+                "scrap_ore": {
+                    "amount": 230
+                },
+                "petrochem_kerosene": {
+                    "amount": 3
+                },
+                "petrochem_propane": {
+                    "amount": 146
+                },
+                "military_chemicals": {
+                    "amount": 8
+                },
+                "crafted_cement": {
+                    "amount": 19
+                },
+                "scrap_plastic": {
+                    "amount": 180
+                },
+                "military_explosives": {
+                    "amount": 8
+                },
+                "petrochem_waste": {
+                    "amount": 4
+                },
+                "petrochem_petrol": {
+                    "amount": 198
+                },
+                "liquid_water": {
+                    "amount": 62
+                }
+            }
+        },
+        {
+            "name": "faq_522",
+            "inventory": {
+                "refined_bronze": {
+                    "amount": 20
+                },
+                "recycled_electronics": {
+                    "amount": 1
+                },
+                "refined_amalgam": {
+                    "amount": 8
+                },
+                "crafted_copperwire": {
+                    "amount": 480
+                },
+                "refined_copper": {
+                    "amount": 1035
+                },
+                "refined_zinc": {
+                    "amount": 1908
+                },
+                "scrap_tin": {
+                    "amount": 1273
+                },
+                "scrap_emerald": {
+                    "amount": 212
+                },
+                "crafted_computer": {
+                    "amount": 280
+                },
+                "crafted_circuit": {
+                    "amount": 114
+                },
+                "refined_tin": {
+                    "amount": 528
+                },
+                "scrap_copper": {
+                    "amount": 1016
+                },
+                "scrap_aluminum": {
+                    "amount": 2337
+                },
+                "crafted_rebar": {
+                    "amount": 190
+                },
+                "tcargologs": {
+                    "amount": 8
+                },
+                "refined_sand": {
+                    "amount": 498
+                },
+                "scrap_gold": {
+                    "amount": 29
+                },
+                "refined_flint": {
+                    "amount": 640
+                },
+                "scrap_gravel": {
+                    "amount": 2
+                },
+                "scrap_mercury": {
+                    "amount": 12
+                },
+                "crafted_concrete": {
+                    "amount": 221
+                },
+                "tcargodust": {
+                    "amount": 2108
+                },
+                "liquid_water": {
+                    "amount": 73
+                },
+                "scrap_acid": {
+                    "amount": 580
+                },
+                "refined_planks": {
+                    "amount": 648
+                },
+                "crafted_ceramictiles": {
+                    "amount": 794
+                },
+                "refined_aluminum": {
+                    "amount": 470
+                },
+                "crafted_cement": {
+                    "amount": 102
+                },
+                "scrap_lead": {
+                    "amount": 486
+                },
+                "refined_solder": {
+                    "amount": 1168
+                },
+                "crafted_batteries": {
+                    "amount": 152
+                },
+                "scrap_ore": {
+                    "amount": 1590
+                },
+                "scrap_plastic": {
+                    "amount": 1884
+                }
+            }
+        },
+        {
+            "name": "gohq",
+            "inventory": {}
+        }
+    ],
+    "user_id": 645753
+}

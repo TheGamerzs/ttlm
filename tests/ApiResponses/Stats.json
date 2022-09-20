@@ -1,0 +1,131 @@
+{
+    "code": "200",
+    "data": [
+        {
+            "stat": "bus_fares_earned",
+            "name": "Bus Driver Total Fares",
+            "amount": 81
+        },
+        {
+            "stat": "bus_money_earned",
+            "name": "Bus Driver Money Earned",
+            "amount": 166400
+        },
+        {
+            "stat": "bus_route_completed",
+            "name": "Bus Driver Completed Route(s)",
+            "amount": 2
+        },
+        {
+            "stat": "drops_collected",
+            "name": "Treasure Chests Collected",
+            "amount": 270
+        },
+        {
+            "stat": "eastereggs_pickup",
+            "name": "EXP Bonuses Collected",
+            "amount": 2
+        },
+        {
+            "stat": "ems_deliveries",
+            "name": "Completed Paramedic Callouts",
+            "amount": 18
+        },
+        {
+            "stat": "ems_streak_record",
+            "name": "Highest Paramedic Streak",
+            "amount": 18
+        },
+        {
+            "stat": "garbage_routes_finished",
+            "name": "Garbage Routes Finished",
+            "amount": 3
+        },
+        {
+            "stat": "garbage_trash_collected",
+            "name": "Garbage Bags Collected",
+            "amount": 48
+        },
+        {
+            "stat": "hunting_missions",
+            "name": "Hunting Missions Completed",
+            "amount": 2
+        },
+        {
+            "stat": "hunting_skin",
+            "name": "Animals Gutted",
+            "amount": 16
+        },
+        {
+            "stat": "hunting_skin_mission",
+            "name": "Mission Animals Gutted",
+            "amount": 7
+        },
+        {
+            "stat": "hunting_zones",
+            "name": "Hunting Zones Cleared",
+            "amount": 2
+        },
+        {
+            "stat": "mechanic_flatbed_dropoffs",
+            "name": "Mechanic Flatbed Dropoffs",
+            "amount": 2
+        },
+        {
+            "stat": "mechanic_skylift_dropoffs",
+            "name": "Mechanic Skylift Dropoffs",
+            "amount": 1
+        },
+        {
+            "stat": "trap_paid",
+            "name": "Speed Trap Fines",
+            "amount": 742542
+        },
+        {
+            "name": "Running Distance",
+            "amount": 25944.5546875,
+            "stat": "MP0_DIST_RUNNING"
+        },
+        {
+            "name": "Swimming Distance",
+            "amount": 28.74647712707519,
+            "stat": "MP0_DIST_SWIMMING"
+        },
+        {
+            "name": "Car Distance",
+            "amount": 3255977.75,
+            "stat": "MP0_DIST_DRIVING_CAR"
+        },
+        {
+            "name": "Walking Distance",
+            "amount": 4070.49658203125,
+            "stat": "MP0_DIST_WALKING"
+        },
+        {
+            "name": "Helicopter Distance",
+            "amount": 2532384.5,
+            "stat": "MP0_DIST_DRIVING_HELI"
+        },
+        {
+            "name": "Fastest Speed",
+            "amount": 209.3001708984375,
+            "stat": "MP0_FASTEST_SPEED"
+        },
+        {
+            "name": "Boat Distance",
+            "amount": 0.0,
+            "stat": "MP0_DIST_DRIVING_BOAT"
+        },
+        {
+            "name": "Near Misses",
+            "amount": 6904,
+            "stat": "MP0_NUMBER_NEAR_MISS"
+        },
+        {
+            "name": "Plane Distance",
+            "amount": 1507876.125,
+            "stat": "MP0_DIST_DRIVING_PLANE"
+        }
+    ],
+    "user_id": 645753
+}

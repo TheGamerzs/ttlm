@@ -1,0 +1,765 @@
+{
+    "data_type": "data_offline",
+    "code": "200",
+    "data": {
+        "cloakroom_idle": {
+            "19": [
+                0,
+                0,
+                255
+            ],
+            "p9": [
+                -1,
+                0
+            ],
+            "h9": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "h1": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "8": [
+                0,
+                0,
+                0
+            ],
+            "h3": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "6": [
+                0,
+                0,
+                0
+            ],
+            "3": [
+                0,
+                0,
+                0
+            ],
+            "h5": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "1": [
+                0,
+                0,
+                0
+            ],
+            "h7": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "p1": [
+                -1,
+                0
+            ],
+            "0": [
+                0,
+                0,
+                0
+            ],
+            "p3": [
+                -1,
+                0
+            ],
+            "11": [
+                0,
+                0,
+                0
+            ],
+            "15": [
+                0,
+                0,
+                118
+            ],
+            "p5": [
+                -1,
+                0
+            ],
+            "17": [
+                0,
+                0,
+                255
+            ],
+            "p7": [
+                -1,
+                0
+            ],
+            "13": [
+                0,
+                0,
+                0
+            ],
+            "4": [
+                0,
+                0,
+                0
+            ],
+            "h12": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "9": [
+                0,
+                0,
+                0
+            ],
+            "h10": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "20": [
+                0,
+                0,
+                255
+            ],
+            "modelhash": -413447396,
+            "7": [
+                0,
+                0,
+                0
+            ],
+            "h4": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "2": [
+                0,
+                0,
+                0,
+                -1,
+                -1
+            ],
+            "h0": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "h6": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "h2": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "5": [
+                0,
+                0,
+                0
+            ],
+            "p10": [
+                -1,
+                0
+            ],
+            "p0": [
+                -1,
+                0
+            ],
+            "10": [
+                0,
+                0,
+                0
+            ],
+            "h8": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "h11": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "14": [
+                0,
+                0,
+                255
+            ],
+            "p2": [
+                -1,
+                0
+            ],
+            "12": [
+                0,
+                0,
+                0
+            ],
+            "p4": [
+                -1,
+                0
+            ],
+            "p6": [
+                -1,
+                0
+            ],
+            "16": [
+                0,
+                0,
+                255
+            ],
+            "p8": [
+                -1,
+                0
+            ],
+            "18": [
+                0,
+                0,
+                255
+            ]
+        },
+        "AcceptingPlayerEms": true,
+        "thirst": 0,
+        "current_loan": "loan_medium",
+        "ironman": false,
+        "health": 200,
+        "position": {
+            "h": 249.6,
+            "x": 1369.2,
+            "y": -739.4,
+            "z": 67.5
+        },
+        "licenses": {
+            "patreon_transfer": 0,
+            "police": 0,
+            "discord_voice": 0,
+            "muted_perm": 0,
+            "helicopter": 0,
+            "premium2": 0,
+            "patreon_premium": 0,
+            "exp_ee": 1663376282,
+            "freefuel_p2w": 1663235826,
+            "nofuel_p2w": 1663235826,
+            "patreon_beta": 0,
+            "transfer": 1663352776,
+            "commerce_premium": 0,
+            "beta_p2w": 0,
+            "muted_time": 0,
+            "premium3": 0,
+            "faq_bonus_exp_5": 1663419933,
+            "exp_week": 0,
+            "pristine": 0,
+            "perk_cooldown": 0,
+            "exp_ee3": 0,
+            "muted_2d": 0,
+            "driver": 1661117851,
+            "supercomputer_slow": 0,
+            "muted_suggestions": 0,
+            "reward_perma25": 0,
+            "faq_bonus_exp_15": 0,
+            "exp_day": 0,
+            "commerce_beta": 0,
+            "supercomputer": 0,
+            "premium_p2w": 0,
+            "notrap_p2w": 0,
+            "exp_15": 0,
+            "plane": 0,
+            "notoll_p2w": 0,
+            "discord_voice_10": 0,
+            "nofood_p2w": 0,
+            "premium": 1664670067,
+            "transfer_p2w": 0,
+            "exp_ee2": 0,
+            "corp_cooldown": 0,
+            "muted_week": 0,
+            "supercomputer_fast": 0,
+            "firearm": 0,
+            "commerce_transfer": 0
+        },
+        "gaptitudes_v": {
+            "physical": {
+                "strength": 105506.64299999965
+            },
+            "train": {
+                "bus": 136.0949999999999,
+                "train": 219.10000000000009
+            },
+            "business": {
+                "business": 5795.028000000004
+            },
+            "hunting": {
+                "skill": 89.65499999999996
+            },
+            "piloting": {
+                "heli": 12850.190000000006,
+                "piloting": 611.562,
+                "cargos": 1454.5429999999909
+            },
+            "ems": {
+                "ems": 1492.0000000000005,
+                "fire": 10
+            },
+            "player": {
+                "racing": 10,
+                "player": 106217.69299999993
+            },
+            "trucking": {
+                "garbage": 167.69999999999997,
+                "mechanic": 1255.631,
+                "trucking": 105289.85899999974,
+                "postop": 1733.0400000000009
+            },
+            "farming": {
+                "farming": 10,
+                "fishing": 10,
+                "mining": 10
+            }
+        },
+        "vehicle": {
+            "vehicle_class": 20,
+            "has_trailer": false,
+            "vehicle_type": "land",
+            "vehicle_spawn": "globecab2",
+            "vehicle_label": "daf",
+            "owned_vehicles": {
+                "cab": "globecab2",
+                "trailer": "boxlongtr",
+                "helicopter": "supervolito2"
+            },
+            "trailer": "",
+            "vehicle_name": "DAF",
+            "vehicle_model": 253745263
+        },
+        "gaptitudes": {
+            "physical": {
+                "strength": 2325
+            },
+            "train": {
+                "bus": 136.0949999999999,
+                "train": 219.10000000000009
+            },
+            "business": {
+                "business": 5795.028000000004
+            },
+            "hunting": {
+                "skill": 89.65499999999996
+            },
+            "piloting": {
+                "heli": 12850.190000000006,
+                "piloting": 611.562,
+                "cargos": 1454.5429999999909
+            },
+            "ems": {
+                "ems": 1492.0000000000005,
+                "fire": 10
+            },
+            "player": {
+                "racing": 10,
+                "player": 25250
+            },
+            "trucking": {
+                "garbage": 167.69999999999997,
+                "mechanic": 1255.631,
+                "trucking": 25250,
+                "postop": 1733.0400000000009
+            },
+            "farming": {
+                "farming": 10,
+                "fishing": 10,
+                "mining": 10
+            }
+        },
+        "inventory": {
+            "exp_token_a|piloting|piloting": {
+                "amount": 552
+            },
+            "chest_tier3": {
+                "amount": 1
+            },
+            "chest_daily": {
+                "amount": 2
+            },
+            "hide_chicken": {
+                "amount": 10
+            },
+            "exp_token_a|piloting|cargos": {
+                "amount": 302
+            },
+            "exp_token_a|business|business": {
+                "amount": 5869
+            },
+            "title_card_custom": {
+                "amount": 2
+            },
+            "complete_meal": {
+                "amount": 105
+            },
+            "fishing_tackle_legenday": {
+                "amount": 20
+            },
+            "exp_token_a|trucking|mechanic": {
+                "amount": 1375
+            },
+            "tea": {
+                "amount": 79
+            },
+            "exp_token_a|ems|ems": {
+                "amount": 735
+            },
+            "note|/shop|Welcome to Transport Tycoon!<br/>Use code <strong><em>STARTER</em></strong> during checkout on <strong>shop.tycoon.community (/shop)</strong> to get <strong style='color:green'>$5 OFF</strong> on a purchase of <strong>$10 or more</strong>!": {
+                "amount": 1
+            },
+            "exp_token_a|hunting|skill": {
+                "amount": 100
+            },
+            "chest_tier1": {
+                "amount": 128
+            },
+            "blessing_card|rp1.hamster|Hamster": {
+                "amount": 1
+            },
+            "job_card|helicopterpilot": {
+                "amount": 2
+            },
+            "speed_trap_radar": {
+                "amount": 3
+            },
+            "exp_token_a|trucking|garbage": {
+                "amount": 578
+            },
+            "level_token": {
+                "amount": 749
+            },
+            "chest_tier2": {
+                "amount": 73
+            },
+            "chest_key": {
+                "amount": 24
+            },
+            "exp_token_a|train|train": {
+                "amount": 1345
+            },
+            "chest_upgradekit": {
+                "amount": 1
+            },
+            "event_firework_rocket": {
+                "amount": 4
+            },
+            "job_card|trucker": {
+                "amount": 9
+            },
+            "exp_token_a|trucking|postop": {
+                "amount": 300
+            },
+            "exp_token|piloting|heli": {
+                "amount": 2328
+            },
+            "job_card|emergency": {
+                "amount": 6
+            },
+            "sd_encrypted": {
+                "amount": 1
+            },
+            "storage_card": {
+                "amount": 104
+            },
+            "exp_token_a|train|bus": {
+                "amount": 21
+            }
+        },
+        "hunger": 0,
+        "groups": {
+            "sd.trucking.mckenzie.plastic": true,
+            "discord_linked": true,
+            "trucker": true,
+            "license_premium": true,
+            "item.prefix_pack_1": true,
+            "license_driver": true,
+            "license_nofuel_p2w": true,
+            "user": true,
+            "sd.trucking.quarry.ore": true,
+            "license_faq_bonus_exp_5": true,
+            "trucker_commercial": true,
+            "license_freefuel_p2w": true
+        },
+        "chat_title": "PREMIUM",
+        "loans": {
+            "loan_medium": true
+        },
+        "customization": {
+            "19": [
+                0,
+                0,
+                255
+            ],
+            "p9": [
+                -1,
+                0
+            ],
+            "9": [
+                0,
+                0,
+                0
+            ],
+            "7": [
+                0,
+                0,
+                0
+            ],
+            "8": [
+                0,
+                0,
+                0
+            ],
+            "5": [
+                0,
+                0,
+                0
+            ],
+            "6": [
+                0,
+                0,
+                0
+            ],
+            "3": [
+                0,
+                0,
+                0
+            ],
+            "4": [
+                0,
+                0,
+                0
+            ],
+            "1": [
+                0,
+                0,
+                0
+            ],
+            "2": [
+                0,
+                0,
+                0,
+                -1,
+                -1
+            ],
+            "p1": [
+                -1,
+                0
+            ],
+            "13": [
+                0,
+                0,
+                0
+            ],
+            "p3": [
+                -1,
+                0
+            ],
+            "11": [
+                0,
+                0,
+                0
+            ],
+            "15": [
+                1,
+                0,
+                112
+            ],
+            "p5": [
+                -1,
+                0
+            ],
+            "17": [
+                0,
+                0,
+                255
+            ],
+            "p7": [
+                -1,
+                0
+            ],
+            "h9": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "p8": [
+                -1,
+                0
+            ],
+            "h12": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "h3": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "h5": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "20": [
+                0,
+                0,
+                255
+            ],
+            "h1": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "modelhash": 788443093,
+            "p0": [
+                -1,
+                0
+            ],
+            "p4": [
+                -1,
+                0
+            ],
+            "h7": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "p6": [
+                -1,
+                0
+            ],
+            "h2": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "h4": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "p10": [
+                -1,
+                0
+            ],
+            "h6": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "10": [
+                0,
+                0,
+                0
+            ],
+            "h8": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "0": [
+                0,
+                1,
+                0
+            ],
+            "14": [
+                0,
+                0,
+                255
+            ],
+            "p2": [
+                -1,
+                0
+            ],
+            "12": [
+                0,
+                0,
+                0
+            ],
+            "h10": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "h0": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "16": [
+                0,
+                0,
+                255
+            ],
+            "h11": [
+                0,
+                0,
+                0,
+                0,
+                0.0
+            ],
+            "18": [
+                0,
+                0,
+                255
+            ]
+        }
+    },
+    "user_id": 645753
+}

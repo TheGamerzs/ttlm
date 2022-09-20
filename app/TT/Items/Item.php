@@ -8,7 +8,7 @@ class Item
 {
     public string $name;
 
-    public int    $weight;
+    public ?int $weight;
 
     public function __construct(string $name)
     {
@@ -18,6 +18,9 @@ class Item
 
     public function howManyCanFitInSpace(int $compacityKG): int
     {
-        return floor($compacityKG / $this->weight);
+        if ($this->weight) {
+            return floor($compacityKG / $this->weight);
+        }
+        return 0;
     }
 }

@@ -59,8 +59,11 @@ class Weights
         'testing_fake' => 1
     ];
 
-    public static function getWeight($item)
+    public static function getWeight(string $item): ?int
     {
-        return self::$weights[$item];
+        if (array_key_exists($item, self::$weights)) {
+            return self::$weights[$item];
+        }
+        return null;
     }
 }

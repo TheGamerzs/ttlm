@@ -40,7 +40,10 @@ class Recipe
 
     public function howManyCanFit(int $compacityKG): int
     {
-        return (int) floor($compacityKG / $this->totalWeightOfComponentsToCraft());
+        if ($this->totalWeightOfComponentsToCraft()) {
+            return (int) floor($compacityKG / $this->totalWeightOfComponentsToCraft());
+        }
+        return 0;
     }
 
     public function setInStorageForAllComponents(Storage $storage): self

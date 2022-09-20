@@ -2,6 +2,9 @@
 
 namespace App\TT;
 
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
+
 class Weights
 {
     //Lookup: https://ttapi.elfshot.xyz/items?item=
@@ -55,15 +58,39 @@ class Weights
         'tcargodust' => 3, //Sawdust
         'tcargologs' => 60,
 
+        'upgrade_kit_blistata' => 20,
+        'upgrade_kit_dragking' => 20,
+        'upgrade_kit_hpr1' => 20,
+        'upgrade_kit_sultanr' => 20,
+        'upgrade_kit_sultanrs' => 20,
+
+        'flotsam' => 10,
+        'speed_trap_radar' => 5,
+        'rts_professional' => 95,
+        'rts_air_license' => 95,
+
+
         'house' => 1,
         'testing_fake' => 1
     ];
 
-    public static function getWeight(string $item): ?int
+    protected static function logMissingItem(string $itemName): void
     {
-        if (array_key_exists($item, self::$weights)) {
-            return self::$weights[$item];
+        /** @var Collection $missingItems */
+        $missingItems = Cache::get('missingItems', collect());
+        if (! $missingItems->contains($itemName) ) {
+            $missingItems->push($itemName);
+            Cache::put('missingItems', $missingItems);
         }
+    }
+
+    public static function getWeight(string $itemName): ?int
+    {
+        if (array_key_exists($itemName, self::$weights)) {
+            return self::$weights[$itemName];
+        }
+
+        self::logMissingItem($itemName);
         return null;
     }
 }

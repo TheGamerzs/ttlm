@@ -22,7 +22,7 @@
                     <livewire:storages-for-item />
                 </div>
                 <div class="col-6">
-                    Put something else here.
+                    <livewire:recipes-with-full-loads :truck-compacity="$truckCompacity" />
                 </div>
             </div>
             <livewire:storage-listing :truck-compacity="$truckCompacity"/>

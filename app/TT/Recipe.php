@@ -60,7 +60,10 @@ class Recipe
 
     public function craftableRecipesFromStorage(): int
     {
-        return $this->mostLimitedBy()->recipesCraftableFromStorage();
+        if ($this->components->count()) {
+            return $this->mostLimitedBy()->recipesCraftableFromStorage();
+        }
+        return 0;
     }
 
     public function craftableItemsFromStorage(): int

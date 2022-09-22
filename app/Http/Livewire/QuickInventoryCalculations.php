@@ -6,6 +6,7 @@ use App\TT\Items\Item;
 use App\TT\RecipeFactory;
 use App\TT\ShoppingListBuilder;
 use App\TT\StorageFactory;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class QuickInventoryCalculations extends Component
@@ -27,11 +28,15 @@ class QuickInventoryCalculations extends Component
     public function mount()
     {
         $this->assignTrailerLookups();
+        $this->itemName = Session::get('pickUpCountsItem', 'house');
+        $this->pickupCountsYield = Session::get('pickUpCountsYield', 300);
+        $this->storageName = Session::get('pickUpCountsStorage', 'faq_522');
         $this->buildPickupCounts();
     }
 
     protected function buildPickupCounts(): void
     {
+//        dump($this->itemName, $this->storageName, $this->pickupCountsYield, $this->truckCompacity);
         $this->pickupCounts = ShoppingListBuilder::build(
             RecipeFactory::get(new Item($this->itemName)),
             StorageFactory::get($this->storageName),
@@ -42,18 +47,21 @@ class QuickInventoryCalculations extends Component
             ->toArray();
     }
 
-    public function updatedItemName()
+    public function updatedItemName($value)
     {
+        Session::put('pickUpCountsItem', $value);
         $this->buildPickupCounts();
     }
 
-    public function updatedPickupCountsYield()
+    public function updatedPickupCountsYield($value)
     {
+        Session::put('pickUpCountsYield', $value);
         $this->buildPickupCounts();
     }
 
-    public function updatedStorageName()
+    public function updatedStorageName($value)
     {
+        Session::put('pickUpCountsStorage', $value);
         $this->buildPickupCounts();
     }
 

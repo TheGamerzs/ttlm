@@ -11,7 +11,7 @@ class Weights
     public static array $weights = [
         'crafted_batteries' => 30,
         'crafted_cement' => 25,
-        'crafted_ceramictiles' => 40,
+        'crafted_ceramictiles' => 10,
         'crafted_circuit' => 20,
         'crafted_computer' => 35,
         'crafted_concrete' => 160,

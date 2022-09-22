@@ -293,6 +293,12 @@ class Recipes
         return $recipes[$recipe];
     }
 
+    // Alias for readability
+    public static function getAllRecipes(): array
+    {
+        return self::getRecipe();
+    }
+
     public static function totalWeightForRecipe($material): int
     {
         $recipe = self::getRecipe($material);

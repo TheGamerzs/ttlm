@@ -22,6 +22,7 @@ class StorageSelect extends Component
             'faq_522' => 'Faction',
             'gohq' => 'Oil Refinery',
             'combined' => 'Combined',
+            'biz_train' => 'Train Yard'
         ];
 
         if (array_key_exists($name, $lookup)) {

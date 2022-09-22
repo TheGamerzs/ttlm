@@ -11,15 +11,19 @@ class StorageFactory
 {
     protected static object $apiData;
 
-    protected static array $storages = [];
+    public static array $storages = [];
 
     public static function get($name = 'faq_522'): Storage
     {
+        if (! count(self::$storages)) {
+            self::registerCombined();
+        }
+
         if (array_key_exists($name, self::$storages)) {
             return self::$storages[$name];
         }
 
-        return self::make($name);
+        throw new \Exception('Invalid Storage');
     }
 
     protected static function make(string $name): Storage
@@ -50,7 +54,7 @@ class StorageFactory
     {
         $data = self::getData();
         foreach ($data->storages as $storageData) {
-            self::get($storageData->name);
+            self::make($storageData->name);
         }
     }
 

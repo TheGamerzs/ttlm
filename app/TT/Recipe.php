@@ -3,6 +3,7 @@
 namespace App\TT;
 
 use App\TT\Items\CraftingMaterial;
+use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
 use Illuminate\Support\Collection;
 use Livewire\Wireable;
@@ -46,18 +47,6 @@ class Recipe
         return 0;
     }
 
-    public function setInStorageForAllComponents(Storage $storage): self
-    {
-        $this->components->each->setInStorage($storage);
-
-        $this->components = $this->components->sortBy(function ($craftingMaterial) {
-            /** @var CraftingMaterial $craftingMaterial */
-            return $craftingMaterial->recipesCraftableFromStorage();
-        });
-
-        return $this;
-    }
-
     public function craftableRecipesFromStorage(): int
     {
         if ($this->components->count()) {
@@ -81,5 +70,46 @@ class Recipe
     public function getComponent(string $craftingMaterialName)
     {
         return $this->components->firstWhere('name', $craftingMaterialName);
+    }
+
+    public function setInStorageForAllComponents(Storage $storage): self
+    {
+        $this->components->each->setInStorage($storage);
+
+        $this->components = $this->components->sortBy(function ($craftingMaterial) {
+            /** @var CraftingMaterial $craftingMaterial */
+            return $craftingMaterial->recipesCraftableFromStorage();
+        });
+
+        return $this;
+    }
+
+    public function findStorageWithMostComponents(): string
+    {
+        return
+            $this->components->map(function (CraftingMaterial $craftingMaterial) {
+                return StorageFactory::findStoragesForItem($craftingMaterial);
+            })
+            ->sortByDesc(function (Collection $storages) {
+                return $storages->sum(function (InventoryItem $item) {
+                    return $item->count;
+                });
+            })
+            ->map(function (Collection $storages) {
+                return $storages
+                    ->sortByDesc(function (InventoryItem $item) {
+                        return $item->count;
+                    })
+                    ->keys()
+                    ->first();
+            })
+            ->first() ?? 'combined';
+    }
+
+    public function autoSetStorageBasedOnComponentsLocation(): string
+    {
+        $storageName = $this->findStorageWithMostComponents();
+        $this->setInStorageForAllComponents(StorageFactory::get($storageName));
+        return $storageName;
     }
 }

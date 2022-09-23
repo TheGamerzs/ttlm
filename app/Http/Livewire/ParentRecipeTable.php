@@ -32,12 +32,11 @@ class ParentRecipeTable extends Component
 
     public function mount()
     {
-        $this->storageName = Session::get('ParentRecipeTableStorageName', 'faq_522');
+        $this->storageName = $this->parentRecipe->autoSetStorageBasedOnComponentsLocation();
     }
 
     public function updatedStorageName($value)
     {
-        Session::put('ParentRecipeTableStorageName', $value);
         $this->forgetComputed('storage');
         $this->parentRecipe->setInStorageForAllComponents($this->storage);
     }

@@ -12,6 +12,7 @@ use App\TT\RecipeShoppingListDecorator;
 use App\TT\ShoppingListBuilder;
 use App\TT\StorageFactory;
 use App\TT\Weights;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
@@ -19,29 +20,26 @@ class SandboxController extends Controller
 {
     public function index()
     {
-        $pickupItemWeight = Weights::getWeight('recycled_waste');
-        $truckCompacity = 9775;
-        $pocketCompacity = 600;
-        $storageCompacity = 30107;
+        $recipe       = RecipeFactory::get(new Item('crafted_rebar'));
+        $whereAreThey = $recipe->components->map(function (CraftingMaterial $craftingMaterial) {
+            return StorageFactory::findStoragesForItem($craftingMaterial);
+        })
+        ->sortByDesc(function (Collection $storages) {
+            return $storages->sum(function (InventoryItem $item) {
+                return $item->count;
+            });
+        })
+        ->map(function (Collection $storages) {
+            return $storages
+                ->sortByDesc(function (InventoryItem $item) {
+                    return $item->count;
+                })
+                ->keys()
+                ->first();
+        })->first();
 
-        $pickupItemsCountTrailer = (int) floor($truckCompacity / $pickupItemWeight);
-        $pickupItemsCountPocket= (int) floor($pocketCompacity / $pickupItemWeight);
+        dd($whereAreThey);
 
-        $pickupItemRefinedWeight = collect([
-            new InventoryItem('scrap_acid', 4),
-            new InventoryItem('scrap_lead', 2),
-            new InventoryItem('scrap_mercury', 2)
-        ])->sum(function (InventoryItem $item) {
-            return $item->getTotalWeight();
-        });
-
-        $leftoverWeightNeededForFirstRefine = ($pickupItemsCountTrailer + $pickupItemsCountPocket) * $pickupItemRefinedWeight;
-        $usableStorageCompacity = $storageCompacity - $leftoverWeightNeededForFirstRefine;
-
-        $oneRunTruckWeight = ($pickupItemsCountTrailer + $pickupItemsCountPocket) * $pickupItemWeight;
-        $final = (int) floor($usableStorageCompacity / $oneRunTruckWeight);
-
-        dd($pickupItemsCountTrailer, $pickupItemsCountPocket, $final);
     }
 
     public function missingItemsAfterPulledFromAPI()

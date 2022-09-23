@@ -40,7 +40,14 @@ class NextGrind extends Component
     public function mount()
     {
         $this->nextRecipeToGrindName = $this->parentRecipe->mostLimitedBy()->name;
+        $this->setStorageBasedOnLocationOfMostComponents();
         $this->iWant = $this->countNeededForParentRecipe;
+    }
+
+    protected function setStorageBasedOnLocationOfMostComponents()
+    {
+        $tempRecipeObject = RecipeFactory::get(new Item($this->nextRecipeToGrindName));
+        $this->storageName = $tempRecipeObject->findStorageWithMostComponents();
     }
 
     public function updatedStorageName($value)
@@ -51,6 +58,8 @@ class NextGrind extends Component
     public function setNextRecipeToGrindName(string $value)
     {
         $this->nextRecipeToGrindName = $value;
+        $this->forgetComputed('storage');
+        $this->setStorageBasedOnLocationOfMostComponents();
         $this->iWant = $this->countNeededForParentRecipe;
     }
 

@@ -15,12 +15,7 @@ class CraftingController extends Controller
         $truckCompacity = 9775;
         $trainYardStorage = 30107;
 
-        $parentRecipe = RecipeFactory::get(new Item($name))
-            ->setInStorageForAllComponents(
-                StorageFactory::get(
-                    Session::get('ParentRecipeTableStorageName', 'faq_522')
-                )
-            );
+        $parentRecipe = RecipeFactory::get(new Item($name));
 
         return view('crafting')->with([
             'recipeName' => $name,

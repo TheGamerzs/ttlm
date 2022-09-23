@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\TT\Items\CraftingMaterial;
+use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
 use App\TT\Items\SellableItem;
 use App\TT\RecipeFactory;
@@ -17,6 +18,33 @@ use Illuminate\Support\Facades\Http;
 class SandboxController extends Controller
 {
     public function index()
+    {
+        $pickupItemWeight = Weights::getWeight('recycled_waste');
+        $truckCompacity = 9775;
+        $pocketCompacity = 600;
+        $storageCompacity = 30107;
+
+        $pickupItemsCountTrailer = (int) floor($truckCompacity / $pickupItemWeight);
+        $pickupItemsCountPocket= (int) floor($pocketCompacity / $pickupItemWeight);
+
+        $pickupItemRefinedWeight = collect([
+            new InventoryItem('scrap_acid', 4),
+            new InventoryItem('scrap_lead', 2),
+            new InventoryItem('scrap_mercury', 2)
+        ])->sum(function (InventoryItem $item) {
+            return $item->getTotalWeight();
+        });
+
+        $leftoverWeightNeededForFirstRefine = ($pickupItemsCountTrailer + $pickupItemsCountPocket) * $pickupItemRefinedWeight;
+        $usableStorageCompacity = $storageCompacity - $leftoverWeightNeededForFirstRefine;
+
+        $oneRunTruckWeight = ($pickupItemsCountTrailer + $pickupItemsCountPocket) * $pickupItemWeight;
+        $final = (int) floor($usableStorageCompacity / $oneRunTruckWeight);
+
+        dd($pickupItemsCountTrailer, $pickupItemsCountPocket, $final);
+    }
+
+    public function missingItemsAfterPulledFromAPI()
     {
         $ignoring = collect([
             'gut_knife_tiger|7842',
@@ -38,13 +66,5 @@ class SandboxController extends Controller
             echo '<a href="https://ttapi.elfshot.xyz/items?item=' . $itemName . '">' . $itemName . '</a><br>';
         }
 
-    }
-
-    public function missingRecipes()
-    {
-        $recipes = collect(Recipes::getRecipe())->keys();
-        $weights = collect(Weights::$weights)->keys();
-
-        dd($weights->diff($recipes));
     }
 }

@@ -33,6 +33,7 @@ class Weights
         'recycled_electronics' => 130,
         'recycled_rubble' => 150,
         'recycled_trash' => 90,
+        'recycled_waste' => 110,
         'refined_aluminum' => 10,
         'refined_amalgam' => 15,
         'refined_bronze' => 10,

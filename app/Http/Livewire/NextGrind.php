@@ -22,6 +22,11 @@ class NextGrind extends Component
 {
     use ParentRecipeLivewireCast;
 
+    protected $listeners = [
+        'updateNextRecipeToGrind' => 'setNextRecipeToGrindName',
+        'refresh'                 => '$refresh'
+    ];
+
     public string|Recipe $parentRecipe;
 
     public string $nextRecipeToGrindName;
@@ -31,11 +36,6 @@ class NextGrind extends Component
     public string $iWant = '0';
 
     public string $storageName = 'faq_522';
-
-    protected $listeners = [
-        'updateNextRecipeToGrind' => 'setNextRecipeToGrindName',
-        'refresh'                 => '$refresh'
-    ];
 
     public function mount()
     {

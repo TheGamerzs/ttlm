@@ -8,6 +8,10 @@ use Livewire\Component;
 
 class StoragesForItem extends Component
 {
+    protected $listeners = [
+        'refresh' => '$refresh'
+    ];
+
     public string $itemName = 'scrap_ore';
 
     public function render()

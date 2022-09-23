@@ -16,7 +16,7 @@
 
     <div class="row">
         <div class="col-12">
-            <livewire:quick-inventory-calculations :truck-compacity="$truckCompacity" />
+            <livewire:quick-inventory-calculations :truck-compacity="$truckCompacity" :train-yard-storage="$trainYardStorage" />
             <div class="row">
                 <div class="col-6">
                     <livewire:storages-for-item />

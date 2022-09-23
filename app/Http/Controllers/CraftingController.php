@@ -13,6 +13,7 @@ class CraftingController extends Controller
     public function index(string $name = 'house')
     {
         $truckCompacity = 9775;
+        $trainYardStorage = 30107;
 
         $parentRecipe = RecipeFactory::get(new Item($name))
             ->setInStorageForAllComponents(
@@ -25,6 +26,7 @@ class CraftingController extends Controller
             'recipeName' => $name,
             'parentRecipe' => $parentRecipe,
             'truckCompacity' => $truckCompacity,
+            'trainYardStorage' => $trainYardStorage,
         ]);
     }
 

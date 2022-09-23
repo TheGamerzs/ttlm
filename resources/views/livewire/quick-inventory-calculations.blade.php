@@ -9,16 +9,30 @@
                     <input type="text" class="form-control" id="compacityUsed" wire:model="compacityUsed"/>
                     <label for="compacityUsed">Current Trailer Compacity Used</label>
                 </div>
+                <div class="form-floating mt-1">
+                    <x-item-select-only-in-storage change-wire-model="itemForFillTrailer"/>
+                    <label>Item</label>
+                </div>
+                <ul class="list-group mt-1">
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Weighs: {{ $trailerLookupItem->weight }}kg</span>
+                        <span>{{ $trailerLookupItem->howManyCanFitInSpace($truckCompacity - (int)$compacityUsed) }}</span>
+                    </li>
+                </ul>
                 <hr>
-                <h4 class="text-center">How Many To Fill Trailer</h4>
-                <ul class="list-group">
-                    @foreach($fillTrailerLookups as $item)
-                        <li class="list-group-item d-flex justify-content-between">
-                            <span>{{ $item->name }}</span>
-                            <span>{{ $item->howManyCanFitInSpace($truckCompacity - (int)$compacityUsed) }}</span>
-                        </li>
+
+                <h4>Pickups That Can Be Stored In Train Yard ({{ number_format($this->trainYardStorage) }} kg)</h4>
+                <ul class="list-group mt-1">
+                    @foreach($trainYardPickups as $trainYardPickup)
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span class="fw-bold">{{ $trainYardPickup->pickupItemName }}</span>
+                        <span>Trailer: {{ $trainYardPickup->pickupItemsCountTrailer() }}</span>
+                        <span>Pocket: {{ $trainYardPickup->pickupItemsCountPocket() }}</span>
+                        <span>Runs Stored: {{ $trainYardPickup->howManyTimesTrainYardCanBeUsed() }}</span>
+                    </li>
                     @endforeach
                 </ul>
+
             </div>
             <div class="col-6">
                 <div class="row">

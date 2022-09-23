@@ -8,9 +8,11 @@ use Livewire\Component;
 
 class StorageListing extends Component
 {
-    public string $storageName = 'faq_522';
+    protected $listeners = [
+        'refresh' => '$refresh'
+    ];
 
-    protected $listeners = ['refresh' => '$refresh'];
+    public string $storageName = 'faq_522';
 
     public int $truckCompacity;
 

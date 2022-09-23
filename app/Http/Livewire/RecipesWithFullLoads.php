@@ -12,21 +12,38 @@ use Livewire\Component;
 
 class RecipesWithFullLoads extends Component
 {
+    protected $listeners = [
+        'refresh' => '$refresh'
+    ];
+
     public int $truckCompacity;
 
     public string $storageName = 'faq_522';
+
+    public string $compacityUsed = '';
 
     public function get()
     {
         $storage = StorageFactory::get($this->storageName);
         $allRecipes = collect(Recipes::getAllRecipes());
 
-        return $allRecipes->filter(function ($item, $key) {
-            return Str::of($key)->startsWith('crafted');
+        $otherThanCrafted = [
+            'refined_solder',
+            'refined_aluminum',
+            'refined_amalgam',
+            'refined_bronze',
+            'refined_tin',
+        ];
+
+        return $allRecipes->filter(function ($item, $key) use ($otherThanCrafted) {
+            $recipeName = Str::of($key);
+            return
+                $recipeName->startsWith('crafted') ||
+                $recipeName->is($otherThanCrafted);
         })->map(function ($item, $key) use ($storage) {
             return RecipeFactory::get(new Item($key))->setInStorageForAllComponents($storage);
         })->filter(function (Recipe $recipe) {
-            return $recipe->craftableRecipesFromStorage() >= $recipe->howManyCanFit($this->truckCompacity);
+            return $recipe->craftableRecipesFromStorage() >= $recipe->howManyCanFit($this->truckCompacity - (int)$this->compacityUsed);
         });
     }
 

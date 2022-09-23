@@ -2,7 +2,6 @@
 
 namespace App\TT;
 
-
 use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
 use Illuminate\Support\Collection;
@@ -28,11 +27,6 @@ class StorageFactory
 
     protected static function make(string $name): Storage
     {
-        if ($name == 'combined') {
-            self::registerCombined();
-            return self::get($name);
-        }
-
         $storage = new Storage();
 
         $items = collect(self::getData()->storages)->firstWhere('name', $name)?->inventory;
@@ -74,7 +68,6 @@ class StorageFactory
                 }
             }
         }
-
         self::registerStorage('combined', $combinedStorage);
     }
 
@@ -95,7 +88,6 @@ class StorageFactory
 
     public static function getRegisteredNames(): array
     {
-        self::registerCombined();
         return array_keys(self::$storages);
     }
 

@@ -6,16 +6,21 @@ use App\TT\Items\Item;
 use App\TT\RecipeFactory;
 use App\TT\ShoppingListBuilder;
 use App\TT\StorageFactory;
+use App\TT\TrainYardPickUp;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class QuickInventoryCalculations extends Component
 {
+    protected $listeners = [
+        'refresh' => '$refresh'
+    ];
+
     public int $truckCompacity;
 
     public string $compacityUsed = '';
 
-    protected array $fillTrailerLookups = [];
+    public string $itemForFillTrailer = 'scrap_ore';
 
     public array $pickupCounts = [];
 
@@ -25,12 +30,13 @@ class QuickInventoryCalculations extends Component
 
     public string $storageName = 'faq_522';
 
+    public int $trainYardStorage = 30107;
+
     public function mount()
     {
-        $this->assignTrailerLookups();
-        $this->itemName = Session::get('pickUpCountsItem', 'house');
-        $this->pickupCountsYield = Session::get('pickUpCountsYield', 300);
-        $this->storageName = Session::get('pickUpCountsStorage', 'faq_522');
+        $this->itemName          = Session::get('pickUpCountsItem', 'house');
+        $this->pickupCountsYield = Session::get('pickUpCountsYield', 100);
+        $this->storageName       = Session::get('pickUpCountsStorage', 'combined');
         $this->buildPickupCounts();
     }
 
@@ -40,7 +46,7 @@ class QuickInventoryCalculations extends Component
         $this->pickupCounts = ShoppingListBuilder::build(
             RecipeFactory::get(new Item($this->itemName)),
             StorageFactory::get($this->storageName),
-            (int) $this->pickupCountsYield,
+            (int)$this->pickupCountsYield,
             $this->truckCompacity
         )['pickupCalculator']
             ->getRunCalculations()
@@ -65,27 +71,20 @@ class QuickInventoryCalculations extends Component
         $this->buildPickupCounts();
     }
 
-    public function hydrate()
+    protected function trainYardPickups(): array
     {
-        $this->assignTrailerLookups();
-    }
-
-    public function assignTrailerLookups()
-    {
-        $this->fillTrailerLookups = [
-            new Item('scrap_ore'),
-            new Item('scrap_plastic'),
-            new Item('scrap_emerald'),
-            new Item('refined_planks'),
-            new Item('scrap_copper'),
-            new Item('refined_flint')
+        return [
+            new TrainYardPickUp('recycled_electronics', $this->truckCompacity, 600, $this->trainYardStorage),
+            new TrainYardPickUp('recycled_waste', $this->truckCompacity, 600, $this->trainYardStorage),
+            new TrainYardPickUp('recycled_trash', $this->truckCompacity, 600, $this->trainYardStorage),
         ];
     }
 
     public function render()
     {
         return view('livewire.quick-inventory-calculations')->with([
-            'fillTrailerLookups' => $this->fillTrailerLookups
+            'trailerLookupItem' => new Item($this->itemForFillTrailer),
+            'trainYardPickups' => $this->trainYardPickups()
         ]);
     }
 }

@@ -8,7 +8,11 @@ use Illuminate\View\Component;
 
 class ItemSelect extends Component
 {
-    public function getItemNames()
+    public function __construct(public ?string $changeWireModel = null)
+    {
+    }
+
+    public function getItemNames(): array
     {
         return array_keys(Weights::$weights);
     }

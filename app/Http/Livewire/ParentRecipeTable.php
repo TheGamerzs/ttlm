@@ -20,13 +20,15 @@ class ParentRecipeTable extends Component
 {
     use ParentRecipeLivewireCast;
 
+    protected $listeners = [
+        'refresh' => '$refresh'
+    ];
+
     public int $truckCompacity;
 
     public string $storageName = 'faq_522';
 
     public string|Recipe $parentRecipe = '';
-
-    protected $listeners = ['refresh' => '$refresh'];
 
     public function mount()
     {

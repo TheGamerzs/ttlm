@@ -299,13 +299,8 @@ class Recipes
         return self::getRecipe();
     }
 
-    public static function totalWeightForRecipe($material): int
+    public static function getAllNames(): array
     {
-        $recipe = self::getRecipe($material);
-        $kg     = 0;
-        foreach ($recipe as $material => $amount) {
-            $kg += Weights::getWeight($material) * $amount;
-        }
-        return $kg;
+        return array_keys(self::getAllRecipes());
     }
 }

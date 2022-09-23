@@ -47,8 +47,8 @@
                     </div>
                     <div class="col-4">
                         <div class="form-floating">
-                            <x-item-select />
-                            <label>Item</label>
+                            <x-recipe-select />
+                            <label>Recipe</label>
                         </div>
                     </div>
                     <div class="col-4">

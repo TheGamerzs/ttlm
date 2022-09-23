@@ -20,26 +20,8 @@ class SandboxController extends Controller
 {
     public function index()
     {
-        $recipe       = RecipeFactory::get(new Item('crafted_rebar'));
-        $whereAreThey = $recipe->components->map(function (CraftingMaterial $craftingMaterial) {
-            return StorageFactory::findStoragesForItem($craftingMaterial);
-        })
-        ->sortByDesc(function (Collection $storages) {
-            return $storages->sum(function (InventoryItem $item) {
-                return $item->count;
-            });
-        })
-        ->map(function (Collection $storages) {
-            return $storages
-                ->sortByDesc(function (InventoryItem $item) {
-                    return $item->count;
-                })
-                ->keys()
-                ->first();
-        })->first();
-
-        dd($whereAreThey);
-
+        $a = Recipes::getAllRecipes();
+        dd(array_keys($a));
     }
 
     public function missingItemsAfterPulledFromAPI()

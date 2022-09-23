@@ -16,13 +16,27 @@ class QuickInventoryCalculations extends Component
         'refresh' => '$refresh'
     ];
 
+    /*
+    |--------------------------------------------------------------------------
+    | Single Item Compacity
+    |--------------------------------------------------------------------------
+    */
+
     public int $truckCompacity;
+
+    public int $trainYardStorage;
+
+    public int $pocketCompacity;
 
     public string $compacityUsed = '';
 
     public string $itemForFillTrailer = 'scrap_ore';
 
-    public array $pickupCounts = [];
+    /*
+    |--------------------------------------------------------------------------
+    | Pickup Counts Required To Make
+    |--------------------------------------------------------------------------
+    */
 
     public int $pickupCountsYield = 300;
 
@@ -30,7 +44,8 @@ class QuickInventoryCalculations extends Component
 
     public string $storageName = 'faq_522';
 
-    public int $trainYardStorage = 30107;
+    public array $pickupCounts = [];
+
 
     public function mount()
     {
@@ -38,20 +53,6 @@ class QuickInventoryCalculations extends Component
         $this->pickupCountsYield = Session::get('pickUpCountsYield', 100);
         $this->storageName       = Session::get('pickUpCountsStorage', 'combined');
         $this->buildPickupCounts();
-    }
-
-    protected function buildPickupCounts(): void
-    {
-//        dump($this->itemName, $this->storageName, $this->pickupCountsYield, $this->truckCompacity);
-        $this->pickupCounts = ShoppingListBuilder::build(
-            RecipeFactory::get(new Item($this->itemName)),
-            StorageFactory::get($this->storageName),
-            (int)$this->pickupCountsYield,
-            $this->truckCompacity
-        )['pickupCalculator']
-            ->getRunCalculations()
-            ->filter()
-            ->toArray();
     }
 
     public function updatedItemName($value)
@@ -72,14 +73,40 @@ class QuickInventoryCalculations extends Component
         $this->buildPickupCounts();
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Business
+    |--------------------------------------------------------------------------
+    */
+
+    protected function buildPickupCounts(): void
+    {
+//        dump($this->itemName, $this->storageName, $this->pickupCountsYield, $this->truckCompacity);
+        $this->pickupCounts = ShoppingListBuilder::build(
+            RecipeFactory::get(new Item($this->itemName)),
+            StorageFactory::get($this->storageName),
+            (int)$this->pickupCountsYield,
+            $this->truckCompacity
+        )['pickupCalculator']
+            ->getRunCalculations()
+            ->filter()
+            ->toArray();
+    }
+
     protected function trainYardPickups(): array
     {
         return [
-            new TrainYardPickUp('recycled_electronics', $this->truckCompacity, 600, $this->trainYardStorage),
-            new TrainYardPickUp('recycled_waste', $this->truckCompacity, 600, $this->trainYardStorage),
-            new TrainYardPickUp('recycled_trash', $this->truckCompacity, 600, $this->trainYardStorage),
+            new TrainYardPickUp('recycled_electronics', $this->truckCompacity, $this->pocketCompacity, $this->trainYardStorage),
+            new TrainYardPickUp('recycled_waste', $this->truckCompacity, $this->pocketCompacity, $this->trainYardStorage),
+            new TrainYardPickUp('recycled_trash', $this->truckCompacity, $this->pocketCompacity, $this->trainYardStorage),
         ];
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Render
+    |--------------------------------------------------------------------------
+    */
 
     public function render()
     {

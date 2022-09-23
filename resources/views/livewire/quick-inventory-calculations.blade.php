@@ -16,7 +16,10 @@
                 <ul class="list-group mt-1">
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Weighs: {{ $trailerLookupItem->weight }}kg</span>
-                        <span>{{ $trailerLookupItem->howManyCanFitInSpace($truckCompacity - (int)$compacityUsed) }}</span>
+                        <span title="Truck \ Pocket">
+                            ({{ $trailerLookupItem->howManyCanFitInSpace($truckCompacity - (int)$compacityUsed) }} \
+                            {{ $trailerLookupItem->howManyCanFitInSpace($pocketCompacity) }})
+                        </span>
                     </li>
                 </ul>
                 <hr>

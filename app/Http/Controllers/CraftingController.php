@@ -14,6 +14,7 @@ class CraftingController extends Controller
     {
         $truckCompacity = 9775;
         $trainYardStorage = 30107;
+        $pocketCompacity = 645;
 
         $parentRecipe = RecipeFactory::get(new Item($name));
 
@@ -22,6 +23,7 @@ class CraftingController extends Controller
             'parentRecipe' => $parentRecipe,
             'truckCompacity' => $truckCompacity,
             'trainYardStorage' => $trainYardStorage,
+            'pocketCompacity' => $pocketCompacity,
         ]);
     }
 

@@ -22,16 +22,16 @@
                 <hr>
 
                 <h4>Pickups That Can Be Stored In Train Yard ({{ number_format($this->trainYardStorage) }} kg)</h4>
-                <ul class="list-group mt-1">
+                <table class="table table-sm border">
                     @foreach($trainYardPickups as $trainYardPickup)
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span class="fw-bold">{{ $trainYardPickup->pickupItemName }}</span>
-                        <span>Trailer: {{ $trainYardPickup->pickupItemsCountTrailer() }}</span>
-                        <span>Pocket: {{ $trainYardPickup->pickupItemsCountPocket() }}</span>
-                        <span>Runs Stored: {{ $trainYardPickup->howManyTimesTrainYardCanBeUsed() }}</span>
-                    </li>
+                    <tr>
+                        <td class="fw-bold">{{ $trainYardPickup->pickupItemName }}</td>
+                        <td>Trailer: {{ $trainYardPickup->pickupItemsCountTrailer() }}</td>
+                        <td>Pocket: {{ $trainYardPickup->pickupItemsCountPocket() }}</td>
+                        <td>Runs Stored: {{ $trainYardPickup->howManyTimesTrainYardCanBeUsed() }}</td>
+                    </tr>
                     @endforeach
-                </ul>
+                </table>
 
             </div>
             <div class="col-6">

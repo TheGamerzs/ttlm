@@ -50,6 +50,7 @@ class QuickInventoryCalculations extends Component
             $this->truckCompacity
         )['pickupCalculator']
             ->getRunCalculations()
+            ->filter()
             ->toArray();
     }
 

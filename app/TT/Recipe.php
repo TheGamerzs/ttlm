@@ -26,17 +26,9 @@ class Recipe
         $this->components    = collect();
     }
 
-    public function name()
+    public function name(): string
     {
         return $this->inventoryItem->name;
-    }
-
-    public function totalWeightOfComponentsToCraft(int $count = 1): int
-    {
-        return $this->components->sum(function ($craftingMaterial) use ($count) {
-            /** @var CraftingMaterial $craftingMaterial */
-            return $craftingMaterial->getTotalWeightNeeded() * $count;
-        });
     }
 
     public function howManyCanFit(int $compacityKG): int
@@ -47,17 +39,25 @@ class Recipe
         return 0;
     }
 
+    public function totalWeightOfComponentsToCraft(int $count = 1): int
+    {
+        return $this->components->sum(function ($craftingMaterial) use ($count) {
+            /** @var CraftingMaterial $craftingMaterial */
+            return $craftingMaterial->getTotalWeightNeeded() * $count;
+        });
+    }
+
+    public function craftableItemsFromStorage(): int
+    {
+        return $this->craftableRecipesFromStorage() * $this->makes;
+    }
+
     public function craftableRecipesFromStorage(): int
     {
         if ($this->components->count()) {
             return $this->mostLimitedBy()->recipesCraftableFromStorage();
         }
         return 0;
-    }
-
-    public function craftableItemsFromStorage(): int
-    {
-        return $this->craftableRecipesFromStorage() * $this->makes;
     }
 
     public function mostLimitedBy(): CraftingMaterial
@@ -72,16 +72,11 @@ class Recipe
         return $this->components->firstWhere('name', $craftingMaterialName);
     }
 
-    public function setInStorageForAllComponents(Storage $storage): self
+    public function autoSetStorageBasedOnComponentsLocation(): string
     {
-        $this->components->each->setInStorage($storage);
-
-        $this->components = $this->components->sortBy(function ($craftingMaterial) {
-            /** @var CraftingMaterial $craftingMaterial */
-            return $craftingMaterial->recipesCraftableFromStorage();
-        });
-
-        return $this;
+        $storageName = $this->findStorageWithMostComponents();
+        $this->setInStorageForAllComponents(StorageFactory::get($storageName));
+        return $storageName;
     }
 
     public function findStorageWithMostComponents(): string
@@ -106,10 +101,15 @@ class Recipe
             ->first() ?? 'combined';
     }
 
-    public function autoSetStorageBasedOnComponentsLocation(): string
+    public function setInStorageForAllComponents(Storage $storage): self
     {
-        $storageName = $this->findStorageWithMostComponents();
-        $this->setInStorageForAllComponents(StorageFactory::get($storageName));
-        return $storageName;
+        $this->components->each->setInStorage($storage);
+
+        $this->components = $this->components->sortBy(function ($craftingMaterial) {
+            /** @var CraftingMaterial $craftingMaterial */
+            return $craftingMaterial->recipesCraftableFromStorage();
+        });
+
+        return $this;
     }
 }

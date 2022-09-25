@@ -2,8 +2,8 @@
 
     <h3 class="text-center">Next Grind</h3>
     <h5 class="text-center">
-        <a href="{{ route('craftingPage', ['name' => $nextRecipeToGrindName]) }}">
-            {{ $nextRecipeToGrindName }}
+        <a href="{{ route('craftingPage', ['name' => $nextRecipeToGrind->name()]) }}">
+            {{ $nextRecipeToGrind->name() }}
         </a>
     </h5>
 
@@ -117,7 +117,7 @@
                 </tbody>
             </table>
         <p class="text-center">
-            {{ (int)ceil(($this->countNeededForParentRecipe - $parentRecipe->getComponent($nextRecipeToGrindName)->inStorage) / $runPossibility[$nextRecipeToGrindName]) }}
+            {{ (int)ceil(($this->countNeededForParentRecipe - $parentRecipe->getComponent($nextRecipeToGrind->name())->inStorage) / $runPossibility[$nextRecipeToGrind->name()]) }}
             Runs Required for {{ $parentRecipe->howManyCanFit($truckCompacity) }} {{ $parentRecipe->name() }}s
         </p>
         @endforeach

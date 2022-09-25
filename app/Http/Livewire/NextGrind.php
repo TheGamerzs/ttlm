@@ -15,7 +15,6 @@ use Livewire\Component;
 /**
  * Computed Properties
  * @property Storage $storage
- * @property Recipe  $nextRecipeToGrind
  * @property int     $countNeededForParentRecipe
  */
 class NextGrind extends Component
@@ -29,7 +28,7 @@ class NextGrind extends Component
 
     public string|Recipe $parentRecipe;
 
-    public string $nextRecipeToGrindName;
+    public string|Recipe $nextRecipeToGrind = '';
 
     public int $truckCompacity;
 
@@ -37,22 +36,38 @@ class NextGrind extends Component
 
     public string $storageName = 'faq_522';
 
+    /*
+    |--------------------------------------------------------------------------
+    | Lifecycle Hooks
+    |--------------------------------------------------------------------------
+    */
+
     public function mount()
     {
-        $this->nextRecipeToGrindName = $this->parentRecipe->mostLimitedBy()->name;
+        $this->nextRecipeToGrind = RecipeFactory::get($this->parentRecipe->mostLimitedBy());
+        $this->nextRecipeToGrind->autoSetStorageBasedOnComponentsLocation();
         $this->setStorageBasedOnLocationOfMostComponents();
         $this->iWant = $this->countNeededForParentRecipe;
-    }
-
-    protected function setStorageBasedOnLocationOfMostComponents()
-    {
-        $tempRecipeObject = RecipeFactory::get(new Item($this->nextRecipeToGrindName));
-        $this->storageName = $tempRecipeObject->findStorageWithMostComponents();
     }
 
     public function updatedStorageName($value)
     {
         $this->forgetComputed('storage');
+    }
+
+    protected function setStorageBasedOnLocationOfMostComponents()
+    {
+        $this->storageName = $this->nextRecipeToGrind->findStorageWithMostComponents();
+    }
+
+    public function hydrateNextRecipeToGrind($value): void
+    {
+        $this->nextRecipeToGrind = RecipeFactory::get(new Item($value))->setInStorageForAllComponents($this->storage);
+    }
+
+    public function dehydrateNextRecipeToGrind(Recipe $nextRecipeToGrind): void
+    {
+        $this->nextRecipeToGrind = $nextRecipeToGrind->name();
     }
 
     public function setNextRecipeToGrindName(string $value)
@@ -63,14 +78,15 @@ class NextGrind extends Component
         $this->iWant = $this->countNeededForParentRecipe;
     }
 
-    public function getNextRecipeToGrindProperty(): Recipe
-    {
-        return RecipeFactory::get(new Item($this->nextRecipeToGrindName))->setInStorageForAllComponents($this->storage);
-    }
+    /*
+    |--------------------------------------------------------------------------
+    | Computed Properties
+    |--------------------------------------------------------------------------
+    */
 
     public function getCountNeededForParentRecipeProperty(): int
     {
-        return $this->parentRecipe->components->firstWhere('name', $this->nextRecipeToGrindName)->recipeCount
+        return $this->parentRecipe->components->firstWhere('name', $this->nextRecipeToGrind->name())->recipeCount
             * $this->parentRecipe->howManyCanFit($this->truckCompacity);
     }
 

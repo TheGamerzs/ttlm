@@ -13,6 +13,10 @@
 
     <hr>
 
+    <div class="d-flex justify-content-center">
+        <livewire:sync-storage-button />
+    </div>
+
 
     <div class="row">
         <div class="col-12">

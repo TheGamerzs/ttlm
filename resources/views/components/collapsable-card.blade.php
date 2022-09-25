@@ -1,4 +1,4 @@
-<div class="my-3" x-data="{open: true}">
+<div class="my-3" x-data="{open: false}">
     <div class="card">
         <h5 class="card-header d-flex justify-content-between">
             {{ $title ?? '' }}

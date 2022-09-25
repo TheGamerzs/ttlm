@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout title-addon="Trucking\Crafting">
     <div class="row">
         <div class="col-6">
             <livewire:parent-recipe-table
@@ -31,8 +31,6 @@
                     <livewire:recipes-with-full-loads :truck-compacity="$truckCompacity" />
                 </div>
             </div>
-
-            <livewire:storage-listing :truck-compacity="$truckCompacity"/>
         </div>
     </div>
 </x-layout>

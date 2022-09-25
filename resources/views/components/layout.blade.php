@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>TTLM</title>
+    <title>
+        TTLM {{ $titleAddon ? '-' : '' }} {{ $titleAddon ?? '' }}
+    </title>
 
     <link rel="stylesheet" href="{{ asset('css\lux.css') }}">
     <link rel="stylesheet" href="{{ asset('css\app.css') }}">
@@ -17,20 +19,17 @@
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Top navbar</a>
+        <a class="navbar-brand" href="{{ route('home') }}">TT Logistics Manager</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link" href="{{ route('craftingPage') }}">Trucking\Crafting</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    <a class="nav-link" href="{{ route('storageManagement') }}">Storage Management</a>
                 </li>
             </ul>
             <ul class="navbar-nav mb-2 mb-md-0">

@@ -59,7 +59,12 @@
                     </div>
                 </div>
                 <hr>
-                <h4 class="text-center">Pickup Counts Required To Make</h4>
+                <h4 class="text-center">
+                    Pickup Counts Required To Make
+                    <a target="_blank" href="{{ route('shoppingList', ['recipeName' => $itemName, 'count' => $pickupCountsYield]) }}">
+                        <i class="bi bi-cart4 ms-2 fs-5 text-info" title="Full Shopping List"></i>
+                    </a>
+                </h4>
                 <ul class="list-group">
                     @foreach($pickupCounts as $name => $count)
                         <li class="list-group-item d-flex justify-content-between">

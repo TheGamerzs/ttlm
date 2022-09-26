@@ -30,6 +30,9 @@
                     <a class="nav-link" href="{{ route('craftingPage') }}">Trucking\Crafting</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('shoppingList') }}">Shopping List</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('storageManagement') }}">Storage Management</a>
                 </li>
             </ul>

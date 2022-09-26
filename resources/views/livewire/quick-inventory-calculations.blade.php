@@ -6,8 +6,8 @@
         <div class="row">
             <div class="col-6">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="compacityUsed" wire:model="compacityUsed"/>
-                    <label for="compacityUsed">Current Trailer Compacity Used</label>
+                    <input type="text" class="form-control" id="capacityUsed" wire:model="capacityUsed"/>
+                    <label for="capacityUsed">Current Trailer Capacity Used</label>
                 </div>
                 <div class="form-floating mt-1">
                     <x-item-select-only-in-storage change-wire-model="itemForFillTrailer"/>
@@ -17,8 +17,8 @@
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Weighs: {{ $trailerLookupItem->weight }}kg</span>
                         <span title="Truck \ Pocket">
-                            ({{ $trailerLookupItem->howManyCanFitInSpace($truckCompacity - (int)$compacityUsed) }} \
-                            {{ $trailerLookupItem->howManyCanFitInSpace($pocketCompacity) }})
+                            ({{ $trailerLookupItem->howManyCanFitInSpace($truckCapacity - (int)$capacityUsed) }} \
+                            {{ $trailerLookupItem->howManyCanFitInSpace($pocketCapacity) }})
                         </span>
                     </li>
                 </ul>

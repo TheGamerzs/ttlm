@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('tt_id')->nullable();
             $table->string('api_private_key')->nullable();
-            $table->string('truckCompacity')->nullable();
-            $table->string('pocketCompacity')->nullable();
-            $table->string('trainYardCompacity')->nullable();
+            $table->string('truckCapacity')->nullable();
+            $table->string('pocketCapacity')->nullable();
+            $table->string('trainYardCapacity')->nullable();
             $table->timestamps();
         });
     }

@@ -30,7 +30,7 @@ class NextGrind extends Component
 
     public string|Recipe $nextRecipeToGrind = '';
 
-    public int $truckCompacity;
+    public int $truckCapacity;
 
     public string $iWant = '0';
 
@@ -86,7 +86,7 @@ class NextGrind extends Component
     public function getCountNeededForParentRecipeProperty(): int
     {
         return $this->parentRecipe->components->firstWhere('name', $this->nextRecipeToGrind->name())->recipeCount
-            * $this->parentRecipe->howManyCanFit($this->truckCompacity);
+            * $this->parentRecipe->howManyCanFit($this->truckCapacity);
     }
 
     public function getStorageProperty(): Storage
@@ -118,20 +118,20 @@ class NextGrind extends Component
     public function pickupRunYields(): array
     {
         return match ($this->nextRecipeToGrind->pickupRun) {
-            'quarry' => PickupRun::quarry($this->truckCompacity),
-            'logging camp' => PickupRun::logging($this->truckCompacity, $this->nextRecipeToGrindName),
-            'trash' => PickupRun::trash($this->truckCompacity),
-            'electronics' => PickupRun::electronics($this->truckCompacity),
-            'toxic waste' => PickupRun::toxicWaste($this->truckCompacity),
-            'crude oil' => PickupRun::crudeOil($this->truckCompacity),
-            'raw gas' => PickupRun::rawGas($this->truckCompacity),
+            'quarry' => PickupRun::quarry($this->truckCapacity),
+            'logging camp' => PickupRun::logging($this->truckCapacity, $this->nextRecipeToGrindName),
+            'trash' => PickupRun::trash($this->truckCapacity),
+            'electronics' => PickupRun::electronics($this->truckCapacity),
+            'toxic waste' => PickupRun::toxicWaste($this->truckCapacity),
+            'crude oil' => PickupRun::crudeOil($this->truckCapacity),
+            'raw gas' => PickupRun::rawGas($this->truckCapacity),
             default => []
         };
     }
 
     public function haveEnoughForFullTrailer(): bool
     {
-        return $this->nextRecipeToGrind->craftableItemsFromStorage() < $this->nextRecipeToGrind->howManyCanFit($this->truckCompacity);
+        return $this->nextRecipeToGrind->craftableItemsFromStorage() < $this->nextRecipeToGrind->howManyCanFit($this->truckCapacity);
     }
 
     public function haveEnoughForIWant(): bool

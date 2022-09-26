@@ -3,10 +3,10 @@
         <div class="col-6">
             <livewire:parent-recipe-table
                 :parent-recipe="$parentRecipe"
-                :truck-compacity="$truckCompacity" />
+                :truck-capacity="$truckCapacity" />
         </div>
         <div class="col-6">
-            <livewire:next-grind :truck-compacity="$truckCompacity"
+            <livewire:next-grind :truck-capacity="$truckCapacity"
                                  :parent-recipe="$parentRecipe"/>
         </div>
     </div>
@@ -20,15 +20,15 @@
 
     <div class="row">
         <div class="col-12">
-            <livewire:quick-inventory-calculations :truck-compacity="$truckCompacity"
+            <livewire:quick-inventory-calculations :truck-capacity="$truckCapacity"
                                                    :train-yard-storage="$trainYardStorage"
-                                                   :pocket-compacity="$pocketCompacity" />
+                                                   :pocket-capacity="$pocketCapacity" />
             <div class="row">
                 <div class="col-6">
                     <livewire:storages-for-item />
                 </div>
                 <div class="col-6">
-                    <livewire:recipes-with-full-loads :truck-compacity="$truckCompacity" />
+                    <livewire:recipes-with-full-loads :truck-capacity="$truckCapacity" />
                 </div>
             </div>
         </div>

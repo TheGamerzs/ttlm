@@ -19,8 +19,8 @@ it('returns if a user can make api calls', function () {
 
 it('returns if a user has all attributes needed for calculations', function () {
 
-    $noTruckUser = User::factory()->make(['truckCompacity' => null]);
-    $noPocketUser = User::factory()->make(['pocketCompacity' => null]);
+    $noTruckUser = User::factory()->make(['truckCapacity' => null]);
+    $noPocketUser = User::factory()->make(['pocketCapacity' => null]);
     $canCalculateUser = User::factory()->make();
 
     expect($noTruckUser->canCalculate())->toBeFalse()
@@ -31,7 +31,7 @@ it('returns if a user has all attributes needed for calculations', function () {
 
 it('returns if a user has attribute for train yard calculations', function () {
 
-    $noTrainUser = User::factory()->make(['trainYardCompacity' => null]);
+    $noTrainUser = User::factory()->make(['trainYardCapacity' => null]);
     $canCalculateUser = User::factory()->make();
 
     expect($noTrainUser->hasTrainYard())->toBeFalse()
@@ -49,12 +49,12 @@ test('user is redirected to settings page when they cant use api', function () {
 
 });
 
-test('user is redirected to settings page when they dont have truckCompacity or pocketCompacity set', function () {
+test('user is redirected to settings page when they dont have truckCapacity or pocketCapacity set', function () {
 
-    $noTruckUser = User::factory()->create(['truckCompacity' => null]);
+    $noTruckUser = User::factory()->create(['truckCapacity' => null]);
     actingAs($noTruckUser)->get('crafting')->assertRedirect('settings');
 
-    $noPocketUser = User::factory()->create(['pocketCompacity' => null]);
+    $noPocketUser = User::factory()->create(['pocketCapacity' => null]);
     actingAs($noPocketUser)->get('crafting')->assertRedirect('settings');
 
 });

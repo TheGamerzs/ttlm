@@ -13,7 +13,7 @@ class ShoppingList extends Component
 {
     public string $recipeName = 'house';
 
-    public int $truckCompacity;
+    public int $truckCapacity;
 
     public string $count = '300';
 
@@ -33,14 +33,14 @@ class ShoppingList extends Component
             RecipeFactory::get(new Item($this->recipeName)),
             new Storage(),
             $this->count,
-            $this->truckCompacity
+            $this->truckCapacity
         );
 
         $afterStorageList = ShoppingListBuilder::build(
             RecipeFactory::get(new Item($this->recipeName)),
             StorageFactory::get('combined'),
             $this->count,
-            $this->truckCompacity
+            $this->truckCapacity
         );
 
         return view('livewire.shopping-list')->with([

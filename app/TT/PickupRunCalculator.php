@@ -9,11 +9,11 @@ class PickupRunCalculator
 {
     public array $counts = [];
 
-    public int $truckCompacity;
+    public int $truckCapacity;
 
-    public function __construct(int $truckCompacity)
+    public function __construct(int $truckCapacity)
     {
-        $this->truckCompacity = $truckCompacity;
+        $this->truckCapacity = $truckCapacity;
     }
 
     public function addCount(string $itemName, int $needed): self
@@ -82,7 +82,7 @@ class PickupRunCalculator
         $runs = 0;
         if (array_key_exists('liquid_water_raw', $this->counts)) {
             $waterRecipe = RecipeFactory::get(new Item('liquid_water'));
-            $runs = $this->counts['liquid_water_raw']['needed'] / $waterRecipe->howManyCanFit($this->truckCompacity);
+            $runs = $this->counts['liquid_water_raw']['needed'] / $waterRecipe->howManyCanFit($this->truckCapacity);
         }
         return (int) ceil($runs);
     }
@@ -98,7 +98,7 @@ class PickupRunCalculator
             ->first();
 
         return $runsNeeded = (int) ceil(
-            $basePickupItemsNeeded * $baseWeight / $this->truckCompacity
+            $basePickupItemsNeeded * $baseWeight / $this->truckCapacity
         );
     }
 
@@ -111,7 +111,7 @@ class PickupRunCalculator
 
         $plankRuns = 0;
         $sawdustRuns = 0;
-        $logsFitInTrailer = (int) floor( $this->truckCompacity / $logWeight = 60 );
+        $logsFitInTrailer = (int) floor( $this->truckCapacity / $logWeight = 60 );
 
         // find out planks
         if (array_key_exists('refined_planks', $this->counts)) {

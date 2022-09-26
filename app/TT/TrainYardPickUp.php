@@ -28,29 +28,29 @@ class TrainYardPickUp
 
     public int $pickupItemWeight;
 
-    public int $truckCompacity;
+    public int $truckCapacity;
 
-    public int $pocketCompacity;
+    public int $pocketCapacity;
 
-    public int $storageCompacity;
+    public int $storageCapacity;
 
-    public function __construct($pickupItemName, int $truckCompacity, $pocketCompacity = 600, $trainYardStorageCompacity = 30107)
+    public function __construct($pickupItemName, int $truckCapacity, $pocketCapacity = 600, $trainYardStorageCapacity = 30107)
     {
         $this->pickupItemName = $pickupItemName;
         $this->pickupItemWeight = Weights::getWeight($pickupItemName);
-        $this->truckCompacity = $truckCompacity;
-        $this->pocketCompacity = $pocketCompacity;
-        $this->storageCompacity = $trainYardStorageCompacity;
+        $this->truckCapacity = $truckCapacity;
+        $this->pocketCapacity = $pocketCapacity;
+        $this->storageCapacity = $trainYardStorageCapacity;
     }
 
     public function pickupItemsCountTrailer(): int
     {
-        return (int) floor($this->truckCompacity / $this->pickupItemWeight);
+        return (int) floor($this->truckCapacity / $this->pickupItemWeight);
     }
 
     public function pickupItemsCountPocket(): int
     {
-        return (int) floor($this->pocketCompacity / $this->pickupItemWeight);
+        return (int) floor($this->pocketCapacity / $this->pickupItemWeight);
     }
 
     public function pickupItemRefinedWeight(): int
@@ -70,9 +70,9 @@ class TrainYardPickUp
             * $this->pickupItemRefinedWeight();
     }
 
-    public function usableStorageCompacity(): int
+    public function usableStorageCapacity(): int
     {
-        return $this->storageCompacity - $this->leftoverWeightNeededForFirstRefine();
+        return $this->storageCapacity - $this->leftoverWeightNeededForFirstRefine();
     }
 
     public function oneRunTotalWeight(): int
@@ -83,6 +83,6 @@ class TrainYardPickUp
 
     public function howManyTimesTrainYardCanBeUsed(): int
     {
-        return (int) floor($this->usableStorageCompacity() / $this->oneRunTotalWeight());
+        return (int) floor($this->usableStorageCapacity() / $this->oneRunTotalWeight());
     }
 }

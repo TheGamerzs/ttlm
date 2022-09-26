@@ -13,9 +13,9 @@ class UserSettings extends Component
 
     protected $rules = [
         'user.api_private_key' => 'required|string',
-        'user.truckCompacity' => 'integer|nullable',
-        'user.pocketCompacity' => 'integer|nullable',
-        'user.trainYardCompacity'=> 'integer|nullable'
+        'user.truckCapacity' => 'integer|nullable',
+        'user.pocketCapacity' => 'integer|nullable',
+        'user.trainYardCapacity'=> 'integer|nullable'
     ];
 
     public function updateUser()

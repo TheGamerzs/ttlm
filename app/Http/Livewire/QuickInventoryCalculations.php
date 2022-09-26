@@ -18,17 +18,17 @@ class QuickInventoryCalculations extends Component
 
     /*
     |--------------------------------------------------------------------------
-    | Single Item Compacity
+    | Single Item Capacity
     |--------------------------------------------------------------------------
     */
 
-    public int $truckCompacity;
+    public int $truckCapacity;
 
     public ?int $trainYardStorage;
 
-    public int $pocketCompacity;
+    public int $pocketCapacity;
 
-    public string $compacityUsed = '';
+    public string $capacityUsed = '';
 
     public string $itemForFillTrailer = 'scrap_ore';
 
@@ -81,12 +81,12 @@ class QuickInventoryCalculations extends Component
 
     protected function buildPickupCounts(): void
     {
-//        dump($this->itemName, $this->storageName, $this->pickupCountsYield, $this->truckCompacity);
+//        dump($this->itemName, $this->storageName, $this->pickupCountsYield, $this->truckCapacity);
         $this->pickupCounts = ShoppingListBuilder::build(
             RecipeFactory::get(new Item($this->itemName)),
             StorageFactory::get($this->storageName),
             (int)$this->pickupCountsYield,
-            $this->truckCompacity
+            $this->truckCapacity
         )['pickupCalculator']
             ->getRunCalculations()
             ->filter()
@@ -96,9 +96,9 @@ class QuickInventoryCalculations extends Component
     protected function trainYardPickups(): array
     {
         return [
-            new TrainYardPickUp('recycled_electronics', $this->truckCompacity, $this->pocketCompacity, $this->trainYardStorage),
-            new TrainYardPickUp('recycled_waste', $this->truckCompacity, $this->pocketCompacity, $this->trainYardStorage),
-            new TrainYardPickUp('recycled_trash', $this->truckCompacity, $this->pocketCompacity, $this->trainYardStorage),
+            new TrainYardPickUp('recycled_electronics', $this->truckCapacity, $this->pocketCapacity, $this->trainYardStorage),
+            new TrainYardPickUp('recycled_waste', $this->truckCapacity, $this->pocketCapacity, $this->trainYardStorage),
+            new TrainYardPickUp('recycled_trash', $this->truckCapacity, $this->pocketCapacity, $this->trainYardStorage),
         ];
     }
 

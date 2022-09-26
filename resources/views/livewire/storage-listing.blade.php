@@ -22,7 +22,7 @@
                     @forelse($this->fullTrailerAlerts() as $inventoryItem)
                         <tr>
                             <td>{{ $inventoryItem->name }}</td>
-                            <td>{{ $inventoryItem->howManyCanFitInSpace($truckCompacity) }}</td>
+                            <td>{{ $inventoryItem->howManyCanFitInSpace($truckCapacity) }}</td>
                         </tr>
                     @empty
                         <tr>
@@ -93,7 +93,7 @@
                 <td>{{ $sellableItem->count }}</td>
                 <td>${{ number_format($sellableItem->totalValue()) }}</td>
                 <td>
-                    {{ $fullTruckCount = $sellableItem->howManyCanFitInSpace($truckCompacity) }}
+                    {{ $fullTruckCount = $sellableItem->howManyCanFitInSpace($truckCapacity) }}
                     (${{ number_format($sellableItem->getValueFor($fullTruckCount)) }})
                 </td>
                 <td>{{ $sellableItem->location }}</td>

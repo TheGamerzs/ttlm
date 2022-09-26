@@ -16,11 +16,11 @@ class RecipesWithFullLoads extends Component
         'refresh' => '$refresh'
     ];
 
-    public int $truckCompacity;
+    public int $truckCapacity;
 
     public string $storageName = 'faq_522';
 
-    public string $compacityUsed = '';
+    public string $capacityUsed = '';
 
     public function get()
     {
@@ -43,7 +43,7 @@ class RecipesWithFullLoads extends Component
         })->map(function ($item, $key) use ($storage) {
             return RecipeFactory::get(new Item($key))->setInStorageForAllComponents($storage);
         })->filter(function (Recipe $recipe) {
-            return $recipe->craftableRecipesFromStorage() >= $recipe->howManyCanFit($this->truckCompacity - (int)$this->compacityUsed);
+            return $recipe->craftableRecipesFromStorage() >= $recipe->howManyCanFit($this->truckCapacity - (int)$this->capacityUsed);
         });
     }
 

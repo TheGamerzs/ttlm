@@ -19,11 +19,11 @@ class User extends Authenticatable
 
     public function canCalculate(): bool
     {
-        return $this->truckCompacity && $this->pocketCompacity;
+        return $this->truckCapacity && $this->pocketCapacity;
     }
 
     public function hasTrainYard(): bool
     {
-        return (bool) $this->trainYardCompacity;
+        return (bool) $this->trainYardCapacity;
     }
 }

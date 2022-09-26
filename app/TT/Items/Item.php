@@ -16,10 +16,10 @@ class Item
         $this->weight = Weights::getWeight($name);
     }
 
-    public function howManyCanFitInSpace(int $compacityKG): int
+    public function howManyCanFitInSpace(int $capacityKG): int
     {
         if ($this->weight) {
-            return floor($compacityKG / $this->weight);
+            return floor($capacityKG / $this->weight);
         }
         return 0;
     }

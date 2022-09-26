@@ -34,11 +34,11 @@ test('leftoverWeightNeededForFirstRefine method', function () {
 
 });
 
-test('usableStorageCompacity method', function () {
+test('usableStorageCapacity method', function () {
 
     $trainYardPickUp = new \App\TT\TrainYardPickUp('recycled_waste', 9775, 330);
 
-    expect($trainYardPickUp->usableStorageCompacity())->toBe(22827);
+    expect($trainYardPickUp->usableStorageCapacity())->toBe(22827);
 
 });
 

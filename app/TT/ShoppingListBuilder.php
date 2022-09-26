@@ -29,7 +29,7 @@ class ShoppingListBuilder
         self::$refinedOverrides = collect(['liquid_water']);
     }
 
-    public static function build(Recipe $recipe, Storage $storage, int $count, int $truckCompacity)
+    public static function build(Recipe $recipe, Storage $storage, int $count, int $truckCapacity)
     {
         self::setDefaults();
         self::$storage = $storage;
@@ -48,7 +48,7 @@ class ShoppingListBuilder
             });
 
 
-        $calculator = new PickupRunCalculator($truckCompacity);
+        $calculator = new PickupRunCalculator($truckCapacity);
         if (! $cleaned->keys()->contains('scrap') ) {
             $cleaned['pickupCalculator'] = $calculator;
             return $cleaned;

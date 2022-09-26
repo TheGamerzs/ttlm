@@ -15,7 +15,7 @@ class StorageListing extends Component
 
     public string $storageName = 'faq_522';
 
-    public int $truckCompacity;
+    public int $truckCapacity;
 
     public string $sortBy = 'count';
 
@@ -41,7 +41,7 @@ class StorageListing extends Component
         return StorageFactory::get($this->storageName)
             ->whereIn('name', $lookup)
             ->filter(function ($craftingMaterial) {
-                return $craftingMaterial->getTotalWeight() > $this->truckCompacity;
+                return $craftingMaterial->getTotalWeight() > $this->truckCapacity;
             })->sortByWeight();
     }
 

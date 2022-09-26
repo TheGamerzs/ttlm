@@ -3,7 +3,7 @@
 ?>
 <div>
     <h3 class="text-center">{{ $this->countCanBeMade }} {{ $parentRecipe->name() }}s Can Be Made</h3>
-    <h5 class="text-center">Trailer can fit {{ $parentRecipe->howManyCanFit($truckCompacity) }}</h5>
+    <h5 class="text-center">Trailer can fit {{ $parentRecipe->howManyCanFit($truckCapacity) }}</h5>
     @if($parentRecipe->craftingLocation)
         <h5 class="text-center">Crafted at {{ $parentRecipe->craftingLocation }}</h5>
     @endif

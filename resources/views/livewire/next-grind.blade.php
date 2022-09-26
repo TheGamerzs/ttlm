@@ -8,7 +8,7 @@
     </h5>
 
     @unless($this->isPickupRun())
-        <h5 class="text-center">Trailer can fit {{ $this->nextRecipeToGrind->howManyCanFit($truckCompacity) }}</h5>
+        <h5 class="text-center">Trailer can fit {{ $this->nextRecipeToGrind->howManyCanFit($truckCapacity) }}</h5>
     @endunless
 
     @if($this->nextRecipeToGrind->craftingLocation)
@@ -52,7 +52,7 @@
 
         <div class="text-center">
             Can Currently Craft: {{ $this->nextRecipeToGrind->craftableItemsFromStorage() }}<br>
-            Needed To Make {{ $parentRecipe->howManyCanFit($truckCompacity) }}:
+            Needed To Make {{ $parentRecipe->howManyCanFit($truckCapacity) }}:
             {{ $this->countNeededForParentRecipe }}
         </div>
 
@@ -67,7 +67,7 @@
                     I Want ({{ $iWant }})
                 </td>
                 <td @class(['table-danger' => $this->haveEnoughForFullTrailer()])>
-                    Full Trailer ({{ $this->nextRecipeToGrind->howManyCanFit($truckCompacity) * $this->nextRecipeToGrind->makes }})
+                    Full Trailer ({{ $this->nextRecipeToGrind->howManyCanFit($truckCapacity) * $this->nextRecipeToGrind->makes }})
                 </td>
             </tr>
             </thead>
@@ -80,7 +80,7 @@
                         {{ (int)$this->iWant * $craftingMaterial->recipeCount / $craftingMaterial->recipe->makes }}
                     </td>
                     <td @class(['table-danger' => $this->haveEnoughForFullTrailer()])>
-                        {{ $craftingMaterial->recipeCount * $this->nextRecipeToGrind->howManyCanFit($truckCompacity) }}
+                        {{ $craftingMaterial->recipeCount * $this->nextRecipeToGrind->howManyCanFit($truckCapacity) }}
                     </td>
                 </tr>
             @endforeach
@@ -118,7 +118,7 @@
             </table>
         <p class="text-center">
             {{ (int)ceil(($this->countNeededForParentRecipe - $parentRecipe->getComponent($nextRecipeToGrind->name())->inStorage) / $runPossibility[$nextRecipeToGrind->name()]) }}
-            Runs Required for {{ $parentRecipe->howManyCanFit($truckCompacity) }} {{ $parentRecipe->name() }}s
+            Runs Required for {{ $parentRecipe->howManyCanFit($truckCapacity) }} {{ $parentRecipe->name() }}s
         </p>
         @endforeach
     @endif

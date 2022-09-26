@@ -24,7 +24,7 @@ class ParentRecipeTable extends Component
         'refresh' => '$refresh'
     ];
 
-    public int $truckCompacity;
+    public int $truckCapacity;
 
     public string $storageName = 'faq_522';
 
@@ -62,7 +62,7 @@ class ParentRecipeTable extends Component
         if ($this->parentRecipe->name() == 'house') {
             return $craftingMaterial->recipeCount * $this->parentRecipe->mostLimitedBy()->recipesCraftableFromStorage();
         }
-        return $craftingMaterial->recipeCount * $this->parentRecipe->howManyCanFit($this->truckCompacity);
+        return $craftingMaterial->recipeCount * $this->parentRecipe->howManyCanFit($this->truckCapacity);
     }
 
     public function getFillTruckString(): string

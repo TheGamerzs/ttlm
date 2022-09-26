@@ -31,10 +31,10 @@ class Recipe
         return $this->inventoryItem->name;
     }
 
-    public function howManyCanFit(int $compacityKG): int
+    public function howManyCanFit(int $capacityKG): int
     {
         if ($this->totalWeightOfComponentsToCraft()) {
-            return (int) floor($compacityKG / $this->totalWeightOfComponentsToCraft());
+            return (int) floor($capacityKG / $this->totalWeightOfComponentsToCraft());
         }
         return 0;
     }

@@ -9,25 +9,25 @@
                        wire:model="user.api_private_key">
             </div>
             <div class="mb-3">
-                <label for="truckCompacity" class="form-label" title="Trailer Compacity">Current Trucking Compacity (kg)</label>
+                <label for="truckCapacity" class="form-label" title="Trailer Capacity">Current Trucking Capacity (kg)</label>
                 <input type="text"
-                       class="form-control @error('user.truckCompacity') is-invalid @enderror"
-                       id="truckCompacity"
-                       wire:model="user.truckCompacity">
+                       class="form-control @error('user.truckCapacity') is-invalid @enderror"
+                       id="truckCapacity"
+                       wire:model="user.truckCapacity">
             </div>
             <div class="mb-3">
-                <label for="pocketCompacity" class="form-label" title="Your Personal Inventory">Current Pocket Compacity (kg)</label>
+                <label for="pocketCapacity" class="form-label" title="Your Personal Inventory">Current Pocket Capacity (kg)</label>
                 <input type="text"
-                       class="form-control @error('user.pocketCompacity') is-invalid @enderror"
-                       id="pocketCompacity"
-                       wire:model="user.pocketCompacity">
+                       class="form-control @error('user.pocketCapacity') is-invalid @enderror"
+                       id="pocketCapacity"
+                       wire:model="user.pocketCapacity">
             </div>
             <div class="mb-3">
-                <label for="trainYardCompacity" class="form-label">Current Train Yard Compacity (kg)</label>
+                <label for="trainYardCapacity" class="form-label">Current Train Yard Capacity (kg)</label>
                 <input type="text"
-                       class="form-control @error('user.trainYardCompacity') is-invalid @enderror"
-                       id="trainYardCompacity"
-                       wire:model="user.trainYardCompacity">
+                       class="form-control @error('user.trainYardCapacity') is-invalid @enderror"
+                       id="trainYardCapacity"
+                       wire:model="user.trainYardCapacity">
             </div>
             <div class="d-grid gap-2">
                 <button class="btn btn-primary" type="submit">Save</button>

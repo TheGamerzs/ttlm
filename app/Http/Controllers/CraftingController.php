@@ -13,18 +13,18 @@ class CraftingController extends Controller
 {
     public function index(string $name = 'house')
     {
-        $truckCompacity = (int) Auth::user()->truckCompacity ?? 0;
-        $trainYardStorage = (int) Auth::user()->trainYardCompacity ?? 0;
-        $pocketCompacity = (int) Auth::user()->pocketCompacity ?? 0;
+        $truckCapacity = (int) Auth::user()->truckCapacity ?? 0;
+        $trainYardStorage = (int) Auth::user()->trainYardCapacity ?? 0;
+        $pocketCapacity = (int) Auth::user()->pocketCapacity ?? 0;
 
         $parentRecipe = RecipeFactory::get(new Item($name));
 
         return view('crafting')->with([
             'recipeName' => $name,
             'parentRecipe' => $parentRecipe,
-            'truckCompacity' => $truckCompacity,
+            'truckCapacity' => $truckCapacity,
             'trainYardStorage' => $trainYardStorage,
-            'pocketCompacity' => $pocketCompacity,
+            'pocketCapacity' => $pocketCapacity,
         ]);
     }
 

@@ -8,10 +8,10 @@ use JetBrains\PhpStorm\ArrayShape;
 class PickupRun
 {
     #[ArrayShape(['scrap_emerald' => "float", 'scrap_ore' => "float|int", 'refined_flint' => "float|int", 'refined_sand' => "float|int"])]
-    public static function quarry(int $truckCompacity): array
+    public static function quarry(int $truckCapacity): array
     {
         $rubbleWeight = 150;
-        $pickupCount  = floor($truckCompacity / $rubbleWeight);
+        $pickupCount  = floor($truckCapacity / $rubbleWeight);
 
         // 10 gravel = 4 Flint and 6 Sand
         $gravel                 = $pickupCount * 12;
@@ -25,10 +25,10 @@ class PickupRun
                 ]];
     }
 
-    public static function logging(int $truckCompacity, string $craftingMaterialName): array
+    public static function logging(int $truckCapacity, string $craftingMaterialName): array
     {
         $logWeight   = 60;
-        $pickupCount = floor($truckCompacity / $logWeight);
+        $pickupCount = floor($truckCapacity / $logWeight);
 
         if ($craftingMaterialName == 'refined_planks') {
             return [[
@@ -48,10 +48,10 @@ class PickupRun
 
     }
 
-    public static function trash(int $truckCompacity): array
+    public static function trash(int $truckCapacity): array
     {
         $trashWeight = 90;
-        $pickupCount = floor($truckCompacity / $trashWeight);
+        $pickupCount = floor($truckCapacity / $trashWeight);
 
         return [
             [
@@ -62,10 +62,10 @@ class PickupRun
         ];
     }
 
-    public static function electronics(int $truckCompacity): array
+    public static function electronics(int $truckCapacity): array
     {
         $electronicsWeight = 130;
-        $pickupCount       = floor($truckCompacity / $electronicsWeight);
+        $pickupCount       = floor($truckCapacity / $electronicsWeight);
 
         return [
             [
@@ -76,10 +76,10 @@ class PickupRun
         ];
     }
 
-    public static function toxicWaste(int $truckCompacity): array
+    public static function toxicWaste(int $truckCapacity): array
     {
         $wasteWeight = 110;
-        $pickupCount = floor($truckCompacity / $wasteWeight);
+        $pickupCount = floor($truckCapacity / $wasteWeight);
 
         return [
             [
@@ -90,10 +90,10 @@ class PickupRun
         ];
     }
 
-    public static function crudeOil(int $truckCompacity): array
+    public static function crudeOil(int $truckCapacity): array
     {
         $oilWeight = 150;
-        $pickupCount = floor($truckCompacity / $oilWeight);
+        $pickupCount = floor($truckCapacity / $oilWeight);
 
         return [
             [
@@ -104,10 +104,10 @@ class PickupRun
         ];
     }
 
-    public static function rawGas(int $truckCompacity): array
+    public static function rawGas(int $truckCapacity): array
     {
         $gasWeight = 150;
-        $pickupCount = floor($truckCompacity / $gasWeight);
+        $pickupCount = floor($truckCapacity / $gasWeight);
 
         return [
             [

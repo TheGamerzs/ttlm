@@ -19,9 +19,9 @@ class DatabaseSeeder extends Seeder
             'discord_snowflake' => 324060102770556933,
             'name' => 'xxdalexx',
             'tt_id' => 645753,
-            'truckCompacity' => 9775,
-            'pocketCompacity' => 325,
-            'trainYardCompacity' => 40135,
+            'truckCapacity' => 9775,
+            'pocketCapacity' => 325,
+            'trainYardCapacity' => 40135,
             'api_private_key' => config('app.tt_api_private_key')
         ]);
     }

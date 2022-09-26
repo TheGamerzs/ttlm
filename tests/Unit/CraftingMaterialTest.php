@@ -11,10 +11,10 @@ it('calculates total weight needed', function () {
 
     $recipe = RecipeFactory::get(new Item('crafted_ceramictiles'));
     $ceramicTiles = new CraftingMaterial('crafted_ceramictiles', $recipe);
-    expect($ceramicTiles->getTotalWeightNeeded())->toBe(40);
+    expect($ceramicTiles->getTotalWeightNeeded())->toBe(10);
 
     $multipleTiles = new CraftingMaterial('crafted_ceramictiles', $recipe, 2);
-    expect($multipleTiles->getTotalWeightNeeded())->toBe(80);
+    expect($multipleTiles->getTotalWeightNeeded())->toBe(20);
 
 });
 

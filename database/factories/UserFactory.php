@@ -22,9 +22,9 @@ class UserFactory extends Factory
             'name' => fake()->userName(),
             'tt_id' => fake()->randomNumber(6),
             'api_private_key' => Str::random(37),
-            'trainYardCompacity' => fake()->randomNumber(6),
-            'pocketCompacity' => fake()->randomNumber(3),
-            'truckCompacity' => fake()->randomNumber(5)
+            'trainYardCapacity' => fake()->randomNumber(6),
+            'pocketCapacity' => fake()->randomNumber(3),
+            'truckCapacity' => fake()->randomNumber(5)
         ];
     }
 

@@ -16,7 +16,7 @@ class ShoppingListController
 
         return view('shopping-list')->with([
             'name' => $name,
-            'truckCompacity' => Auth::user()->truckCompacity
+            'truckCapacity' => Auth::user()->truckCapacity
         ]);
     }
 }

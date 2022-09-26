@@ -5,31 +5,39 @@
 <div>
     <h3 class="text-center">Self Storage Contents</h3>
 
+    <div class="row">
+        <div class="col">
+            <livewire:storages-for-item />
+        </div>
+        <div class="col">
+            <x-collapsable-card title="Full Trailer Alerts">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td></td>
+                        <td>Fill Trailer</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @forelse($this->fullTrailerAlerts() as $inventoryItem)
+                        <tr>
+                            <td>{{ $inventoryItem->name }}</td>
+                            <td>{{ $inventoryItem->howManyCanFitInSpace($truckCompacity) }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="2">Nothing Yet</td>
+                        </tr>
+                    @endforelse
+                    </tbody>
+                </table>
+            </x-collapsable-card>
+        </div>
+    </div>
+
+
     <x-storage-select />
-
     <button wire:click="sync"  class="btn btn-warning">Update Storage Data ({{ Cache::get('api_charges') }})</button>
-
-
-    @if($this->fullTrailerAlerts()->count())
-        <h3 class="text-center">Full Trailer Alerts</h3>
-        <table class="table">
-            <thead>
-            <tr>
-                <td></td>
-                <td>Fill Trailer</td>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($this->fullTrailerAlerts() as $inventoryItem)
-                <tr>
-                    <td>{{ $inventoryItem->name }}</td>
-                    <td>{{ $inventoryItem->howManyCanFitInSpace($truckCompacity) }}</td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-        <hr>
-    @endif
 
 
     <table class="table">

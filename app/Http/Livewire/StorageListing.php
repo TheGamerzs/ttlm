@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\TT\Storage;
 use App\TT\StorageFactory;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
@@ -24,7 +25,7 @@ class StorageListing extends Component
         $this->emit('refresh');
     }
 
-    public function fullTrailerAlerts()
+    public function fullTrailerAlerts(): \App\TT\Storage
     {
         $lookup = [
             'scrap_ore',

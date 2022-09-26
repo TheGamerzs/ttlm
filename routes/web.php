@@ -23,12 +23,12 @@ Route::get('/logout', function () {
     return redirect()->route('home');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'ttApi'])->group(function () {
     Route::get('/crafting/{name?}', [\App\Http\Controllers\CraftingController::class, 'index'])->name('craftingPage');
     Route::get('/shopping-list/{name?}', [\App\Http\Controllers\ShoppingListController::class, 'index'])->name('shoppingList');
     Route::get('/storages/{name?}', [\App\Http\Controllers\StorageManagementController::class, 'index'])->name('storageManagement');
-    Route::get('/settings', [\App\Http\Controllers\UserSettingsController::class, 'index'])->name('userSettings');
 });
+Route::get('/settings', [\App\Http\Controllers\UserSettingsController::class, 'index'])->name('userSettings')->middleware('auth');
 
 Route::view('login', 'discord-login-cta')->name('login');
 

@@ -48,3 +48,13 @@ test('user is redirected to settings page when they cant use api', function () {
     actingAs($noIdUser)->get('crafting')->assertRedirect('settings');
 
 });
+
+test('user is redirected to settings page when they dont have truckCompacity or pocketCompacity set', function () {
+
+    $noTruckUser = User::factory()->create(['truckCompacity' => null]);
+    actingAs($noTruckUser)->get('crafting')->assertRedirect('settings');
+
+    $noPocketUser = User::factory()->create(['pocketCompacity' => null]);
+    actingAs($noPocketUser)->get('crafting')->assertRedirect('settings');
+
+});

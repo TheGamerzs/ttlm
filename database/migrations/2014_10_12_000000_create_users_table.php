@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('tt_id')->nullable();
             $table->string('api_public_token')->nullable();
+            $table->string('truckCompacity')->nullable();
+            $table->string('pocketCompacity')->nullable();
+            $table->string('trainYardCompacity')->nullable();
             $table->timestamps();
         });
     }

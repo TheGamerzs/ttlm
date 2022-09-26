@@ -6,15 +6,16 @@ use App\TT\Items\CraftingMaterial;
 use App\TT\Items\Item;
 use App\TT\RecipeFactory;
 use App\TT\StorageFactory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class CraftingController extends Controller
 {
     public function index(string $name = 'house')
     {
-        $truckCompacity = 9775;
-        $trainYardStorage = 30107;
-        $pocketCompacity = 645;
+        $truckCompacity = Auth::user()->truckCompacity ?? 9775;
+        $trainYardStorage = Auth::user()->trainYardCompacity ?? 30107;
+        $pocketCompacity = Auth::user()->pocketCompacity ?? 645;
 
         $parentRecipe = RecipeFactory::get(new Item($name));
 

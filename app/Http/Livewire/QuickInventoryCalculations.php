@@ -24,7 +24,7 @@ class QuickInventoryCalculations extends Component
 
     public int $truckCompacity;
 
-    public int $trainYardStorage;
+    public ?int $trainYardStorage;
 
     public int $pocketCompacity;
 

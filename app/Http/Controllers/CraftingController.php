@@ -13,9 +13,9 @@ class CraftingController extends Controller
 {
     public function index(string $name = 'house')
     {
-        $truckCompacity = Auth::user()->truckCompacity ?? 9775;
-        $trainYardStorage = Auth::user()->trainYardCompacity ?? 30107;
-        $pocketCompacity = Auth::user()->pocketCompacity ?? 645;
+        $truckCompacity = (int) Auth::user()->truckCompacity ?? 0;
+        $trainYardStorage = (int) Auth::user()->trainYardCompacity ?? 0;
+        $pocketCompacity = (int) Auth::user()->pocketCompacity ?? 0;
 
         $parentRecipe = RecipeFactory::get(new Item($name));
 

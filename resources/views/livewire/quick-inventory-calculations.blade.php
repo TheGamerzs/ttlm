@@ -24,6 +24,7 @@
                 </ul>
                 <hr>
 
+                @if($trainYardStorage)
                 <h4>Pickups That Can Be Stored In Train Yard ({{ number_format($this->trainYardStorage) }} kg)</h4>
                 <table class="table table-sm border">
                     @foreach($trainYardPickups as $trainYardPickup)
@@ -35,6 +36,7 @@
                     </tr>
                     @endforeach
                 </table>
+                @endif
 
             </div>
             <div class="col-6">

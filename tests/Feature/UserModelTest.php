@@ -42,19 +42,31 @@ it('returns if a user has attribute for train yard calculations', function () {
 test('user is redirected to settings page when they cant use api', function () {
 
     $noKeyUser = User::factory()->create(['api_private_key' => null]);
-    actingAs($noKeyUser)->get('crafting')->assertRedirect('settings');
+    actingAs($noKeyUser)
+        ->get('crafting')
+        ->assertRedirect('settings')
+        ->assertSessionHas('failedApiAlert');
 
     $noIdUser = User::factory()->create(['tt_id' => null]);
-    actingAs($noIdUser)->get('crafting')->assertRedirect('settings');
+    actingAs($noIdUser)
+        ->get('crafting')
+        ->assertRedirect('settings')
+        ->assertSessionHas('failedApiAlert');
 
 });
 
 test('user is redirected to settings page when they dont have truckCapacity or pocketCapacity set', function () {
 
     $noTruckUser = User::factory()->create(['truckCapacity' => null]);
-    actingAs($noTruckUser)->get('crafting')->assertRedirect('settings');
+    actingAs($noTruckUser)
+        ->get('crafting')
+        ->assertRedirect('settings')
+        ->assertSessionHas('noCapacitiesSetAlert');
 
     $noPocketUser = User::factory()->create(['pocketCapacity' => null]);
-    actingAs($noPocketUser)->get('crafting')->assertRedirect('settings');
+    actingAs($noPocketUser)
+        ->get('crafting')
+        ->assertRedirect('settings')
+        ->assertSessionHas('noCapacitiesSetAlert');
 
 });

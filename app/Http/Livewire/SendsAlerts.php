@@ -19,6 +19,11 @@ trait SendsAlerts
         $this->sendAlert($title, $message, 'info');
     }
 
+    protected function errorAlert($title, $message = null): void
+    {
+        $this->sendAlert($title, $message, 'error');
+    }
+
     protected function sendAlert($title, $message = null, $type = 'success'): void
     {
         $this->emit('alert', $title, $message ?? '', $type);

@@ -59,7 +59,7 @@
         </div>
     </div>
 </nav>
-
+<livewire:alert-listener />
 <main class="container mt-5">
     {{ $slot }}
 </main>

@@ -38,7 +38,7 @@ class QuickInventoryCalculations extends Component
     |--------------------------------------------------------------------------
     */
 
-    public int $pickupCountsYield = 300;
+    public string $pickupCountsYield = '300';
 
     public string $itemName = 'house'; //used for pickup counts
 

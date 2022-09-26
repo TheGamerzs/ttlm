@@ -5,7 +5,7 @@
                 Shopping List for
             </div>
             <div class="col-1">
-                <input class="form-control d-inline" type="text" wire:model.debounce="count" style="width: 5rem">
+                <input class="form-control d-inline" type="text" wire:model.debounce="count" style="width: 8rem">
             </div>
             <div class="col-2">
                 <x-recipe-select change-wire-model="recipeName" />

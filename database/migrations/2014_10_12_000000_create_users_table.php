@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('discord_snowflake')->unique();
             $table->string('name');
             $table->string('tt_id')->nullable();
-            $table->string('api_public_token')->nullable();
+            $table->string('api_private_key')->nullable();
             $table->string('truckCompacity')->nullable();
             $table->string('pocketCompacity')->nullable();
             $table->string('trainYardCompacity')->nullable();

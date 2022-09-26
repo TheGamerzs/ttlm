@@ -2,11 +2,11 @@
     <form wire:submit.prevent="updateUser">
         <div class="col-6 offset-3">
             <div class="mb-3">
-                <label for="ttApiKey" class="form-label">Transport Tycoon Public API Key</label>
+                <label for="ttApiKey" class="form-label">Transport Tycoon Private API Key</label>
                 <input type="text"
-                       class="form-control @error('user.api_public_token') is-invalid @enderror"
+                       class="form-control @error('user.api_private_key') is-invalid @enderror"
                        id="ttApiKey"
-                       wire:model="user.api_public_token">
+                       wire:model="user.api_private_key">
             </div>
             <div class="mb-3">
                 <label for="truckCompacity" class="form-label" title="Trailer Compacity">Current Trucking Compacity (kg)</label>

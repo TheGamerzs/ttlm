@@ -22,7 +22,7 @@ class NextGrind extends Component
     use ParentRecipeLivewireCast;
 
     protected $listeners = [
-        'updateNextRecipeToGrind' => 'setNextRecipeToGrindName',
+        'updateNextRecipeToGrind' => 'setNextRecipeToGrind',
         'refresh'                 => '$refresh'
     ];
 
@@ -45,7 +45,6 @@ class NextGrind extends Component
     public function mount()
     {
         $this->nextRecipeToGrind = RecipeFactory::get($this->parentRecipe->mostLimitedBy());
-        $this->nextRecipeToGrind->autoSetStorageBasedOnComponentsLocation();
         $this->setStorageBasedOnLocationOfMostComponents();
         $this->iWant = $this->countNeededForParentRecipe;
     }
@@ -57,7 +56,8 @@ class NextGrind extends Component
 
     protected function setStorageBasedOnLocationOfMostComponents()
     {
-        $this->storageName = $this->nextRecipeToGrind->findStorageWithMostComponents();
+        $this->forgetComputed('storage');
+        $this->storageName = $this->nextRecipeToGrind->autoSetStorageBasedOnComponentsLocation();
     }
 
     public function hydrateNextRecipeToGrind($value): void
@@ -70,10 +70,9 @@ class NextGrind extends Component
         $this->nextRecipeToGrind = $nextRecipeToGrind->name();
     }
 
-    public function setNextRecipeToGrindName(string $value)
+    public function setNextRecipeToGrind(string $value)
     {
-        $this->nextRecipeToGrindName = $value;
-        $this->forgetComputed('storage');
+        $this->nextRecipeToGrind = RecipeFactory::get(new Item($value));
         $this->setStorageBasedOnLocationOfMostComponents();
         $this->iWant = $this->countNeededForParentRecipe;
     }

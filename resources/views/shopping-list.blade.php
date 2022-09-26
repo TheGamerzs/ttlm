@@ -1,7 +1,7 @@
 <?php
 /** @var \App\TT\RecipeShoppingListDecorator $shoppingListItem */
 ?>
-<x-layout>
+<x-layout title-addon="Shopping List">
     <h1 class="text-center">
         Shopping List for 300 Houses
     </h1>

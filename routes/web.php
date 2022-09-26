@@ -23,10 +23,14 @@ Route::get('/logout', function () {
     return redirect()->route('home');
 });
 
-Route::get('/crafting/{name?}', [\App\Http\Controllers\CraftingController::class, 'index'])->name('craftingPage');
-Route::get('/shopping-list/{name?}', [\App\Http\Controllers\ShoppingListController::class, 'index'])->name('shoppingList');
-Route::get('/storages/{name?}', [\App\Http\Controllers\StorageManagementController::class, 'index'])->name('storageManagement');
-Route::get('/settings', [\App\Http\Controllers\UserSettingsController::class, 'index'])->name('userSettings');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/crafting/{name?}', [\App\Http\Controllers\CraftingController::class, 'index'])->name('craftingPage');
+    Route::get('/shopping-list/{name?}', [\App\Http\Controllers\ShoppingListController::class, 'index'])->name('shoppingList');
+    Route::get('/storages/{name?}', [\App\Http\Controllers\StorageManagementController::class, 'index'])->name('storageManagement');
+    Route::get('/settings', [\App\Http\Controllers\UserSettingsController::class, 'index'])->name('userSettings');
+});
+
+Route::view('login', 'discord-login-cta')->name('login');
 
 
 Route::get('/sb', [\App\Http\Controllers\SandboxController::class, 'index']);

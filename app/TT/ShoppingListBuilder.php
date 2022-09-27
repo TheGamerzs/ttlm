@@ -57,7 +57,7 @@ class ShoppingListBuilder
         $scrapPickups = $cleaned['scrap'];
         /** @var RecipeShoppingListDecorator $item */
         foreach ($scrapPickups as $item) {
-            $calculator->addCount($item->recipeName, $item->count);
+            $calculator->addNeededCount($item->recipeName, $item->count);
         }
 
         /**

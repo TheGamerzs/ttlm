@@ -10,6 +10,7 @@ use App\TT\RecipeFactory;
 use App\TT\Recipes;
 use App\TT\RecipeShoppingListDecorator;
 use App\TT\ShoppingListBuilder;
+use App\TT\Storage;
 use App\TT\StorageFactory;
 use App\TT\Weights;
 use Illuminate\Support\Collection;
@@ -20,8 +21,14 @@ class SandboxController extends Controller
 {
     public function index()
     {
-        $a = Recipes::getAllRecipes();
-        dd(array_keys($a));
+        $list = ShoppingListBuilder::build(
+            RecipeFactory::get(new Item('refined_bronze')),
+            new Storage(),
+            1,
+            1000
+        );
+
+        dd($list);
     }
 
     public function missingItemsAfterPulledFromAPI()

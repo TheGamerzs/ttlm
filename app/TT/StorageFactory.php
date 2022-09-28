@@ -50,6 +50,7 @@ class StorageFactory
         foreach ($data->storages as $storageData) {
             self::make($storageData->name);
         }
+        self::injectFakes();
     }
 
     public static function registerCombined(): void
@@ -105,6 +106,27 @@ class StorageFactory
             self::$apiData = json_decode($data);
         }
         return self::$apiData;
+    }
+
+    protected static function injectFakes(): void
+    {
+        $fakes = [
+            [
+                'storage' => 'faq_522',
+                'itemName' => 'crafted_concrete',
+                'count' => 300
+            ]
+        ];
+        foreach ($fakes as $fake) {
+            $storage = self::$storages[$fake['storage']];
+            $existing = $storage->firstWhere('name', $fake['itemName']);
+
+            if ($existing) {
+                $existing->count += $fake['count'];
+            } else {
+                $storage->push(new InventoryItem($fake['itemName'], $fake['count']));
+            }
+        }
     }
 
 }

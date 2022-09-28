@@ -21,9 +21,8 @@ class SandboxController extends Controller
 {
     public function index()
     {
-        StorageFactory::get();
-        $d = StorageFactory::getCountFromCombinedForItem(new Item('scrap_ore'));
-        dd($d);
+        $storage = StorageFactory::get();
+        dd($storage);
     }
 
     public function missingItemsAfterPulledFromAPI()

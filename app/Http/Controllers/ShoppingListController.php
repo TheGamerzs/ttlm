@@ -11,11 +11,9 @@ use Illuminate\Support\Facades\Auth;
 
 class ShoppingListController
 {
-    public function index(string $name = 'house')
+    public function index()
     {
-
         return view('shopping-list')->with([
-            'name' => $name,
             'truckCapacity' => Auth::user()->truckCapacity
         ]);
     }

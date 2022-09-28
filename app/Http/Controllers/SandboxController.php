@@ -21,14 +21,9 @@ class SandboxController extends Controller
 {
     public function index()
     {
-        $list = ShoppingListBuilder::build(
-            RecipeFactory::get(new Item('refined_bronze')),
-            new Storage(),
-            1,
-            1000
-        );
-
-        dd($list);
+        StorageFactory::get();
+        $d = StorageFactory::getCountFromCombinedForItem(new Item('scrap_ore'));
+        dd($d);
     }
 
     public function missingItemsAfterPulledFromAPI()

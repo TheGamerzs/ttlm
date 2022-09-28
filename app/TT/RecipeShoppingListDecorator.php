@@ -33,8 +33,11 @@ class RecipeShoppingListDecorator
         /** @var CraftingMaterial $craftingMaterial */
         foreach ($this->recipe->components as $craftingMaterial)
         {
+            // Account for recipes that yield more than one item. Round up .5s
+            $count = (int) ceil($this->count / $this->recipe->makes);
+
             $recipe = RecipeFactory::get($craftingMaterial, $this->count);
-            $decoratedRecipe = new self($recipe, $craftingMaterial->recipeCount * $this->count);
+            $decoratedRecipe = new self($recipe, $craftingMaterial->recipeCount * $count);
 
             $this->componentRecipes->push($decoratedRecipe);
             ShoppingListBuilder::$allComponents->push($decoratedRecipe);

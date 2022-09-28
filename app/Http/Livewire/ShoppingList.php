@@ -18,28 +18,23 @@ class ShoppingList extends Component
     public string $count = '300';
 
     protected $queryString = [
-        'recipeName' => ['except' => ''],
+        'recipeName' => ['except' => 'house'],
         'count' => ['except' => 1],
     ];
-
-    public function mount(string $name)
-    {
-        $this->recipeName = $name;
-    }
 
     public function render()
     {
         $fullList = ShoppingListBuilder::build(
             RecipeFactory::get(new Item($this->recipeName)),
             new Storage(),
-            $this->count,
+            (int) $this->count,
             $this->truckCapacity
         );
 
         $afterStorageList = ShoppingListBuilder::build(
             RecipeFactory::get(new Item($this->recipeName)),
             StorageFactory::get('combined'),
-            $this->count,
+            (int) $this->count,
             $this->truckCapacity
         );
 

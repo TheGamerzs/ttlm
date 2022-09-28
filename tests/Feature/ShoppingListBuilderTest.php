@@ -22,9 +22,9 @@ test('simple recipe', function () {
         ->and($scrap->keys())->toContain('scrap_aluminum')
         ->and($scrap->keys())->toContain('scrap_copper')
         ->and($scrap->keys())->toContain('scrap_tin')
-        ->and($scrap['scrap_aluminum']->count)->toBe(2)
-        ->and($scrap['scrap_copper']->count)->toBe(4)
-        ->and($scrap['scrap_tin']->count)->toBe(2);
+        ->and($scrap['scrap_aluminum']->count)->toBe(1)
+        ->and($scrap['scrap_copper']->count)->toBe(2)
+        ->and($scrap['scrap_tin']->count)->toBe(1);
 
 });
 
@@ -38,7 +38,7 @@ test('a simple recipe with a storage that contains components', function () {
     $list = ShoppingListBuilder::build(
         RecipeFactory::get(new Item('refined_bronze')),
         $storage,
-        2,
+        4,
         1000
     );
 
@@ -57,9 +57,9 @@ test('a simple recipe with a storage that contains components', function () {
 
 test('a simple recipe with a storage that contains initial requested item', function () {
 
-    // Given a storage with 5 bronze and requesting counts for 8, expect counts for 3 to be returned.
+    // Given a storage with 4 bronze and requesting counts for 8, expect counts for 4 to be returned.
     $storage = new Storage([
-        new \App\TT\Items\InventoryItem('refined_bronze', 5),
+        new \App\TT\Items\InventoryItem('refined_bronze', 4),
     ]);
     $list = ShoppingListBuilder::build(
         RecipeFactory::get(new Item('refined_bronze')),
@@ -75,9 +75,9 @@ test('a simple recipe with a storage that contains initial requested item', func
         ->and($scrap->keys())->toContain('scrap_aluminum')
         ->and($scrap->keys())->toContain('scrap_copper')
         ->and($scrap->keys())->toContain('scrap_tin')
-        ->and($scrap['scrap_aluminum']->count)->toBe(3)
-        ->and($scrap['scrap_copper']->count)->toBe(6)
-        ->and($scrap['scrap_tin']->count)->toBe(3);
+        ->and($scrap['scrap_aluminum']->count)->toBe(2)
+        ->and($scrap['scrap_copper']->count)->toBe(4)
+        ->and($scrap['scrap_tin']->count)->toBe(2);
 
 });
 
@@ -261,17 +261,9 @@ it('handles a refined recipe with a refined component and storage', function () 
 
 });
 
-test('bug fix for diminishing storage when calculating rebar', function () {
+test('bug fix for recipe yields not being accounted for', function () {
 
-    /*  There's something unaccounted for when calculating rebar. I think it has something to do with both of
-     *  the components using scrap_tin, and there's an issue with the logic of how it's taking away from the
-     *  diminishing storage. The needed scrap_tin wildly drops after amalgam is crafted, showing an incorrect
-     *  number of pickup runs needed for tin.
-     *
-     *  TODO: Test is passing when having an a refined_amalgam in storage. Will have to play more to see if I can
-     *  narrow down the cause. This test should've failed if the above was correct.
-     *
-     *
+    /*
      *   $recipes['crafted_rebar'] = [
      *       'craftingLocation' => 'LS Factory',
      *       'makes'            => 2,
@@ -301,13 +293,13 @@ test('bug fix for diminishing storage when calculating rebar', function () {
      *   ];
      *
      *  expected yields for 1 recipe with 1 amalgam in storage
-     *    refined_amalgam => 5
+     *    refined_amalgam => 6
      *    refined_bronze  => 2
-     *    refined_tin     => 10
-     *    scrap_mercury   => 10
-     *    scrap_aluminum  => 2
-     *    scrap_copper    => 4
-     *    scrap_tin       => 22
+     *    refined_tin     => 6
+     *    scrap_mercury   => 6
+     *    scrap_aluminum  => 1
+     *    scrap_copper    => 2
+     *    scrap_tin       => 1+12
      *
      * */
 
@@ -317,7 +309,7 @@ test('bug fix for diminishing storage when calculating rebar', function () {
     $list = ShoppingListBuilder::build(
         RecipeFactory::get(new Item('crafted_rebar')),
         $storage,
-        1,
+        2,
         1000
     );
 
@@ -325,10 +317,13 @@ test('bug fix for diminishing storage when calculating rebar', function () {
     $scrap = $list['scrap'];
     $refined = $list['refined'];
 
-    expect($refined['refined_bronze']->count)->toBe(2)
-        ->and($refined['refined_amalgam']->count)->toBe(6)
-        ->and($refined['refined_tin']->count)->toBe(12)
-        ->and($scrap['scrap_tin']->count)->toBe(26)
+    expect($refined['refined_amalgam']->count)->toBe(6)
+        ->and($refined['refined_bronze']->count)->toBe(2)
+        ->and($refined['refined_tin']->count)->toBe(6)
+        ->and($scrap['scrap_mercury']->count)->toBe(6)
+        ->and($scrap['scrap_aluminum']->count)->toBe(1)
+        ->and($scrap['scrap_copper']->count)->toBe(2)
+        ->and($scrap['scrap_tin']->count)->toBe(13)
         ;
 
 });

@@ -25,7 +25,7 @@ Route::get('/logout', function () {
 
 Route::middleware(['auth', 'ttApi', 'canCalculate'])->group(function () {
     Route::get('/crafting/{name?}', [\App\Http\Controllers\CraftingController::class, 'index'])->name('craftingPage');
-    Route::get('/shopping-list/{name?}', [\App\Http\Controllers\ShoppingListController::class, 'index'])->name('shoppingList');
+    Route::get('/shopping-list', [\App\Http\Controllers\ShoppingListController::class, 'index'])->name('shoppingList');
     Route::get('/storages/{name?}', [\App\Http\Controllers\StorageManagementController::class, 'index'])->name('storageManagement');
 });
 Route::get('/settings', [\App\Http\Controllers\UserSettingsController::class, 'index'])->name('userSettings')->middleware('auth');

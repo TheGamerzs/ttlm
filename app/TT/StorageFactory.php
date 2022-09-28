@@ -91,6 +91,13 @@ class StorageFactory
         return array_keys(self::$storages);
     }
 
+    public static function getCountFromCombinedForItem(Item $item)
+    {
+        /** @var Storage $combined */
+        $combined = self::$storages['combined'];
+        return $combined->firstWhere('name', $item->name)->count;
+    }
+
     protected static function getData()
     {
         if (! isset(self::$apiData)) {

@@ -26,6 +26,7 @@ class User extends Authenticatable
 
         if (property_exists($apiResponse, 'user_id')) {
             $this->update(['tt_id' => $apiResponse->user_id]);
+            Cache::forget($this->id . 'apiIdAttempts');
             return true;
         } else {
             Cache::decrement($this->id . 'apiIdAttempts');

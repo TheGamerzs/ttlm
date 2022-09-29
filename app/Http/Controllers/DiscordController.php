@@ -11,11 +11,6 @@ use Laravel\Socialite\Contracts\Factory as Socialite;
 
 class DiscordController
 {
-    public static function routes()
-    {
-
-    }
-
     protected Socialite $socialite;
 
     public function __construct(Socialite $socialite)
@@ -45,6 +40,8 @@ class DiscordController
         if ($user->wasRecentlyCreated) {
             Cache::put($user->id . 'apiIdAttempts', 3);
             $user->setTTIdFromApi();
+        } else {
+            $user->touch();
         }
 
         Auth::login($user);

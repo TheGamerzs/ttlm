@@ -18,7 +18,12 @@ class UserSettings extends Component
         'user.trainYardCapacity'=> 'integer|nullable'
     ];
 
-    public function updateUser()
+    public function tryToGetTTId(): void
+    {
+        $this->user->setTTIdFromApi();
+    }
+
+    public function updateUser(): void
     {
         $this->validate();
         $this->user->save();

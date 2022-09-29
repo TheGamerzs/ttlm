@@ -7,6 +7,7 @@ use App\TT\TTApi;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -16,7 +17,7 @@ class User extends Authenticatable
 
     public function setTTIdFromApi(): bool
     {
-        // Theoretically, this should never evaluate false
+        // Theoretically, this should never be hit because all user records are created from a Discord login.
         if (! $this->discord_snowflake) {
             return false;
         }
@@ -27,9 +28,16 @@ class User extends Authenticatable
             $this->update(['tt_id' => $apiResponse->user_id]);
             return true;
         } else {
+            Cache::decrement($this->id . 'apiIdAttempts');
             Session::flash('cantGetTTApiAlert', true);
             return false;
         }
+    }
+
+    public function giveAttemptToGetTTId(): self
+    {
+        Cache::put($this->id . 'apiIdAttempts', 1);
+        return $this;
     }
 
     public function canMakeApiCall(): bool

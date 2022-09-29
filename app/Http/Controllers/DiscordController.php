@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Contracts\Factory as Socialite;
@@ -42,6 +43,7 @@ class DiscordController
         );
 
         if ($user->wasRecentlyCreated) {
+            Cache::put($user->id . 'apiIdAttempts', 3);
             $user->setTTIdFromApi();
         }
 

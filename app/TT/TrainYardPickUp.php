@@ -83,6 +83,8 @@ class TrainYardPickUp
 
     public function howManyTimesTrainYardCanBeUsed(): int
     {
+        if ($this->oneRunTotalWeight() < 1) return 0;
+
         return (int) floor($this->usableStorageCapacity() / $this->oneRunTotalWeight());
     }
 }

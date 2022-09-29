@@ -117,16 +117,16 @@ class StorageFactory
                 'count' => 300
             ]
         ];
-        foreach ($fakes as $fake) {
-            $storage = self::$storages[$fake['storage']];
-            $existing = $storage->firstWhere('name', $fake['itemName']);
-
-            if ($existing) {
-                $existing->count += $fake['count'];
-            } else {
-                $storage->push(new InventoryItem($fake['itemName'], $fake['count']));
-            }
-        }
+//        foreach ($fakes as $fake) {
+//            $storage = self::$storages[$fake['storage']];
+//            $existing = $storage->firstWhere('name', $fake['itemName']);
+//
+//            if ($existing) {
+//                $existing->count += $fake['count'];
+//            } else {
+//                $storage->push(new InventoryItem($fake['itemName'], $fake['count']));
+//            }
+//        }
     }
 
     public static function getPrettyName(string $storageName): string

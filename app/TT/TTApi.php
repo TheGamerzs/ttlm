@@ -19,4 +19,12 @@ class TTApi
             return $response->body();
         });
     }
+
+    public static function ttIdFromDiscordSnowflake(string $snowflake): \stdClass
+    {
+        $response = Http::withHeaders(['X-Tycoon-Key' => config('app.tt_api_private_key')])
+            ->get('v1.api.tycoon.community/main/snowflake2user/' . $snowflake);
+
+        return json_decode($response->body());
+    }
 }

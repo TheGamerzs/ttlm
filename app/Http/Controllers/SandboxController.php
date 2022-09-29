@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\TT\Items\CraftingMaterial;
 use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
@@ -21,8 +22,8 @@ class SandboxController extends Controller
 {
     public function index()
     {
-        $storage = StorageFactory::get();
-        dd($storage);
+        $user = User::first();
+        dd($user->setTTIdFromApi());
     }
 
     public function missingItemsAfterPulledFromAPI()

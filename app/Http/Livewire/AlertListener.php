@@ -27,6 +27,13 @@ class AlertListener extends Component
                 'type' => 'error'
             ];
         }
+        if (Session::has('cantGetTTApiAlert')) {
+            $this->alert = [
+                'title' => 'Discord Not Linked To TT',
+                'message' => 'Please Visit the TT discord to link your discord account to your TT account.',
+                'type' => 'error'
+            ];
+        }
     }
 
     public function render()

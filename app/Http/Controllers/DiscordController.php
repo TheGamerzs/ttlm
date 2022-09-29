@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Contracts\Factory as Socialite;
 
@@ -40,8 +41,16 @@ class DiscordController
             ['name' => $discordUserName]
         );
 
+        if ($user->wasRecentlyCreated) {
+            $user->setTTIdFromApi();
+        }
+
         Auth::login($user);
 
-        return redirect()->route('craftingPage');
+        if (! $user->canMakeApiCall()) {
+            return redirect()->route('userSettings');
+        }
+
+        return redirect()->route('home');
     }
 }

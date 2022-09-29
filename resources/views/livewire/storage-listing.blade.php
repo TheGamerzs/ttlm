@@ -37,7 +37,7 @@
 
 
     <x-storage-select />
-    <button wire:click="sync"  class="btn btn-warning">Update Storage Data ({{ Cache::get('api_charges') }})</button>
+    <button wire:click="sync"  class="btn btn-warning">Update Storage Data ({{ Cache::get(Auth::id() . 'api_charges') }})</button>
 
 
     <table class="table">

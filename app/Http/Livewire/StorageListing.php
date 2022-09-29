@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\TT\Storage;
 use App\TT\StorageFactory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 
@@ -21,7 +22,7 @@ class StorageListing extends Component
 
     public function sync()
     {
-        Cache::forget('tt_api_storage');
+        Cache::forget(Auth::id() . 'tt_api_storage');
         $this->emit('refresh');
     }
 

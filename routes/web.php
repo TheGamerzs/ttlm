@@ -21,7 +21,7 @@ Route::get('/', function () {
 Route::get('/logout', function () {
     Auth::logout();
     return redirect()->route('home');
-});
+})->name('logout');
 
 Route::middleware(['auth', 'ttApi', 'canCalculate'])->group(function () {
     Route::get('/crafting/{name?}', [\App\Http\Controllers\CraftingController::class, 'index'])->name('craftingPage');

@@ -13,9 +13,9 @@ class UserSettings extends Component
 
     protected $rules = [
         'user.api_private_key' => 'string|nullable',
-        'user.truckCapacity' => 'integer|nullable',
-        'user.pocketCapacity' => 'integer|nullable',
-        'user.trainYardCapacity'=> 'integer|nullable'
+        'user.truckCapacity' => 'integer|nullable|min:0',
+        'user.pocketCapacity' => 'integer|nullable|min:0',
+        'user.trainYardCapacity'=> 'integer|nullable|min:0'
     ];
 
     public function tryToGetTTId(): void

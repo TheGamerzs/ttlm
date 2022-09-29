@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -31,7 +32,7 @@ class DiscordController
     {
         try {
             $discordUserResponse = $this->socialite->driver('discord')->user();
-        } catch (InvalidStateException $exception) {
+        } catch (InvalidStateException|ClientException $exception) {
             return redirect()->route('login');
         }
 

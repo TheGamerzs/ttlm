@@ -22,7 +22,7 @@
             <img src="{{ asset('images/home/load_up.png') }}" alt="Loading Ratios" title="Loading Ratios" />
         </div>
         <div class="col d-flex align-items-center fs-3">
-            Automatic ratios for loading up make live easier.
+            Automatic ratios for loading up make life easier.
         </div>
     </div>
     <div class="row">

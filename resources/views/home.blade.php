@@ -14,6 +14,15 @@
         <a href="{{ route('craftingPage', ['name' => 'crafted_concrete']) }}">Concrete</a><br>
         <a href="{{ route('craftingPage', ['name' => 'military_explosives']) }}">Explosives</a><br>
     </p>
+    <p>
+        Less than intuitive item names:<br>
+        liquid_water => Treated Water<br>
+        liquid_water_raw => Unfiltered Water<br>
+        petrochem_waste => Waste Water<br>
+        tcargodust => Sawdust<br>
+        tcargologs => Logs<br>
+    </p>
+
     <div class="row">
         <div class="col">
             <h3 class="mt-5">Currently:</h3>
@@ -32,12 +41,13 @@
                 </p>
                 <p>
                     Support for the rest of the crafting trees.<br>
-                    Support for SD Card recipes.<br>
                     "Pretty Names" for items, recipes, storages.<br>
+                    Customizable Defaults<br>
                     Quick links to TT wiki pages.<br>
                     Customizable full trailer alerts and sellables.<br>
                     Garbage alerts (Logs, Quarry Rubble, etc.)<br>
                     Mobile friendly.<br>
+                    Support for SD Card recipes.<br>
                     Rework of Storage Management.<br>
                     Themes?
                 </p>

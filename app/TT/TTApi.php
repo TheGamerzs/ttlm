@@ -18,6 +18,10 @@ class TTApi
             $response = Http::withHeaders(['X-Tycoon-Key' => $user->api_private_key])
                 ->get('v1.api.tycoon.community/main/storages/' . $user->tt_id);
 
+            if ($response->clientError()) {
+                abort(401, 'API Call Failed');
+            }
+
             Cache::put($user->id . 'api_charges', $response->headers()['X-Tycoon-Charges'][0]);
 
             return $response->body();

@@ -119,7 +119,7 @@ class NextGrind extends Component
     {
         return match ($this->nextRecipeToGrind->pickupRun) {
             'quarry' => PickupRun::quarry($this->truckCapacity),
-            'logging camp' => PickupRun::logging($this->truckCapacity, $this->nextRecipeToGrindName),
+            'logging camp' => PickupRun::logging($this->truckCapacity, $this->nextRecipeToGrind->name()),
             'trash' => PickupRun::trash($this->truckCapacity),
             'electronics' => PickupRun::electronics($this->truckCapacity),
             'toxic waste' => PickupRun::toxicWaste($this->truckCapacity),

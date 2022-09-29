@@ -2,6 +2,8 @@
 
 namespace App\TT\Items;
 
+use App\TT\Recipe;
+use App\TT\RecipeFactory;
 use App\TT\Weights;
 
 class Item
@@ -14,6 +16,11 @@ class Item
     {
         $this->name   = $name;
         $this->weight = Weights::getWeight($name);
+    }
+
+    public function getRecipe(): Recipe
+    {
+        return RecipeFactory::get($this);
     }
 
     public function howManyCanFitInSpace(int $capacityKG): int

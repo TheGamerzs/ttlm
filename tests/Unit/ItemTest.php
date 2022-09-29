@@ -10,3 +10,13 @@ it('calculates how many can fit in a defined space', function () {
     expect($ceramicTiles->howManyCanFitInSpace(100))->toBe(10)->toBeInt();
 
 });
+
+it('gets a recipe based on itself', function () {
+
+    $item = new Item('crafted_ceramictiles');
+    $recipe = $item->getRecipe();
+
+    expect($recipe)->toBeInstanceOf(\App\TT\Recipe::class)
+        ->and($recipe->inventoryItem)->toBe($item);
+
+});

@@ -24,9 +24,7 @@
         @foreach($parentRecipe->components as $craftingMaterial)
             <tr>
                 <td>
-                    <a href="{{ route('craftingPage', ['name' => $craftingMaterial->name]) }}">
-                        ({{ $craftingMaterial->recipeCount }}) {{ $craftingMaterial->name }}
-                    </a>
+                    <x-parent-recipe-table-crafting-link :crafting-material="$craftingMaterial" />
                 </td>
                 <td>{{ $craftingMaterial->inStorage }}</td>
                 <td>{{ $craftingMaterial->recipesCraftableFromStorage() }}</td>

@@ -8,7 +8,7 @@
         <ul class="list-group">
             @foreach($searchResults as $storage => $inventoryItem)
                 <li class="list-group-item d-flex justify-content-between">
-                    <span>{{ $storage }}</span>
+                    <span>{{ \App\TT\StorageFactory::getPrettyName($storage) }}</span>
                     <span>{{ $inventoryItem->count }}</span>
                 </li>
             @endforeach

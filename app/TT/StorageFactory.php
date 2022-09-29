@@ -129,4 +129,22 @@ class StorageFactory
         }
     }
 
+    public static function getPrettyName(string $storageName): string
+    {
+        $lookup = [
+            'biz_granny' => 'Grandmas House',
+            'biz_yellowjack' => 'Yellowjack',
+            'biz_hookies' => 'Hookies',
+            'faq_522' => 'Faction',
+            'gohq' => 'Oil Refinery',
+            'combined' => 'Combined',
+            'biz_train' => 'Train Yard'
+        ];
+
+        if (array_key_exists($storageName, $lookup)) {
+            return $lookup[$storageName];
+        }
+        return $storageName;
+    }
+
 }

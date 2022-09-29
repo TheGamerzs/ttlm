@@ -15,20 +15,7 @@ class StorageSelect extends Component
 
     public function prettyName(string $name): string
     {
-        $lookup = [
-            'biz_granny' => 'Grandmas House',
-            'biz_yellowjack' => 'Yellowjack',
-            'biz_hookies' => 'Hookies',
-            'faq_522' => 'Faction',
-            'gohq' => 'Oil Refinery',
-            'combined' => 'Combined',
-            'biz_train' => 'Train Yard'
-        ];
-
-        if (array_key_exists($name, $lookup)) {
-            return $lookup[$name];
-        }
-        return $name;
+        return StorageFactory::getPrettyName($name);
     }
 
     public function render(): View

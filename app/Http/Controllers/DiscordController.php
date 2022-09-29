@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Contracts\Factory as Socialite;
+use Laravel\Socialite\Two\InvalidStateException;
+use PhpParser\Node\Stmt\TryCatch;
 
 class DiscordController
 {
@@ -27,7 +29,11 @@ class DiscordController
 
     public function handleCallback()
     {
-        $discordUserResponse = $this->socialite->driver('discord')->user();
+        try {
+            $discordUserResponse = $this->socialite->driver('discord')->user();
+        } catch (InvalidStateException $exception) {
+            return redirect()->route('login');
+        }
 
         $discordSnowflake = $discordUserResponse->getId();
         $discordUserName = $discordUserResponse->getName();

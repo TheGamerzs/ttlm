@@ -15,13 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect()->route('craftingPage');
+    if (Auth::check()) {
+        return view('home');
+    }
+    return view('welcome');
 })->name('home');
-
-Route::get('/logout', function () {
-    Auth::logout();
-    return redirect()->route('home');
-})->name('logout');
 
 Route::middleware(['auth', 'ttApi', 'canCalculate'])->group(function () {
     Route::get('/crafting/{name?}', [\App\Http\Controllers\CraftingController::class, 'index'])->name('craftingPage');
@@ -31,9 +29,12 @@ Route::middleware(['auth', 'ttApi', 'canCalculate'])->group(function () {
 Route::get('/settings', [\App\Http\Controllers\UserSettingsController::class, 'index'])->name('userSettings')->middleware('auth');
 
 Route::view('login', 'discord-login-cta')->name('login');
-
-
-Route::get('/sb', [\App\Http\Controllers\SandboxController::class, 'index']);
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect()->route('home');
+})->name('logout');
 
 Route::get('/auth/redirect', [DiscordController::class, 'redirectToDiscord'])->name('discordSend');
 Route::get('/auth/callback', [DiscordController::class, 'handleCallback'])->name('discordCallback');
+
+Route::get('/sb', [\App\Http\Controllers\SandboxController::class, 'index']);

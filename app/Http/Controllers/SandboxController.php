@@ -15,11 +15,19 @@ use App\TT\Storage;
 use App\TT\StorageFactory;
 use App\TT\Weights;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
 class SandboxController extends Controller
 {
+    public function __construct()
+    {
+        if (App::environment('production')) {
+            abort(404);
+        }
+    }
+
     public function index()
     {
         $user = User::first();

@@ -212,6 +212,6 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
-    'tt_api_private_key' => env('tt_private_key')
+    'tt_api_private_key' => env('TT_PRIVATE_KEY')
 
 ];

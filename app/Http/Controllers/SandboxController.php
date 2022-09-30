@@ -30,11 +30,10 @@ class SandboxController extends Controller
         }
     }
 
-    public function index(AuthManager $authManager)
+    public function index()
     {
-        dd($authManager);
-        $user = User::first();
-        dd($user->setTTIdFromApi());
+        $r = dataFromJson('Storages.json');
+        dd($r);
     }
 
     public function missingItemsAfterPulledFromAPI()

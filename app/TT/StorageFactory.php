@@ -5,6 +5,7 @@ namespace App\TT;
 use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 
 class StorageFactory
@@ -133,31 +134,23 @@ class StorageFactory
 
     public static function getPrettyName(string $storageName): string
     {
-        $lookup = [
-            'biz_granny'     => 'Grandmas House',
-            'biz_yellowjack' => 'Yellowjack',
-            'biz_hookies'    => 'Hookies',
-            'gohq'           => 'Oil Refinery',
-            'combined'       => 'Combined',
-            'biz_train'      => 'Train Yard',
-            'biz_lsia'       => 'Los Santos Int Airport',
-            'biz_ltweld'     => 'LT Weld Supply Co',
-            'tsu'            => 'The Secure Unit',
-            'pbsf'           => 'Paleto Bay Self Storage',
-            'bctp'           => 'Blaine County Tractor Parts',
-            'bhsl'           => 'Big House Storage LSIA ',
-            'faq_522'        => 'Faction HOE',
-        ];
-
-        if (array_key_exists($storageName, $lookup)) {
-            return $lookup[$storageName];
-        }
+        if ($storageName == 'combined') return 'All Combined Storages';
 
         $name = Str::of($storageName);
 
         if ($name->startsWith('faq')) {
             return 'Faction ' . $name->afterLast('_');
         }
+
+        $lookup = App::get('storageData')->mapWithKeys(function ($item, $key) {
+            return [$item->id => $item->name];
+        });
+
+        if ($lookup->keys()->contains($storageName)) {
+            return $lookup[$storageName];
+        }
+
+        \Log::debug('Missing storage name: ' . $storageName);
 
         return $storageName;
     }

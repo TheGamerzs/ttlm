@@ -15,6 +15,12 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         User::unguard();
+
+        $this->app->singleton('storageData', function () {
+            return collect(
+                dataFromJson('Storages.json')
+            );
+        });
     }
 
     /**

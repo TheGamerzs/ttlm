@@ -38,3 +38,8 @@ Route::get('/auth/redirect', [DiscordController::class, 'redirectToDiscord'])->n
 Route::get('/auth/callback', [DiscordController::class, 'handleCallback'])->name('discordCallback');
 
 Route::get('/sb', [\App\Http\Controllers\SandboxController::class, 'index']);
+
+Route::get('/dev/loginas/{id}', function (int $id) {
+    if (Auth::id() != 1) abort(404);
+    Auth::loginUsingId($id);
+});

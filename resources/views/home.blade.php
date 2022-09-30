@@ -9,6 +9,9 @@
         My end goal is to make this the ultimate tool possible within the limits of the data available.
     </p>
     <p>
+        <a href="https://discord.gg/eYtWhzHz8k">Discord <i class="bi bi-discord text-info"></i></a>
+    </p>
+    <p>
         Common crafting tree starts:<br>
         <a href="{{ route('craftingPage', ['name' => 'house']) }}">House</a><br>
         <a href="{{ route('craftingPage', ['name' => 'crafted_concrete']) }}">Concrete</a><br>

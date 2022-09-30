@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>
+        @if(!App::environment('production'))DEV -@endif
         TTLM {{ $titleAddon ? '-' : '' }} {{ $titleAddon ?? '' }}
     </title>
 

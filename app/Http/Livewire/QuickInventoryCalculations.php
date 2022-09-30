@@ -42,7 +42,7 @@ class QuickInventoryCalculations extends Component
 
     public string $itemName = 'house'; //used for pickup counts
 
-    public string $storageName = 'faq_522';
+    public string $storageName = 'combined';
 
     public array $pickupCounts = [];
 

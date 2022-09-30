@@ -34,7 +34,7 @@ class NextGrind extends Component
 
     public string $iWant = '0';
 
-    public string $storageName = 'faq_522';
+    public string $storageName = 'combined';
 
     /*
     |--------------------------------------------------------------------------

@@ -14,7 +14,7 @@ class StorageListing extends Component
         'refresh' => '$refresh'
     ];
 
-    public string $storageName = 'faq_522';
+    public string $storageName = 'combined';
 
     public int $truckCapacity;
 

@@ -12,7 +12,7 @@ class StorageFactory
 
     public static array $storages = [];
 
-    public static function get($name = 'faq_522'): Storage
+    public static function get($name = 'combined'): Storage
     {
         if (! count(self::$storages)) {
             self::registerCombined();

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -23,21 +24,21 @@ class User extends Authenticatable
         }
 
         $apiResponse = TTApi::ttIdFromDiscordSnowflake($this->discord_snowflake);
-
         if (property_exists($apiResponse, 'user_id')) {
             $this->update(['tt_id' => $apiResponse->user_id]);
             Cache::forget($this->id . 'apiIdAttempts');
             return true;
         } else {
+            Log::debug(json_encode($apiResponse) . ' - User: ' . $this->id);
             Cache::decrement($this->id . 'apiIdAttempts');
             Session::flash('cantGetTTApiAlert', true);
             return false;
         }
     }
 
-    public function giveAttemptToGetTTId(): self
+    public function giveAttemptToGetTTId($count = 1): self
     {
-        Cache::put($this->id . 'apiIdAttempts', 1);
+        Cache::put($this->id . 'apiIdAttempts', $count);
         return $this;
     }
 

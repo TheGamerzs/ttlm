@@ -45,7 +45,7 @@ class DiscordController
         );
 
         if ($user->wasRecentlyCreated) {
-            Cache::put($user->id . 'apiIdAttempts', 3);
+            Cache::put($user->id . 'apiIdAttempts', 5);
             $user->setTTIdFromApi();
         } else {
             $user->touch();

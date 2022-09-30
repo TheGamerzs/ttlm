@@ -16,7 +16,7 @@ class AlertListener extends Component
         if (Session::has('failedApiAlert')) {
             $this->alert = [
                 'title' => 'You can not make API Calls',
-                'message' => 'Either your Private Key or TT user id is invalid. Please update it here and try again.',
+                'message' => 'Your Transport Tycoon ID needs to be set.',
                 'type' => 'error'
             ];
         }

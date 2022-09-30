@@ -18,7 +18,7 @@ class RecipesWithFullLoads extends Component
 
     public int $truckCapacity;
 
-    public string $storageName = 'faq_522';
+    public string $storageName = 'combined';
 
     public string $capacityUsed = '';
 

@@ -5,6 +5,7 @@ namespace App\TT;
 use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 class StorageFactory
 {
@@ -135,15 +136,28 @@ class StorageFactory
             'biz_granny' => 'Grandmas House',
             'biz_yellowjack' => 'Yellowjack',
             'biz_hookies' => 'Hookies',
-            'faq_522' => 'Faction',
             'gohq' => 'Oil Refinery',
             'combined' => 'Combined',
-            'biz_train' => 'Train Yard'
+            'biz_train' => 'Train Yard',
+            'biz_lsia' => 'Los Santos Int Airport',
+            'biz_ltweld' => 'LT Weld Supply Co',
+            'tsu' => 'The Secure Unit',
+            'pbsf' => 'Paleto Bay Self Storage',
+            'bctp' => 'Blaine County Tractor Parts',
+            'bhsl' => 'Big House Storage LSIA ',
+            'faq_522' => 'Faction HOE',
         ];
 
         if (array_key_exists($storageName, $lookup)) {
             return $lookup[$storageName];
         }
+
+        $name = Str::of($storageName);
+
+        if ($name->startsWith('faq')) {
+            return 'Faction ' . $name->afterLast('_');
+        }
+
         return $storageName;
     }
 

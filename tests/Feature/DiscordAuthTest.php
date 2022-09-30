@@ -10,15 +10,24 @@ uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
 it('creates a new user and logs them in', function () {
 
+    Http::preventStrayRequests();
+    $object = file_get_contents(base_path('tests/ApiResponses/UserIdFromDiscordSnowflake.json'));
+    Http::fake([
+        'v1.api.tycoon.community/main/snowflake2user/*' => Http::response($object)
+    ]);
+
     get('/auth/callback')
         ->assertRedirect();
 
     expect(User::firstWhere('discord_snowflake', 324060102770556933))->toBeInstanceOf(User::class)
-        ->and(Auth::check())->toBeTrue();
+        ->and(Auth::check())->toBeTrue()
+        ->and(Auth::user()->tt_id)->toBe(645753);
 
 });
 
 it('logs in an existing user', function () {
+
+    Http::preventStrayRequests();
 
     User::create([
         'discord_snowflake' => 324060102770556933,

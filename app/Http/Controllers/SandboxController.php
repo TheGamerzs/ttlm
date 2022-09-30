@@ -14,8 +14,10 @@ use App\TT\ShoppingListBuilder;
 use App\TT\Storage;
 use App\TT\StorageFactory;
 use App\TT\Weights;
+use Illuminate\Auth\AuthManager;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
@@ -28,8 +30,9 @@ class SandboxController extends Controller
         }
     }
 
-    public function index()
+    public function index(AuthManager $authManager)
     {
+        dd($authManager);
         $user = User::first();
         dd($user->setTTIdFromApi());
     }

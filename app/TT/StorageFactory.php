@@ -15,7 +15,7 @@ class StorageFactory
 
     public static function get($name = 'combined'): Storage
     {
-        if (! count(self::$storages)) {
+        if (!count(self::$storages)) {
             self::registerCombined();
         }
 
@@ -75,7 +75,7 @@ class StorageFactory
 
     public static function findStoragesForItem(Item $item): Collection
     {
-        if (! count(self::$storages)) {
+        if (!count(self::$storages)) {
             self::registerCombined();
         }
 
@@ -103,7 +103,8 @@ class StorageFactory
     protected static function getData()
     {
         if (! isset(self::$apiData)) {
-            $data          = TTApi::storages();
+            $api           = new TTApi();
+            $data          = $api->getStorages();
             self::$apiData = json_decode($data);
         }
         return self::$apiData;
@@ -113,9 +114,9 @@ class StorageFactory
     {
         $fakes = [
             [
-                'storage' => 'faq_522',
+                'storage'  => 'faq_522',
                 'itemName' => 'crafted_concrete',
-                'count' => 300
+                'count'    => 300
             ]
         ];
 //        foreach ($fakes as $fake) {
@@ -133,19 +134,19 @@ class StorageFactory
     public static function getPrettyName(string $storageName): string
     {
         $lookup = [
-            'biz_granny' => 'Grandmas House',
+            'biz_granny'     => 'Grandmas House',
             'biz_yellowjack' => 'Yellowjack',
-            'biz_hookies' => 'Hookies',
-            'gohq' => 'Oil Refinery',
-            'combined' => 'Combined',
-            'biz_train' => 'Train Yard',
-            'biz_lsia' => 'Los Santos Int Airport',
-            'biz_ltweld' => 'LT Weld Supply Co',
-            'tsu' => 'The Secure Unit',
-            'pbsf' => 'Paleto Bay Self Storage',
-            'bctp' => 'Blaine County Tractor Parts',
-            'bhsl' => 'Big House Storage LSIA ',
-            'faq_522' => 'Faction HOE',
+            'biz_hookies'    => 'Hookies',
+            'gohq'           => 'Oil Refinery',
+            'combined'       => 'Combined',
+            'biz_train'      => 'Train Yard',
+            'biz_lsia'       => 'Los Santos Int Airport',
+            'biz_ltweld'     => 'LT Weld Supply Co',
+            'tsu'            => 'The Secure Unit',
+            'pbsf'           => 'Paleto Bay Self Storage',
+            'bctp'           => 'Blaine County Tractor Parts',
+            'bhsl'           => 'Big House Storage LSIA ',
+            'faq_522'        => 'Faction HOE',
         ];
 
         if (array_key_exists($storageName, $lookup)) {

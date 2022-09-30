@@ -21,7 +21,7 @@ class UserFactory extends Factory
             'discord_snowflake' => $this->fakeDiscordSnowflake(),
             'name' => fake()->userName(),
             'tt_id' => fake()->randomNumber(6),
-            'api_private_key' => Str::random(37),
+//            'api_public_key' => Str::random(37),
             'trainYardCapacity' => fake()->randomNumber(6),
             'pocketCapacity' => fake()->randomNumber(3),
             'truckCapacity' => fake()->randomNumber(5)

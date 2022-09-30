@@ -42,9 +42,14 @@ class User extends Authenticatable
         return $this;
     }
 
+    public function usesPublicKey()
+    {
+        return ! empty($this->api_public_key);
+    }
+
     public function canMakeApiCall(): bool
     {
-        return $this->api_private_key && $this->tt_id;
+        return ! empty($this->tt_id);
     }
 
     public function canCalculate(): bool

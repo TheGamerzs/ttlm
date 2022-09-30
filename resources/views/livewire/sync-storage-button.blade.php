@@ -1,3 +1,3 @@
 <div>
-    <button wire:click="sync"  class="btn btn-warning">Update Storage Data ({{ $this->getApiChargesRemaining() }})</button>
+    <button wire:click="sync"  class="btn btn-info">Update Storage Data</button>
 </div>

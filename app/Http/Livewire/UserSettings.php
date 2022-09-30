@@ -12,9 +12,9 @@ class UserSettings extends Component
     public User $user;
 
     protected $rules = [
-        'user.api_private_key' => 'string|nullable',
+        'user.api_public_key' => 'string|nullable',
         'user.truckCapacity' => 'integer|nullable|min:400',
-        'user.pocketCapacity' => 'integer|nullable|min:0',
+        'user.pocketCapacity' => 'integer|nullable|min:10',
         'user.trainYardCapacity'=> 'integer|nullable|min:10800'
     ];
 

@@ -23,14 +23,6 @@
             </div>
     <form wire:submit.prevent="updateUser">
             <div class="mb-3">
-                <label for="ttApiKey" class="form-label">Transport Tycoon Private API Key</label>
-                <input type="text"
-                       class="form-control @error('user.api_private_key') is-invalid @enderror"
-                       id="ttApiKey"
-                       wire:model="user.api_private_key">
-                @error('user.api_private_key')<div class="text-danger">{{ $message }}</div>@enderror
-            </div>
-            <div class="mb-3">
                 <label for="truckCapacity" class="form-label" title="Trailer Capacity">Current Trucking Capacity (kg)</label>
                 <input type="text"
                        class="form-control @error('user.truckCapacity') is-invalid @enderror"
@@ -53,6 +45,15 @@
                        id="trainYardCapacity"
                        wire:model="user.trainYardCapacity">
                 @error('user.trainYardCapacity')<div class="text-danger">{{ $message }}</div>@enderror
+            </div>
+            <div class="mb-3">
+                <label for="ttApiKey" class="form-label">Transport Tycoon Public API Key</label><br>
+                <span class="ms-5">*Required if you have done an API Lock on your account.</span>
+                <input type="text"
+                       class="form-control @error('user.api_public_key') is-invalid @enderror"
+                       id="ttApiKey"
+                       wire:model="user.api_public_key">
+                @error('user.api_public_key')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
             <div class="d-grid gap-2">
                 <button class="btn btn-primary" type="submit">Save</button>

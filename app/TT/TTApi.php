@@ -2,37 +2,63 @@
 
 namespace App\TT;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use JetBrains\PhpStorm\ArrayShape;
 
 class TTApi
 {
-    public static function storages()
-    {
-        throw_if(!Auth::check(), 'No Logged In User');
-        $user = Auth::user();
-        throw_if(! $user->canMakeApiCall(), 'User missing required data for API call.');
+    public User $user;
 
-        return Cache::rememberForever(Auth::id() . 'tt_api_storage', function () use ($user) {
-            $response = Http::withHeaders(['X-Tycoon-Key' => $user->api_private_key])
-                ->get('v1.api.tycoon.community/main/storages/' . $user->tt_id);
+    public function __construct()
+    {
+        throw_if(!Auth::check(), 'Attempted to create an API object without a logged in user.');
+
+        $this->user = Auth::user();
+    }
+
+    /** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
+    public function buildHeaders(): array
+    {
+        $header = [
+            'X-Tycoon-Key' => config('app.tt_api_private_key')
+        ];
+
+        if (Auth::user()->usesPublicKey()) {
+            $header['X-Tycoon-Public-Key'] = Auth::user()->api_public_key;
+        }
+
+        return $header;
+    }
+
+    public function getStorages()
+    {
+        return Cache::rememberForever($this->userStorageCacheKey(), function () {
+            $response = Http::withHeaders($this->buildHeaders())
+                ->get('v1.api.tycoon.community/main/storages/' . $this->user->tt_id);
 
             if ($response->clientError()) {
                 abort(401, 'API Call Failed');
             }
 
-            Cache::put($user->id . 'api_charges', $response->headers()['X-Tycoon-Charges'][0]);
+            // Create a 10-second cool down to check against.
+            Cache::put($this->user->id . 'lockedApi', now(), 10);
 
             return $response->body();
         });
+    }
+
+    public function userStorageCacheKey(): string
+    {
+        return $this->user->id . 'tt_api_storage';
     }
 
     public static function ttIdFromDiscordSnowflake(string $snowflake): \stdClass
     {
         $response = Http::withHeaders(['X-Tycoon-Key' => config('app.tt_api_private_key')])
             ->get('v1.api.tycoon.community/main/snowflake2user/' . $snowflake);
-
         return json_decode($response->body());
     }
 }

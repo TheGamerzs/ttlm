@@ -3,6 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class UserSettings extends Component
@@ -28,6 +31,16 @@ class UserSettings extends Component
         $this->validate();
         $this->user->save();
         $this->successAlert('Details Saved.');
+    }
+
+    public function getCharges(): string
+    {
+        if (Auth::id() < 3) {
+            $chargesResponse = Http::withHeaders(['X-Tycoon-Key' => config('app.tt_api_private_key')])
+                ->get('v1.api.tycoon.community/main/charges.json');
+            return number_format(json_decode($chargesResponse->body())[0]);
+        }
+        return 0;
     }
 
     public function render()

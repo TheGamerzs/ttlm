@@ -1,5 +1,13 @@
 <div class="row">
         <div class="col-6 offset-3">
+            @if($this->getCharges())
+            <div class="mb-3">
+                Charges Remaining: <br>
+                <div class="ms-4 fs-4">
+                    {{ $this->getCharges() }}
+                </div>
+            </div>
+            @endif
             <div class="mb-3">
                 Transport Tycoon ID:<br>
                 <div class="ms-4">
@@ -18,6 +26,8 @@
                             If you think this is in error, reach out to me on discord xxdalexx#9783
                         @endif
                     @endif
+
+
                 </div>
 
             </div>

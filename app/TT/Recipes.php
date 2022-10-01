@@ -195,6 +195,40 @@ class Recipes
 
         /*
         |--------------------------------------------------------------------------
+        | Refrigeration
+        |--------------------------------------------------------------------------
+        */
+
+//        $recipes['fridge_airline_meal'] = [
+//            'craftingLocation' => 'Fridgit Co.',
+//            'cost' => 2500,
+//            'components' => [
+//                'fridge_dairy' => 1,
+//                'fridge_veggies' => 1,
+//                'fridge_meat' => 1,
+//            ]
+//        ];
+//
+//        $recipes['fridge_dairy'] = [
+//            'craftingLocation' => 'Grapeseed Farms',
+//            'pickupRun' => 'dairy',
+//            'components' => []
+//        ];
+//
+//        $recipes['fridge_veggies'] = [
+//            'craftingLocation' => 'Great Chaparral Farm',
+//            'pickupRun' => 'veggies',
+//            'components' => []
+//        ];
+//
+//        $recipes['fridge_meat'] = [
+//            'craftingLocation' => 'Great Chaparral Farm',
+//            'pickupRun' => 'veggies',
+//            'components' => []
+//        ];
+
+        /*
+        |--------------------------------------------------------------------------
         | Pickup Runs
         |--------------------------------------------------------------------------
         */

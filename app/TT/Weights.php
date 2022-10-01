@@ -17,6 +17,12 @@ class Weights
         'crafted_concrete' => 160,
         'crafted_copperwire' => 20,
         'crafted_rebar' => 45,
+
+        'fridge_airline_meal' => 3,
+        'fridge_veggies' => 15,
+        'fridge_dairy' => 15,
+        'fridge_meat' => 15,
+
         'liquid_water' => 100,
         'liquid_water_raw' => 100,
         'military_chemicals' => 25,

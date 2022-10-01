@@ -65,6 +65,7 @@ class Weights
         'upgrade_kit_sultanr' => 20,
         'upgrade_kit_sultanrs' => 20,
 
+        'defibkit' => 5,
         'flotsam' => 10,
         'speed_trap_radar' => 5,
         'rts_professional' => 95,

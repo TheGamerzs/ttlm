@@ -65,7 +65,23 @@ class PickupRunCalculator
                     'refined_sand' => 7.2   // 12 Gravel yielded from one rubble, 10 gravel yields 6 sand. 6*12/10 = 7.2
                 ],
                 'baseWeight' => 150
-            ]
+            ],
+            'crude oil' => [
+                'yields' => [
+                    'petrochem_diesel' => 1,
+                    'petrochem_kerosene' => 1,
+                    'petrochem_petrol' => 2,
+                ],
+                'baseWeight' => 150
+            ],
+            'raw gas' => [
+                'yields' => [
+                    'military_chemicals' => 2,
+                    'petrochem_propane' => 2,
+                    'petrochem_waste' => 1,
+                ],
+                'baseWeight' => 150
+            ],
         ];
 
         $final = collect($runData)->map(function ($runData) {

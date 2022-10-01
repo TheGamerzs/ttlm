@@ -21,6 +21,16 @@ class TrainYardPickUp
             'scrap_copper'  => 8,
             'scrap_gold'    => 1,
             'scrap_plastic' => 12,
+        ],
+        'petrochem_gas' => [
+            'military_chemicals' => 2,
+            'petrochem_propane' => 2,
+            'petrochem_waste' => 1,
+        ],
+        'petrochem_oil' => [
+            'petrochem_diesel' => 1,
+            'petrochem_kerosene' => 1,
+            'petrochem_petrol' => 2,
         ]
     ];
 

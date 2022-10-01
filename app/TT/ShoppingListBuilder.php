@@ -24,9 +24,18 @@ class ShoppingListBuilder
             'liquid_water_raw',
             'refined_planks',
             'refined_flint',
-            'refined_sand'
+            'refined_sand',
+            'petrochem_diesel',
+            'petrochem_kerosene',
+            'petrochem_petrol',
+            'military_chemicals',
+            'petrochem_propane',
+            'petrochem_waste',
         ]);
-        self::$refinedOverrides = collect(['liquid_water']);
+        self::$refinedOverrides = collect([
+            'liquid_water',
+            'petrochem_sulfur'
+        ]);
     }
 
     public static function build(Recipe $recipe, Storage $storage, int $count, int $truckCapacity)
@@ -80,13 +89,3 @@ class ShoppingListBuilder
     }
 }
 
-//        $pickups = $cleaned['scrap']->groupBy(function (RecipeShoppingListDecorator $item) {
-//            return match ($item->recipeName) {
-//                'scrap_copper', 'scrap_gold', 'scrap_plastic' => 'electronics',
-//                'scrap_acid', 'scrap_lead', 'scrap_mercury' => 'toxic waste',
-//                'scrap_aluminum', 'scrap_tin' => 'trash', // 'scrap_plastic' could go here too
-//                'tcargodust', 'refined_planks' => 'logging',
-//                'liquid_water_raw' => 'water',
-//                default => 'unhandled'
-//            };
-//        });

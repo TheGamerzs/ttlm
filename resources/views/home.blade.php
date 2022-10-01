@@ -30,10 +30,7 @@
         <div class="col">
             <h3 class="mt-5">Currently:</h3>
             <p>
-                Full support for all items in the House crafting tree.<br>
-                Partial support for the Explosives tree.<br>
-                - All recipes are in and you can make full use of the main section of the crafting page.<br>
-                - Pickup Run and Train Yard Calculators, and Shopping List support to come.
+                Full support for all items in the House and Explosives crafting trees.<br>
             </p>
         </div>
         <div class="col d-flex justify-content-end text-end">

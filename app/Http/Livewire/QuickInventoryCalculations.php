@@ -99,6 +99,8 @@ class QuickInventoryCalculations extends Component
             new TrainYardPickUp('recycled_electronics', $this->truckCapacity, $this->pocketCapacity, $this->trainYardStorage),
             new TrainYardPickUp('recycled_waste', $this->truckCapacity, $this->pocketCapacity, $this->trainYardStorage),
             new TrainYardPickUp('recycled_trash', $this->truckCapacity, $this->pocketCapacity, $this->trainYardStorage),
+            new TrainYardPickUp('petrochem_gas', $this->truckCapacity, $this->pocketCapacity, $this->trainYardStorage),
+            new TrainYardPickUp('petrochem_oil', $this->truckCapacity, $this->pocketCapacity, $this->trainYardStorage),
         ];
     }
 

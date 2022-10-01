@@ -16,6 +16,14 @@
         <a href="{{ route('craftingPage', ['name' => 'house']) }}">House</a><br>
         <a href="{{ route('craftingPage', ['name' => 'crafted_concrete']) }}">Concrete</a><br>
         <a href="{{ route('craftingPage', ['name' => 'military_explosives']) }}">Explosives</a><br>
+        Vehicles Shipments:<br>
+        <a href="{{ route('craftingPage', ['name' => 'vehicle_shipment|zr350|Annis ZR-350|car']) }}">Annis ZR-350</a><br>
+        <a href="{{ route('craftingPage', ['name' => 'vehicle_shipment|voltic2|Coil Rocket Voltic|car']) }}">Coil Rocket Voltic</a><br>
+        <a href="{{ route('craftingPage', ['name' => 'vehicle_shipment|savanna|Coil Savanna|car']) }}">Coil Savanna</a><br>
+        <a href="{{ route('craftingPage', ['name' => 'vehicle_shipment|vertice|Hijak Vertice|car']) }}">Hijak Vertice</a><br>
+        <a href="{{ route('craftingPage', ['name' => 'vehicle_shipment|futo|Karin Futo|car']) }}">Karin Futo</a><br>
+        <a href="{{ route('craftingPage', ['name' => 'vehicle_shipment|landstalker2|Landstalker XL|car']) }}">Landstalker XL</a><br>
+        <a href="{{ route('craftingPage', ['name' => 'repair_shop']) }}">Repair Shop</a><br>
     </p>
     <p>
         Less than intuitive item names:<br>
@@ -24,6 +32,7 @@
         petrochem_waste => Waste Water<br>
         tcargodust => Sawdust<br>
         tcargologs => Logs<br>
+        pucargosmall => Tools
     </p>
 
     <div class="row">
@@ -31,6 +40,8 @@
             <h3 class="mt-5">Currently:</h3>
             <p>
                 Full support for all items in the House and Explosives crafting trees.<br>
+                All Vehicle shipments except HVY Nightshark.<br>
+                - Rubber is not factored into the needed pickup runs section of quick calculations.
             </p>
         </div>
         <div class="col d-flex justify-content-end text-end">

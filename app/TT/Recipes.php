@@ -86,6 +86,27 @@ class Recipes
             ]
         ];
 
+        $recipes['crafted_fiberglass'] = [
+            'craftingLocation' => 'LS Factory',
+            'makes' => 2,
+            'cost' => 5000,
+            'components' => [
+                'refined_glass' => 4,
+                'refined_planks' => 1,
+                'scrap_plastic' => 8,
+            ]
+        ];
+
+        $recipes['crafted_jewelry'] = [
+            'craftingLocation' => 'LS Factory',
+            'makes' => 2,
+            'cost' => 5000,
+            'components' => [
+                'refined_gold' => 2,
+                'scrap_emerald' => 1
+            ]
+        ];
+
         $recipes['crafted_rebar'] = [
             'craftingLocation' => 'LS Factory',
             'makes'            => 2,
@@ -106,6 +127,23 @@ class Recipes
             'components' => [
                 'petrochem_kerosene' => 8,// 8x Kerosene
                 'petrochem_sulfur' => 10
+            ]
+        ];
+
+        $recipes['military_titanium'] = [
+            'craftingLocation' => 'LS Foundry',
+            'cost' => 1000,
+            'components' => [
+                'military_titanium_ore' => 1
+            ]
+        ];
+
+        $recipes['military_titanium_ore'] = [
+            'craftingLocation' => 'GSD Mine',
+            'makes' => 4,
+            'cost' => 0,
+            'components' => [
+                'military_explosives' => 1
             ]
         ];
 
@@ -130,6 +168,7 @@ class Recipes
         | Refined
         |--------------------------------------------------------------------------
         */
+
         $recipes['refined_aluminum'] = [
             'craftingLocation' => 'LS Foundry',
             'components'       => [
@@ -153,6 +192,23 @@ class Recipes
             'components'       => [
                 'refined_tin'   => 2,
                 'scrap_mercury' => 2
+            ]
+        ];
+
+        $recipes['refined_glass'] = [
+            'craftingLocation' => 'LS Foundry',
+            'cost' => 1000,
+            'components'       => [
+                'refined_sand'   => 1,
+            ]
+        ];
+
+        $recipes['refined_gold'] = [
+            'craftingLocation' => 'LS Foundry',
+            'makes' => 5,
+            'cost' => 1000,
+            'components' => [
+                'scrap_gold' => 10
             ]
         ];
 
@@ -229,9 +285,174 @@ class Recipes
 
         /*
         |--------------------------------------------------------------------------
+        | Vehicle Parts
+        |--------------------------------------------------------------------------
+        */
+
+        $recipes['mechanicals_battery'] = [
+            'craftingLocation' => 'Vehicle Parts',
+            'cost' => 35000,
+            'components' => [
+                'crafted_batteries' => 2
+            ]
+        ];
+
+        $recipes['mechanicals_chassis'] = [
+            'craftingLocation' => 'Vehicle Parts',
+            'cost' => 100000,
+            'components' => [
+                'refined_amalgam' => 15
+            ]
+        ];
+
+        $recipes['mechanicals_battery_evb'] = [
+            'craftingLocation' => 'Vehicle Parts',
+            'cost' => 120000,
+            'components' => [
+                'mechanicals_battery' => 6
+            ]
+        ];
+
+        $recipes['mechanicals_vehicle_framework'] = [
+            'craftingLocation' => 'Vehicle Parts',
+            'cost' => 250000,
+            'components' => [
+                'refined_amalgam' => 25
+            ]
+        ];
+
+        $recipes['mechanicals_wheels'] = [
+            'craftingLocation' => 'Vehicle Parts',
+            'cost' => 20000,
+            'components' => [
+                'refined_aluminum' => 1,
+                'mechanicals_rubber' => 10
+            ]
+        ];
+
+        /*
+        |--------------------------------------------------------------------------
+        | Vehicles
+        |--------------------------------------------------------------------------
+        */
+
+        $recipes['vehicle_shipment|zr350|Annis ZR-350|car'] = [
+            'craftingLocation' => 'Vehicle Factory',
+            'cost' => 1620000,
+            'components' => [
+                'crafted_circuit' => 5,
+                'crafted_fiberglass' => 15,
+                'mechanicals_battery' => 1,
+                'mechanicals_chassis' => 1,
+                'mechanicals_vehicle_framework' => 1,
+                'mechanicals_wheels' => 4,
+                'refined_amalgam' => 50,
+                'refined_glass' => 25,
+            ]
+        ];
+
+        $recipes['vehicle_shipment|voltic2|Coil Rocket Voltic|car'] = [
+            'craftingLocation' => 'Vehicle Factory',
+            'cost' => 90110000,
+            'components' => [
+                'crafted_circuit' => 5,
+                'crafted_fiberglass' => 15,
+                'mechanicals_battery' => 1,
+                'mechanicals_chassis' => 1,
+                'mechanicals_vehicle_framework' => 1,
+                'petrochem_kerosene' => 4,
+                'mechanicals_wheels' => 100,
+                'refined_amalgam' => 50,
+                'refined_glass' => 25,
+            ]
+        ];
+
+        $recipes['vehicle_shipment|savanna|Coil Savanna|car'] = [
+            'craftingLocation' => 'Vehicle Factory',
+            'cost' => 8380000, //200
+            'components' => [
+                'crafted_circuit' => 5,
+                'crafted_fiberglass' => 35,
+                'mechanicals_battery' => 1,
+                'mechanicals_battery_evb' => 3,
+                'mechanicals_chassis' => 1,
+                'mechanicals_vehicle_framework' => 1,
+                'mechanicals_wheels' => 4,
+                'refined_amalgam' => 50,
+                'refined_glass' => 25,
+            ]
+        ];
+
+        // HVY Nightshark
+
+        $recipes['vehicle_shipment|vertice|Hijak Vertice|car'] = [
+            'craftingLocation' => 'Vehicle Factory',
+            'cost' => 320000,
+            'components' => [
+                'crafted_circuit' => 5,
+                'crafted_fiberglass' => 15,
+                'mechanicals_battery' => 1,
+                'mechanicals_chassis' => 1,
+                'mechanicals_vehicle_framework' => 1,
+                'mechanicals_wheels' => 4,
+                'refined_amalgam' => 50,
+                'refined_glass' => 25,
+            ]
+        ];
+
+        $recipes['vehicle_shipment|futo|Karin Futo|car'] = [
+            'craftingLocation' => 'Vehicle Factory',
+            'cost' => 220000,
+            'components' => [
+                'crafted_circuit' => 5,
+                'crafted_fiberglass' => 15,
+                'mechanicals_battery' => 1,
+                'mechanicals_chassis' => 1,
+                'mechanicals_vehicle_framework' => 1,
+                'mechanicals_wheels' => 4,
+                'refined_amalgam' => 50,
+                'refined_glass' => 25,
+            ]
+        ];
+
+        $recipes['vehicle_shipment|landstalker2|Landstalker XL|car'] = [
+            'craftingLocation' => 'Vehicle Factory',
+            'cost' => 32000000,
+            'components' => [
+                'crafted_circuit' => 10,
+                'crafted_fiberglass' => 30,
+                'mechanicals_battery' => 2,
+                'mechanicals_chassis' => 1,
+                'mechanicals_vehicle_framework' => 1,
+                'mechanicals_wheels' => 4,
+                'refined_amalgam' => 100,
+                'refined_glass' => 50,
+            ]
+        ];
+
+        $recipes['repair_shop'] = [
+            'craftingLocation' => 'Vehicle Factory',
+            'cost' => 1500000,
+            'components' => [
+                'mechanicals_chassis' => 2,
+                'mechanicals_wheels' => 2,
+                'military_titanium' => 2,
+                'pucargosmall' => 2,
+            ]
+        ];
+
+
+        /*
+        |--------------------------------------------------------------------------
         | Pickup Runs
         |--------------------------------------------------------------------------
         */
+
+        $recipes['pucargosmall'] = [
+            'craftingLocation' => 'Cargo Seller: Tools',
+            'pickupRun'        => 'tools',
+            'components'       => []
+        ];
 
         $quarryTemplate = [
             'craftingLocation' => 'Filtering Plant',
@@ -306,6 +527,7 @@ class Recipes
         $recipes['petrochem_kerosene'] = $crudeOilTemplate;
         $recipes['petrochem_diesel'] = $crudeOilTemplate;
         $recipes['petrochem_petrol'] = $crudeOilTemplate;
+        $recipes['mechanicals_rubber'] = $crudeOilTemplate;
 
         $recipes['military_chemicals'] = $rawGasTemplate;
         $recipes['petrochem_propane'] = $rawGasTemplate;

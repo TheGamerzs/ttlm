@@ -2,7 +2,10 @@
 <a href="{{ route('craftingPage', ['name' => $craftingMaterial->name]) }}">
 @endif
 
-    ({{ $craftingMaterial->recipeCount }}) {{ $craftingMaterial->name }}
+    @if($showRecipeCount)
+        ({{ $craftingMaterial->recipeCount }})
+    @endif
+    {{ $craftingMaterial->name }}
 
 @if($shouldLink)
 </a>

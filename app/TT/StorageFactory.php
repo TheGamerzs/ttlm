@@ -6,6 +6,7 @@ use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class StorageFactory
@@ -118,18 +119,25 @@ class StorageFactory
                 'storage'  => 'faq_522',
                 'itemName' => 'crafted_concrete',
                 'count'    => 300
+            ],
+            [
+                'storage'  => 'faq_522',
+                'itemName' => 'refined_glass',
+                'count'    => 1
             ]
         ];
-//        foreach ($fakes as $fake) {
-//            $storage = self::$storages[$fake['storage']];
-//            $existing = $storage->firstWhere('name', $fake['itemName']);
-//
-//            if ($existing) {
-//                $existing->count += $fake['count'];
-//            } else {
-//                $storage->push(new InventoryItem($fake['itemName'], $fake['count']));
-//            }
-//        }
+        if (Auth::id() == 1) {
+            foreach ($fakes as $fake) {
+                $storage = self::$storages[$fake['storage']];
+                $existing = $storage->firstWhere('name', $fake['itemName']);
+
+                if ($existing) {
+                    $existing->count += $fake['count'];
+                } else {
+                    $storage->push(new InventoryItem($fake['itemName'], $fake['count']));
+                }
+            }
+        }
     }
 
     public static function getPrettyName(string $storageName): string

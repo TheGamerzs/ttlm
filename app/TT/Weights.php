@@ -16,6 +16,8 @@ class Weights
         'crafted_computer' => 35,
         'crafted_concrete' => 160,
         'crafted_copperwire' => 20,
+        'crafted_fiberglass' => 20,
+        'crafted_jewelry' => 5,
         'crafted_rebar' => 45,
 
         'fridge_airline_meal' => 3,
@@ -25,9 +27,19 @@ class Weights
 
         'liquid_water' => 100,
         'liquid_water_raw' => 100,
+
+        'mechanicals_battery' => 20,
+        'mechanicals_battery_evb' => 90,
+        'mechanicals_chassis' => 80,
+        'mechanicals_vehicle_framework' => 200,
+        'mechanicals_wheels' => 15,
+        'mechanicals_rubber' => 8,
+
         'military_chemicals' => 25,
         'military_explosives' => 250,
+        'military_titanium' => 20,
         'military_titanium_ore' => 25,
+
         'petrochem_diesel' => 25,
         'petrochem_gas' => 150,
         'petrochem_kerosene' => 25,
@@ -36,21 +48,25 @@ class Weights
         'petrochem_propane' => 25,
         'petrochem_sulfur' => 5,
         'petrochem_waste' => 50, //Waste Water
+
         'recycled_electronics' => 130,
         'recycled_rubble' => 150,
         'recycled_trash' => 90,
         'recycled_waste' => 110,
+
         'refined_aluminum' => 10,
         'refined_amalgam' => 15,
         'refined_bronze' => 10,
         'refined_copper' => 10,
         'refined_flint' => 5,
+        'refined_glass' => 5,
         'refined_gold' => 20,
         'refined_planks' => 15,
         'refined_sand' => 5,
         'refined_solder' => 5,
         'refined_tin' => 10,
         'refined_zinc' => 10,
+
         'scrap_acid' => 5,
         'scrap_aluminum' => 5,
         'scrap_copper' => 5,
@@ -60,10 +76,18 @@ class Weights
         'scrap_lead' => 15,
         'scrap_mercury' => 15,
         'scrap_ore' => 15,
-        'scrap_plastic' => 5, //
+        'scrap_plastic' => 5,
         'scrap_tin' => 5,
         'tcargodust' => 3, //Sawdust
         'tcargologs' => 60,
+        'pucargosmall' => 1, //Tools
+
+        'vehicle_shipment|zr350|Annis ZR-350|car' => 100,
+        'vehicle_shipment|voltic2|Coil Rocket Voltic|car' => 100,
+        'vehicle_shipment|savanna|Coil Savanna|car' => 100,
+        'vehicle_shipment|vertice|Hijak Vertice|car' => 100,
+        'vehicle_shipment|futo|Karin Futo|car' => 100,
+        'repair_shop' => 0,
 
         'upgrade_kit_blistata' => 20,
         'upgrade_kit_dragking' => 20,

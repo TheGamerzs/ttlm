@@ -2,9 +2,8 @@
 
     <h3 class="text-center">Next Grind</h3>
     <h5 class="text-center">
-        <a href="{{ route('craftingPage', ['name' => $nextRecipeToGrind->name()]) }}">
-            {{ $nextRecipeToGrind->name() }}
-        </a>
+        <x-parent-recipe-table-crafting-link :show-recipe-count="false"
+                                             :crafting-material="$nextRecipeToGrind->inventoryItem"/>
     </h5>
 
     @unless($this->isPickupRun())

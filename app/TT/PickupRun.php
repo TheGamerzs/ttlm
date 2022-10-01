@@ -90,8 +90,21 @@ class PickupRun
         ];
     }
 
-    public static function crudeOil(int $truckCapacity): array
+    public static function crudeOil(int $truckCapacity, string $craftingMaterialName): array
     {
+        if ($craftingMaterialName == 'mechanicals_rubber') {
+            $oilWeight = 150 * 4;
+            $pickupCount = floor($truckCapacity / $oilWeight);
+            return [
+                [
+                    'mechanicals_rubber' => (int)($pickupCount * 4),
+                    'petrochem_diesel' => (int)($pickupCount * 2),
+                    'petrochem_kerosene' => (int)($pickupCount * 2),
+                    'petrochem_petrol' => (int)($pickupCount * 4),
+                ]
+            ];
+        }
+
         $oilWeight = 150;
         $pickupCount = floor($truckCapacity / $oilWeight);
 

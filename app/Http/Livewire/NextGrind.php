@@ -123,7 +123,7 @@ class NextGrind extends Component
             'trash' => PickupRun::trash($this->truckCapacity),
             'electronics' => PickupRun::electronics($this->truckCapacity),
             'toxic waste' => PickupRun::toxicWaste($this->truckCapacity),
-            'crude oil' => PickupRun::crudeOil($this->truckCapacity),
+            'crude oil' => PickupRun::crudeOil($this->truckCapacity, $this->nextRecipeToGrind->name()),
             'raw gas' => PickupRun::rawGas($this->truckCapacity),
             default => []
         };

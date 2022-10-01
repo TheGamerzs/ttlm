@@ -13,7 +13,8 @@ class ParentRecipeTableCraftingLink extends Component
 
     public function __construct(public CraftingMaterial|Item $craftingMaterial, public bool $showRecipeCount = true)
     {
-        $this->shouldLink = $this->craftingMaterial->getRecipe()->components->count() > 0;
+        $this->shouldLink = $this->craftingMaterial->getRecipe()->components->count() > 0
+            && $this->craftingMaterial->name != 'liquid_water';
     }
 
     public function render(): View

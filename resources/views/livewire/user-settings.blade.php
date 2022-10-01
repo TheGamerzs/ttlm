@@ -65,6 +65,10 @@
                        wire:model="user.api_public_key">
                 @error('user.api_public_key')<div class="text-danger">{{ $message }}</div>@enderror
             </div>
+            <div class="mb-3">
+                <label class="form-label">Default Trucking/Crafting Page Recipe</label>
+                <x-recipe-select change-wire-model="user.default_crafting_recipe" :include-base-items="false" />
+            </div>
             <div class="d-grid gap-2">
                 <button class="btn btn-primary" type="submit">Save</button>
             </div>

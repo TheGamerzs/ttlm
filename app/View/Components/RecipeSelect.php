@@ -9,8 +9,20 @@ use Illuminate\View\Component;
 
 class RecipeSelect extends ItemSelect
 {
+    public bool $includeBaseItems;
+
+    public function __construct(?string $changeWireModel = null, bool $includeBaseItems = true)
+    {
+        $this->changeWireModel = $changeWireModel;
+        $this->includeBaseItems = $includeBaseItems;
+    }
+
     public function getItemNames(): array
     {
-        return Recipes::getAllNames();
+        if ($this->includeBaseItems) {
+            return Recipes::getAllNames();
+        } else {
+            return Recipes::getNamesIfComponentsExist()->toArray();
+        }
     }
 }

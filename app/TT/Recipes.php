@@ -559,4 +559,11 @@ class Recipes
     {
         return array_keys(self::getAllRecipes());
     }
+
+    public static function getNamesIfComponentsExist()
+    {
+        return collect(self::getAllRecipes())->filter(function ($item, $key) {
+            return count($item['components']) && $key != 'liquid_water';
+        })->keys();
+    }
 }

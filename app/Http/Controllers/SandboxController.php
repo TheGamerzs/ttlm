@@ -32,8 +32,7 @@ class SandboxController extends Controller
 
     public function index()
     {
-        $r = dataFromJson('Storages.json');
-        dd($r);
+        Recipes::getNamesIfComponentsExist();
     }
 
     public function missingItemsAfterPulledFromAPI()

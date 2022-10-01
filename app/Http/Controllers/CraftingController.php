@@ -11,8 +11,12 @@ use Illuminate\Support\Facades\Session;
 
 class CraftingController extends Controller
 {
-    public function index(string $name = 'house')
+    public function index(string $name = null)
     {
+        if (empty($name)) {
+            $name = Auth::user()->default_crafting_recipe;
+        }
+
         $truckCapacity = (int) Auth::user()->truckCapacity ?? 0;
         $trainYardStorage = (int) Auth::user()->trainYardCapacity ?? 0;
         $pocketCapacity = (int) Auth::user()->pocketCapacity ?? 0;

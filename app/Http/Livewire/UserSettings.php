@@ -18,7 +18,8 @@ class UserSettings extends Component
         'user.api_public_key' => 'string|nullable',
         'user.truckCapacity' => 'integer|nullable|min:400',
         'user.pocketCapacity' => 'integer|nullable|min:10',
-        'user.trainYardCapacity'=> 'integer|nullable|min:10800'
+        'user.trainYardCapacity'=> 'integer|nullable|min:10800',
+        'user.default_crafting_recipe' => 'string|required'
     ];
 
     public function tryToGetTTId(): void

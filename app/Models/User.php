@@ -81,7 +81,7 @@ class User extends Authenticatable
 
         $this->full_trailer_alerts = $this->full_trailer_alerts->reject(function ($itemName) use ($itemNameToRemove) {
             return $itemName == $itemNameToRemove;
-        });
+        })->sort()->values();
         $this->save();
     }
 

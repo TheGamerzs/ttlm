@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\OnlyUserOne;
 use App\Models\User;
 use App\TT\Items\CraftingMaterial;
 use App\TT\Items\InventoryItem;
@@ -25,9 +26,7 @@ class SandboxController extends Controller
 {
     public function __construct()
     {
-        if (! Auth::check() || Auth::id() != 1) {
-            abort(404);
-        }
+        $this->middleware('onlyUserOne');
     }
 
     public function index()

@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\EnsureUserHasCapacitiesSet;
 use App\Http\Middleware\EnsureUserHasSettingsForAPI;
+use App\Http\Middleware\OnlyUserOne;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -67,6 +68,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         'ttApi' => EnsureUserHasSettingsForAPI::class,
-        'canCalculate' => EnsureUserHasCapacitiesSet::class
+        'canCalculate' => EnsureUserHasCapacitiesSet::class,
+        'onlyUserOne' => OnlyUserOne::class,
     ];
 }

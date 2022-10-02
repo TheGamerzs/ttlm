@@ -64,6 +64,5 @@ class SandboxController extends Controller
         foreach ($missingItems as $itemName) {
             echo '<a href="https://ttapi.elfshot.xyz/items?item=' . $itemName . '">' . $itemName . '</a><br>';
         }
-
     }
 }

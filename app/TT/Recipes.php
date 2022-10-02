@@ -10,6 +10,7 @@ class Recipes
 
         $recipes['house'] = [
             'craftingLocation' => 'House Construction Site',
+            'cost' => 0,
             'components'       => [
                 'crafted_computer'     => 1,
                 'crafted_concrete'     => 1,
@@ -27,6 +28,7 @@ class Recipes
         */
         $recipes['crafted_batteries'] = [
             'craftingLocation' => 'LS Factory',
+            'cost' => 5000,
             'makes'            => 2,
             'components'       => [
                 'refined_solder' => 4,
@@ -37,6 +39,7 @@ class Recipes
 
         $recipes['crafted_cement'] = [
             'craftingLocation' => 'Quarry',
+            'cost' => 1500,
             'components'       => [
                 'tcargodust'   => 2,
                 'refined_sand' => 5
@@ -45,6 +48,7 @@ class Recipes
 
         $recipes['crafted_ceramictiles'] = [
             'craftingLocation' => 'LS Foundry',
+            'cost' => 1000,
             'makes'            => 2,
             'components'       => [
                 'refined_flint' => 10,
@@ -54,6 +58,8 @@ class Recipes
 
         $recipes['crafted_circuit'] = [
             'craftingLocation' => 'LS Factory',
+            'cost' => 5000,
+            'makes' => 2,
             'components'       => [
                 'crafted_copperwire' => 1,
                 'refined_solder'     => 2,
@@ -63,6 +69,8 @@ class Recipes
 
         $recipes['crafted_computer'] = [
             'craftingLocation' => 'LS Factory',
+            'cost' => 5000,
+            'makes' => 2,
             'components'       => [
                 'crafted_batteries' => 1,
                 'crafted_circuit'   => 1,
@@ -72,6 +80,7 @@ class Recipes
 
         $recipes['crafted_concrete'] = [
             'craftingLocation' => 'Filtering Plant',
+            'cost' => 15000,
             'components'       => [
                 'crafted_cement' => 5,
                 'liquid_water'   => 1
@@ -80,6 +89,8 @@ class Recipes
 
         $recipes['crafted_copperwire'] = [
             'craftingLocation' => 'LS Factory',
+            'cost' => 5000,
+            'makes' => 2,
             'components'       => [
                 'refined_copper' => 4,
                 'refined_planks' => 1
@@ -109,6 +120,7 @@ class Recipes
 
         $recipes['crafted_rebar'] = [
             'craftingLocation' => 'LS Factory',
+            'cost' => 5000,
             'makes'            => 2,
             'components'       => [
                 'refined_amalgam' => 6,
@@ -124,8 +136,9 @@ class Recipes
 
         $recipes['military_explosives'] = [
             'craftingLocation' => 'Military Workshop',
+            'cost' => 9500,
             'components' => [
-                'petrochem_kerosene' => 8,// 8x Kerosene
+                'petrochem_kerosene' => 8,
                 'petrochem_sulfur' => 10
             ]
         ];
@@ -156,6 +169,7 @@ class Recipes
         // Actually military...
         $recipes['petrochem_sulfur'] = [
             'craftingLocation' => 'Water Treatment Plant',
+            'cost' => 5000,
             'makes' => 5,
             'components' => [
                 'petrochem_waste' => 1,
@@ -171,27 +185,30 @@ class Recipes
 
         $recipes['refined_aluminum'] = [
             'craftingLocation' => 'LS Foundry',
+            'cost' => 1000,
             'components'       => [
                 'scrap_aluminum' => 2
             ]
         ];
 
+        $recipes['refined_amalgam'] = [
+            'craftingLocation' => 'LS Foundry',
+            'cost' => 1000,
+            'makes'            => 2,
+            'components'       => [
+                'refined_tin'   => 2,
+                'scrap_mercury' => 2
+            ]
+        ];
+
         $recipes['refined_bronze'] = [
             'craftingLocation' => 'LS Foundry',
+            'cost' => 1000,
             'makes'            => 2,
             'components'       => [
                 'scrap_aluminum' => 1,
                 'scrap_copper'   => 2,
                 'scrap_tin'      => 1
-            ]
-        ];
-
-        $recipes['refined_amalgam'] = [
-            'craftingLocation' => 'LS Foundry',
-            'makes'            => 2,
-            'components'       => [
-                'refined_tin'   => 2,
-                'scrap_mercury' => 2
             ]
         ];
 
@@ -214,6 +231,7 @@ class Recipes
 
         $recipes['refined_copper'] = [
             'craftingLocation' => 'LS Foundry',
+            'cost' => 1000,
             'components'       => [
                 'scrap_copper' => 2
             ]
@@ -221,6 +239,8 @@ class Recipes
 
         $recipes['refined_solder'] = [
             'craftingLocation' => 'LS Foundry',
+            'cost' => 1000,
+            'makes' => 8,
             'components'       => [
                 'refined_aluminum' => 2,
                 'scrap_lead'       => 2,
@@ -229,6 +249,7 @@ class Recipes
 
         $recipes['refined_tin'] = [
             'craftingLocation' => 'LS Foundry',
+            'cost' => 1000,
             'components'       => [
                 'scrap_tin' => 2
             ]
@@ -236,6 +257,7 @@ class Recipes
 
         $recipes['refined_zinc'] = [
             'craftingLocation' => 'LS Foundry',
+            'cost' => 1000,
             'components'       => [
                 'scrap_ore' => 2
             ]
@@ -243,6 +265,7 @@ class Recipes
 
         $recipes['liquid_water'] = [
             'craftingLocation' => 'Water Treatment Plant',
+            'cost' => 5000,
             'components'       => [
                 'liquid_water_raw' => 1,
                 'scrap_acid'       => 1,
@@ -450,54 +473,63 @@ class Recipes
 
         $recipes['pucargosmall'] = [
             'craftingLocation' => 'Cargo Seller: Tools',
+            'cost' => 0,
             'pickupRun'        => 'tools',
             'components'       => []
         ];
 
         $quarryTemplate = [
             'craftingLocation' => 'Filtering Plant',
+            'cost' => 0,
             'pickupRun'        => 'quarry',
             'components'       => []
         ];
 
         $trashTemplate = [
             'craftingLocation' => 'Sorting Facility',
+            'cost' => 0,
             'pickupRun'        => 'trash',
             'components'       => []
         ];
 
         $sawmillTemplate = [
             'craftingLocation' => 'Sawmill',
+            'cost' => 0,
             'pickupRun'        => 'logging camp',
             'components'       => []
         ];
 
         $electronicsTemplate = [
             'craftingLocation' => 'Sorting Facility',
+            'cost' => 0,
             'pickupRun'        => 'electronics',
             'components'       => []
         ];
 
         $toxicWasteTemplate = [
             'craftingLocation' => 'Filtering Plant',
+            'cost' => 0,
             'pickupRun'        => 'toxic waste',
             'components'       => []
         ];
 
         $crudeOilTemplate = [
             'craftingLocation' => 'Refinery',
+            'cost' => 0,
             'pickupRun'        => 'crude oil',
             'components'       => []
         ];
 
         $rawGasTemplate = [
             'craftingLocation' => 'Refinery',
+            'cost' => 0,
             'pickupRun'        => 'raw gas',
             'components'       => []
         ];
 
         $recipes['liquid_water_raw'] = [
             'craftingLocation' => 'Water Treatment Plant',
+            'cost' => 0,
             'pickupRun'        => 'toxic waste', // Might not need to program a water run
             'components'       => []
         ];

@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\TT\TTApi;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -15,6 +16,10 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    protected $casts = [
+        'full_trailer_alerts' => 'collection'
+    ];
 
     public function setTTIdFromApi(): bool
     {
@@ -61,4 +66,19 @@ class User extends Authenticatable
     {
         return (bool) $this->trainYardCapacity;
     }
+
+    public function addItemToFullTrailerAlerts(string $itemName)
+    {
+        $this->full_trailer_alerts = $this->full_trailer_alerts->push($itemName);
+        $this->save();
+    }
+
+    public function removeItemFromFullTrailerAlerts(string $itemNameToRemove)
+    {
+        $this->full_trailer_alerts = $this->full_trailer_alerts->reject(function ($itemName) use ($itemNameToRemove) {
+            return $itemName == $itemNameToRemove;
+        });
+        $this->save();
+    }
+
 }

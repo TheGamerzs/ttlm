@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\TT\Storage;
 use App\TT\StorageFactory;
+use App\TT\Weights;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
@@ -20,15 +21,11 @@ class StorageListing extends Component
 
     public string $sortBy = 'count';
 
-    public function sync()
-    {
-        Cache::forget(Auth::id() . 'tt_api_storage');
-        $this->emit('refresh');
-    }
+    public string $itemToAddToFullTrailerAlerts = '';
 
-    public function fullTrailerAlerts(): \App\TT\Storage
+    public function mount()
     {
-        $lookup = [
+        $lookup = collect([
             'scrap_ore',
             'scrap_emerald',
             'petrochem_petrol',
@@ -37,7 +34,31 @@ class StorageListing extends Component
             'scrap_copper',
             'refined_copper',
             'refined_zinc',
-        ];
+        ]);
+        $this->itemToAddToFullTrailerAlerts = collect(Weights::$weights)->keys()->reject(function ($name) use ($lookup) {
+            return $lookup->contains($name);
+        })->first();
+    }
+
+    public function addItemToFullTrailerAlerts()
+    {
+        Auth::user()->addItemToFullTrailerAlerts($this->itemToAddToFullTrailerAlerts);
+    }
+
+    public function removeItemFromFullTrailerAlerts(string $itemName)
+    {
+        Auth::user()->removeItemFromFullTrailerAlerts($itemName);
+    }
+
+    public function sync()
+    {
+        Cache::forget(Auth::id() . 'tt_api_storage');
+        $this->emit('refresh');
+    }
+
+    public function fullTrailerAlerts(): \App\TT\Storage
+    {
+        $lookup = Auth::user()->full_trailer_alerts;
 
         return StorageFactory::get($this->storageName)
             ->whereIn('name', $lookup)

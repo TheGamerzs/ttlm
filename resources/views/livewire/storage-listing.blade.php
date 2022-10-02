@@ -32,6 +32,21 @@
                     </tbody>
                 </table>
             </x-collapsable-card>
+            <x-collapsable-card title="Full Trailer Alert Settings" :open="true">
+                <div class="input-group mb-3">
+                    <x-item-select change-wire-model="itemToAddToFullTrailerAlerts" />
+                    <button class="btn btn-outline-secondary" type="button" wire:click.prevent="addItemToFullTrailerAlerts">Add</button>
+                </div>
+
+                <ul class="list-group list-group-flush">
+                    @foreach($this->fullTrailerAlerts() as $item)
+                        <li class="list-group-item d-flex justify-content-between">
+                            {{ $item->name }}
+                            <i class="bi bi-trash cursor-pointer text-danger" wire:click.prevent="removeItemFromFullTrailerAlerts('{{ $item->name }}')"></i>
+                        </li>
+                    @endforeach
+                </ul>
+            </x-collapsable-card>
         </div>
     </div>
 

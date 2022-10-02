@@ -72,3 +72,22 @@ it('knows if the user makes api calls with a public key', function () {
         ->and($publicKeyUser->usesPublicKey())->toBeTrue();
 
 });
+
+it('adds an item to full trailer alerts', function () {
+
+    $user = User::factory()->create();
+    $user->addItemToFullTrailerAlerts('refined_amalgam');
+    $user->refresh();
+
+    expect($user->full_trailer_alerts->contains('refined_amalgam'))->toBeTrue();
+
+});
+
+it('removes an item to full trailer alerts', function () {
+
+    $user = User::factory()->create();
+    $user->removeItemFromFullTrailerAlerts('scrap_ore');
+    $user->refresh();
+
+    expect($user->full_trailer_alerts->contains('scrap_ore'))->toBeFalse();
+});

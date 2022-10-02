@@ -15,13 +15,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
+        // Use factory for default full trailer alerts.
+        User::factory()->create([
             'discord_snowflake' => 324060102770556933,
             'name' => 'xxdalexx',
             'tt_id' => 645753,
-            'truckCapacity' => 10350,
+            'truckCapacity' => 9775,
             'pocketCapacity' => 325,
-            'trainYardCapacity' => 40135
+            'trainYardCapacity' => 45161,
         ]);
     }
 }

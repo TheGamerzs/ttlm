@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 /**
@@ -24,8 +25,23 @@ class UserFactory extends Factory
 //            'api_public_key' => Str::random(37),
             'trainYardCapacity' => fake()->randomNumber(6),
             'pocketCapacity' => fake()->randomNumber(3),
-            'truckCapacity' => fake()->randomNumber(5)
+            'truckCapacity' => fake()->randomNumber(5),
+            'full_trailer_alerts' => $this->getFullTrailerAlerts()
         ];
+    }
+
+    protected function getFullTrailerAlerts(): Collection
+    {
+        return collect([
+            'scrap_ore',
+            'scrap_emerald',
+            'petrochem_petrol',
+            'petrochem_propane',
+            'scrap_plastic',
+            'scrap_copper',
+            'refined_copper',
+            'refined_zinc',
+        ]);
     }
 
     protected function fakeDiscordSnowflake()

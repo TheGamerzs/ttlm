@@ -32,7 +32,11 @@ class SandboxController extends Controller
 
     public function index()
     {
-        Recipes::getNamesIfComponentsExist();
+        $user = User::first();
+
+        dd($user->full_trailer_alerts->reject(function ($name) {
+            return $name == 'scrap_emerald';
+        }));
     }
 
     public function missingItemsAfterPulledFromAPI()

@@ -32,7 +32,7 @@
                     </tbody>
                 </table>
             </x-collapsable-card>
-            <x-collapsable-card title="Full Trailer Alert Settings" :open="true">
+            <x-collapsable-card title="Full Trailer Alert Settings" :open="false">
                 <div class="input-group mb-3">
                     <x-item-select change-wire-model="itemToAddToFullTrailerAlerts" />
                     <button class="btn btn-outline-secondary" type="button" wire:click.prevent="addItemToFullTrailerAlerts">Add</button>

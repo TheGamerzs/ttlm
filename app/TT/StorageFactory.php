@@ -147,7 +147,17 @@ class StorageFactory
         $name = Str::of($storageName);
 
         if ($name->startsWith('faq')) {
-            return 'Faction ' . $name->afterLast('_');
+            $factionLookup = [
+                'faq_522' => 'House Of E',
+                'faq_54'=> 'TSA',
+                'faq_56'=> 'I Don\'t Know',
+                'faq_225'=> 'HOUSES',
+                'faq_287'=> 'OVERLORD',
+                'faq_310'=> 'HouseCo',
+            ];
+            return array_key_exists($storageName, $factionLookup)
+                ? 'Faction - ' . $factionLookup[$storageName]
+                : 'Faction - ' . $name->afterLast('_');
         }
 
         $lookup = App::get('storageData')->mapWithKeys(function ($item, $key) {

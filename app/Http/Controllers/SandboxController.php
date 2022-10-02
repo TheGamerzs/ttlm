@@ -25,7 +25,7 @@ class SandboxController extends Controller
 {
     public function __construct()
     {
-        if (App::environment('production')) {
+        if (! Auth::check() || Auth::id() != 1) {
             abort(404);
         }
     }

@@ -9,12 +9,13 @@ class RecipeFactory
 {
     public static function get(Item $item): Recipe
     {
-        $recipe = new Recipe($item);
+        $recipe           = new Recipe($item);
         $recipeDefinition = Recipes::getRecipe($item->name);
 
         $recipe->craftingLocation = $recipeDefinition['craftingLocation'] ?? null;
-        $recipe->pickupRun = $recipeDefinition['pickupRun'] ?? false;
-        $recipe->makes = $recipeDefinition['makes'] ?? 1;
+        $recipe->pickupRun        = $recipeDefinition['pickupRun'] ?? false;
+        $recipe->makes            = $recipeDefinition['makes'] ?? 1;
+        $recipe->cost             = $recipeDefinition['cost'];
 
         foreach ($recipeDefinition['components'] as $name => $count) {
             $recipe->components->push(new CraftingMaterial($name, $recipe, $count));

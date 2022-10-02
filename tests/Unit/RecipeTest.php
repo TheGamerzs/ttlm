@@ -29,6 +29,14 @@ test('howManyCanFit method', function () {
 
 });
 
+test('costPerItem method', function () {
+
+    $recipe = RecipeFactory::get(new \App\TT\Items\Item('crafted_batteries'));
+
+    expect($recipe->costPerItem())->toBe(2500);
+
+});
+
 test('setInStorageForAllComponents method', function () {
 
     $recipe = RecipeFactory::get(new \App\TT\Items\Item('crafted_copperwire'));
@@ -113,5 +121,4 @@ it('returns a component by name', function () {
         ->and($recipe->getComponent('refined_flint')->name)->toBe('refined_flint');
 
 });
-
 

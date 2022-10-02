@@ -20,6 +20,8 @@ class Recipe
 
     public int $makes = 1;
 
+    public int $cost;
+
     public function __construct(Item $inventoryItem)
     {
         $this->inventoryItem = $inventoryItem;
@@ -34,7 +36,7 @@ class Recipe
     public function howManyCanFit(int $capacityKG): int
     {
         if ($this->totalWeightOfComponentsToCraft()) {
-            return (int) floor($capacityKG / $this->totalWeightOfComponentsToCraft());
+            return (int)floor($capacityKG / $this->totalWeightOfComponentsToCraft());
         }
         return 0;
     }
@@ -85,20 +87,20 @@ class Recipe
             $this->components->map(function (CraftingMaterial $craftingMaterial) {
                 return StorageFactory::findStoragesForItem($craftingMaterial);
             })
-            ->sortByDesc(function (Collection $storages) {
-                return $storages->sum(function (InventoryItem $item) {
-                    return $item->count;
-                });
-            })
-            ->map(function (Collection $storages) {
-                return $storages
-                    ->sortByDesc(function (InventoryItem $item) {
+                ->sortByDesc(function (Collection $storages) {
+                    return $storages->sum(function (InventoryItem $item) {
                         return $item->count;
-                    })
-                    ->keys()
-                    ->first();
-            })
-            ->first() ?? 'combined';
+                    });
+                })
+                ->map(function (Collection $storages) {
+                    return $storages
+                        ->sortByDesc(function (InventoryItem $item) {
+                            return $item->count;
+                        })
+                        ->keys()
+                        ->first();
+                })
+                ->first() ?? 'combined';
     }
 
     public function setInStorageForAllComponents(Storage $storage): self
@@ -112,4 +114,10 @@ class Recipe
 
         return $this;
     }
+
+    public function costPerItem(): int
+    {
+        return $this->cost / $this->makes;
+    }
+
 }

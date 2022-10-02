@@ -59,7 +59,9 @@ class ShoppingListBuilder
 
         $calculator = new PickupRunCalculator($truckCapacity);
         if (! $cleaned->keys()->contains('scrap') ) {
+            $calculator->getRunCalculations();
             $cleaned['pickupCalculator'] = $calculator;
+            $cleaned['totalCost'] = 0;
             return $cleaned;
         }
 
@@ -83,6 +85,15 @@ class ShoppingListBuilder
                     return $keep;
                 });
         }
+
+
+        $calculator->getRunCalculations();
+
+        $cleaned['totalCost'] = self::$allComponents->sum(function (RecipeShoppingListDecorator $item) {
+            return $item->getTotalCraftingCost();
+        });
+        $cleaned['totalCost'] += collect($calculator->baseItemsCosts)->sum();
+        $cleaned['totalCost'] += $recipe->costPerItem() * $count;
 
         $cleaned['pickupCalculator'] = $calculator;
         return $cleaned;

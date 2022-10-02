@@ -32,11 +32,15 @@ class SandboxController extends Controller
 
     public function index()
     {
-        $user = User::first();
+        $list = ShoppingListBuilder::build(
+            RecipeFactory::get(new Item('crafted_batteries')),
+            new Storage(),
+            1,
+            1000
+        );
 
-        dd($user->full_trailer_alerts->reject(function ($name) {
-            return $name == 'scrap_emerald';
-        }));
+        dd($list);
+
     }
 
     public function missingItemsAfterPulledFromAPI()

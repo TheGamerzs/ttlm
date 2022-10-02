@@ -78,4 +78,9 @@ class RecipeShoppingListDecorator
         return 'unhandled';
     }
 
+    public function getTotalCraftingCost(): int
+    {
+        return $this->recipe->costPerItem() * $this->count;
+    }
+
 }

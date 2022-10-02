@@ -39,10 +39,10 @@
                 </div>
 
                 <ul class="list-group list-group-flush">
-                    @foreach($this->fullTrailerAlerts() as $item)
+                    @foreach(Auth::user()->full_trailer_alerts as $item)
                         <li class="list-group-item d-flex justify-content-between">
-                            {{ $item->name }}
-                            <i class="bi bi-trash cursor-pointer text-danger" wire:click.prevent="removeItemFromFullTrailerAlerts('{{ $item->name }}')"></i>
+                            {{ $item }}
+                            <i class="bi bi-trash cursor-pointer text-danger" wire:click.prevent="removeItemFromFullTrailerAlerts('{{ $item }}')"></i>
                         </li>
                     @endforeach
                 </ul>

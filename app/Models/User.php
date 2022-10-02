@@ -69,12 +69,16 @@ class User extends Authenticatable
 
     public function addItemToFullTrailerAlerts(string $itemName)
     {
+        if ($this->full_trailer_alerts->contains($itemName)) return;
+
         $this->full_trailer_alerts = $this->full_trailer_alerts->push($itemName);
         $this->save();
     }
 
     public function removeItemFromFullTrailerAlerts(string $itemNameToRemove)
     {
+        if (! $this->full_trailer_alerts->contains($itemNameToRemove)) return;
+
         $this->full_trailer_alerts = $this->full_trailer_alerts->reject(function ($itemName) use ($itemNameToRemove) {
             return $itemName == $itemNameToRemove;
         });

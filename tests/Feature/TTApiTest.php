@@ -5,7 +5,7 @@ use App\TT\TTApi;
 use Illuminate\Support\Facades\Http;
 use function Pest\Laravel\actingAs;
 
-uses(\Illuminate\Foundation\Testing\DatabaseTransactions::class);
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
 it('gets the user id from discord snowflake', function () {
 
@@ -61,5 +61,19 @@ it('creates a time expiring cache entry when making a call', function () {
     (new TTApi())->getStorages();
 
     expect(Cache::has($user->id . 'lockedApi'))->toBeTrue();
+
+});
+
+it('increments calls made on user model', function () {
+
+    $apiReturn = file_get_contents(base_path('tests/ApiResponses/Storage.json'));
+    Http::preventStrayRequests();
+    Http::fake(['v1.api.tycoon.community/main/storages/*' => Http::response($apiReturn)]);
+
+    $user = User::factory()->create();
+    actingAs($user);
+    (new TTApi())->getStorages();
+
+    expect($user->calls_made)->toBe(2);
 
 });

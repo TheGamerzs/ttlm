@@ -43,6 +43,8 @@ class TTApi
                 abort(401, 'API Call Failed');
             }
 
+            $this->user->increment('calls_made');
+
             // Create a 10-second cool down to check against.
             Cache::put($this->user->id . 'lockedApi', now(), 10);
 

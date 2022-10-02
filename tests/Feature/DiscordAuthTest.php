@@ -21,7 +21,9 @@ it('creates a new user and logs them in', function () {
 
     expect(User::firstWhere('discord_snowflake', 324060102770556933))->toBeInstanceOf(User::class)
         ->and(Auth::check())->toBeTrue()
-        ->and(Auth::user()->tt_id)->toBe(645753);
+        ->and(Auth::user()->tt_id)->toBe(645753)
+        ->and(Auth::user()->full_trailer_alerts)->toBeInstanceOf(\Illuminate\Support\Collection::class)
+        ->and(Auth::user()->full_trailer_alerts->count())->toBe(8);
 
 });
 

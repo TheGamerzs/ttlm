@@ -52,6 +52,7 @@ class NextGrind extends Component
     public function updatedStorageName($value)
     {
         $this->forgetComputed('storage');
+        $this->nextRecipeToGrind->setInStorageForAllComponents($this->storage);
     }
 
     protected function setStorageBasedOnLocationOfMostComponents()

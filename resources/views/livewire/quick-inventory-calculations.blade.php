@@ -9,6 +9,12 @@
                     <input type="text" class="form-control" id="capacityUsed" wire:model="capacityUsed"/>
                     <label for="capacityUsed">Current Trailer Capacity Used</label>
                 </div>
+                @if(Auth::user()->hasTrainYard())
+                <div class="form-floating mt-1">
+                    <input type="text" class="form-control" id="capacityUsedTY" wire:model="capacityUsedTY"/>
+                    <label for="capacityUsedTY">Current Train Yard Capacity Used</label>
+                </div>
+                @endif
                 <div class="form-floating mt-1">
                     <x-item-select-only-in-storage change-wire-model="itemForFillTrailer"/>
                     <label>Item</label>
@@ -16,9 +22,16 @@
                 <ul class="list-group mt-1">
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Weighs: {{ $trailerLookupItem->weight }}kg</span>
-                        <span title="Truck \ Pocket">
-                            ({{ $trailerLookupItem->howManyCanFitInSpace($truckCapacity - (int)$capacityUsed) }} \
-                            {{ $trailerLookupItem->howManyCanFitInSpace($pocketCapacity) }})
+                        @if(Auth::user()->hasTrainYard())
+                            <span>
+                            Train Yard: {{ $trailerLookupItem->howManyCanFitInSpace($trainYardStorage - (int)$capacityUsedTY) }}
+                        </span>
+                        @endif
+                        <span>
+                            Trailer: {{ $trailerLookupItem->howManyCanFitInSpace($truckCapacity - (int)$capacityUsed) }}
+                        </span>
+                        <span>
+                            Pocket: {{ $trailerLookupItem->howManyCanFitInSpace($pocketCapacity) }}
                         </span>
                     </li>
                 </ul>

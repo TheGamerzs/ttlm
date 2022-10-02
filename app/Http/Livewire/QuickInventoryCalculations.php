@@ -30,6 +30,8 @@ class QuickInventoryCalculations extends Component
 
     public string $capacityUsed = '';
 
+    public string $capacityUsedTY = '';
+
     public string $itemForFillTrailer = 'scrap_ore';
 
     /*
@@ -45,7 +47,6 @@ class QuickInventoryCalculations extends Component
     public string $storageName = 'combined';
 
     public array $pickupCounts = [];
-
 
     public function mount()
     {

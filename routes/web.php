@@ -42,6 +42,7 @@ Route::get('/sb', [\App\Http\Controllers\SandboxController::class, 'index']);
 Route::get('/dev/loginas/{id}', function (int $id) {
     if (Auth::id() != 1) abort(404);
     Auth::loginUsingId($id);
+    return redirect()->back();
 });
 
 Route::get('/dev/missing-items', [\App\Http\Controllers\SandboxController::class, 'missingItemsAfterPulledFromAPI']);

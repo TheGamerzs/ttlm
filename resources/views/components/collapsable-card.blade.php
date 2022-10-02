@@ -1,4 +1,12 @@
-<div class="my-3" x-data="{open: true}">
+@php
+    // This seems like a stupid way to do this, was having issues with @props.
+    $open = $open ?? true;
+    $open = $open
+        ? 'true'
+        : 'false';
+@endphp
+
+<div class="my-3" x-data="{open: {{$open}} }">
     <div class="card">
         <h5 class="card-header d-flex justify-content-between">
             {{ $title ?? '' }}

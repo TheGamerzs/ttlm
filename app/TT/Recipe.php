@@ -120,4 +120,20 @@ class Recipe
         return $this->cost / $this->makes;
     }
 
+    public function howManyFullLoadsFromStorage(int $truckCapacity): string
+    {
+        return number_format(
+            $this->craftableItemsFromStorage() / ($this->howManyCanFit($truckCapacity) * $this->makes),
+            1
+        );
+    }
+
+    public function howManyFullLoadsFromCount(int $truckCapacity, int $count): string
+    {
+        return number_format(
+            $count / ($this->howManyCanFit($truckCapacity) * $this->makes),
+            1
+        );
+    }
+
 }

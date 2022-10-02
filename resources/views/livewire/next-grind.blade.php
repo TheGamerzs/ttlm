@@ -3,11 +3,11 @@
     <h3 class="text-center">Next Grind</h3>
     <h5 class="text-center">
         <x-parent-recipe-table-crafting-link :show-recipe-count="false"
-                                             :crafting-material="$nextRecipeToGrind->inventoryItem"/>
+                                             :crafting-material="$nextRecipeToGrind->inventoryItem" />
     </h5>
 
     @unless($this->isPickupRun())
-        <h5 class="text-center">Trailer can fit {{ $this->nextRecipeToGrind->howManyCanFit($truckCapacity) }}</h5>
+        <h5 class="text-center">Trailer can fit components for {{ $this->nextRecipeToGrind->howManyCanFit($truckCapacity) }} recipes</h5>
     @endunless
 
     @if($this->nextRecipeToGrind->craftingLocation)
@@ -20,13 +20,13 @@
     @endif
 
     @if($this->nextRecipeToGrind->makes > 1)
-        <h5 class="text-center">Recipe Yields {{ $this->nextRecipeToGrind->makes }}</h5>
+        <h5 class="text-center">Each Recipe Yields {{ $this->nextRecipeToGrind->makes }}</h5>
     @endif
 
     <x-storage-select />
 
     @if(!$this->isPickupRun())
-        <table class="table">
+        <table class="table text-center">
             <thead>
             <tr>
                 <td></td>
@@ -39,7 +39,7 @@
             @foreach($this->nextRecipeToGrind->components as $craftingMaterial)
                 <tr>
                     <td>
-                            {{ $craftingMaterial->name }}
+                        {{ $craftingMaterial->name }}
                     </td>
                     <td>{{ $craftingMaterial->recipeCount }}</td>
                     <td>{{ $craftingMaterial->inStorage }}</td>
@@ -57,16 +57,21 @@
 
         <hr>
         <h4 class="text-center">Load Up</h4>
-        <table class="table">
+        <table class="table text-center">
             <thead>
             <tr>
                 <td></td>
-                <td>From Storage ({{ $this->nextRecipeToGrind->craftableItemsFromStorage() }})</td>
+                <td>
+                    From Storage ({{ $this->nextRecipeToGrind->craftableItemsFromStorage() }})
+                    <i class="bi bi-info-circle text-info" title="Full Loads: {{ $this->nextRecipeToGrind->howManyFullLoadsFromStorage($truckCapacity) }}"></i>
+                </td>
                 <td @class(['table-danger' => $this->haveEnoughForIWant()])>
                     I Want ({{ $iWant }})
+                    <i class="bi bi-info-circle text-info" title="Full Loads: {{ $this->nextRecipeToGrind->howManyFullLoadsFromCount($truckCapacity, $iWant) }}"></i>
                 </td>
                 <td @class(['table-danger' => $this->haveEnoughForFullTrailer()])>
-                    Full Trailer ({{ $this->nextRecipeToGrind->howManyCanFit($truckCapacity) * $this->nextRecipeToGrind->makes }})
+                    Full Trailer
+                    ({{ $this->nextRecipeToGrind->howManyCanFit($truckCapacity) * $this->nextRecipeToGrind->makes }})
                 </td>
             </tr>
             </thead>
@@ -87,7 +92,7 @@
         </table>
         <div class="row">
             <div class="col-4 offset-4 form-floating">
-                <input type="text" class="form-control" id="iWant" wire:model="iWant"/>
+                <input type="text" class="form-control" id="iWant" wire:model="iWant" />
                 <label for="iWant">I Want</label>
             </div>
         </div>
@@ -105,20 +110,20 @@
                 </tr>
                 </thead>
                 <tbody>
-                    @foreach($runPossibility as $materialName => $count)
-                        <tr>
-                            <td>{{ $materialName }}</td>
-                            <td>{{ $count }}</td>
-                            <td>{{ $count * 2 }}</td>
-                            <td>{{ $count * 3 }}</td>
-                        </tr>
-                    @endforeach
+                @foreach($runPossibility as $materialName => $count)
+                    <tr>
+                        <td>{{ $materialName }}</td>
+                        <td>{{ $count }}</td>
+                        <td>{{ $count * 2 }}</td>
+                        <td>{{ $count * 3 }}</td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
-        <p class="text-center">
-            {{ (int)ceil(($this->countNeededForParentRecipe - $parentRecipe->getComponent($nextRecipeToGrind->name())->inStorage) / $runPossibility[$nextRecipeToGrind->name()]) }}
-            Runs Required for {{ $parentRecipe->howManyCanFit($truckCapacity) }} {{ $parentRecipe->name() }}s
-        </p>
+            <p class="text-center">
+                {{ (int)ceil(($this->countNeededForParentRecipe - $parentRecipe->getComponent($nextRecipeToGrind->name())->inStorage) / $runPossibility[$nextRecipeToGrind->name()]) }}
+                Runs Required for {{ $parentRecipe->howManyCanFit($truckCapacity) }} {{ $parentRecipe->name() }}s
+            </p>
         @endforeach
     @endif
 </div>

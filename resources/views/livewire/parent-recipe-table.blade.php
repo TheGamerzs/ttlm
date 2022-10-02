@@ -10,7 +10,7 @@
 
     <x-storage-select />
 
-    <table class="table">
+    <table class="table text-center">
         <thead>
         <tr>
             <td>Takes</td>

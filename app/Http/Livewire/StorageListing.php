@@ -2,9 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use App\TT\Storage;
+use App\TT\Items\Weights;
 use App\TT\StorageFactory;
-use App\TT\Weights;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;

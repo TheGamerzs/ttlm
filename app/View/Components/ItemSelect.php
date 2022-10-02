@@ -2,7 +2,7 @@
 
 namespace App\View\Components;
 
-use App\TT\Weights;
+use App\TT\Items\Weights;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\TT;
+namespace App\TT\Items;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;

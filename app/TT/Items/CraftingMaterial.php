@@ -4,7 +4,6 @@ namespace App\TT\Items;
 
 use App\TT\Recipe;
 use App\TT\Storage;
-use App\TT\Weights;
 
 class CraftingMaterial extends Item
 {

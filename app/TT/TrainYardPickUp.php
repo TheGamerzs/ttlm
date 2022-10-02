@@ -3,6 +3,7 @@
 namespace App\TT;
 
 use App\TT\Items\InventoryItem;
+use App\TT\Items\Weights;
 
 class TrainYardPickUp
 {

@@ -4,7 +4,6 @@ namespace App\TT\Items;
 
 use App\TT\Recipe;
 use App\TT\RecipeFactory;
-use App\TT\Weights;
 
 class Item
 {

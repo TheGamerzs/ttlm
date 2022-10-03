@@ -24,20 +24,40 @@
         <div class="col-4">
             <table class="table">
                 <thead>
-                    <tr>
-                        <td>Costs from Pickups</td>
-                        <td>Overall</td>
-                        <td>Still Needed</td>
-                    </tr>
+                <tr>
+                    <td>Pickup Items</td>
+                    <td>Overall</td>
+                    <td>Still Needed</td>
+                </tr>
                 </thead>
                 <tbody>
-                    @foreach(collect($fullList['pickupCalculator']->baseItemsCosts)->filter() as $run => $cost)
+                @foreach(collect($fullList['pickupCalculator']->baseItemsCounts)->filter() as $run => $cost)
+                    <tr>
+                        <td>{{ $run }}</td>
+                        <td>{{ number_format($cost) }}</td>
+                        <td>{{ number_format($afterStorageList['pickupCalculator']->baseItemsCounts[$run]) }}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="col-4">
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>Costs from Pickups</td>
+                    <td>Overall</td>
+                    <td>Still Needed</td>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach(collect($fullList['pickupCalculator']->baseItemsCosts)->filter() as $run => $cost)
                     <tr>
                         <td>{{ $run }}</td>
                         <td>${{ number_format($cost) }}</td>
-                        <td>${{ $afterStorageList['pickupCalculator']->baseItemsCosts[$run] }}</td>
+                        <td>${{ number_format($afterStorageList['pickupCalculator']->baseItemsCosts[$run]) }}</td>
                     </tr>
-                    @endforeach
+                @endforeach
                 </tbody>
             </table>
         </div>

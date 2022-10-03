@@ -9,6 +9,8 @@ class PickupRunCalculator
 {
     public array $counts = [];
 
+    public array $baseItemsCounts = [];
+
     public array $baseItemsCosts = [];
 
     public int $truckCapacity;
@@ -111,6 +113,7 @@ class PickupRunCalculator
             ->sortByDesc(function ($value) { return $value; })
             ->first();
 
+        $this->baseItemsCounts[$runName] = $basePickupItemsNeeded;
         $this->baseItemsCosts[$runName] = ($basePickupItemsNeeded ?? 0) * $processingCost;
 
         return $runsNeeded = (int) ceil(
@@ -120,9 +123,11 @@ class PickupRunCalculator
 
     protected function waterRun()
     {
+        $this->baseItemsCounts['water'] = 0;
         $this->baseItemsCosts['water'] = 0;
         $runs = 0;
         if (array_key_exists('liquid_water_raw', $this->counts)) {
+            $this->baseItemsCounts['water'] = $this->counts['liquid_water_raw']['needed'];
             $this->baseItemsCosts['water'] = $this->counts['liquid_water_raw']['needed'] * 5000;
             $waterRecipe = RecipeFactory::get(new Item('liquid_water'));
             $runs = $this->counts['liquid_water_raw']['needed'] / $waterRecipe->howManyCanFit($this->truckCapacity);
@@ -142,9 +147,11 @@ class PickupRunCalculator
         $logsFitInTrailer = (int) floor( $this->truckCapacity / $logWeight = 60 );
         $this->baseItemsCosts['planks'] = 0;
         $this->baseItemsCosts['sawdust'] = 0;
+        $this->baseItemsCounts['logs'] = 0;
 
         // Find out planks
         if (array_key_exists('refined_planks', $this->counts)) {
+            $this->baseItemsCounts['logs'] = $this->counts['refined_planks']['needed'];
             $this->baseItemsCosts['planks'] = $this->counts['refined_planks']['needed'] * 8000;
             $plankRuns = (int) ceil($this->counts['refined_planks']['needed'] / $logsFitInTrailer);
         }
@@ -152,6 +159,7 @@ class PickupRunCalculator
         // see if plank runs cover sawdust or not
         if (array_key_exists('tcargodust', $this->counts)) {
             $sawdustNeededAfterPlankRuns = $this->counts['tcargodust']['needed'] - ($plankRuns * 2);
+            $this->baseItemsCounts['logs'] += (int) ceil($sawdustNeededAfterPlankRuns / 10);
             $this->baseItemsCosts['sawdust'] = (int) ($sawdustNeededAfterPlankRuns / 10 * 8000);
             if ($sawdustNeededAfterPlankRuns > 0) {
                 $sawdustRuns = (int) ceil($sawdustNeededAfterPlankRuns / 10 / $logsFitInTrailer);

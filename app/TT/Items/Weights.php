@@ -41,14 +41,14 @@ class Weights
         'military_titanium_ore' => 25,
 
         'petrochem_diesel' => 25,
-        'petrochem_gas' => 150,
         'petrochem_kerosene' => 25,
-        'petrochem_oil' => 150,
         'petrochem_petrol' => 25,
         'petrochem_propane' => 25,
         'petrochem_sulfur' => 5,
         'petrochem_waste' => 50, //Waste Water
 
+        'petrochem_gas' => 150,
+        'petrochem_oil' => 150,
         'recycled_electronics' => 130,
         'recycled_rubble' => 150,
         'recycled_trash' => 90,

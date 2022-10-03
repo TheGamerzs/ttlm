@@ -57,7 +57,7 @@ class ShoppingListBuilder
             });
 
 
-        $calculator = new PickupRunCalculator($truckCapacity);
+        $calculator = new PickupRunCalculator($truckCapacity, $storage);
         if (! $cleaned->keys()->contains('scrap') ) {
             $calculator->getRunCalculations();
             $cleaned['pickupCalculator'] = $calculator;

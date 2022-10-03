@@ -5,8 +5,8 @@ it('adds a needed count', function () {
     $calc = new \App\TT\PickupRunCalculator(9775);
     $calc->addNeededCount('itemOne', 200);
 
-    expect($calc->counts['itemOne']['itemName'])->toBe('itemOne')
-        ->and($calc->counts['itemOne']['needed'])->toBe(200);
+    expect($calc->neededCounts['itemOne']['itemName'])->toBe('itemOne')
+        ->and($calc->neededCounts['itemOne']['needed'])->toBe(200);
 
 });
 
@@ -16,7 +16,7 @@ it('increases the needed amount for a count already in array', function () {
     $calc->addNeededCount('itemOne', 200);
     $calc->addNeededCount('itemOne', 200);
 
-    expect($calc->counts['itemOne']['needed'])->toBe(400);
+    expect($calc->neededCounts['itemOne']['needed'])->toBe(400);
 
 });
 

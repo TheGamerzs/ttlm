@@ -122,8 +122,8 @@ class StorageFactory
             ],
             [
                 'storage'  => 'faq_522',
-                'itemName' => 'refined_glass',
-                'count'    => 1
+                'itemName' => 'liquid_water_raw',
+                'count'    => 49305
             ]
         ];
 //        if (Auth::id() == 1) {

@@ -34,6 +34,8 @@ class QuickInventoryCalculations extends Component
 
     public string $itemForFillTrailer = 'scrap_ore';
 
+    public bool $leaveRoomForProcessed = true;
+
     /*
     |--------------------------------------------------------------------------
     | Pickup Counts Required To Make
@@ -47,6 +49,12 @@ class QuickInventoryCalculations extends Component
     public string $storageName = 'combined';
 
     public array $pickupCounts = [];
+
+    /*
+    |--------------------------------------------------------------------------
+    | Lifecycle
+    |--------------------------------------------------------------------------
+    */
 
     public function mount()
     {
@@ -97,11 +105,11 @@ class QuickInventoryCalculations extends Component
     protected function trainYardPickups(): array
     {
         return [
-            new TrainYardPickUp('recycled_electronics', $this->truckCapacity, $this->pocketCapacity, $this->trainYardStorage),
-            new TrainYardPickUp('recycled_waste', $this->truckCapacity, $this->pocketCapacity, $this->trainYardStorage),
-            new TrainYardPickUp('recycled_trash', $this->truckCapacity, $this->pocketCapacity, $this->trainYardStorage),
-            new TrainYardPickUp('petrochem_gas', $this->truckCapacity, $this->pocketCapacity, $this->trainYardStorage),
-            new TrainYardPickUp('petrochem_oil', $this->truckCapacity, $this->pocketCapacity, $this->trainYardStorage),
+            new TrainYardPickUp('recycled_electronics', $this->truckCapacity, $this->leaveRoomForProcessed, $this->pocketCapacity, $this->trainYardStorage),
+            new TrainYardPickUp('recycled_waste', $this->truckCapacity, $this->leaveRoomForProcessed, $this->pocketCapacity, $this->trainYardStorage),
+            new TrainYardPickUp('recycled_trash', $this->truckCapacity, $this->leaveRoomForProcessed, $this->pocketCapacity, $this->trainYardStorage),
+            new TrainYardPickUp('petrochem_gas', $this->truckCapacity, $this->leaveRoomForProcessed, $this->pocketCapacity, $this->trainYardStorage),
+            new TrainYardPickUp('petrochem_oil', $this->truckCapacity, $this->leaveRoomForProcessed, $this->pocketCapacity, $this->trainYardStorage),
         ];
     }
 

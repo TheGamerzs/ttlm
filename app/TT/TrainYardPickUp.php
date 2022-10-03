@@ -45,13 +45,20 @@ class TrainYardPickUp
 
     public int $storageCapacity;
 
-    public function __construct($pickupItemName, int $truckCapacity, $pocketCapacity = 600, $trainYardStorageCapacity = 30107)
+    public bool $leaveRoom;
+
+    public function __construct(string $pickupItemName,
+                                int $truckCapacity,
+                                bool $leaveRoom,
+                                int $pocketCapacity = 600,
+                                int $trainYardStorageCapacity = 30107)
     {
         $this->pickupItemName = $pickupItemName;
         $this->pickupItemWeight = Weights::getWeight($pickupItemName);
         $this->truckCapacity = $truckCapacity;
         $this->pocketCapacity = $pocketCapacity;
         $this->storageCapacity = $trainYardStorageCapacity;
+        $this->leaveRoom = $leaveRoom;
     }
 
     public function pickupItemsCountTrailer(): int
@@ -83,7 +90,10 @@ class TrainYardPickUp
 
     public function usableStorageCapacity(): int
     {
-        return $this->storageCapacity - $this->leftoverWeightNeededForFirstRefine();
+        if ($this->leaveRoom) {
+            return $this->storageCapacity - $this->leftoverWeightNeededForFirstRefine();
+        }
+        return $this->storageCapacity;
     }
 
     public function oneRunTotalWeight(): int

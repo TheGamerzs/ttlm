@@ -39,6 +39,16 @@
 
                 @if($trainYardStorage)
                 <h4>Pickups That Can Be Stored In Train Yard ({{ number_format($this->trainYardStorage) }} kg)</h4>
+
+                <div>
+                    <div class="form-check form-switch">
+                        <input wire:model="leaveRoomForProcessed" class="form-check-input" type="checkbox" role="switch" id="leave-room">
+                        <label class="form-check-label" for="leave-room">
+                            Ensure there is enough room for one load of processed items.
+                        </label>
+                    </div>
+                </div>
+
                 <table class="table table-sm border">
                     @foreach($trainYardPickups as $trainYardPickup)
                     <tr>
@@ -75,7 +85,7 @@
                 </div>
                 <hr>
                 <h4 class="text-center">
-                    Pickup Counts Required To Make
+                    Pickup Runs Still Required
                     <a target="_blank" href="{{ route('shoppingList', ['recipeName' => $itemName, 'count' => $pickupCountsYield]) }}">
                         <i class="bi bi-cart4 ms-2 fs-5 text-info" title="Full Shopping List"></i>
                     </a>

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Contracts\Factory as Socialite;
 use Laravel\Socialite\Two\InvalidStateException;
 use PhpParser\Node\Stmt\TryCatch;
+use Ramsey\Collection\Collection;
 
 class DiscordController
 {
@@ -48,6 +49,7 @@ class DiscordController
             Cache::put($user->id . 'apiIdAttempts', 5);
             $user->setTTIdFromApi();
             $user->full_trailer_alerts = collect(["scrap_ore", "scrap_emerald", "petrochem_petrol", "petrochem_propane", "scrap_plastic", "scrap_copper", "refined_copper", "refined_zinc"]);
+            $user->hidden_sellables = collect();
             $user->save();
         } else {
             $user->touch();

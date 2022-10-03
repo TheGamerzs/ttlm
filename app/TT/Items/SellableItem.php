@@ -2,6 +2,7 @@
 
 namespace App\TT\Items;
 
+use App\Models\User;
 use App\TT\Storage;
 
 class SellableItem extends Item
@@ -101,9 +102,13 @@ class SellableItem extends Item
         ],
     ];
 
-    public static function getAllForStorage(Storage $storage): \Illuminate\Support\Collection|Storage
+    public static function getAllForStorage(Storage $storage, User $user = null): \Illuminate\Support\Collection|Storage
     {
         $sellable = $storage->whereIn('name', array_keys(self::$data));
+
+        if ($user) {
+            $sellable = $sellable->whereNotIn('name', $user->hidden_sellables);
+        }
 
         return $sellable->map(function ($item) {
             return new self($item->name, $item->count);

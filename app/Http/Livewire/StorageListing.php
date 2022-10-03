@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\TT\Items\SellableItem;
 use App\TT\Items\Weights;
 use App\TT\StorageFactory;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,8 @@ class StorageListing extends Component
 
     public string $itemToAddToFullTrailerAlerts = '';
 
+    public array $hiddenSellablesInputs = [];
+
     public function mount()
     {
         $lookup = collect([
@@ -37,6 +40,16 @@ class StorageListing extends Component
         $this->itemToAddToFullTrailerAlerts = collect(Weights::$weights)->keys()->reject(function ($name) use ($lookup) {
             return $lookup->contains($name);
         })->first();
+
+        $this->hiddenSellablesInputs = collect(SellableItem::$data)->mapWithKeys(function ($item, $key) {
+            return [$key => ! Auth::user()->hidden_sellables->contains($key)];
+        })->toArray();
+    }
+
+    public function updatedHiddenSellablesInputs()
+    {
+        Auth::user()->hidden_sellables = collect($this->hiddenSellablesInputs)->reject()->keys();
+        Auth::user()->save();
     }
 
     public function addItemToFullTrailerAlerts()
@@ -74,7 +87,7 @@ class StorageListing extends Component
 
         return view('livewire.storage-listing')->with([
             'storage' => $storage->splitAndZip(),
-            'sellableItems' => \App\TT\Items\SellableItem::getAllForStorage($storage)
+            'sellableItems' => \App\TT\Items\SellableItem::getAllForStorage($storage, Auth::user())
         ]);
     }
 }

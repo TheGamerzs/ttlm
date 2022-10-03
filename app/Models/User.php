@@ -18,7 +18,8 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $casts = [
-        'full_trailer_alerts' => 'collection'
+        'full_trailer_alerts' => 'collection',
+        'hidden_sellables' => 'collection'
     ];
 
     public function setTTIdFromApi(): bool

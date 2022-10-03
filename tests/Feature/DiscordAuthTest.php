@@ -23,7 +23,8 @@ it('creates a new user and logs them in', function () {
         ->and(Auth::check())->toBeTrue()
         ->and(Auth::user()->tt_id)->toBe(645753)
         ->and(Auth::user()->full_trailer_alerts)->toBeInstanceOf(\Illuminate\Support\Collection::class)
-        ->and(Auth::user()->full_trailer_alerts->count())->toBe(8);
+        ->and(Auth::user()->full_trailer_alerts->count())->toBe(8)
+        ->and(Auth::user()->hidden_sellables)->toBeInstanceOf(\Illuminate\Support\Collection::class);
 
 });
 

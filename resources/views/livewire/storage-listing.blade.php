@@ -90,6 +90,20 @@
     <h3 class="text-center">
         Sellables (${{ number_format($sellableItems->sum(function ($item) { return $item->totalValue(); })) }})
     </h3>
+
+    <x-collapsable-card title="Sellables Settings" :open="true">
+        <div class="row">
+            @foreach($hiddenSellablesInputs as $name => $item)
+                <div class="col-3">
+                    <div class="form-check form-switch">
+                        <input wire:model="hiddenSellablesInputs.{{ $name }}" class="form-check-input" type="checkbox" role="switch" id="{{ $name }}hide">
+                        <label class="form-check-label" for="{{ $name }}hide">{{ $name }}</label>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </x-collapsable-card>
+
     <table class="table mb-5">
         <thead>
             <tr>

@@ -38,7 +38,7 @@
                 <hr>
 
                 @if($trainYardStorage)
-                <h4>Pickups That Can Be Stored In Train Yard ({{ number_format($this->trainYardStorage) }} kg)</h4>
+                <h4>Pickups That Can Be Stored In Train Yard ({{ number_format($this->trainYardStorage - (int) $capacityUsedTY) }} kg)</h4>
 
                 <div>
                     <div class="form-check form-switch">

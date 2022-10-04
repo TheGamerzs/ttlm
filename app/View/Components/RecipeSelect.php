@@ -23,9 +23,7 @@ class RecipeSelect extends ItemSelect
                 return [$idName => ItemNames::getName($idName) ?? $idName];
             })->sort();
         } else {
-            return Recipes::getNamesIfComponentsExist()->mapWithKeys(function ($idName) {
-                return [$idName => ItemNames::getName($idName) ?? $idName];
-            })->sort();
+            return Recipes::getNamesIfComponentsExist(true);
         }
     }
 }

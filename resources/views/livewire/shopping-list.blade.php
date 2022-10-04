@@ -8,8 +8,12 @@
             <div class="col-1">
                 <input class="form-control d-inline" type="text" wire:model.debounce="count" style="width: 8rem">
             </div>
-            <div class="col-2">
-                <x-recipe-select change-wire-model="recipeName" :include-base-items="false" />
+            <div class="col-3">
+                <x-select-choices wire:model="recipeName" class="form-control">
+                    @foreach (App\TT\Recipes::getNamesIfComponentsExist(true) as $internal => $display)
+                        <option value="{{ $internal }}">{{ $display }}</option>
+                    @endforeach
+                </x-select-choices>
             </div>
         </div>
     </h1>

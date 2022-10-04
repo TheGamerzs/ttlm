@@ -11,7 +11,7 @@ use Livewire\Component;
 
 class ShoppingList extends Component
 {
-    public string $recipeName = 'house';
+    public array|string $recipeName = 'house';
 
     public int $truckCapacity;
 

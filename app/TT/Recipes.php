@@ -2,6 +2,8 @@
 
 namespace App\TT;
 
+use App\TT\Items\ItemNames;
+
 class Recipes
 {
     public static function getRecipe($recipe = null): array
@@ -592,10 +594,18 @@ class Recipes
         return array_keys(self::getAllRecipes());
     }
 
-    public static function getNamesIfComponentsExist()
+    public static function getNamesIfComponentsExist($mapPrettyNames = false)
     {
-        return collect(self::getAllRecipes())->filter(function ($item, $key) {
+        $return = collect(self::getAllRecipes())->filter(function ($item, $key) {
             return count($item['components']) && $key != 'liquid_water';
         })->keys();
+
+        if ($mapPrettyNames) {
+            $return = $return->mapWithKeys(function ($idName) {
+                return [$idName => ItemNames::getName($idName) ?? $idName];
+            })->sort();
+        }
+
+        return $return;
     }
 }

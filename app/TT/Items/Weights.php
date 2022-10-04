@@ -87,6 +87,7 @@ class Weights
         'vehicle_shipment|savanna|Coil Savanna|car' => 100,
         'vehicle_shipment|vertice|Hijak Vertice|car' => 100,
         'vehicle_shipment|futo|Karin Futo|car' => 100,
+        'vehicle_shipment|landstalker2|Landstalker XL|car' => 100,
         'repair_shop' => 0,
 
         'upgrade_kit_blistata' => 20,

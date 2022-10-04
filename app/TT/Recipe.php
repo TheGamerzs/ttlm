@@ -28,7 +28,12 @@ class Recipe
         $this->components    = collect();
     }
 
-    public function name(): string
+    public function displayName(): string
+    {
+        return $this->inventoryItem->name();
+    }
+
+    public function internalName(): string
     {
         return $this->inventoryItem->name;
     }

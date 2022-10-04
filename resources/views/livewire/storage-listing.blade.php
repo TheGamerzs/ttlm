@@ -23,9 +23,9 @@
                         <tr>
                             <td>
                                 <x-add-to-game-plan
-                                    text="Run a full trailer ({{ $inventoryItem->howManyCanFitInSpace($truckCapacity) }}) of {{ $inventoryItem->name }}s "
+                                    text="Run a full trailer ({{ $inventoryItem->howManyCanFitInSpace($truckCapacity) }}) of {{ $inventoryItem->name() }}s "
                                 />
-                                {{ $inventoryItem->name }}
+                                {{ $inventoryItem->name() }}
                             </td>
                             <td class="text-end">
                                 {{ $inventoryItem->howManyCanFitInSpace($truckCapacity) }}
@@ -48,7 +48,7 @@
                 <ul class="list-group list-group-flush">
                     @foreach(Auth::user()->full_trailer_alerts as $item)
                         <li class="list-group-item d-flex justify-content-between">
-                            {{ $item }}
+                            {{ \App\TT\Items\ItemNames::getName($item) ?? $item }}
                             <i class="bi bi-trash cursor-pointer text-danger" wire:click.prevent="removeItemFromFullTrailerAlerts('{{ $item }}')"></i>
                         </li>
                     @endforeach
@@ -85,7 +85,7 @@
         @foreach($storage as $chunk)
             <tr>
                 @foreach($chunk as $inventoryItem)
-                    <td>{{ $inventoryItem?->name }}</td>
+                    <td>{{ $inventoryItem?->name() }}</td>
                     <td>{{ $inventoryItem?->count }}</td>
                     <td>{{ $inventoryItem?->getTotalWeight() }}</td>
                 @endforeach
@@ -104,7 +104,7 @@
                 <div class="col-3">
                     <div class="form-check form-switch">
                         <input wire:model="hiddenSellablesInputs.{{ $name }}" class="form-check-input" type="checkbox" role="switch" id="{{ $name }}hide">
-                        <label class="form-check-label" for="{{ $name }}hide">{{ $name }}</label>
+                        <label class="form-check-label" for="{{ $name }}hide">{{ \App\TT\Items\ItemNames::getName($name) ?? $name }}</label>
                     </div>
                 </div>
             @endforeach
@@ -127,9 +127,9 @@
             <tr>
                 <td>
                     <x-add-to-game-plan
-                        text="Sell a full trailer ({{ $fullTruckCount = $sellableItem->howManyCanFitInSpace($truckCapacity) }}) of {{ $sellableItem->name }} to {{ $sellableItem->location }} for ${{ number_format($sellableItem->getValueFor($fullTruckCount)) }}."
+                        text="Sell a full trailer ({{ $fullTruckCount = $sellableItem->howManyCanFitInSpace($truckCapacity) }}) of {{ $sellableItem->name() }} to {{ $sellableItem->location }} for ${{ number_format($sellableItem->getValueFor($fullTruckCount)) }}."
                     />
-                    {{ $sellableItem->name }}
+                    {{ $sellableItem->name() }}
                 </td>
                 <td>{{ $sellableItem->count }}</td>
                 <td>${{ number_format($sellableItem->totalValue()) }}</td>

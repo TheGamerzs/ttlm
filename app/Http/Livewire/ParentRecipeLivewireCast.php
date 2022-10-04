@@ -15,6 +15,6 @@ trait ParentRecipeLivewireCast
 
     public function dehydrateParentRecipe(Recipe $parentRecipe): void
     {
-        $this->parentRecipe = $parentRecipe->name();
+        $this->parentRecipe = $parentRecipe->internalName();
     }
 }

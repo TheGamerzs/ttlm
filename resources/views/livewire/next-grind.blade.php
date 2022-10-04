@@ -2,7 +2,7 @@
 
     <h3 class="text-center">Next Grind</h3>
     <h5 class="text-center">
-        <x-add-to-game-plan text="Make {{ $nextRecipeToGrind->name() }}." />
+        <x-add-to-game-plan text="Make {{ $nextRecipeToGrind->displayName() }}." />
         <x-parent-recipe-table-crafting-link :show-recipe-count="false"
                                              :crafting-material="$nextRecipeToGrind->inventoryItem" />
     </h5>
@@ -41,7 +41,7 @@
             @foreach($this->nextRecipeToGrind->components as $craftingMaterial)
                 <tr>
                     <td>
-                        {{ $craftingMaterial->name }}
+                        {{ $craftingMaterial->name() }}
                     </td>
                     <td>{{ $craftingMaterial->recipeCount }}</td>
                     <td>{{ $craftingMaterial->inStorage }}</td>
@@ -82,7 +82,7 @@
             <tbody>
             @foreach($this->nextRecipeToGrind->components as $craftingMaterial)
                 <tr>
-                    <td>{{ $craftingMaterial->name }}</td>
+                    <td>{{ $craftingMaterial->name() }}</td>
                     <td>{{ $this->nextRecipeToGrind->craftableRecipesFromStorage() * $craftingMaterial->recipeCount }}</td>
                     <td @class(['table-danger' => $this->haveEnoughForIWant()])>
                         {{ (int)$this->iWant * $craftingMaterial->recipeCount / $craftingMaterial->recipe->makes }}
@@ -125,8 +125,9 @@
                 </tbody>
             </table>
             <p class="text-center">
-                {{ (int)ceil(($this->countNeededForParentRecipe - $parentRecipe->getComponent($nextRecipeToGrind->name())->inStorage) / $runPossibility[$nextRecipeToGrind->name()]) }}
-                Runs Required for {{ $parentRecipe->howManyRecipesCanFit($truckCapacity) }} {{ $parentRecipe->name() }}s
+                {{ (int)ceil(($this->countNeededForParentRecipe - $parentRecipe->getComponent($nextRecipeToGrind->internalName())->inStorage) / $runPossibility[$nextRecipeToGrind->internalName()]) }}
+                Runs Required
+                for {{ $parentRecipe->howManyRecipesCanFit($truckCapacity) }} {{ $parentRecipe->displayName() }}s
             </p>
         @endforeach
     @endif

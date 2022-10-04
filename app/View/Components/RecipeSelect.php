@@ -2,7 +2,9 @@
 
 namespace App\View\Components;
 
+use App\TT\Items\ItemNames;
 use App\TT\Recipes;
+use Illuminate\Support\Collection;
 
 class RecipeSelect extends ItemSelect
 {
@@ -14,12 +16,16 @@ class RecipeSelect extends ItemSelect
         $this->includeBaseItems = $includeBaseItems;
     }
 
-    public function getItemNames(): array
+    public function getItemNames(): array|Collection
     {
         if ($this->includeBaseItems) {
-            return Recipes::getAllNames();
+            return collect(Recipes::getAllNames())->mapWithKeys(function ($idName) {
+                return [$idName => ItemNames::getName($idName) ?? $idName];
+            })->sort();
         } else {
-            return Recipes::getNamesIfComponentsExist()->toArray();
+            return Recipes::getNamesIfComponentsExist()->mapWithKeys(function ($idName) {
+                return [$idName => ItemNames::getName($idName) ?? $idName];
+            })->sort();
         }
     }
 }

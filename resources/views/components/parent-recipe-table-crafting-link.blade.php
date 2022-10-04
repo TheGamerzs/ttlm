@@ -5,7 +5,7 @@
     @if($showRecipeCount)
         ({{ $craftingMaterial->recipeCount }})
     @endif
-    {{ $craftingMaterial->name }}
+    {{ $craftingMaterial->name() }}
 
 @if($shouldLink)
 </a>

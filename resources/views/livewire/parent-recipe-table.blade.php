@@ -3,8 +3,8 @@
 ?>
 <div>
     <h3 class="text-center">
-        <x-add-to-game-plan text="Make {{ $this->countCanBeMade }} {{ $parentRecipe->name() }}s" />
-        {{ $this->countCanBeMade }} {{ $parentRecipe->name() }}s Can Be Made
+        <x-add-to-game-plan text="Make {{ $this->countCanBeMade }} {{ $parentRecipe->displayName() }}s" />
+        {{ $this->countCanBeMade }} {{ $parentRecipe->displayName() }}s Can Be Made
     </h3>
     <h5 class="text-center">Trailer can fit {{ $parentRecipe->howManyRecipesCanFit($truckCapacity) }}</h5>
     @if($parentRecipe->craftingLocation)

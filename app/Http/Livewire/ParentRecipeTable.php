@@ -59,7 +59,7 @@ class ParentRecipeTable extends Component
 
     public function getFillTruckCount(CraftingMaterial $craftingMaterial): int
     {
-        if ($this->parentRecipe->name() == 'house') {
+        if ($this->parentRecipe->internalName() == 'house') {
             return $craftingMaterial->recipeCount * $this->parentRecipe->mostLimitedBy()->recipesCraftableFromStorage();
         }
         return $craftingMaterial->recipeCount * $this->parentRecipe->howManyRecipesCanFit($this->truckCapacity);
@@ -67,7 +67,7 @@ class ParentRecipeTable extends Component
 
     public function getFillTruckString(): string
     {
-        if ($this->parentRecipe->name() == 'house') {
+        if ($this->parentRecipe->internalName() == 'house') {
             return 'Transfer';
         }
         return 'Fill Trailer';

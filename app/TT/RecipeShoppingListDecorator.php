@@ -19,7 +19,7 @@ class RecipeShoppingListDecorator
     public function __construct(Recipe $recipe, int $count)
     {
         $this->recipe = $recipe;
-        $this->recipeName = $recipe->name();
+        $this->recipeName = $recipe->internalName();
         $this->count = $count;
         $this->componentRecipes = collect();
         $this->checkStorage();
@@ -61,7 +61,7 @@ class RecipeShoppingListDecorator
 
     public function getType(): string
     {
-        $name = Str::of($this->recipe->name());
+        $name = Str::of($this->recipe->internalName());
 
         if (ShoppingListBuilder::$scrapOverrides->contains($name)) {
             return 'scrap';

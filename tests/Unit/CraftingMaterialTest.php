@@ -20,7 +20,7 @@ it('calculates total weight needed', function () {
 
 it('accepts a storage collection and assigns inStorage parameter', function () {
 
-    $recipe = new Recipe(new Item('testing_fake'));
+    $recipe = new Recipe(new Item('house'));
     $ceramicTiles = new CraftingMaterial('crafted_ceramictiles', $recipe);
     $storage = new Storage([
         new InventoryItem('crafted_ceramictiles', 4)
@@ -33,7 +33,7 @@ it('accepts a storage collection and assigns inStorage parameter', function () {
 
 it('calculates how many are craftable from storage based on count assigned by recipe', function () {
 
-    $recipe = new Recipe(new Item('testing_fake'));
+    $recipe = new Recipe(new Item('house'));
 
     $ceramicTiles = new CraftingMaterial('crafted_ceramictiles', $recipe, 2);
     $storage = new Storage([

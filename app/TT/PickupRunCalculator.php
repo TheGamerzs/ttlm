@@ -95,8 +95,8 @@ class PickupRunCalculator
         $final = collect($runData)->map(function ($runData, $runName) {
             return $this->easyCalculations($runName, ...$runData);
         });
-        [$final['planks'], $final['sawdust']] = $this->sawMillRun();
-        $final['water'] = $this->waterRun();
+        [$final['refined_planks'], $final['tcargodust']] = $this->sawMillRun();
+        $final['liquid_water_raw'] = $this->waterRun();
 
         return $final;
     }
@@ -127,13 +127,13 @@ class PickupRunCalculator
 
     protected function waterRun()
     {
-        $this->baseItemsCounts['water'] = 0;
-        $this->baseItemsCosts['water'] = 0;
+        $this->baseItemsCounts['liquid_water_raw'] = 0;
+        $this->baseItemsCosts['liquid_water_raw'] = 0;
         $runs = 0;
 
         if (array_key_exists('liquid_water_raw', $this->neededCounts)) {
-            $this->baseItemsCounts['water'] = $this->neededCounts['liquid_water_raw']['needed'];
-            $this->baseItemsCosts['water'] = $this->neededCounts['liquid_water_raw']['needed'] * 5000;
+            $this->baseItemsCounts['liquid_water_raw'] = $this->neededCounts['liquid_water_raw']['needed'];
+            $this->baseItemsCosts['liquid_water_raw'] = $this->neededCounts['liquid_water_raw']['needed'] * 5000;
 
             $waterRecipe = RecipeFactory::get(new Item('liquid_water'));
             $runs = $this->neededCounts['liquid_water_raw']['needed'] / $waterRecipe->howManyRecipesCanFit($this->truckCapacity);
@@ -147,14 +147,14 @@ class PickupRunCalculator
         $sawdustRuns = 0;
         $logsFitInTrailer = (int) floor( $this->truckCapacity / $logWeight = 60 );
 
-        $this->baseItemsCosts['planks'] = 0;
-        $this->baseItemsCosts['sawdust'] = 0;
+        $this->baseItemsCosts['refined_planks'] = 0;
+        $this->baseItemsCosts['tcargodust'] = 0;
         $this->baseItemsCounts['logs'] = 0;
 
         // Find out planks
         if (array_key_exists('refined_planks', $this->neededCounts)) {
             $this->baseItemsCounts['logs'] = $this->neededCounts['refined_planks']['needed'];
-            $this->baseItemsCosts['planks'] = $this->neededCounts['refined_planks']['needed'] * 8000;
+            $this->baseItemsCosts['refined_planks'] = $this->neededCounts['refined_planks']['needed'] * 8000;
             $plankRuns = (int) ceil($this->neededCounts['refined_planks']['needed'] / $logsFitInTrailer);
         }
 
@@ -162,7 +162,7 @@ class PickupRunCalculator
         if (array_key_exists('tcargodust', $this->neededCounts)) {
             $sawdustNeededAfterPlankRuns = $this->neededCounts['tcargodust']['needed'] - ($plankRuns * 2);
             $this->baseItemsCounts['logs'] += (int) ceil($sawdustNeededAfterPlankRuns / 10);
-            $this->baseItemsCosts['sawdust'] = (int) ($sawdustNeededAfterPlankRuns / 10 * 8000);
+            $this->baseItemsCosts['tcargodust'] = (int) ($sawdustNeededAfterPlankRuns / 10 * 8000);
             if ($sawdustNeededAfterPlankRuns > 0) {
                 $sawdustRuns = (int) ceil($sawdustNeededAfterPlankRuns / 10 / $logsFitInTrailer);
             }

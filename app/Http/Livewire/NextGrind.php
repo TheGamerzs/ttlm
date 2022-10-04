@@ -68,7 +68,7 @@ class NextGrind extends Component
 
     public function dehydrateNextRecipeToGrind(Recipe $nextRecipeToGrind): void
     {
-        $this->nextRecipeToGrind = $nextRecipeToGrind->name();
+        $this->nextRecipeToGrind = $nextRecipeToGrind->internalName();
     }
 
     public function setNextRecipeToGrind(string $value)
@@ -86,7 +86,7 @@ class NextGrind extends Component
 
     public function getCountNeededForParentRecipeProperty(): int
     {
-        return $this->parentRecipe->components->firstWhere('name', $this->nextRecipeToGrind->name())->recipeCount
+        return $this->parentRecipe->components->firstWhere('name', $this->nextRecipeToGrind->internalName())->recipeCount
             * $this->parentRecipe->howManyRecipesCanFit($this->truckCapacity);
     }
 
@@ -120,11 +120,11 @@ class NextGrind extends Component
     {
         return match ($this->nextRecipeToGrind->pickupRun) {
             'quarry' => PickupRun::quarry($this->truckCapacity),
-            'logging camp' => PickupRun::logging($this->truckCapacity, $this->nextRecipeToGrind->name()),
+            'logging camp' => PickupRun::logging($this->truckCapacity, $this->nextRecipeToGrind->internalName()),
             'trash' => PickupRun::trash($this->truckCapacity),
             'electronics' => PickupRun::electronics($this->truckCapacity),
             'toxic waste' => PickupRun::toxicWaste($this->truckCapacity),
-            'crude oil' => PickupRun::crudeOil($this->truckCapacity, $this->nextRecipeToGrind->name()),
+            'crude oil' => PickupRun::crudeOil($this->truckCapacity, $this->nextRecipeToGrind->internalName()),
             'raw gas' => PickupRun::rawGas($this->truckCapacity),
             default => []
         };

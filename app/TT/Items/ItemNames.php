@@ -4,6 +4,7 @@ namespace App\TT\Items;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class ItemNames
 {
@@ -87,6 +88,7 @@ class ItemNames
         'vehicle_shipment|savanna|Coil Savanna|car' => 'Vehicle Shipment: Coil Savanna',
         'vehicle_shipment|vertice|Hijak Vertice|car' => 'Vehicle Shipment: Hijak Vertice',
         'vehicle_shipment|futo|Karin Futo|car' => 'Vehicle Shipment: Karin Futo',
+        'vehicle_shipment|landstalker2|Landstalker XL|car' => 'Vehicle Shipment: Karin Futo',
         'repair_shop' => 'Temporary Repair Shop',
 
         'upgrade_kit_blistata' => 'Upgrade Kit (Go Go Monkey Blista)',
@@ -102,7 +104,6 @@ class ItemNames
         'rts_air_license' => 'R.T.S.: Aviator License',
 
         'house' => 'Completed House',
-        'testing_fake' => 'Fake Testing Item'
     ];
 
     protected static function logMissingItemName(string $itemName): void
@@ -118,7 +119,7 @@ class ItemNames
     public static function getName(string $itemName): ?string
     {
         if (array_key_exists($itemName, self::$names)) {
-            return self::$names[$itemName];
+            return Str::of(self::$names[$itemName])->after(': ');
         }
 
         self::logMissingItemname($itemName);

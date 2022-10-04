@@ -25,16 +25,16 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <td>Pickup Items</td>
+                    <td>Pickup Item Counts</td>
                     <td>Overall</td>
                     <td>Still Needed</td>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach(collect($fullList['pickupCalculator']->baseItemsCounts)->filter() as $run => $cost)
+                @foreach(collect($fullList['pickupCalculator']->baseItemsCounts)->filter() as $run => $itemsCount)
                     <tr>
-                        <td>{{ $run }}</td>
-                        <td>{{ number_format($cost) }}</td>
+                        <td>{{ \App\TT\Items\ItemNames::getName($run) ?? $run }}</td>
+                        <td>{{ number_format($itemsCount) }}</td>
                         <td>{{ number_format($afterStorageList['pickupCalculator']->baseItemsCounts[$run]) }}</td>
                     </tr>
                 @endforeach
@@ -53,7 +53,7 @@
                 <tbody>
                 @foreach(collect($fullList['pickupCalculator']->baseItemsCosts)->filter() as $run => $cost)
                     <tr>
-                        <td>{{ $run }}</td>
+                        <td>{{ \App\TT\Items\ItemNames::getName($run) ?? $run }}</td>
                         <td>${{ number_format($cost) }}</td>
                         <td>${{ number_format($afterStorageList['pickupCalculator']->baseItemsCosts[$run]) }}</td>
                     </tr>

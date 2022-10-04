@@ -1,5 +1,5 @@
 <select wire:model="{{ $changeWireModel ?? 'itemName'}}" class="form-select">
-    @foreach($getItemNames() as $name)
-        <option value="{{ $name }}">{{ $name }}</option>
+    @foreach($getItemNames() as $idName => $prettyName)
+        <option value="{{ $idName }}">{{ $prettyName }}</option>
     @endforeach
 </select>

@@ -19,9 +19,9 @@
                     <li class="list-group-item d-flex justify-content-center border-bottom-0">
                         <h4>
                             <x-add-to-game-plan
-                                text="Take a full load of components for {{ $recipe->name() }} to {{ $recipe->craftingLocation }}."
+                                    text="Take a full load of components for {{ $recipe->displayName() }} to {{ $recipe->craftingLocation }}."
                             />
-                            {{ $recipe->name() }}
+                            {{ $recipe->displayName() }}
                         </h4>
                     </li>
                     <li class="list-group-item text-center border-top-0 border-bottom-0">
@@ -31,7 +31,7 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-around border-top-0">
                         @foreach($recipe->components as $craftingMaterial)
-                            <span>{{ $craftingMaterial->name }}: {{ $recipe->howManyRecipesCanFit($truckCapacity - (int) $capacityUsed) * $craftingMaterial->recipeCount }}</span>
+                            <span>{{ $craftingMaterial->name() }}: {{ $recipe->howManyRecipesCanFit($truckCapacity - (int) $capacityUsed) * $craftingMaterial->recipeCount }}</span>
                         @endforeach
                     </li>
                 @endforeach

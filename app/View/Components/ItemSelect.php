@@ -2,8 +2,10 @@
 
 namespace App\View\Components;
 
+use App\TT\Items\ItemNames;
 use App\TT\Items\Weights;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Collection;
 use Illuminate\View\Component;
 
 class ItemSelect extends Component
@@ -12,9 +14,9 @@ class ItemSelect extends Component
     {
     }
 
-    public function getItemNames(): array
+    public function getItemNames(): array|Collection
     {
-        return array_keys(Weights::$weights);
+        return collect(ItemNames::$names)->sort();
     }
 
     public function render(): View

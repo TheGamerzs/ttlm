@@ -11,6 +11,14 @@ it('calculates how many can fit in a defined space', function () {
 
 });
 
+it('shows a pretty name if one exists', function () {
+
+    $ceramicTiles = new Item('crafted_ceramictiles');
+
+    expect($ceramicTiles->name())->toBe('Truck Cargo: Ceramic Tiles');
+
+});
+
 it('gets a recipe based on itself', function () {
 
     $item = new Item('crafted_ceramictiles');

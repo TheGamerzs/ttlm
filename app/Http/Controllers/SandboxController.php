@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\TT\Items\Item;
+use App\TT\Items\ItemNames;
+use App\TT\Items\Weights;
 use App\TT\RecipeFactory;
+use App\TT\Recipes;
 use App\TT\ShoppingListBuilder;
 use App\TT\Storage;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class SandboxController extends Controller
 {
@@ -17,8 +23,26 @@ class SandboxController extends Controller
 
     public function index()
     {
-        dd(Cache::getStore());
+        Recipes::getNamesIfComponentsExist()->mapWithKeys(function ($idName) {
+            return [$idName => ItemNames::getName($idName) ?? $idName];
+        });
+    }
 
+    public function lookup()
+    {
+        $items = collect(ItemNames::$names)
+            ->reject()
+            ->reject(function ($value, $itemName) {
+                return Str::of($itemName)->startsWith('vehicle_shipment');
+            })
+            ->mapWithKeys(function ($weight, $itemName) {
+            return [$itemName => [
+                'myWeight' => $weight,
+                ...Http::withOptions(['verify' => false])->get('https://ttapi.elfshot.xyz/items?item=' . $itemName)->json()['data'] ?? []
+            ]];
+        });
+
+        dd($items);
     }
 
     public function missingItemsAfterPulledFromAPI()

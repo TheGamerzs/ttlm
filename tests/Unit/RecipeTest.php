@@ -109,7 +109,7 @@ it('returns a name', function () {
 
     $recipe = RecipeFactory::get(new \App\TT\Items\Item('crafted_ceramictiles'));
 
-    expect($recipe->name())->toBe('crafted_ceramictiles');
+    expect($recipe->displayName())->toBe('Truck Cargo: Ceramic Tiles');
 
 });
 

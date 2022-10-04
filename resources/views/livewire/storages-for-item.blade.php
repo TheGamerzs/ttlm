@@ -1,7 +1,7 @@
 <div>
     <x-collapsable-card title="Where's The Beef?">
         <div class="form-floating">
-            <x-item-select />
+            <x-item-select-only-in-storage />
             <label>Item</label>
         </div>
         <hr>

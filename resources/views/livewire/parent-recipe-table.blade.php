@@ -6,7 +6,7 @@
         <x-add-to-game-plan text="Make {{ $this->countCanBeMade }} {{ $parentRecipe->name() }}s" />
         {{ $this->countCanBeMade }} {{ $parentRecipe->name() }}s Can Be Made
     </h3>
-    <h5 class="text-center">Trailer can fit {{ $parentRecipe->howManyCanFit($truckCapacity) }}</h5>
+    <h5 class="text-center">Trailer can fit {{ $parentRecipe->howManyRecipesCanFit($truckCapacity) }}</h5>
     @if($parentRecipe->craftingLocation)
         <h5 class="text-center">Crafted at {{ $parentRecipe->craftingLocation }}</h5>
     @endif
@@ -32,7 +32,8 @@
                 <td>{{ $craftingMaterial->inStorage }}</td>
                 <td>{{ $craftingMaterial->recipesCraftableFromStorage() }}</td>
                 <td>{{ $this->getFillTruckCount($craftingMaterial) }}</td>
-                <td class="cursor-pointer" wire:click="$emit('updateNextRecipeToGrind', '{{ $craftingMaterial->name }}')">
+                <td class="cursor-pointer"
+                    wire:click="$emit('updateNextRecipeToGrind', '{{ $craftingMaterial->name }}')">
                     <i class="bi bi-arrow-right-square-fill text-success fs-3"></i>
                 </td>
             </tr>

@@ -8,7 +8,8 @@
     </h5>
 
     @unless($this->isPickupRun())
-        <h5 class="text-center">Trailer can fit components for {{ $this->nextRecipeToGrind->howManyCanFit($truckCapacity) }} recipes</h5>
+        <h5 class="text-center">Trailer can fit components
+            for {{ $this->nextRecipeToGrind->howManyRecipesCanFit($truckCapacity) }} recipes</h5>
     @endunless
 
     @if($this->nextRecipeToGrind->craftingLocation)
@@ -52,7 +53,7 @@
 
         <div class="text-center">
             Can Currently Craft: {{ $this->nextRecipeToGrind->craftableItemsFromStorage() }}<br>
-            Needed To Make {{ $parentRecipe->howManyCanFit($truckCapacity) }}:
+            Needed To Make {{ $parentRecipe->howManyRecipesCanFit($truckCapacity) }}:
             {{ $this->countNeededForParentRecipe }}
         </div>
 
@@ -64,15 +65,17 @@
                 <td></td>
                 <td>
                     From Storage ({{ $this->nextRecipeToGrind->craftableItemsFromStorage() }})
-                    <i class="bi bi-info-circle text-info" title="Full Loads: {{ $this->nextRecipeToGrind->howManyFullLoadsFromStorage($truckCapacity) }}"></i>
+                    <i class="bi bi-info-circle text-info"
+                       title="Full Loads: {{ $this->nextRecipeToGrind->howManyFullLoadsFromStorage($truckCapacity) }}"></i>
                 </td>
                 <td @class(['table-danger' => $this->haveEnoughForIWant()])>
                     I Want ({{ $iWant }})
-                    <i class="bi bi-info-circle text-info" title="Full Loads: {{ $this->nextRecipeToGrind->howManyFullLoadsFromCount($truckCapacity, $iWant) }}"></i>
+                    <i class="bi bi-info-circle text-info"
+                       title="Full Loads: {{ $this->nextRecipeToGrind->howManyFullLoadsFromCount($truckCapacity, $iWant) }}"></i>
                 </td>
                 <td @class(['table-danger' => $this->haveEnoughForFullTrailer()])>
                     Full Trailer
-                    ({{ $this->nextRecipeToGrind->howManyCanFit($truckCapacity) * $this->nextRecipeToGrind->makes }})
+                    ({{ $this->nextRecipeToGrind->howManyItemsCanFit($truckCapacity) }})
                 </td>
             </tr>
             </thead>
@@ -85,7 +88,7 @@
                         {{ (int)$this->iWant * $craftingMaterial->recipeCount / $craftingMaterial->recipe->makes }}
                     </td>
                     <td @class(['table-danger' => $this->haveEnoughForFullTrailer()])>
-                        {{ $craftingMaterial->recipeCount * $this->nextRecipeToGrind->howManyCanFit($truckCapacity) }}
+                        {{ $craftingMaterial->recipeCount * $this->nextRecipeToGrind->howManyRecipesCanFit($truckCapacity) }}
                     </td>
                 </tr>
             @endforeach
@@ -123,7 +126,7 @@
             </table>
             <p class="text-center">
                 {{ (int)ceil(($this->countNeededForParentRecipe - $parentRecipe->getComponent($nextRecipeToGrind->name())->inStorage) / $runPossibility[$nextRecipeToGrind->name()]) }}
-                Runs Required for {{ $parentRecipe->howManyCanFit($truckCapacity) }} {{ $parentRecipe->name() }}s
+                Runs Required for {{ $parentRecipe->howManyRecipesCanFit($truckCapacity) }} {{ $parentRecipe->name() }}s
             </p>
         @endforeach
     @endif

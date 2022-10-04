@@ -33,12 +33,17 @@ class Recipe
         return $this->inventoryItem->name;
     }
 
-    public function howManyCanFit(int $capacityKG): int
+    public function howManyRecipesCanFit(int $capacityKG): int
     {
         if ($this->totalWeightOfComponentsToCraft()) {
             return (int)floor($capacityKG / $this->totalWeightOfComponentsToCraft());
         }
         return 0;
+    }
+
+    public function howManyItemsCanFit(int $capacityKG): int
+    {
+        return $this->howManyRecipesCanFit($capacityKG) * $this->makes;
     }
 
     public function totalWeightOfComponentsToCraft(int $count = 1): int
@@ -123,7 +128,7 @@ class Recipe
     public function howManyFullLoadsFromStorage(int $truckCapacity): string
     {
         return number_format(
-            $this->craftableItemsFromStorage() / ($this->howManyCanFit($truckCapacity) * $this->makes),
+            $this->craftableItemsFromStorage() / ($this->howManyItemsCanFit($truckCapacity)),
             1
         );
     }
@@ -131,7 +136,7 @@ class Recipe
     public function howManyFullLoadsFromCount(int $truckCapacity, int $count): string
     {
         return number_format(
-            $count / ($this->howManyCanFit($truckCapacity) * $this->makes),
+            $count / $this->howManyItemsCanFit($truckCapacity),
             1
         );
     }

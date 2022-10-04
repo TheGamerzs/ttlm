@@ -17,14 +17,7 @@ class SandboxController extends Controller
 
     public function index()
     {
-        $list = ShoppingListBuilder::build(
-            RecipeFactory::get(new Item('crafted_batteries')),
-            new Storage(),
-            1,
-            1000
-        );
-
-        dd($list);
+        dd(Cache::getStore());
 
     }
 

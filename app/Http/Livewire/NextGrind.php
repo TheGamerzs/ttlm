@@ -87,7 +87,7 @@ class NextGrind extends Component
     public function getCountNeededForParentRecipeProperty(): int
     {
         return $this->parentRecipe->components->firstWhere('name', $this->nextRecipeToGrind->name())->recipeCount
-            * $this->parentRecipe->howManyCanFit($this->truckCapacity);
+            * $this->parentRecipe->howManyRecipesCanFit($this->truckCapacity);
     }
 
     public function getStorageProperty(): Storage
@@ -132,7 +132,7 @@ class NextGrind extends Component
 
     public function haveEnoughForFullTrailer(): bool
     {
-        return $this->nextRecipeToGrind->craftableItemsFromStorage() < $this->nextRecipeToGrind->howManyCanFit($this->truckCapacity);
+        return $this->nextRecipeToGrind->craftableItemsFromStorage() < $this->nextRecipeToGrind->howManyItemsCanFit($this->truckCapacity);
     }
 
     public function haveEnoughForIWant(): bool

@@ -43,7 +43,7 @@ class RecipesWithFullLoads extends Component
         })->map(function ($item, $key) use ($storage) {
             return RecipeFactory::get(new Item($key))->setInStorageForAllComponents($storage);
         })->filter(function (Recipe $recipe) {
-            return $recipe->craftableRecipesFromStorage() >= $recipe->howManyCanFit($this->truckCapacity - (int)$this->capacityUsed);
+            return $recipe->craftableRecipesFromStorage() >= $recipe->howManyRecipesCanFit($this->truckCapacity - (int)$this->capacityUsed);
         });
     }
 

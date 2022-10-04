@@ -25,7 +25,7 @@ test('howManyCanFit method', function () {
 
     $recipe = RecipeFactory::get(new \App\TT\Items\Item('crafted_copperwire'));
 
-    expect($recipe->howManyCanFit(200))->toBe(3);
+    expect($recipe->howManyRecipesCanFit(200))->toBe(3);
 
 });
 

@@ -136,7 +136,7 @@ class PickupRunCalculator
             $this->baseItemsCosts['water'] = $this->neededCounts['liquid_water_raw']['needed'] * 5000;
 
             $waterRecipe = RecipeFactory::get(new Item('liquid_water'));
-            $runs = $this->neededCounts['liquid_water_raw']['needed'] / $waterRecipe->howManyCanFit($this->truckCapacity);
+            $runs = $this->neededCounts['liquid_water_raw']['needed'] / $waterRecipe->howManyRecipesCanFit($this->truckCapacity);
         }
         return (int) ceil($runs);
     }

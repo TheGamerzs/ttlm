@@ -91,3 +91,21 @@ it('removes an item to full trailer alerts', function () {
 
     expect($user->full_trailer_alerts->contains('scrap_ore'))->toBeFalse();
 });
+
+it('updates the game plan', function () {
+
+    $user = User::factory()->create();
+    $user->updateGamePlan(collect());
+
+    expect(Cache::has($user->id.'gamePlan'))->toBeTrue();
+
+});
+
+it('clears a game plan', function () {
+
+    $user = User::factory()->create();
+    $user->clearGamePlan();
+
+    expect(Cache::has($user->id.'gamePlan'))->toBeFalse();
+
+});

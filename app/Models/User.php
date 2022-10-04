@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -84,6 +85,16 @@ class User extends Authenticatable
             return $itemName == $itemNameToRemove;
         })->sort()->values();
         $this->save();
+    }
+
+    public function updateGamePlan(Collection $gamePlan): void
+    {
+        Cache::put($this->id.'gamePlan', $gamePlan, $thirtyHours = 108000);
+    }
+
+    public function clearGamePlan(): void
+    {
+        Cache::forget($this->id.'gamePlan');
     }
 
 }

@@ -15,18 +15,25 @@
                     <thead>
                     <tr>
                         <td></td>
-                        <td>Fill Trailer</td>
+                        <td class="text-end">Fill Trailer</td>
                     </tr>
                     </thead>
                     <tbody>
                     @forelse($this->fullTrailerAlerts() as $inventoryItem)
                         <tr>
-                            <td>{{ $inventoryItem->name }}</td>
-                            <td>{{ $inventoryItem->howManyCanFitInSpace($truckCapacity) }}</td>
+                            <td>
+                                <x-add-to-game-plan
+                                    text="Run a full trailer ({{ $inventoryItem->howManyCanFitInSpace($truckCapacity) }}) of {{ $inventoryItem->name }}s "
+                                />
+                                {{ $inventoryItem->name }}
+                            </td>
+                            <td class="text-end">
+                                {{ $inventoryItem->howManyCanFitInSpace($truckCapacity) }}
+                            </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="2">Nothing Yet</td>
+                            <td class="text-center" colspan="2">Nothing Yet</td>
                         </tr>
                     @endforelse
                     </tbody>
@@ -118,11 +125,16 @@
         <tbody>
             @foreach ($sellableItems as $sellableItem)
             <tr>
-                <td>{{ $sellableItem->name }}</td>
+                <td>
+                    <x-add-to-game-plan
+                        text="Sell a full trailer ({{ $fullTruckCount = $sellableItem->howManyCanFitInSpace($truckCapacity) }}) of {{ $sellableItem->name }} to {{ $sellableItem->location }} for ${{ number_format($sellableItem->getValueFor($fullTruckCount)) }}."
+                    />
+                    {{ $sellableItem->name }}
+                </td>
                 <td>{{ $sellableItem->count }}</td>
                 <td>${{ number_format($sellableItem->totalValue()) }}</td>
                 <td>
-                    {{ $fullTruckCount = $sellableItem->howManyCanFitInSpace($truckCapacity) }}
+                    {{ $fullTruckCount }}
                     (${{ number_format($sellableItem->getValueFor($fullTruckCount)) }})
                 </td>
                 <td>{{ $sellableItem->location }}</td>

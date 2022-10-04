@@ -10,3 +10,8 @@ Livewire.on('alert', function(title, text, type = 'success') {
         padding: '2em'
     });
 });
+
+const gamePlanModal = new bootstrap.Modal(document.getElementById('gamePlan'), {});
+Livewire.on('openGamePlan', function () {
+    gamePlanModal.show();
+});

@@ -36,6 +36,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('storageManagement') }}">Storage Management</a>
                 </li>
+                @auth
+                <li class="nav-item">
+                    <a class="nav-link cursor-pointer" data-bs-toggle="modal" data-bs-target="#gamePlan">
+                        Game Plan
+                    </a>
+                </li>
+                @endauth
             </ul>
             <ul class="navbar-nav mb-2 mb-md-0">
             @auth
@@ -63,6 +70,9 @@
 </nav>
 <livewire:alert-listener />
 <main class="container mt-5">
+    @auth
+        <livewire:game-plan />
+    @endauth
     {{ $slot }}
 </main>
 </body>

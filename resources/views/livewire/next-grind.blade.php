@@ -2,6 +2,7 @@
 
     <h3 class="text-center">Next Grind</h3>
     <h5 class="text-center">
+        <x-add-to-game-plan text="Make {{ $nextRecipeToGrind->name() }}." />
         <x-parent-recipe-table-crafting-link :show-recipe-count="false"
                                              :crafting-material="$nextRecipeToGrind->inventoryItem" />
     </h5>

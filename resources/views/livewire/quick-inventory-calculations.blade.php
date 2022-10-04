@@ -93,7 +93,10 @@
                 <ul class="list-group">
                     @foreach($pickupCounts as $name => $count)
                         <li class="list-group-item d-flex justify-content-between">
-                            <span>{{ \Illuminate\Support\Str::title($name) }}</span>
+                            <span>
+                                <x-add-to-game-plan text="Make {{ $count }} {{ $name }} runs." />
+                                {{ \Illuminate\Support\Str::title($name) }}
+                            </span>
                             <span>{{ $count }}</span>
                         </li>
                     @endforeach

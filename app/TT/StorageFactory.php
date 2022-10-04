@@ -90,9 +90,13 @@ class StorageFactory
             });
     }
 
-    public static function getRegisteredNames(): array
+    public static function getRegisteredNames(bool $mapPrettyNames = false): array|Collection
     {
-        return array_keys(self::$storages);
+        if (! $mapPrettyNames) return array_keys(self::$storages);
+
+        return collect(self::$storages)->mapWithKeys(function ($storage, $internalName) {
+            return [$internalName => self::getPrettyName($internalName)];
+        });
     }
 
     public static function getCountFromCombinedForItem(Item $item): int

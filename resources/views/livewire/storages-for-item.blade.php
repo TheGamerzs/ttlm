@@ -1,8 +1,11 @@
 <div>
     <x-collapsable-card title="Where's The Beef?">
-        <div class="form-floating">
-            <x-item-select-only-in-storage />
-            <label>Item</label>
+        <div class="text-center">
+            <x-select-choices wire:model="itemName">
+                @foreach($this->getItemNames() as $internalName => $displayName)
+                    <option value="{{ $internalName }}">{{ $displayName }}</option>
+                @endforeach
+            </x-select-choices>
         </div>
         <hr>
         <ul class="list-group">

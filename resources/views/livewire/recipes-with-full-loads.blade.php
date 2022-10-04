@@ -4,9 +4,12 @@
 ?>
 <div>
     <x-collapsable-card title="Full Loads Ready">
-        <div class="form-floating">
-            <x-storage-select />
-            <label>Storage</label>
+        <div class="text-center">
+            <x-select-choices wire:model="storageName">
+                @foreach(\App\TT\StorageFactory::getRegisteredNames(true) as $internalName => $displayName)
+                    <option value="{{ $internalName }}">{{ $displayName }}</option>
+                @endforeach
+            </x-select-choices>
         </div>
         <div class="form-floating mt-1">
             <input type="text" class="form-control" id="capacityUsed" wire:model="capacityUsed" />

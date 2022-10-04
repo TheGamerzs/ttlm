@@ -9,6 +9,7 @@ use App\TT\RecipeFactory;
 use App\TT\Recipes;
 use App\TT\ShoppingListBuilder;
 use App\TT\Storage;
+use App\TT\StorageFactory;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -23,9 +24,8 @@ class SandboxController extends Controller
 
     public function index()
     {
-        Recipes::getNamesIfComponentsExist()->mapWithKeys(function ($idName) {
-            return [$idName => ItemNames::getName($idName) ?? $idName];
-        });
+        StorageFactory::registerCombined();
+        dd(StorageFactory::getRegisteredNames(true));
     }
 
     public function lookup()

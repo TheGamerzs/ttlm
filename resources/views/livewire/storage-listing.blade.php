@@ -5,12 +5,49 @@
 <div>
     <h3 class="text-center">Self Storage Contents</h3>
 
+    <x-storage-select />
+    <livewire:sync-storage-button />
+
+    <table class="table">
+        <thead>
+        <tr>
+            <td>Item</td>
+            <td>
+                <a href="#" wire:click.prevent="$set('sortBy', 'count')">Count</a>
+            </td>
+            <td>
+                <a href="#" wire:click.prevent="$set('sortBy', 'weight')">Total Weight</a>
+            </td>
+            <td>Item</td>
+            <td>
+                <a href="#" wire:click.prevent="$set('sortBy', 'count')">Count</a>
+            </td>
+            <td>
+                <a href="#" wire:click.prevent="$set('sortBy', 'weight')">Total Weight</a>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($storage as $chunk)
+            <tr>
+                @foreach($chunk as $inventoryItem)
+                    <td>{{ $inventoryItem?->name() }}</td>
+                    <td>{{ $inventoryItem?->count }}</td>
+                    <td>{{ $inventoryItem?->getTotalWeight() }}</td>
+                @endforeach
+            </tr>
+        @endforeach
+
+        </tbody>
+    </table>
+
+
     <div class="row">
         <div class="col">
             <livewire:storages-for-item />
         </div>
         <div class="col">
-            <x-collapsable-card title="Full Trailer Alerts">
+            <x-collapsable-card title="Full Trailer Alerts ({{ $this->fullTrailerAlerts()->count() }})" :open="false">
                 <table class="table">
                     <thead>
                     <tr>
@@ -58,42 +95,6 @@
     </div>
 
 
-    <x-storage-select />
-    <livewire:sync-storage-button />
-
-
-    <table class="table">
-        <thead>
-        <tr>
-            <td>Item</td>
-            <td>
-                <a href="#" wire:click.prevent="$set('sortBy', 'count')">Count</a>
-            </td>
-            <td>
-                <a href="#" wire:click.prevent="$set('sortBy', 'weight')">Total Weight</a>
-            </td>
-            <td>Item</td>
-            <td>
-                <a href="#" wire:click.prevent="$set('sortBy', 'count')">Count</a>
-            </td>
-            <td>
-                <a href="#" wire:click.prevent="$set('sortBy', 'weight')">Total Weight</a>
-            </td>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($storage as $chunk)
-            <tr>
-                @foreach($chunk as $inventoryItem)
-                    <td>{{ $inventoryItem?->name() }}</td>
-                    <td>{{ $inventoryItem?->count }}</td>
-                    <td>{{ $inventoryItem?->getTotalWeight() }}</td>
-                @endforeach
-            </tr>
-        @endforeach
-
-        </tbody>
-    </table>
     <h3 class="text-center">
         Exportable Items (${{ number_format($exportableItems->sum(function ($item) { return $item->totalValue(); })) }})
     </h3>

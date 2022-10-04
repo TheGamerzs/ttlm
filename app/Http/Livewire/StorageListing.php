@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\TT\Items\SellableItem;
+use App\TT\Items\ExportableItem;
 use App\TT\Items\Weights;
 use App\TT\StorageFactory;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +23,7 @@ class StorageListing extends Component
 
     public string $itemToAddToFullTrailerAlerts = '';
 
-    public array $hiddenSellablesInputs = [];
+    public array $hiddenExportableInputs = [];
 
     public function mount()
     {
@@ -41,14 +41,14 @@ class StorageListing extends Component
             return $lookup->contains($name);
         })->first();
 
-        $this->hiddenSellablesInputs = collect(SellableItem::$data)->mapWithKeys(function ($item, $key) {
-            return [$key => ! Auth::user()->hidden_sellables->contains($key)];
+        $this->hiddenExportableInputs = collect(ExportableItem::$data)->mapWithKeys(function ($item, $key) {
+            return [$key => ! Auth::user()->hidden_exportable_items->contains($key)];
         })->toArray();
     }
 
-    public function updatedHiddenSellablesInputs()
+    public function updatedHiddenExportableInputs()
     {
-        Auth::user()->hidden_sellables = collect($this->hiddenSellablesInputs)->reject()->keys();
+        Auth::user()->hidden_exportable_items = collect($this->hiddenExportableInputs)->reject()->keys();
         Auth::user()->save();
     }
 
@@ -87,7 +87,7 @@ class StorageListing extends Component
 
         return view('livewire.storage-listing')->with([
             'storage' => $storage->splitAndZip(),
-            'sellableItems' => \App\TT\Items\SellableItem::getAllForStorage($storage, Auth::user())
+            'exportableItems' => \App\TT\Items\ExportableItem::getAllForStorage($storage, Auth::user())
         ]);
     }
 }

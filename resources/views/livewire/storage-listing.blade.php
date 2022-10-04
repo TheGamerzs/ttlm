@@ -1,6 +1,6 @@
 <?php
 /** @var \App\TT\Items\InventoryItem $inventoryItem */
-/** @var \App\TT\Items\SellableItem $sellableItem */
+/** @var \App\TT\Items\ExportableItem $exportableItem */
 ?>
 <div>
     <h3 class="text-center">Self Storage Contents</h3>
@@ -95,15 +95,15 @@
         </tbody>
     </table>
     <h3 class="text-center">
-        Sellables (${{ number_format($sellableItems->sum(function ($item) { return $item->totalValue(); })) }})
+        Exportable Items (${{ number_format($exportableItems->sum(function ($item) { return $item->totalValue(); })) }})
     </h3>
 
-    <x-collapsable-card title="Sellables Settings" :open="true">
+    <x-collapsable-card title="Exportable Item Settings" :open="true">
         <div class="row">
-            @foreach($hiddenSellablesInputs as $name => $item)
+            @foreach($hiddenExportableInputs as $name => $item)
                 <div class="col-3">
                     <div class="form-check form-switch">
-                        <input wire:model="hiddenSellablesInputs.{{ $name }}" class="form-check-input" type="checkbox" role="switch" id="{{ $name }}hide">
+                        <input wire:model="hiddenExportableInputs.{{ $name }}" class="form-check-input" type="checkbox" role="switch" id="{{ $name }}hide">
                         <label class="form-check-label" for="{{ $name }}hide">{{ \App\TT\Items\ItemNames::getName($name) ?? $name }}</label>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
         </div>
     </x-collapsable-card>
 
-    <table class="table mb-5">
+    <table class="table mb-5" wire:key="exportables">
         <thead>
             <tr>
                 <td></td>
@@ -123,22 +123,22 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($sellableItems as $sellableItem)
-            <tr>
+            @foreach ($exportableItems as $exportableItem)
+            <tr wire:key="export-{{$exportableItem->name}}">
                 <td>
                     <x-add-to-game-plan
-                        text="Sell a full trailer ({{ $fullTruckCount = $sellableItem->howManyCanFitInSpace($truckCapacity) }}) of {{ $sellableItem->name() }} to {{ $sellableItem->location }} for ${{ number_format($sellableItem->getValueFor($fullTruckCount)) }}."
+                        text="Sell a full trailer ({{ $fullTruckCount = $exportableItem->howManyCanFitInSpace($truckCapacity) }}) of {{ $exportableItem->name() }} to {{ $exportableItem->location }} for ${{ number_format($exportableItem->getValueFor($fullTruckCount)) }}."
                     />
-                    {{ $sellableItem->name() }}
+                    {{ $exportableItem->name() }}
                 </td>
-                <td>{{ $sellableItem->count }}</td>
-                <td>${{ number_format($sellableItem->totalValue()) }}</td>
+                <td>{{ $exportableItem->count }}</td>
+                <td>${{ number_format($exportableItem->totalValue()) }}</td>
                 <td>
                     {{ $fullTruckCount }}
-                    (${{ number_format($sellableItem->getValueFor($fullTruckCount)) }})
+                    (${{ number_format($exportableItem->getValueFor($fullTruckCount)) }})
                 </td>
-                <td>{{ $sellableItem->location }}</td>
-                <td class="d-flex justify-content-around border-start" x-data="{value: @js($sellableItem->valueEach), count: @js($fullTruckCount)}">
+                <td>{{ $exportableItem->location }}</td>
+                <td class="d-flex justify-content-around border-start" x-data="{value: @js($exportableItem->valueEach), count: @js($fullTruckCount)}">
                     <input x-model="count" type="text" class="form-control form-control-sm w-25">
                     <p x-text="(value * count).toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })"></p>
                 </td>

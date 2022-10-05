@@ -129,7 +129,7 @@
                 </tbody>
             </table>
             <p class="text-center">
-                {{ (int)ceil(($this->countNeededForParentRecipe - $parentRecipe->getComponent($nextRecipeToGrind->internalName())->inStorage) / $runPossibility[$nextRecipeToGrind->internalName()]) }}
+                {{ max( (int)ceil(($this->countNeededForParentRecipe - $parentRecipe->getComponent($nextRecipeToGrind->internalName())->inStorage) / $runPossibility[$nextRecipeToGrind->internalName()]), 0) }}
                 Runs Required
                 for {{ $parentRecipe->howManyRecipesCanFit($truckCapacity) }} {{ $parentRecipe->displayName() }}s
             </p>

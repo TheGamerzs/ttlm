@@ -62,12 +62,6 @@ class StorageListing extends Component
         Auth::user()->removeItemFromFullTrailerAlerts($itemName);
     }
 
-    public function sync()
-    {
-        Cache::forget(Auth::id() . 'tt_api_storage');
-        $this->emit('refresh');
-    }
-
     public function fullTrailerAlerts(): \App\TT\Storage
     {
         $lookup = Auth::user()->full_trailer_alerts;

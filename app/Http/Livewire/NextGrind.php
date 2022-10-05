@@ -36,6 +36,8 @@ class NextGrind extends Component
 
     public array|string $storageName = 'combined';
 
+    protected Storage $storage;
+
     /*
     |--------------------------------------------------------------------------
     | Lifecycle Hooks
@@ -49,24 +51,34 @@ class NextGrind extends Component
         $this->iWant = $this->countNeededForParentRecipe;
     }
 
+    public function booted()
+    {
+        $this->setStorage();
+    }
+
+    protected function setStorage()
+    {
+        $this->storage = StorageFactory::get($this->storageName);
+        $this->nextRecipeToGrind->setInStorageForAllComponents($this->storage);
+        $this->parentRecipe->autoSetStorageBasedOnComponentsLocation();
+    }
+
     public function updatedStorageName($value)
     {
         // More livewire BS.
         if (is_string($this->storageName)) {
-            $this->forgetComputed('storage');
-            $this->nextRecipeToGrind->setInStorageForAllComponents($this->storage);
+            $this->setStorage();
         }
     }
 
     protected function setStorageBasedOnLocationOfMostComponents()
     {
-        $this->forgetComputed('storage');
         $this->storageName = $this->nextRecipeToGrind->autoSetStorageBasedOnComponentsLocation();
     }
 
     public function hydrateNextRecipeToGrind($value): void
     {
-        $this->nextRecipeToGrind = RecipeFactory::get(new Item($value))->setInStorageForAllComponents($this->storage);
+        $this->nextRecipeToGrind = RecipeFactory::get(new Item($value));
     }
 
     public function dehydrateNextRecipeToGrind(Recipe $nextRecipeToGrind): void
@@ -91,11 +103,6 @@ class NextGrind extends Component
     {
         return $this->parentRecipe->components->firstWhere('name', $this->nextRecipeToGrind->internalName())->recipeCount
             * $this->parentRecipe->howManyRecipesCanFit($this->truckCapacity);
-    }
-
-    public function getStorageProperty(): Storage
-    {
-        return StorageFactory::get($this->storageName);
     }
 
     /*

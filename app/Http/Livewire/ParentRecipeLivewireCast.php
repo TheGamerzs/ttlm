@@ -10,7 +10,7 @@ trait ParentRecipeLivewireCast
 {
     public function hydrateParentRecipe($value): void
     {
-        $this->parentRecipe = RecipeFactory::get(new Item($value))->setInStorageForAllComponents($this->storage);
+        $this->parentRecipe = RecipeFactory::get(new Item($value));
     }
 
     public function dehydrateParentRecipe(Recipe $parentRecipe): void

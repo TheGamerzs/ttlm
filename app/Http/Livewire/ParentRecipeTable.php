@@ -30,17 +30,29 @@ class ParentRecipeTable extends Component
 
     public string|Recipe $parentRecipe = '';
 
+    protected Storage $storage;
+
     public function mount()
     {
         $this->storageName = $this->parentRecipe->autoSetStorageBasedOnComponentsLocation();
+    }
+
+    public function booted()
+    {
+        $this->setStorage();
+    }
+
+    protected function setStorage()
+    {
+        $this->storage = StorageFactory::get($this->storageName);
+        $this->parentRecipe->setInStorageForAllComponents($this->storage);
     }
 
     public function updatedStorageName($value)
     {
         // Livewire BS
         if (is_string($this->storageName)) {
-            $this->forgetComputed('storage');
-            $this->parentRecipe->setInStorageForAllComponents($this->storage);
+            $this->setStorage();
         }
     }
 
@@ -49,11 +61,6 @@ class ParentRecipeTable extends Component
     | Business
     |--------------------------------------------------------------------------
     */
-
-    public function getStorageProperty(): Storage
-    {
-        return StorageFactory::get($this->storageName);
-    }
 
     public function getCountCanBeMadeProperty(): int
     {

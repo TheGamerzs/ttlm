@@ -15,10 +15,13 @@
                     <label for="capacityUsedTY">Current Train Yard Capacity Used</label>
                 </div>
                 @endif
-                <div class="form-floating mt-1">
-                    <x-item-select-only-in-storage change-wire-model="itemForFillTrailer"/>
-                    <label>Item</label>
+
+                <div class="text-center mt-1">
+                    <x-select-choices wire:model="itemForFillTrailer">
+                        <x-select-options :items="$this->getItemNamesThatExistInStorage()" />
+                    </x-select-choices>
                 </div>
+
                 <ul class="list-group mt-1">
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Weighs: {{ $trailerLookupItem->weight }}kg</span>
@@ -64,24 +67,30 @@
             </div>
             <div class="col-6">
                 <div class="row">
+
                     <div class="col-4">
                         <div class="form-floating">
                             <input type="text" class="form-control" id="howMany" wire:model="pickupCountsYield"/>
                             <label for="howMany">How Many</label>
                         </div>
                     </div>
+
                     <div class="col-4">
-                        <div class="form-floating">
-                            <x-recipe-select />
-                            <label>Recipe</label>
+                        <div class="text-center">
+                            <x-select-choices wire:model="itemName">
+                                <x-select-options :items="\App\TT\Recipes::getNamesIfComponentsExist(true)" />
+                            </x-select-choices>
                         </div>
                     </div>
+
                     <div class="col-4">
-                        <div class="form-floating">
-                            <x-storage-select />
-                            <label>Storage</label>
+                        <div class="text-center">
+                            <x-select-choices wire:model="storageName">
+                                <x-select-options :items="\App\TT\StorageFactory::getRegisteredNames(true)" />
+                            </x-select-choices>
                         </div>
                     </div>
+
                 </div>
                 <hr>
                 <h4 class="text-center">

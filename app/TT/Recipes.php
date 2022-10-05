@@ -3,6 +3,7 @@
 namespace App\TT;
 
 use App\TT\Items\ItemNames;
+use Illuminate\Support\Collection;
 
 class Recipes
 {
@@ -594,7 +595,7 @@ class Recipes
         return array_keys(self::getAllRecipes());
     }
 
-    public static function getNamesIfComponentsExist($mapPrettyNames = false)
+    public static function getNamesIfComponentsExist($mapPrettyNames = false): Collection
     {
         $return = collect(self::getAllRecipes())->filter(function ($item, $key) {
             return count($item['components']) && $key != 'liquid_water';

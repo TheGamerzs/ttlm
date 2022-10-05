@@ -3,10 +3,12 @@
 namespace App\Http\Livewire;
 
 use App\TT\Items\Item;
+use App\TT\Items\ItemNames;
 use App\TT\RecipeFactory;
 use App\TT\ShoppingListBuilder;
 use App\TT\StorageFactory;
 use App\TT\TrainYardPickUp;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -32,7 +34,7 @@ class QuickInventoryCalculations extends Component
 
     public string $capacityUsedTY = '';
 
-    public string $itemForFillTrailer = 'scrap_ore';
+    public array|string $itemForFillTrailer = 'scrap_ore';
 
     public bool $leaveRoomForProcessed = true;
 
@@ -44,9 +46,9 @@ class QuickInventoryCalculations extends Component
 
     public string $pickupCountsYield = '300';
 
-    public string $itemName = 'house'; //used for pickup counts
+    public array|string $itemName = 'house'; //used for pickup counts
 
-    public string $storageName = 'combined';
+    public array|string $storageName = 'combined';
 
     public array $pickupCounts = [];
 
@@ -78,8 +80,10 @@ class QuickInventoryCalculations extends Component
 
     public function updatedStorageName($value)
     {
-        Session::put('pickUpCountsStorage', $value);
-        $this->buildPickupCounts();
+        if (is_string($this->storageName)) {
+            Session::put('pickUpCountsStorage', $value);
+            $this->buildPickupCounts();
+        }
     }
 
     /*
@@ -90,7 +94,9 @@ class QuickInventoryCalculations extends Component
 
     protected function buildPickupCounts(): void
     {
-//        dump($this->itemName, $this->storageName, $this->pickupCountsYield, $this->truckCapacity);
+        // Livewire is doing some bullshit of assigning an array, then a string, and this is getting called both times.
+        if (! is_string($this->itemName)) return;
+
         $this->pickupCounts = ShoppingListBuilder::build(
             RecipeFactory::get(new Item($this->itemName)),
             StorageFactory::get($this->storageName),
@@ -109,34 +115,42 @@ class QuickInventoryCalculations extends Component
                 $this->truckCapacity,
                 $this->leaveRoomForProcessed,
                 $this->pocketCapacity,
-                $this->trainYardStorage - (int) $this->capacityUsedTY
+                $this->trainYardStorage - (int)$this->capacityUsedTY
             ),
             new TrainYardPickUp('recycled_waste',
                 $this->truckCapacity,
                 $this->leaveRoomForProcessed,
                 $this->pocketCapacity,
-                $this->trainYardStorage - (int) $this->capacityUsedTY
+                $this->trainYardStorage - (int)$this->capacityUsedTY
             ),
             new TrainYardPickUp('recycled_trash',
                 $this->truckCapacity,
                 $this->leaveRoomForProcessed,
                 $this->pocketCapacity,
-                $this->trainYardStorage - (int) $this->capacityUsedTY
+                $this->trainYardStorage - (int)$this->capacityUsedTY
             ),
             new TrainYardPickUp('petrochem_gas',
                 $this->truckCapacity,
                 $this->leaveRoomForProcessed,
                 $this->pocketCapacity,
-                $this->trainYardStorage - (int) $this->capacityUsedTY
+                $this->trainYardStorage - (int)$this->capacityUsedTY
             ),
             new TrainYardPickUp('petrochem_oil',
                 $this->truckCapacity,
                 $this->leaveRoomForProcessed,
                 $this->pocketCapacity,
-                $this->trainYardStorage - (int) $this->capacityUsedTY
+                $this->trainYardStorage - (int)$this->capacityUsedTY
             ),
         ];
     }
+
+    public function getItemNamesThatExistInStorage(): Collection
+    {
+        return StorageFactory::get('combined')->pluck('name')->mapWithKeys(function ($idName) {
+            return [$idName => ItemNames::getName($idName) ?? $idName];
+        })->sort();
+    }
+
 
     /*
     |--------------------------------------------------------------------------

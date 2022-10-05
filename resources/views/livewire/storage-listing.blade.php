@@ -5,7 +5,11 @@
 <div>
     <h3 class="text-center">Self Storage Contents</h3>
 
-    <x-storage-select />
+    <div class="text-center">
+        <x-select-choices wire:model="storageName">
+            <x-select-options :items="\App\TT\StorageFactory::getRegisteredNames(true)"/>
+        </x-select-choices>
+    </div>
     <livewire:sync-storage-button />
 
     <table class="table">

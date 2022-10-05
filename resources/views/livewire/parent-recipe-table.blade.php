@@ -11,7 +11,11 @@
         <h5 class="text-center">Crafted at {{ $parentRecipe->craftingLocation }}</h5>
     @endif
 
-    <x-storage-select />
+    <div class="text-center">
+        <x-select-choices wire:model="storageName">
+            <x-select-options :items="\App\TT\StorageFactory::getRegisteredNames(true)"/>
+        </x-select-choices>
+    </div>
 
     <table class="table text-center">
         <thead>

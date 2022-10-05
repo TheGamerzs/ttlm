@@ -26,7 +26,7 @@ class ParentRecipeTable extends Component
 
     public int $truckCapacity;
 
-    public string $storageName = 'combined';
+    public array|string $storageName = 'combined';
 
     public string|Recipe $parentRecipe = '';
 
@@ -37,8 +37,11 @@ class ParentRecipeTable extends Component
 
     public function updatedStorageName($value)
     {
-        $this->forgetComputed('storage');
-        $this->parentRecipe->setInStorageForAllComponents($this->storage);
+        // Livewire BS
+        if (is_string($this->storageName)) {
+            $this->forgetComputed('storage');
+            $this->parentRecipe->setInStorageForAllComponents($this->storage);
+        }
     }
 
     /*

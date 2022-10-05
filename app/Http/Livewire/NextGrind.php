@@ -34,7 +34,7 @@ class NextGrind extends Component
 
     public string $iWant = '0';
 
-    public string $storageName = 'combined';
+    public array|string $storageName = 'combined';
 
     /*
     |--------------------------------------------------------------------------
@@ -51,8 +51,11 @@ class NextGrind extends Component
 
     public function updatedStorageName($value)
     {
-        $this->forgetComputed('storage');
-        $this->nextRecipeToGrind->setInStorageForAllComponents($this->storage);
+        // More livewire BS.
+        if (is_string($this->storageName)) {
+            $this->forgetComputed('storage');
+            $this->nextRecipeToGrind->setInStorageForAllComponents($this->storage);
+        }
     }
 
     protected function setStorageBasedOnLocationOfMostComponents()

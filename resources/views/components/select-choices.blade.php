@@ -1,6 +1,7 @@
 <div
     x-data="{
-        model: @entangle($attributes->wire('model'))
+        model: @entangle($attributes->wire('model')),
+        select2: null
     }"
     x-init="
         select2 = new Choices($refs.select, {
@@ -9,13 +10,15 @@
                 shouldSort: false,
                 itemSelectText: ''
             })
-        $refs.select.addEventListener('change', (event)=>{
+        $refs.select.addEventListener('change', (event) => {
             if (event.target.hasAttribute('multiple')){
                 model = Array.from(event.target.options).filter(option => option.selected).map(option => option.value);
             }else{
                 model = event.target.value;
-                console.log(model);
             }
+        });
+        $watch('model', value => {
+            select2.setChoiceByValue(value);
         });
     "
     wire:ignore

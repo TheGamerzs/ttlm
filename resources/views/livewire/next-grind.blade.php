@@ -25,7 +25,11 @@
         <h5 class="text-center">Each Recipe Yields {{ $this->nextRecipeToGrind->makes }}</h5>
     @endif
 
-    <x-storage-select />
+    <div class="text-center">
+        <x-select-choices wire:model="storageName">
+            <x-select-options :items="\App\TT\StorageFactory::getRegisteredNames(true)"/>
+        </x-select-choices>
+    </div>
 
     @if(!$this->isPickupRun())
         <table class="table text-center">

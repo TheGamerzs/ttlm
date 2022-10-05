@@ -10,9 +10,7 @@
             </div>
             <div class="col-3">
                 <x-select-choices wire:model="recipeName" class="form-control">
-                    @foreach (App\TT\Recipes::getNamesIfComponentsExist(true) as $internal => $display)
-                        <option value="{{ $internal }}">{{ $display }}</option>
-                    @endforeach
+                    <x-select-options :items="App\TT\Recipes::getNamesIfComponentsExist(true)" />
                 </x-select-choices>
             </div>
         </div>

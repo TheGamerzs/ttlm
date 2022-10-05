@@ -2,9 +2,7 @@
     <x-collapsable-card title="Where's The Beef?">
         <div class="text-center">
             <x-select-choices wire:model="itemName">
-                @foreach($this->getItemNames() as $internalName => $displayName)
-                    <option value="{{ $internalName }}">{{ $displayName }}</option>
-                @endforeach
+                <x-select-options :items="$this->getItemNames()" />
             </x-select-choices>
         </div>
         <hr>

@@ -104,7 +104,9 @@ class QuickInventoryCalculations extends Component
             $this->truckCapacity
         )['pickupCalculator']
             ->getRunCalculations()
-            ->filter()
+            ->filter(function ($count, $name) {
+                return $count > 0;
+            })
             ->toArray();
     }
 

@@ -24,7 +24,7 @@ class SandboxController extends Controller
 
     public function index()
     {
-        dd(StorageFactory::getRegisteredNames(true));
+        dd(RecipeFactory::get(new Item('zinc_alloy')));
     }
 
     public function lookup()

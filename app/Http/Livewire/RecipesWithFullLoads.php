@@ -26,13 +26,13 @@ class RecipesWithFullLoads extends Component
     {
         $storage = StorageFactory::get($this->storageName);
         $allRecipes = collect(Recipes::getAllRecipes());
-
         $otherThanCrafted = [
             'refined_solder',
             'refined_aluminum',
             'refined_amalgam',
             'refined_bronze',
             'refined_tin',
+            'sd_zinc_alloy'
         ];
 
         return $allRecipes->filter(function ($item, $key) use ($otherThanCrafted) {

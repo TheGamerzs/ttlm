@@ -20,7 +20,8 @@ class User extends Authenticatable
 
     protected $casts = [
         'full_trailer_alerts' => 'collection',
-        'hidden_exportable_items' => 'collection'
+        'hidden_exportable_items' => 'collection',
+        'custom_combined_storage' => 'collection',
     ];
 
     public function setTTIdFromApi(): bool

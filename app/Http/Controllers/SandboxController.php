@@ -24,7 +24,6 @@ class SandboxController extends Controller
 
     public function index()
     {
-        StorageFactory::registerCombined();
         dd(StorageFactory::getRegisteredNames(true));
     }
 

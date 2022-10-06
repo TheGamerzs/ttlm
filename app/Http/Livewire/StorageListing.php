@@ -35,31 +35,39 @@ class StorageListing extends Component
 
     public array|string $typeFilter = 'all';
 
+    public array $customStorageInput = [];
+
     public function mount()
     {
-        $lookup = collect([
-            'scrap_ore',
-            'scrap_emerald',
-            'petrochem_petrol',
-            'petrochem_propane',
-            'scrap_plastic',
-            'scrap_copper',
-            'refined_copper',
-            'refined_zinc',
-        ]);
-        $this->itemToAddToFullTrailerAlerts = collect(Weights::$weights)->keys()->reject(function ($name) use ($lookup) {
-            return $lookup->contains($name);
+        $this->itemToAddToFullTrailerAlerts = collect(Weights::$weights)->keys()->reject(function ($name) {
+            return Auth::user()->full_trailer_alerts->contains($name);
         })->first();
 
-        $this->hiddenExportableInputs = collect(ExportableItem::$data)->mapWithKeys(function ($item, $key) {
-            return [$key => ! Auth::user()->hidden_exportable_items->contains($key)];
+        $this->hiddenExportableInputs = collect(ExportableItem::$data)->map(function ($item, $key) {
+            return ! Auth::user()->hidden_exportable_items->contains($key);
         })->toArray();
+
+        StorageFactory::get();
+        $this->customStorageInput = collect(StorageFactory::getRegisteredNames())
+            ->reject(function ($item) {
+                return collect(['combined', 'custom_combined_storage'])->contains($item);
+            })
+            ->mapWithKeys(function ($item, $key) {
+                return [$item => Auth::user()->custom_combined_storage->contains($item)];
+            })->toArray();
     }
 
     public function updatedHiddenExportableInputs()
     {
         Auth::user()->hidden_exportable_items = collect($this->hiddenExportableInputs)->reject()->keys();
         Auth::user()->save();
+    }
+
+    public function updatedCustomStorageInput()
+    {
+        Auth::user()->custom_combined_storage = collect($this->customStorageInput)->filter()->keys();
+        Auth::user()->save();
+
     }
 
     public function addItemToFullTrailerAlerts()

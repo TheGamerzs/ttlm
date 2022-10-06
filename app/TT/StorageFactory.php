@@ -18,7 +18,7 @@ class StorageFactory
     public static function get($name = 'combined'): Storage
     {
         if (!count(self::$storages)) {
-            self::registerCombined();
+            self::fillStoragesArray();
         }
 
         if (array_key_exists($name, self::$storages)) {
@@ -53,15 +53,28 @@ class StorageFactory
         foreach ($data->storages as $storageData) {
             self::make($storageData->name);
         }
+
+        self::registerNonTTStorages();
+
         self::injectFakes();
     }
 
-    public static function registerCombined(): void
+    protected static function registerNonTTStorages(): void
     {
-        self::fillStoragesArray();
+        // Default Combined
+        self::registerCombined('combined', array_keys(self::$storages));
+        self::registerCombined('Custom Combined Storage', Auth::user()->custom_combined_storage->toArray());
+
+    }
+
+    protected static function registerCombined(string $name, array $ttStorages): void
+    {
+        $storagesToCombine = collect($ttStorages)->mapWithKeys(function (string $storageName) {
+            return [$storageName => self::$storages[$storageName]];
+        });
 
         $combinedStorage = new Storage();
-        foreach (collect(self::$storages) as $storageData) {
+        foreach ($storagesToCombine as $storageData) {
             foreach ($storageData as $inventoryItem) {
                 $existing = $combinedStorage->firstWhere('name', $inventoryItem->name);
 
@@ -72,13 +85,13 @@ class StorageFactory
                 }
             }
         }
-        self::registerStorage('combined', $combinedStorage);
+        self::registerStorage(Str::of($name)->snake(), $combinedStorage);
     }
 
     public static function findStoragesForItem(Item $item): Collection
     {
         if (!count(self::$storages)) {
-            self::registerCombined();
+            self::fillStoragesArray();
         }
 
         return collect(self::$storages)
@@ -175,7 +188,7 @@ class StorageFactory
 
         \Log::debug('Missing storage name: ' . $storageName);
 
-        return $storageName;
+        return $name->headline();
     }
 
 }

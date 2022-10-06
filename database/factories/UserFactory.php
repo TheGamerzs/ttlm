@@ -28,7 +28,8 @@ class UserFactory extends Factory
             'truckCapacity' => fake()->randomNumber(5),
             'full_trailer_alerts' => $this->getFullTrailerAlerts(),
             'calls_made' => 1,
-            'hidden_sellables' => collect(),
+            'hidden_exportable_items' => collect(),
+            'custom_combined_storage' => collect()
         ];
     }
 

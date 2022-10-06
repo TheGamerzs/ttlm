@@ -5,9 +5,6 @@
 <div>
     <h3 class="text-center">Self Storage Contents</h3>
 
-
-
-
     <div class="row">
         <div class="col-3">
             <div class="card">
@@ -31,6 +28,19 @@
                     </div>
                 </div>
             </div>
+            <div class="card mt-3">
+                <h5 class="card-header d-flex justify-content-around">
+                    Custom Combined Storage
+                </h5>
+                <div class="card-body" >
+                    @foreach($this->customStorageInput as $storageName => $null)
+                        <div class="form-check form-switch">
+                            <input wire:model="customStorageInput.{{ $storageName }}" class="form-check-input" type="checkbox" role="switch" id="{{ $storageName }}hide">
+                            <label class="form-check-label" for="{{ $storageName }}hide">{{ \App\TT\StorageFactory::getPrettyName($storageName) ?? $storageName }}</label>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
 
         <div class="col-9">
@@ -42,20 +52,17 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <td>Item</td>
-                    <td>
-                        <a href="#" wire:click.prevent="$set('sortBy', 'count')">Count</a>
-                    </td>
-                    <td>
-                        <a href="#" wire:click.prevent="$set('sortBy', 'weight')">Total Weight</a>
-                    </td>
-                    <td>Item</td>
-                    <td>
-                        <a href="#" wire:click.prevent="$set('sortBy', 'count')">Count</a>
-                    </td>
-                    <td>
-                        <a href="#" wire:click.prevent="$set('sortBy', 'weight')">Total Weight</a>
-                    </td>
+                    @foreach(range(1,2) as $null)
+                        <td>
+                            Item
+                        </td>
+                        <td>
+                            <a href="#" wire:click.prevent="$set('sortBy', 'count')">Count</a>
+                        </td>
+                        <td>
+                            <a href="#" wire:click.prevent="$set('sortBy', 'weight')">Total Weight</a>
+                        </td>
+                    @endforeach
                 </tr>
                 </thead>
                 <tbody>
@@ -73,8 +80,6 @@
             </table>
         </div>
     </div>
-
-
 
     <div class="row">
         <div class="col">

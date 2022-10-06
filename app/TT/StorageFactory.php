@@ -158,6 +158,7 @@ class StorageFactory
                 'faq_225'=> 'HOUSES',
                 'faq_287'=> 'OVERLORD',
                 'faq_310'=> 'HouseCo',
+                'faq_330' => 'The Foundry Group',
             ];
             return array_key_exists($storageName, $factionLookup)
                 ? 'Faction - ' . $factionLookup[$storageName]

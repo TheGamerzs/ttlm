@@ -49,7 +49,7 @@ class DiscordController
             Cache::put($user->id . 'apiIdAttempts', 5);
             $user->setTTIdFromApi();
             $user->full_trailer_alerts = collect(["scrap_ore", "scrap_emerald", "petrochem_petrol", "petrochem_propane", "scrap_plastic", "scrap_copper", "refined_copper", "refined_zinc"]);
-            $user->hidden_sellables = collect();
+            $user->hidden_exportable_items = collect();
             $user->save();
         } else {
             $user->touch();

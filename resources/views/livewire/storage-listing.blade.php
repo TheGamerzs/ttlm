@@ -5,45 +5,75 @@
 <div>
     <h3 class="text-center">Self Storage Contents</h3>
 
-    <div class="text-center">
-        <x-select-choices wire:model="storageName">
-            <x-select-options :items="\App\TT\StorageFactory::getRegisteredNames(true)"/>
-        </x-select-choices>
-    </div>
-    <livewire:sync-storage-button />
 
-    <table class="table">
-        <thead>
-        <tr>
-            <td>Item</td>
-            <td>
-                <a href="#" wire:click.prevent="$set('sortBy', 'count')">Count</a>
-            </td>
-            <td>
-                <a href="#" wire:click.prevent="$set('sortBy', 'weight')">Total Weight</a>
-            </td>
-            <td>Item</td>
-            <td>
-                <a href="#" wire:click.prevent="$set('sortBy', 'count')">Count</a>
-            </td>
-            <td>
-                <a href="#" wire:click.prevent="$set('sortBy', 'weight')">Total Weight</a>
-            </td>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($storage as $chunk)
-            <tr>
-                @foreach($chunk as $inventoryItem)
-                    <td>{{ $inventoryItem?->name() }}</td>
-                    <td>{{ $inventoryItem?->count }}</td>
-                    <td>{{ $inventoryItem?->getTotalWeight() }}</td>
+
+
+    <div class="row">
+        <div class="col-3">
+            <div class="card">
+                <h5 class="card-header d-flex justify-content-around">
+                    Filters
+                </h5>
+                <div class="card-body" >
+                    <div class="row">
+                        <div class="col d-flex justify-content-evenly">
+                            <livewire:sync-storage-button />
+                        </div>
+                    </div>
+                    <hr>
+                    <input type="text" class="form-control" wire:model="searchStringInput" placeholder="By Name..." />
+
+                    <span class="mt-2">Type:</span>
+                    <div class="text-center">
+                        <x-select-choices wire:model="typeFilter">
+                            <x-select-options :items="$this->getTypeFilterOptions()" />
+                        </x-select-choices>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-9">
+            <div class="text-center">
+                <x-select-choices wire:model="storageName">
+                    <x-select-options :items="\App\TT\StorageFactory::getRegisteredNames(true)"/>
+                </x-select-choices>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>Item</td>
+                    <td>
+                        <a href="#" wire:click.prevent="$set('sortBy', 'count')">Count</a>
+                    </td>
+                    <td>
+                        <a href="#" wire:click.prevent="$set('sortBy', 'weight')">Total Weight</a>
+                    </td>
+                    <td>Item</td>
+                    <td>
+                        <a href="#" wire:click.prevent="$set('sortBy', 'count')">Count</a>
+                    </td>
+                    <td>
+                        <a href="#" wire:click.prevent="$set('sortBy', 'weight')">Total Weight</a>
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($storage as $chunk)
+                    <tr>
+                        @foreach($chunk as $inventoryItem)
+                            <td>{{ $inventoryItem?->name() }}</td>
+                            <td>{{ $inventoryItem?->count }}</td>
+                            <td>{{ $inventoryItem?->getTotalWeight() }}</td>
+                        @endforeach
+                    </tr>
                 @endforeach
-            </tr>
-        @endforeach
 
-        </tbody>
-    </table>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 
 
     <div class="row">

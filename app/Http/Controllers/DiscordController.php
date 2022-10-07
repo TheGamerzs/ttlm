@@ -50,6 +50,7 @@ class DiscordController
             $user->setTTIdFromApi();
             $user->full_trailer_alerts = collect(["scrap_ore", "scrap_emerald", "petrochem_petrol", "petrochem_propane", "scrap_plastic", "scrap_copper", "refined_copper", "refined_zinc"]);
             $user->hidden_exportable_items = collect();
+            $user->custom_combined_storage = collect();
             $user->save();
         } else {
             $user->touch();

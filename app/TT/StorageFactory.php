@@ -186,7 +186,7 @@ class StorageFactory
             return $lookup[$storageName];
         }
 
-        \Log::debug('Missing storage name: ' . $storageName);
+//        \Log::debug('Missing storage name: ' . $storageName);
 
         return $name->headline();
     }

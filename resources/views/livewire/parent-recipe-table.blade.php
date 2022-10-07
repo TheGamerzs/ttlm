@@ -5,6 +5,7 @@
     <h3 class="text-center">
         <x-add-to-game-plan text="Make {{ $this->countCanBeMade }} {{ $parentRecipe->displayName() }}s" />
         {{ $this->countCanBeMade }} {{ $parentRecipe->displayName() }}s Can Be Made
+        <i class="bi bi-clipboard2-check-fill cursor-pointer {{ Session::has('craftingGoal') ? 'text-success' : 'text-info' }}" wire:click="$emit('openCraftingGoal')"></i>
     </h3>
     <h5 class="text-center">Trailer can fit {{ $parentRecipe->howManyRecipesCanFit($truckCapacity) }}</h5>
     @if($parentRecipe->craftingLocation)
@@ -44,4 +45,5 @@
         @endforeach
         </tbody>
     </table>
+
 </div>

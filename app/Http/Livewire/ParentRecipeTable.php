@@ -21,7 +21,8 @@ class ParentRecipeTable extends Component
     use ParentRecipeLivewireCast;
 
     protected $listeners = [
-        'refresh' => '$refresh'
+        'refresh' => '$refresh',
+        'refreshParentRecipeTable' => '$refresh'
     ];
 
     public int $truckCapacity;

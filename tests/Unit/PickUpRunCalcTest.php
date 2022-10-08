@@ -30,7 +30,7 @@ it('calculates a water run', function () {
     $calc = new \App\TT\PickupRunCalculator(300, new Storage());
     $calc->addNeededCount('liquid_water_raw', 4);
     $results = $calc->getRunCalculations();
-    expect($results['water'])->toBe(2);
+    expect($results['liquid_water_raw'])->toBe(2);
 
 });
 
@@ -43,7 +43,7 @@ it('calculates sawdust', function () {
     $calc = new \App\TT\PickupRunCalculator(60, new Storage());
     $calc->addNeededCount('tcargodust', 22);
     $results = $calc->getRunCalculations();
-    expect($results['sawdust'])->toBe(3);
+    expect($results['tcargodust'])->toBe(3);
 
 });
 
@@ -58,8 +58,8 @@ it('calculates planks and sawdust', function () {
     $calc->addNeededCount('tcargodust', 15);
     $calc->addNeededCount('refined_planks', 5);
     $results = $calc->getRunCalculations();
-    expect($results['sawdust'])->toBe(1)
-        ->and($results['planks'])->toBe(5);
+    expect($results['tcargodust'])->toBe(1)
+        ->and($results['refined_planks'])->toBe(5);
 
 });
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Support\Collection;
 use Laravel\Socialite\Contracts\Factory as Socialite;
 use Laravel\Socialite\Two\User as SocialiteUser;
 use MartinBean\Laravel\Socialite\DiscordProvider;
@@ -22,9 +23,10 @@ it('creates a new user and logs them in', function () {
     expect(User::firstWhere('discord_snowflake', 324060102770556933))->toBeInstanceOf(User::class)
         ->and(Auth::check())->toBeTrue()
         ->and(Auth::user()->tt_id)->toBe(645753)
-        ->and(Auth::user()->full_trailer_alerts)->toBeInstanceOf(\Illuminate\Support\Collection::class)
+        ->and(Auth::user()->full_trailer_alerts)->toBeInstanceOf(Collection::class)
         ->and(Auth::user()->full_trailer_alerts->count())->toBe(8)
-        ->and(Auth::user()->hidden_sellables)->toBeInstanceOf(\Illuminate\Support\Collection::class);
+        ->and(Auth::user()->hidden_exportable_items)->toBeInstanceOf(Collection::class)
+        ->and(Auth::user()->custom_combined_storage)->toBeInstanceOf(Collection::class);
 
 });
 

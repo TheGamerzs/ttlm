@@ -107,9 +107,9 @@ it('returns the item that is limiting the number of recipes that can be crafted 
 
 it('returns a name', function () {
 
-    $recipe = RecipeFactory::get(new \App\TT\Items\Item('crafted_ceramictiles'));
+    $recipe = RecipeFactory::get($item = new \App\TT\Items\Item('crafted_ceramictiles'));
 
-    expect($recipe->displayName())->toBe('Truck Cargo: Ceramic Tiles');
+    expect($recipe->displayName())->toBe($item->prettyName);
 
 });
 

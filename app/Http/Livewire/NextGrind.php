@@ -63,9 +63,7 @@ class NextGrind extends Component
 
     protected function setStorage()
     {
-        if (empty($this->storage)) {
-            $this->storage = StorageFactory::get($this->storageName);
-        }
+        $this->storage = StorageFactory::get($this->storageName);
         $this->nextRecipeToGrind->setInStorageForAllComponents($this->storage);
         $this->parentRecipe->autoSetStorageBasedOnComponentsLocation();
     }
@@ -180,6 +178,7 @@ class NextGrind extends Component
 
     public array|string $goalRecipe = '';
 
+    // Shows checkmark on save button after update.
     public bool $goalWasUpdated = false;
 
     public function hydrate()

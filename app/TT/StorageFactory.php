@@ -25,7 +25,7 @@ class StorageFactory
             return self::$storages[$name];
         }
 
-        throw new \Exception('Invalid Storage');
+        throw new \Exception('Invalid Storage: ' . $name);
     }
 
     protected static function make(string $name): Storage

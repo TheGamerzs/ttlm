@@ -29,7 +29,8 @@ class UserFactory extends Factory
             'full_trailer_alerts' => $this->getFullTrailerAlerts(),
             'calls_made' => 1,
             'hidden_exportable_items' => collect(),
-            'custom_combined_storage' => collect()
+            'custom_combined_storage' => collect(),
+            'default_crafting_recipe' => 'house'
         ];
     }
 

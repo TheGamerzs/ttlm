@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Livewire\ParentRecipeTable;
 use App\TT\Items\Item;
 use App\TT\Items\ItemNames;
 use App\TT\Items\Weights;
@@ -14,6 +15,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Livewire\Livewire;
 
 class SandboxController extends Controller
 {
@@ -24,7 +26,10 @@ class SandboxController extends Controller
 
     public function index()
     {
-        dd(RecipeFactory::get(new Item('zinc_alloy')));
+        $dump = Livewire::test(ParentRecipeTable::class, ['parentRecipe' => RecipeFactory::get(new Item('house')), 'truckCapacity' => 9775])->instance();
+        dd(
+            $dump
+        );
     }
 
     public function lookup()

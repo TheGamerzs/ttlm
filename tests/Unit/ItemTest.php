@@ -15,7 +15,7 @@ it('shows a pretty name if one exists', function () {
 
     $ceramicTiles = new Item('crafted_ceramictiles');
 
-    expect($ceramicTiles->name())->toBe('Truck Cargo: Ceramic Tiles');
+    expect($ceramicTiles->name())->toBe('Ceramic Tiles');
 
 });
 

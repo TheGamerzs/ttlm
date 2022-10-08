@@ -168,6 +168,7 @@ class StorageListing extends Component
 
         return view('livewire.storage-listing')->with([
             'storage' => $storage->splitAndZip(),
+            'newStorage' => $storage->split(2),
             'exportableItems' => \App\TT\Items\ExportableItem::getAllForStorage($storage, Auth::user())
         ]);
     }

@@ -75,35 +75,41 @@
                     <x-select-options :items="\App\TT\StorageFactory::getRegisteredNames(true)"/>
                 </x-select-choices>
             </div>
-            <table class="table">
-                <thead>
-                <tr>
-                    @foreach(range(1,2) as $null)
-                        <td>
-                            Item
-                        </td>
-                        <td>
-                            <a href="#" wire:click.prevent="$set('sortBy', 'count')">Count</a>
-                        </td>
-                        <td>
-                            <a href="#" wire:click.prevent="$set('sortBy', 'weight')">Total Weight</a>
-                        </td>
-                    @endforeach
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($storage as $chunk)
-                    <tr>
-                        @foreach($chunk as $inventoryItem)
-                            <td>{{ $inventoryItem?->name() }}</td>
-                            <td>{{ $inventoryItem?->count }}</td>
-                            <td>{{ $inventoryItem?->getTotalWeight() }}</td>
-                        @endforeach
-                    </tr>
-                @endforeach
 
-                </tbody>
-            </table>
+            <div class="row">
+                @foreach($newStorage as $half)
+                <div class="col-md-6 col-sm-12">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <td></td>
+                                <td class="text-center">
+                                    <a href="#" wire:click.prevent="$set('sortBy', 'count')">Count</a>
+                                </td>
+                                <td class="text-center">
+                                    <a href="#" wire:click.prevent="$set('sortBy', 'weight')">Total Weight</a>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($half as $inventoryItem)
+                            <tr>
+                                    <td>{{ $inventoryItem?->name() }}</td>
+                                    <td class="text-center">{{ $inventoryItem?->count }}</td>
+                                    <td class="text-center">{{ $inventoryItem?->getTotalWeight() }}</td>
+                                    <td>
+                                        <x-storage-listing-item-menu :inventory-item="$inventoryItem" />
+                                    </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                @endforeach
+            </div>
+
+
         </div>
     </div>
 

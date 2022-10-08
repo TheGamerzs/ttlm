@@ -6,7 +6,7 @@
 
 
 
-    <div class="btn-group d-flex justify-content-center" role="group" aria-label="Basic radio toggle button group">
+    <div class="btn-group d-flex justify-content-center mb-3" role="group" aria-label="Basic radio toggle button group">
         <input wire:model="type" type="radio" class="btn-check" name="btnradio" id="btnradio1" value="all" autocomplete="off" checked="">
         <label class="btn btn-outline-primary" for="btnradio1">All Orders</label>
 
@@ -17,7 +17,46 @@
         <label class="btn btn-outline-primary" for="btnradio3">Sell Orders</label>
     </div>
 
-    {{ $type }}
+    <x-card title="Filters">
+        <div class="row">
+            <div class="col-4 text-center">
+                <x-card title="Item">
+                    <x-select-choices wire:model="itemFilter">
+                        <x-select-options :items="$this->getItemSelectOptions()" />
+                    </x-select-choices>
+                </x-card>
+            </div>
+
+            <div class="col-4">
+                <x-card title="Count">
+                    <div class="row">
+                        <div class="col-6">
+                            <input wire:model="countMinFilter" class="form-control" type="text" placeholder="Minimum" />
+                        </div>
+                        <div class="col-6">
+                            <input wire:model="countMaxFilter" class="form-control" type="text" placeholder="Maximum" />
+                        </div>
+                    </div>
+                </x-card>
+            </div>
+
+            <div class="col-4">
+                <x-card title="Price Each">
+                    <div class="row">
+                        <div class="col-6">
+                            <input wire:model="priceMinFilter" class="form-control" type="text" placeholder="Minimum" />
+                        </div>
+                        <div class="col-6">
+                            <input wire:model="priceMaxFilter" class="form-control" type="text" placeholder="Maximum" />
+                        </div>
+                    </div>
+                </x-card>
+            </div>
+        </div>
+
+
+    </x-card>
+
 
 
 
@@ -55,7 +94,7 @@
                     ${{ number_format($marketOrder->totalCost) }}
                 </td>
                 <td class="text-center">
-                    <a href="{{ $marketOrder->user->discord_dm_link }}" target="_blank">
+                    <a href="{{ $marketOrder->user->discordProfileLink }}" target="_blank">
                         <i class="bi bi-discord text-info"></i>
                     </a>
                 </td>
@@ -64,5 +103,4 @@
         </tbody>
     </table>
     {{ $allMarketOrders->links() }}
-    @dump($allMarketOrders)
 </div>

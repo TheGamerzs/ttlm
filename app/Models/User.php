@@ -135,7 +135,7 @@ class User extends Authenticatable
         ]);
     }
 
-    public function getDiscordDmLinkAttribute()
+    public function getDiscordProfileLinkAttribute(): string
     {
         return 'https://discordapp.com/users/' . $this->discord_snowflake . '/';
     }

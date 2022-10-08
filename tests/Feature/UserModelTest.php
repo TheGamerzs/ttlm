@@ -172,5 +172,5 @@ it('generates a link for discord dm', function () {
     $user = User::factory()->create();
     $expected = 'https://discordapp.com/users/' . $user->discord_snowflake . '/';
 
-    expect($user->discordDmLink)->toBe($expected);
+    expect($user->discordProfileLink)->toBe($expected);
 });

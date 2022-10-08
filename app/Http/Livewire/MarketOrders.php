@@ -26,6 +26,11 @@ class MarketOrders extends Component
 
     protected $queryString = [
         'type' => ['except' => 'all'],
+        'itemFilter' => ['except' => ''],
+        'countMinFilter' => ['except' => ''],
+        'countMaxFilter' => ['except' => ''],
+        'priceMinFilter' => ['except' => ''],
+        'priceMaxFilter' => ['except' => ''],
     ];
 
     public function updatingType()

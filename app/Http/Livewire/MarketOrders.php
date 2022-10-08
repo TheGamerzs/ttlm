@@ -45,7 +45,10 @@ class MarketOrders extends Component
             ->mapWithKeys(function ($itemName) {
                 return [$itemName => ItemNames::getName($itemName) ?? $itemName];
             })
-            ->prepend('Items:', '');
+            ->sortBy(function ($prettyName) {
+                return $prettyName;
+            })
+            ->prepend('All', '');
     }
 
     public function render()

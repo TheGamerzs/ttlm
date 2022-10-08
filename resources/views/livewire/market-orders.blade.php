@@ -3,9 +3,6 @@
 ?>
 
 <div>
-
-
-
     <div class="btn-group d-flex justify-content-center mb-3" role="group" aria-label="Basic radio toggle button group">
         <input wire:model="type" type="radio" class="btn-check" name="btnradio" id="btnradio1" value="all" autocomplete="off" checked="">
         <label class="btn btn-outline-primary" for="btnradio1">All Orders</label>
@@ -53,12 +50,7 @@
                 </x-card>
             </div>
         </div>
-
-
     </x-card>
-
-
-
 
     <table class="table">
         <thead>
@@ -102,5 +94,7 @@
         @endforeach
         </tbody>
     </table>
-    {{ $allMarketOrders->links() }}
+    <div class="d-flex justify-content-center">
+        {{ $allMarketOrders->links() }}
+    </div>
 </div>

@@ -21,8 +21,10 @@ class MarketOrderFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'item' =>$this->fakeItem(),
-            'expires' => Carbon::now()->addWeek()
+            'item_name' =>$this->fakeItem(),
+            'expires' => Carbon::now()->addWeek(),
+            'count' => fake()->numberBetween(100,1000),
+            'price_each' => fake()->numberBetween(15000,800000)
         ];
     }
 

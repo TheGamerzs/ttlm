@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\User::class);
             $table->enum('type', ['buy', 'sell']);
-            $table->string('item');
+            $table->unsignedInteger('count');
+            $table->unsignedInteger('price_each');
+            $table->string('item_name');
             $table->timestamp('expires')->nullable();
             $table->timestamps();
         });

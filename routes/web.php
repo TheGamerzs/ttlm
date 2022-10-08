@@ -27,6 +27,7 @@ Route::middleware(['auth', 'ttApi', 'canCalculate'])->group(function () {
     Route::get('/storages/{name?}', [\App\Http\Controllers\StorageManagementController::class, 'index'])->name('storageManagement');
 });
 Route::get('/settings', [\App\Http\Controllers\UserSettingsController::class, 'index'])->name('userSettings')->middleware('auth');
+Route::get('/market-orders', \App\Http\Livewire\MarketOrders::class)->name('marketOrders');
 
 Route::view('login', 'discord-login-cta')->name('login');
 Route::get('/logout', function () {

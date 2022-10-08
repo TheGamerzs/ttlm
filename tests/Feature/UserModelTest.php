@@ -166,3 +166,11 @@ it('gives a default when no goal is set', function () {
         ->and($goal['recipe'])->toBe($user->default_crafting_recipe);
 
 });
+
+it('generates a link for discord dm', function () {
+
+    $user = User::factory()->create();
+    $expected = 'https://discordapp.com/users/' . $user->discord_snowflake . '/';
+
+    expect($user->discordDmLink)->toBe($expected);
+});

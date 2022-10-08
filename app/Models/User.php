@@ -32,12 +32,12 @@ class User extends Authenticatable
 
     public function buyOrders(): HasMany
     {
-        return $this->hasMany(MarketOrder::class)->where('type', 'buy');
+        return $this->hasMany(MarketOrder::class)->buyOrders();
     }
 
     public function sellOrders(): HasMany
     {
-        return $this->hasMany(MarketOrder::class)->where('type', 'sell');
+        return $this->hasMany(MarketOrder::class)->sellOrders();
     }
 
     public function setTTIdFromApi(): bool
@@ -133,6 +133,11 @@ class User extends Authenticatable
             'count' => 0,
             'recipe' => $this->default_crafting_recipe
         ]);
+    }
+
+    public function getDiscordDmLinkAttribute()
+    {
+        return 'https://discordapp.com/users/' . $this->discord_snowflake . '/';
     }
 
 }

@@ -1,9 +1,26 @@
 <?php
 
+use App\Models\MarketOrder;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use function Pest\Laravel\actingAs;
 
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+
+test('relationships', function () {
+
+    $user = User::factory()->create();
+    $d = MarketOrder::factory()->buyOrder()->for($user)->count(3)->create();
+    MarketOrder::factory()->sellOrder()->for($user)->count(2)->create();
+    $user->load(['marketOrders', 'buyOrders', 'sellOrders']);
+
+    expect($user->marketOrders)->toBeInstanceOf(EloquentCollection::class)
+        ->and($user->sellOrders)->toBeInstanceOf(EloquentCollection::class)
+        ->and($user->buyOrders)->toBeInstanceOf(EloquentCollection::class)
+        ->and($user->marketOrders->count())->toBe(5)
+        ->and($user->sellOrders->count())->toBe(2)
+        ->and($user->buyOrders->count())->toBe(3);
+});
 
 it('returns if a user can make api calls', function () {
 

@@ -96,7 +96,7 @@ class NextGrind extends Component
     {
         $this->nextRecipeToGrind = RecipeFactory::get(new Item($value));
         $this->setStorageBasedOnLocationOfMostComponents();
-        $this->iWant = $this->countNeededForParentRecipe;
+        $this->setIWantFromGoal();
     }
 
     /*

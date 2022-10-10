@@ -26,8 +26,11 @@ class MissingItems extends Component
         $ignore  = Cache::get('ignoreMissing', collect());
 
         $items = $names->merge($weights)->unique()->reject(function ($name) use ($ignore) {
-            return $ignore->contains($name);
-        });
+                return $ignore->contains($name);
+            })
+            ->reject(function ($name) {
+                return str($name)->startsWith('note');
+            });
 
         return view('livewire.missing-items')
             ->layoutData(['titleAddon' => 'Missing Items'])

@@ -39,10 +39,12 @@ Route::get('/auth/callback', [DiscordController::class, 'handleCallback'])->name
 
 Route::get('/sb', [\App\Http\Controllers\SandboxController::class, 'index']);
 
+Route::get('/dev/missing-items', \App\Http\Livewire\MissingItems::class)
+    ->name('missingItems')
+    ->middleware(['auth', 'onlyUserOne']);
+
 Route::get('/dev/loginas/{id}', function (int $id) {
     if (Auth::id() != 1) abort(404);
     Auth::loginUsingId($id);
     return redirect()->back();
 });
-
-Route::get('/dev/missing-items', [\App\Http\Controllers\SandboxController::class, 'missingItemsAfterPulledFromAPI']);

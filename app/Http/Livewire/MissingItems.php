@@ -30,7 +30,8 @@ class MissingItems extends Component
             })
             ->reject(function ($name) {
                 return str($name)->startsWith('note');
-            });
+            })
+            ->sort();
 
         return view('livewire.missing-items')
             ->layoutData(['titleAddon' => 'Missing Items'])

@@ -26,6 +26,8 @@ class ItemNames
         'fridge_dairy'        => 'Fridge: Dairy Products',
         'fridge_meat'         => 'Fridge: Frozen Raw Meat',
 
+        'illegal_meth' => 'Illegal: Methamphetamine',
+
         'liquid_water'     => 'Truck Cargo: Treated Water (100L)',
         'liquid_water_raw' => 'Truck Cargo: Unfiltered Water (100L)',
 
@@ -103,6 +105,28 @@ class ItemNames
         'rts_professional' => 'R.T.S.: Professional License',
         'rts_air_license'  => 'R.T.S.: Aviator License',
 
+        'hide_chicken' => 'Hunting: Chicken',
+        'hide_mtlion' => 'Hunting: Cougar',
+        'hide_deer' => 'Hunting: Deer',
+        'hide_rottweiler' => 'Hunting: Rottweiler Dog',
+        'hide_coyote' => 'Hunting: Coyote',
+
+        'fish_meat' => 'Fish Meat',
+        'fish_cod' => 'Fish: Cod',
+        'fish_mackerel' => 'Fish: Mackerel',
+        'fish_saithe' => 'Fish: Saithe',
+        'fish_salmon' => 'Fish: Salmon',
+        'fish_trout' => 'Fish: Trout',
+        'pot_crab' => 'Crab Pot',
+        'pot_lobster' => 'Lobster Pot',
+
+        'go_crude_oil' => 'Globe Oil: Crude Oil Mix Barrel',
+        'go_ground_petrol' => 'Globe Oil: Petroleum Barrel',
+        'go_ground_diesel' => 'Globe Oil: Diesel Barrel',
+
+        'liberty_token' => 'Liberty: Liberty City Token',
+        'spaceship_part' => 'Spaceship Part',
+        'store_permit' => 'Heist Permit',
         'house' => 'Completed House',
     ];
 

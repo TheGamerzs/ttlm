@@ -25,6 +25,8 @@ class Weights
         'fridge_dairy' => 15,
         'fridge_meat' => 15,
 
+        'illegal_meth' => 10,
+
         'liquid_water' => 100,
         'liquid_water_raw' => 100,
 
@@ -96,12 +98,27 @@ class Weights
         'upgrade_kit_sultanr' => 20,
         'upgrade_kit_sultanrs' => 20,
 
+        'hide_chicken' => 1,
+        'hide_mtlion' => 5,
+        'hide_deer' => 6,
+        'hide_rottweiler' => 5,
+        'hide_coyote' => 3,
+
+        'fish_meat' => 0,
+        'fish_mackerel' => 2,
+
+        'go_crude_oil' => 20,
+        'go_ground_petrol' => 20,
+        'go_ground_diesel' => 20,
+
         'defibkit' => 5,
         'flotsam' => 10,
         'speed_trap_radar' => 5,
         'rts_professional' => 95,
         'rts_air_license' => 95,
 
+        'liberty_token' => 0,
+        'store_permit' => 91,
 
         'house' => 1,
         'testing_fake' => 1

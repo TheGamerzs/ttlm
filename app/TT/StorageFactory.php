@@ -168,11 +168,14 @@ class StorageFactory
                 'faq_522' => 'House Of E',
                 'faq_54'=> 'TSA',
                 'faq_56'=> 'I Don\'t Know',
+                'faq_100' => 'LS Foundry',
+                'faq_186' => 'LS Factory',
                 'faq_225'=> 'HOUSES',
                 'faq_287'=> 'OVERLORD',
                 'faq_310'=> 'HouseCo',
                 'faq_330' => 'The Foundry Group',
             ];
+
             return array_key_exists($storageName, $factionLookup)
                 ? 'Faction - ' . $factionLookup[$storageName]
                 : 'Faction - ' . $name->afterLast('_');

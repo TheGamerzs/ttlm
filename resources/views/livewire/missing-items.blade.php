@@ -14,15 +14,23 @@
                     <a target="_blank" href="https://ttapi.elfshot.xyz/items?item={{ $itemName }}">Elfshot Lookup</a>
                 </td>
                 <td>
-                    {{ array_key_exists($itemName, \App\TT\Items\Weights::$weights) }}
+                    @if(array_key_exists($itemName, \App\TT\Items\Weights::$weights))
+                        <i class="bi bi-clipboard2-check-fill text-success"></i>
+                    @endif
                 </td>
                 <td>
-                    {{ array_key_exists($itemName, \App\TT\Items\ItemNames::$names) }}
+                    @if(array_key_exists($itemName, \App\TT\Items\ItemNames::$names))
+                        <i class="bi bi-clipboard2-check-fill text-success"></i>
+                    @endif
                 </td>
                 <td>
-                    <a href="#" wire:click.prevent="addToIgnore('{{ $itemName }}')">Ignore</a>
+                    <a href="#" wire:click.prevent="addToIgnore('{{ $itemName }}')">Ignore</a> |
+                    <a href="#" wire:click.prevent="deleteFromAll('{{ $itemName }}')">Delete</a>
                 </td>
             </tr>
         @endforeach
     </table>
+    <div class="d-flex justify-content-center">
+        <button wire:click="clearIgnore" class="btn btn-primary">Clear Ignored List</button>
+    </div>
 </div>

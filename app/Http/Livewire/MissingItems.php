@@ -8,6 +8,11 @@ use Livewire\Component;
 
 class MissingItems extends Component
 {
+    public function clearIgnore()
+    {
+        Cache::forget('ignoreMissing');
+    }
+
     public function addToIgnore(string $itemName)
     {
         /** @var Collection $missingItemsIgnoring */
@@ -16,6 +21,27 @@ class MissingItems extends Component
             $missingItemsIgnoring->push($itemName);
             Cache::put('ignoreMissing', $missingItemsIgnoring);
         }
+    }
+
+    public function deleteFromAll(string $itemName) {
+        Cache::put('missingItemsNames',
+            Cache::get('missingItemsNames')->reject(function ($name) use ($itemName) {
+                return $name == $itemName;
+            })
+        );
+
+        Cache::put('missingItems',
+            Cache::get('missingItems')->reject(function ($name) use ($itemName) {
+                return $name == $itemName;
+            })
+        );
+
+        Cache::put('ignoreMissing',
+            Cache::get('ignoreMissing', collect())->reject(function ($name) use ($itemName) {
+                return $name == $itemName;
+            })
+        );
+
     }
 
     public function render()

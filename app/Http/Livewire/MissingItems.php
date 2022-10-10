@@ -23,7 +23,7 @@ class MissingItems extends Component
         /** @var Collection $names */
         $names   = Cache::get('missingItemsNames');
         $weights = Cache::get('missingItems');
-        $ignore  = Cache::get('ignoreMissing', []);
+        $ignore  = Cache::get('ignoreMissing', collect());
 
         $items = $names->merge($weights)->unique()->reject(function ($name) use ($ignore) {
             return $ignore->contains($name);

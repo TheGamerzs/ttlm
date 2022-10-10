@@ -20,12 +20,20 @@
                     <hr>
                     <input type="text" class="form-control" wire:model="searchStringInput" placeholder="By Name..." />
 
-                    <span class="mt-2">Type:</span>
+                    <span class="mt-2 text-center">Type</span>
                     <div class="text-center">
                         <x-select-choices wire:model="typeFilter">
                             <x-select-options :items="$this->getTypeFilterOptions()" />
                         </x-select-choices>
                     </div>
+
+                    <span class="mt-2 text-center">Count</span>
+                    <input wire:model="minCountFilter" type="text" class="form-control" placeholder="Minimum">
+                    <input wire:model="maxCountFilter" type="text" class="form-control" placeholder="Maximum">
+
+                    <span class="mt-2 text-center">Total Weight</span>
+                    <input wire:model="minTotalWeightFilter" type="text" class="form-control" placeholder="Minimum">
+                    <input wire:model="maxTotalWeightFilter" type="text" class="form-control" placeholder="Maximum">
                 </div>
             </div>
             <div class="card mt-3">

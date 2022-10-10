@@ -31,11 +31,20 @@ class StorageListing extends Component
 
     public array $hiddenExportableInputs = [];
 
+    public array $customStorageInput = [];
+
+    // Filter Inputs
     public string $searchStringInput = '';
 
     public array|string $typeFilter = 'all';
 
-    public array $customStorageInput = [];
+    public string $minCountFilter = '';
+
+    public string $maxCountFilter = '';
+
+    public string $minTotalWeightFilter = '';
+
+    public string $maxTotalWeightFilter = '';
 
     public function mount()
     {
@@ -116,6 +125,23 @@ class StorageListing extends Component
             'App\TT\ItemFilters\SortBy:' . $this->sortBy,
             'App\TT\ItemFilters\NameByStringFilter:' . $this->searchStringInput,
         ];
+
+        if (! empty($this->minCountFilter) && is_numeric($this->minCountFilter)) {
+            $pipes[] = 'App\TT\ItemFilters\MinCountFilter:' . (int) $this->minCountFilter;
+        }
+
+        if (! empty($this->maxCountFilter) && is_numeric($this->maxCountFilter)) {
+            $pipes[] = 'App\TT\ItemFilters\MaxCountFilter:' . (int) $this->maxCountFilter;
+        }
+
+        if (! empty($this->minTotalWeightFilter) && is_numeric($this->minTotalWeightFilter)) {
+            $pipes[] = 'App\TT\ItemFilters\MinTotalWeightFilter:' . (int) $this->minTotalWeightFilter;
+        }
+
+        if (! empty($this->maxTotalWeightFilter) && is_numeric($this->maxTotalWeightFilter)) {
+            $pipes[] = 'App\TT\ItemFilters\MaxTotalWeightFilter:' . (int) $this->maxTotalWeightFilter;
+        }
+
 
         // Validation check that user didn't mess with html, or no type filter needed.
         if (! $this->getTypeFilterOptions()->keys()->contains($this->typeFilter) || $this->typeFilter == 'all')

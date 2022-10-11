@@ -11,6 +11,14 @@ it('calculates how many can fit in a defined space', function () {
 
 });
 
+it('has a weight', function () {
+
+    $ceramicTiles = new Item('crafted_ceramictiles');
+
+    expect($ceramicTiles->weight)->toBeInt()->toBe(10);
+
+});
+
 it('shows a pretty name if one exists', function () {
 
     $ceramicTiles = new Item('crafted_ceramictiles');

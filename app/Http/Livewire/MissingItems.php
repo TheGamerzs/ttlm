@@ -13,6 +13,13 @@ class MissingItems extends Component
         Cache::forget('ignoreMissing');
     }
 
+    public function clearAll()
+    {
+        Cache::forget('missingItemNames');
+        Cache::forget('missingItems');
+        Cache::forget('ignoreMissing');
+    }
+
     public function addToIgnore(string $itemName)
     {
         /** @var Collection $missingItemsIgnoring */
@@ -24,8 +31,8 @@ class MissingItems extends Component
     }
 
     public function deleteFromAll(string $itemName) {
-        Cache::put('missingItemsNames',
-            Cache::get('missingItemsNames')->reject(function ($name) use ($itemName) {
+        Cache::put('missingItemNames',
+            Cache::get('missingItemNames')->reject(function ($name) use ($itemName) {
                 return $name == $itemName;
             })
         );
@@ -47,8 +54,8 @@ class MissingItems extends Component
     public function render()
     {
         /** @var Collection $names */
-        $names   = Cache::get('missingItemsNames');
-        $weights = Cache::get('missingItems');
+        $names   = Cache::get('missingItemNames', collect());
+        $weights = Cache::get('missingItems', collect());
         $ignore  = Cache::get('ignoreMissing', collect());
 
         $items = $names->merge($weights)->unique()->reject(function ($name) use ($ignore) {

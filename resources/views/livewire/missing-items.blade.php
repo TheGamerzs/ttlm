@@ -32,5 +32,6 @@
     </table>
     <div class="d-flex justify-content-center">
         <button wire:click="clearIgnore" class="btn btn-primary">Clear Ignored List</button>
+        <button wire:click="clearAll" class="btn btn-primary ms-2">Delete All</button>
     </div>
 </div>

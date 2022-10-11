@@ -15,14 +15,19 @@ class Item
 
     public function __construct(string $name)
     {
+        $data = ItemData::getFromDataId($name);
         $this->name   = $name;
-        $this->weight = Weights::getWeight($name);
-        $this->prettyName = ItemNames::getName($name);
+        if ($data) {
+            $this->weight = (int) $data->weight;
+            $this->prettyName = $data->name;
+        }
     }
 
     public function name(): string
     {
-        return $this->prettyName ?? $this->name;
+        return isset($this->prettyName)
+            ? str($this->prettyName)->after(': ')
+            : str($this->name)->title();
     }
 
     public function getRecipe(): Recipe

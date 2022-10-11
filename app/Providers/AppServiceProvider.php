@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,6 +21,14 @@ class AppServiceProvider extends ServiceProvider
             return collect(
                 dataFromJson('Storages.json')
             );
+        });
+
+        $this->app->singleton('itemData', function () {
+            return Cache::rememberForever('itemData', function () {
+                return collect(dataFromJson('Items.json'))->sortBy(function ($item) {
+                    return $item->id;
+                });
+            });
         });
     }
 

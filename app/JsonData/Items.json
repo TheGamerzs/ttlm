@@ -1,40 +1,5 @@
 [
     {
-        "id": "1",
-        "name": "Invalid Item",
-        "weight": "Invalid Item"
-    },
-    {
-        "id": "2",
-        "name": "Invalid Item",
-        "weight": "Invalid Item"
-    },
-    {
-        "id": "5",
-        "name": "Invalid Item",
-        "weight": "Invalid Item"
-    },
-    {
-        "id": "45",
-        "name": "Invalid Item",
-        "weight": "Invalid Item"
-    },
-    {
-        "id": "400",
-        "name": "Invalid Item",
-        "weight": "Invalid Item"
-    },
-    {
-        "id": "4757",
-        "name": "Invalid Item",
-        "weight": "Invalid Item"
-    },
-    {
-        "id": "451004",
-        "name": "Invalid Item",
-        "weight": "Invalid Item"
-    },
-    {
         "id": "IA_1_1",
         "name": "SSIA Bound Passengers",
         "weight": "10"
@@ -115,51 +80,6 @@
         "weight": "2.5"
     },
     {
-        "id": "MEDICVOUCHER",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
-        "id": "Recycled_Electronics",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
-        "id": "RocketLauncherFireworks",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
-        "id": "Scrap_Copper",
-        "name": "Invalid Item",
-        "weight": "Invalid Item"
-    },
-    {
-        "id": "Scrap_Gold",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
-        "id": "Scrap_Plastic",
-        "name": "Invalid Item",
-        "weight": "Invalid Item"
-    },
-    {
-        "id": "WEAPON_FIREWORK",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
-        "id": "acid",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
-        "id": "air_cargo_sca",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
         "id": "aircargo_cia",
         "name": "Air Cargo: CIA",
         "weight": "25"
@@ -203,11 +123,6 @@
         "id": "aircargo_zma",
         "name": "Air Cargo: ZMA",
         "weight": "25"
-    },
-    {
-        "id": "airline_meal",
-        "name": "Invalid Item",
-        "weight": "0"
     },
     {
         "id": "airline_meals",
@@ -297,21 +212,6 @@
     {
         "id": "bat_voucher_mechanic_ai",
         "name": "B.A.T.: Mechanic AI Voucher",
-        "weight": "0"
-    },
-    {
-        "id": "batterie",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
-        "id": "batteries",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
-        "id": "bigmac",
-        "name": "Invalid Item",
         "weight": "0"
     },
     {
@@ -1785,11 +1685,6 @@
         "weight": "0"
     },
     {
-        "id": "blessing_pack_1_reset",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
         "id": "bottles",
         "name": "Bottles",
         "weight": "10"
@@ -1920,11 +1815,6 @@
         "weight": "0"
     },
     {
-        "id": "collinsco_voucher",
-        "name": "Invalid Item",
-        "weight": "Invalid Item"
-    },
-    {
         "id": "comp_alcohol",
         "name": "Component: Alcohol",
         "weight": "0"
@@ -1962,21 +1852,6 @@
     {
         "id": "complete_meal",
         "name": "Complete Meal",
-        "weight": "0"
-    },
-    {
-        "id": "complete_meals",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
-        "id": "cookie",
-        "name": "Invalid Item",
-        "weight": "Invalid Item"
-    },
-    {
-        "id": "crafted_acid",
-        "name": "Invalid Item",
         "weight": "0"
     },
     {
@@ -2040,11 +1915,6 @@
         "weight": "5"
     },
     {
-        "id": "dbx_ticket",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
         "id": "debug_potato",
         "name": "{Rotten Potato}",
         "weight": "0"
@@ -2105,21 +1975,6 @@
         "weight": "0"
     },
     {
-        "id": "dpx",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
-        "id": "dpx_ticket",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
-        "id": "dragon_wings",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
         "id": "drugs",
         "name": "Illegal Drugs",
         "weight": "5"
@@ -2133,11 +1988,6 @@
         "id": "e_defibkit",
         "name": "Empty Defibkit",
         "weight": "5"
-    },
-    {
-        "id": "earbuds",
-        "name": "Invalid Item",
-        "weight": "0"
     },
     {
         "id": "earplugs",
@@ -2197,11 +2047,6 @@
     {
         "id": "event_firework_rocket",
         "name": "Fireworks Rocket",
-        "weight": "0"
-    },
-    {
-        "id": "event_fireworks_rocket",
-        "name": "Invalid Item",
         "weight": "0"
     },
     {
@@ -2470,16 +2315,6 @@
         "weight": "0"
     },
     {
-        "id": "firework launcher",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
-        "id": "firework_launcher",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
         "id": "fish_angelfish",
         "name": "Fish: Angelfish",
         "weight": "0.5"
@@ -2590,11 +2425,6 @@
         "weight": "0"
     },
     {
-        "id": "fishing_tacke_uncommon",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
         "id": "fishing_tackle_epic",
         "name": "Fishing: Epic Tackle",
         "weight": "0"
@@ -2665,11 +2495,6 @@
         "weight": "0"
     },
     {
-        "id": "freefall_card",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
         "id": "fridge_airline_meal",
         "name": "Airline Meal",
         "weight": "3"
@@ -2678,11 +2503,6 @@
         "id": "fridge_dairy",
         "name": "Fridge: Dairy Products",
         "weight": "15"
-    },
-    {
-        "id": "fridge_meal",
-        "name": "Invalid Item",
-        "weight": "0"
     },
     {
         "id": "fridge_meat",
@@ -2703,16 +2523,6 @@
         "id": "fries",
         "name": "Fries",
         "weight": "5"
-    },
-    {
-        "id": "fuel",
-        "name": "Invalid Item",
-        "weight": "Invalid Item"
-    },
-    {
-        "id": "fuel_voucher",
-        "name": "Invalid Item",
-        "weight": "0"
     },
     {
         "id": "full_box_capsules",
@@ -2858,11 +2668,6 @@
         "id": "hazard_test",
         "name": "Hazard: Name",
         "weight": "Hazard: Name"
-    },
-    {
-        "id": "heist_permit",
-        "name": "Invalid Item",
-        "weight": "0"
     },
     {
         "id": "helivoucher",
@@ -3030,8 +2835,8 @@
         "weight": "10"
     },
     {
-        "id": "hunting_boar",
-        "name": "Invalid Item",
+        "id": "house",
+        "name": "Completed House",
         "weight": "0"
     },
     {
@@ -3087,11 +2892,6 @@
     {
         "id": "icetea",
         "name": "Ice-Tea",
-        "weight": "0"
-    },
-    {
-        "id": "illegal_coca",
-        "name": "Invalid Item",
         "weight": "0"
     },
     {
@@ -3237,11 +3037,6 @@
     {
         "id": "job_card|trucker",
         "name": "Job Card: Trucker",
-        "weight": "0"
-    },
-    {
-        "id": "jobcard_police",
-        "name": "Invalid Item",
         "weight": "0"
     },
     {
@@ -3467,11 +3262,6 @@
     {
         "id": "mech_card",
         "name": "Mechanic Card",
-        "weight": "0"
-    },
-    {
-        "id": "mechanical_engine",
-        "name": "Invalid Item",
         "weight": "0"
     },
     {
@@ -5275,19 +5065,9 @@
         "weight": "Medium Pumpkin"
     },
     {
-        "id": "mud",
-        "name": "Invalid Item",
-        "weight": "Invalid Item"
-    },
-    {
         "id": "nuggets",
         "name": "Chicken Nuggets",
         "weight": "6"
-    },
-    {
-        "id": "oil",
-        "name": "Invalid Item",
-        "weight": "Invalid Item"
     },
     {
         "id": "onionrings",
@@ -5385,11 +5165,6 @@
         "weight": "50"
     },
     {
-        "id": "phatchips",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
         "id": "phone_atm",
         "name": "Phone Extension: Portable ATM",
         "weight": "0"
@@ -5410,29 +5185,14 @@
         "weight": "0"
     },
     {
-        "id": "pill",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
         "id": "pills",
         "name": "Pills",
         "weight": "0.1"
     },
     {
-        "id": "pilotvoucher",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
         "id": "pizza",
         "name": "Pizza",
         "weight": "10"
-    },
-    {
-        "id": "pizzaz",
-        "name": "Invalid Item",
-        "weight": "0"
     },
     {
         "id": "plastic",
@@ -5468,11 +5228,6 @@
         "id": "pot_lobster",
         "name": "Lobster Pot",
         "weight": "4"
-    },
-    {
-        "id": "prefix_pack_01",
-        "name": "Invalid Item",
-        "weight": "0"
     },
     {
         "id": "prefix_pack_1",
@@ -5585,16 +5340,6 @@
         "weight": "Rank Card: Premium Account"
     },
     {
-        "id": "raw_acid",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
-        "id": "raw_water",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
         "id": "rebreather",
         "name": "Rebreather ",
         "weight": "0"
@@ -5660,11 +5405,6 @@
         "weight": "20"
     },
     {
-        "id": "refined_gravel",
-        "name": "Invalid Item",
-        "weight": "Invalid Item"
-    },
-    {
         "id": "refined_planks",
         "name": "Truck Cargo: Planks",
         "weight": "15"
@@ -5683,11 +5423,6 @@
         "id": "refined_tin",
         "name": "Truck Cargo: Refined Tin",
         "weight": "10"
-    },
-    {
-        "id": "refined_water",
-        "name": "Invalid Item",
-        "weight": "0"
     },
     {
         "id": "refined_zinc",
@@ -8730,11 +8465,6 @@
         "weight": "55"
     },
     {
-        "id": "rts_license",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
         "id": "rts_professional",
         "name": "R.T.S.: Professsional License",
         "weight": "95"
@@ -8758,11 +8488,6 @@
         "id": "sandwich",
         "name": "Sandwich",
         "weight": "0"
-    },
-    {
-        "id": "sawdust",
-        "name": "Invalid Item",
-        "weight": "Invalid Item"
     },
     {
         "id": "scrap_acid",
@@ -8910,16 +8635,6 @@
         "weight": "0"
     },
     {
-        "id": "sd_unencrypted|trucking.clucking.fish",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
-        "id": "skill_token",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
         "id": "soda",
         "name": "Soda",
         "weight": "5"
@@ -8945,16 +8660,6 @@
         "weight": "0"
     },
     {
-        "id": "spritzer",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
-        "id": "spritzerdtm",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
         "id": "sprunk",
         "name": "Sprunk",
         "weight": "0"
@@ -8975,11 +8680,6 @@
         "weight": "160"
     },
     {
-        "id": "st_gut_knife|0",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
         "id": "staff_voucher",
         "name": "Staff Voucher",
         "weight": "0"
@@ -8987,11 +8687,6 @@
     {
         "id": "stolen_money",
         "name": "Stolen Money",
-        "weight": "0"
-    },
-    {
-        "id": "stolen_money_legacy",
-        "name": "Invalid Item",
         "weight": "0"
     },
     {
@@ -9055,11 +8750,6 @@
         "weight": "0"
     },
     {
-        "id": "temp_cookie",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
         "id": "testing_voucher",
         "name": "testing voucher",
         "weight": "0"
@@ -9070,11 +8760,6 @@
         "weight": "0"
     },
     {
-        "id": "title_card_cutsom",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
         "id": "title_card|Halloween 2018|Halloween Tycoonist|12|20|orange",
         "name": "Title Card: Halloween 2018",
         "weight": "0"
@@ -9082,16 +8767,6 @@
     {
         "id": "toll_card",
         "name": "Toll Card",
-        "weight": "0"
-    },
-    {
-        "id": "tool",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
-        "id": "tools",
-        "name": "Invalid Item",
         "weight": "0"
     },
     {
@@ -9115,38 +8790,13 @@
         "weight": "0"
     },
     {
-        "id": "treated_water",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
         "id": "trophy",
         "name": "Trophy",
         "weight": "0"
     },
     {
-        "id": "trucker_license",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
         "id": "trucker_pda",
         "name": "Trucker&#39;s PDA",
-        "weight": "0"
-    },
-    {
-        "id": "trucking_pda",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
-        "id": "tuna_burger",
-        "name": "Invalid Item",
-        "weight": "0"
-    },
-    {
-        "id": "unfiltered_water",
-        "name": "Invalid Item",
         "weight": "0"
     },
     {
@@ -11652,11 +11302,6 @@
     {
         "id": "zombie_meat",
         "name": "Zombie Meat",
-        "weight": "0"
-    },
-    {
-        "id": "house",
-        "name": "Completed House",
         "weight": "0"
     }
 ]

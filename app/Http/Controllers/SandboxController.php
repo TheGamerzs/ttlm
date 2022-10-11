@@ -28,48 +28,7 @@ class SandboxController extends Controller
 
     public function index()
     {
-        $dump = new Item('crafted_ceramictiles');
-
+        $dump = ItemData::getInternalNameDisplayNamePairsTruckingOnly();
         dump($dump);
-    }
-
-    public function lookup()
-    {
-        $items = collect(ItemNames::$names)
-            ->reject()
-            ->reject(function ($value, $itemName) {
-                return Str::of($itemName)->startsWith('vehicle_shipment');
-            })
-            ->mapWithKeys(function ($weight, $itemName) {
-            return [$itemName => [
-                'myWeight' => $weight,
-                ...Http::withOptions(['verify' => false])->get('https://ttapi.elfshot.xyz/items?item=' . $itemName)->json()['data'] ?? []
-            ]];
-        });
-
-        dd($items);
-    }
-
-    public function missingItemsAfterPulledFromAPI()
-    {
-        $ignoring = collect([
-            'gut_knife_tiger|7842',
-            'gut_knife_fade|79',
-            'vehicle_card|Tmodel|R.T.S. Tesla Model 3',
-            'vehicle_card|Zentorno|R.T.S. Zentorno',
-            'vehicle_card|Sanctus|R.T.S. Sanctus',
-            'vehicle_card|Tropos|R.T.S. Tropos',
-            'fish_meat',
-        ]);
-
-        $missingItems = Cache::get('missingItems')->reject(function ($string) use ($ignoring) {
-            return $ignoring->contains($string);
-        });
-
-        dump($missingItems);
-
-        foreach ($missingItems as $itemName) {
-            echo '<a href="https://ttapi.elfshot.xyz/items?item=' . $itemName . '">' . $itemName . '</a><br>';
-        }
     }
 }

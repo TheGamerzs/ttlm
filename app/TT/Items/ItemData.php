@@ -36,8 +36,40 @@ class ItemData
 
     public static function getInternalNameDisplayNamePairs()
     {
-        return App::get('itemData')->mapWithKeys(function ($itemData) {
-            return [$itemData->id => $itemData->name];
-        });
+        return App::get('itemData')
+            ->reject(function ($item) {
+                return $item->name == 'Invalid Item';
+            })
+            ->mapWithKeys(function ($itemData) {
+                return [$itemData->id => $itemData->name];
+            });
+    }
+
+    public static function getInternalNameDisplayNamePairsTruckingOnly()
+    {
+        return App::get('itemData')
+            ->filter(function ($item) {
+                return str($item->id)->startsWith(self::truckingItemsStartWith());
+            })
+            ->mapWithKeys(function ($itemData) {
+                return [$itemData->id => $itemData->name];
+            });
+    }
+
+    public static function truckingItemsStartWith(): array
+    {
+        return [
+            'scrap',
+            'refined',
+            'crafted',
+            'recycled',
+            'fridge',
+            'mechanicals',
+            'petrochem',
+            'military',
+            'tcargo',
+            'pucargo',
+            'liquid_water',
+        ];
     }
 }

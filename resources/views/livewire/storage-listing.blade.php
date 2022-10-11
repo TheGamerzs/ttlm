@@ -124,10 +124,12 @@
                 </table>
             </x-collapsable-card>
             <x-collapsable-card title="Full Trailer Alert Settings" :open="false">
-                <div class="input-group mb-3">
-                    <x-item-select change-wire-model="itemToAddToFullTrailerAlerts" />
-                    <button class="btn btn-outline-secondary" type="button" wire:click.prevent="addItemToFullTrailerAlerts">Add</button>
+                <div class="text-center">
+                    <x-select-choices wire:model="itemToAddToFullTrailerAlerts">
+                        <x-select-options :items="\App\TT\Items\ItemData::getInternalNameDisplayNamePairsTruckingOnly()" />
+                    </x-select-choices>
                 </div>
+                    <button class="btn btn-outline-secondary" type="button" wire:click.prevent="addItemToFullTrailerAlerts">Add</button>
 
                 <ul class="list-group list-group-flush">
                     @foreach(Auth::user()->full_trailer_alerts as $item)

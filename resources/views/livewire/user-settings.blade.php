@@ -67,7 +67,9 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Default Trucking/Crafting Page Recipe</label>
-                <x-recipe-select change-wire-model="user.default_crafting_recipe" :include-base-items="false" />
+                <x-select-choices wire:model="user.default_crafting_recipe">
+                    <x-select-options :items="\App\TT\Recipes::getNamesIfComponentsExist(true)" />
+                </x-select-choices>
             </div>
             <div class="d-grid gap-2">
                 <button class="btn btn-primary" type="submit">Save</button>

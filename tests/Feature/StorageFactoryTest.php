@@ -9,7 +9,7 @@ it('returns a pretty name for a storage id', function () {
 
 it('returns a pretty name for faction storages', function () {
 
-    $return = \App\TT\StorageFactory::getPrettyName('faq_100');
-    expect($return)->toBe('Faction - 100');
+    $return = \App\TT\StorageFactory::getPrettyName('faq_1999');
+    expect($return)->toBe('Faction - 1999');
 
 });

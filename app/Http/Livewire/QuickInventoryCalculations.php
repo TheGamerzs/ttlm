@@ -3,7 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\TT\Items\Item;
-use App\TT\Items\ItemNames;
+use App\TT\Items\ItemData;
 use App\TT\RecipeFactory;
 use App\TT\ShoppingListBuilder;
 use App\TT\StorageFactory;
@@ -148,8 +148,8 @@ class QuickInventoryCalculations extends Component
 
     public function getItemNamesThatExistInStorage(): Collection
     {
-        return StorageFactory::get('combined')->pluck('name')->mapWithKeys(function ($idName) {
-            return [$idName => ItemNames::getName($idName) ?? $idName];
+        return StorageFactory::get('combined')->pluck('name')->mapWithKeys(function ($internalName) {
+            return [$internalName => ItemData::getName($internalName)];
         })->sort();
     }
 

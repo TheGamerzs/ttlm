@@ -29,6 +29,15 @@ it('returns data for a single item', function () {
 
 });
 
+test('getFromInternalName alias', function () {
+
+    $fromId = ItemData::getFromDataId('refined_planks');
+    $fromName = ItemData::getFromInternalName('refined_planks');
+
+    expect($fromId)->toBe($fromName);
+
+});
+
 it('returns a weight', function () {
 
     $weight = ItemData::getWeight('refined_planks');
@@ -39,8 +48,24 @@ it('returns a weight', function () {
 
 it('returns a weight of 0 for a missing item', function () {
 
-    $weight = ItemData::getWeight('made_up');
+    expect(
+        ItemData::getWeight('made_up')
+    )->toBe(0);
 
-    expect($weight)->toBe(0);
+});
+
+it('returns a pretty name where one exists', function () {
+
+    expect(
+        ItemData::getName('refined_planks')
+    )->toBe('Truck Cargo: Planks');
+
+});
+
+it('returns back the internal name when it does not exist', function () {
+
+    expect(
+        ItemData::getName('made_up')
+    )->toBe('made_up');
 
 });

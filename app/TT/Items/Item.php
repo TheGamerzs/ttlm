@@ -13,10 +13,10 @@ class Item
 
     public ?int $weight;
 
-    public function __construct(string $name)
+    public function __construct(string $internalName)
     {
-        $data = ItemData::getFromDataId($name);
-        $this->name   = $name;
+        $data = ItemData::getFromInternalName($internalName);
+        $this->name   = $internalName;
         if ($data) {
             $this->weight = (int) $data->weight;
             $this->prettyName = $data->name;

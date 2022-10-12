@@ -34,6 +34,17 @@ class ItemData
         return $return;
     }
 
+    // alias for readability
+    public static function getFromInternalName(string $internalName)
+    {
+        return self::getFromDataId($internalName);
+    }
+
+    public static function getName(string $internalName): string
+    {
+        return self::getFromDataId($internalName)?->name ?? $internalName;
+    }
+
     public static function getWeight(string $internalName): int
     {
         return (int) self::getFromDataId($internalName)?->weight ?? 0;

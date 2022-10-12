@@ -124,7 +124,6 @@
                 </table>
             </x-collapsable-card>
             <x-collapsable-card title="Full Trailer Alert Settings" :open="false">
-                {{ $itemToAddToFullTrailerAlerts }}
                 <div class="text-center">
                     <x-select-choices wire:model="itemToAddToFullTrailerAlerts">
                         <x-select-options :items="\App\TT\Items\ItemData::getInternalNameDisplayNamePairsTruckingOnly()" />
@@ -135,7 +134,7 @@
                 <ul class="list-group list-group-flush">
                     @foreach(Auth::user()->full_trailer_alerts as $item)
                         <li class="list-group-item d-flex justify-content-between">
-                            {{ \App\TT\Items\ItemNames::getName($item) ?? $item }}
+                            {{ \App\TT\Items\ItemData::getName($item) }}
                             <i class="bi bi-trash cursor-pointer text-danger" wire:click.prevent="removeItemFromFullTrailerAlerts('{{ $item }}')"></i>
                         </li>
                     @endforeach
@@ -155,7 +154,7 @@
                 <div class="col-3">
                     <div class="form-check form-switch">
                         <input wire:model="hiddenExportableInputs.{{ $name }}" class="form-check-input" type="checkbox" role="switch" id="{{ $name }}hide">
-                        <label class="form-check-label" for="{{ $name }}hide">{{ \App\TT\Items\ItemNames::getName($name) ?? $name }}</label>
+                        <label class="form-check-label" for="{{ $name }}hide">{{ \App\TT\Items\ItemData::getName($name) }}</label>
                     </div>
                 </div>
             @endforeach

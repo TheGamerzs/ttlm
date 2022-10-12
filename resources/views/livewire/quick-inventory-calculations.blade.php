@@ -55,7 +55,7 @@
                 <table class="table table-sm border">
                     @foreach($trainYardPickups as $trainYardPickup)
                     <tr>
-                        <td class="fw-bold">{{ \App\TT\Items\ItemNames::getName($trainYardPickup->pickupItemName) ?? $trainYardPickup->pickupItemName }}</td>
+                        <td class="fw-bold">{{ \App\TT\Items\ItemData::getName($trainYardPickup->pickupItemName) }}</td>
                         <td>Trailer: {{ $trainYardPickup->pickupItemsCountTrailer() }}</td>
                         <td>Pocket: {{ $trainYardPickup->pickupItemsCountPocket() }}</td>
                         <td>Runs Stored: {{ $trainYardPickup->howManyTimesTrainYardCanBeUsed() }}</td>
@@ -103,8 +103,8 @@
                     @foreach($pickupCounts as $name => $count)
                         <li class="list-group-item d-flex justify-content-between">
                             <span>
-                                <x-add-to-game-plan text="Make {{ $count }} {{ \App\TT\Items\ItemNames::getName($name) ?? $name }} runs." />
-                                {{ \App\TT\Items\ItemNames::getName($name) ?? $name }}
+                                <x-add-to-game-plan text="Make {{ $count }} {{ \App\TT\Items\ItemData::getName($name) }} runs." />
+                                {{ \App\TT\Items\ItemData::getName($name) }}
                             </span>
                             <span>{{ $count }}</span>
                         </li>

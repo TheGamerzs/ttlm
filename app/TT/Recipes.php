@@ -2,7 +2,7 @@
 
 namespace App\TT;
 
-use App\TT\Items\ItemNames;
+use App\TT\Items\ItemData;
 use Illuminate\Support\Collection;
 
 class Recipes
@@ -618,8 +618,8 @@ class Recipes
         })->keys();
 
         if ($mapPrettyNames) {
-            $return = $return->mapWithKeys(function ($idName) {
-                return [$idName => ItemNames::getName($idName) ?? $idName];
+            $return = $return->mapWithKeys(function ($internalName) {
+                return [$internalName => ItemData::getName($internalName)];
             })->sort();
         }
 

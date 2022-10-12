@@ -35,7 +35,7 @@
                 <tbody>
                 @foreach(collect($fullList['pickupCalculator']->baseItemsCounts)->filter() as $run => $itemsCount)
                     <tr>
-                        <td>{{ \App\TT\Items\ItemNames::getName($run) ?? $run }}</td>
+                        <td>{{ \App\TT\Items\ItemData::getName($run) }}</td>
                         <td>{{ number_format($itemsCount) }}</td>
                         <td>{{ number_format($afterStorageList['pickupCalculator']->baseItemsCounts[$run]) }}</td>
                     </tr>
@@ -55,7 +55,7 @@
                 <tbody>
                 @foreach(collect($fullList['pickupCalculator']->baseItemsCosts)->filter() as $run => $cost)
                     <tr>
-                        <td>{{ \App\TT\Items\ItemNames::getName($run) ?? $run }}</td>
+                        <td>{{ \App\TT\Items\ItemData::getName($run) }}</td>
                         <td>${{ number_format($cost) }}</td>
                         <td>${{ number_format($afterStorageList['pickupCalculator']->baseItemsCosts[$run]) }}</td>
                     </tr>

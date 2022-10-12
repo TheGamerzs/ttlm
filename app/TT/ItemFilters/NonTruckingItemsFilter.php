@@ -3,7 +3,7 @@
 namespace App\TT\ItemFilters;
 
 use App\TT\Items\Item;
-use App\TT\Items\ItemNames;
+use App\TT\Items\ItemData;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -14,7 +14,7 @@ class NonTruckingItemsFilter
         return $next(
             $itemCollection->reject(function (Item $item) {
                 return Str::of($item->name)
-                    ->startsWith(ItemNames::truckingItemsStartWith());
+                    ->startsWith(ItemData::truckingItemsStartWith());
             })
         );
     }

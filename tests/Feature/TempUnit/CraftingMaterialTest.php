@@ -5,7 +5,7 @@ use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
 use App\TT\Recipe;
 use App\TT\RecipeFactory;
-use \App\TT\Storage;
+use App\TT\Storage;
 
 it('calculates total weight needed', function () {
 
@@ -48,6 +48,5 @@ it('calculates how many are craftable from storage based on count assigned by re
     expect($ceramicTiles->recipesCraftableFromStorage())->toBe(2);
 
 });
-
 
 

@@ -65,7 +65,7 @@ class NextGrind extends Component
     {
         $this->storage = StorageFactory::get($this->storageName);
         $this->nextRecipeToGrind->setInStorageForAllComponents($this->storage);
-        $this->parentRecipe->autoSetStorageBasedOnComponentsLocation();
+        $this->parentRecipe->autoSetStorageBasedOnLocationOfMostComponents();
     }
 
     public function updatedStorageName($value)
@@ -78,7 +78,7 @@ class NextGrind extends Component
 
     protected function setStorageBasedOnLocationOfMostComponents()
     {
-        $this->storageName = $this->nextRecipeToGrind->autoSetStorageBasedOnComponentsLocation();
+        $this->storageName = $this->nextRecipeToGrind->autoSetStorageBasedOnLocationOfMostComponents();
         $this->storage = StorageFactory::get($this->storageName);
     }
 

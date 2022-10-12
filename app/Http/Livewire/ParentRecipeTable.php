@@ -3,13 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\TT\Items\CraftingMaterial;
-use App\TT\Items\InventoryItem;
-use App\TT\Items\Item;
 use App\TT\Recipe;
-use App\TT\RecipeFactory;
 use App\TT\Storage;
 use App\TT\StorageFactory;
-use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 /**
@@ -35,7 +31,7 @@ class ParentRecipeTable extends Component
 
     public function mount()
     {
-        $this->storageName = $this->parentRecipe->autoSetStorageBasedOnComponentsLocation();
+        $this->storageName = $this->parentRecipe->autoSetStorageBasedOnLocationOfMostComponents();
     }
 
     public function booted()

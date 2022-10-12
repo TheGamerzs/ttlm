@@ -4,7 +4,6 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\TT\TTApi;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,6 +11,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use JetBrains\PhpStorm\ArrayShape;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -96,6 +96,27 @@ class User extends Authenticatable
     public function clearGamePlan(): void
     {
         Cache::forget($this->id.'gamePlan');
+    }
+
+    public function setCraftingGoal(int $count, string $recipe): self
+    {
+        $goal = [
+            'count' => $count,
+            'recipe' => $recipe
+        ];
+
+        Session::put('craftingGoal', $goal);
+
+        return $this;
+    }
+
+    #[ArrayShape(['count' => 'int', 'recipe' => 'string'])]
+    public function getCraftingGoal(): array
+    {
+        return Session::get('craftingGoal', [
+            'count' => 0,
+            'recipe' => $this->default_crafting_recipe
+        ]);
     }
 
 }

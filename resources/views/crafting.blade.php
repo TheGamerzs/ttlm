@@ -6,8 +6,8 @@
                 :truck-capacity="$truckCapacity" />
         </div>
         <div class="col-6">
-            <livewire:next-grind :truck-capacity="$truckCapacity"
-                                 :parent-recipe="$parentRecipe"/>
+            <livewire:next-grind-revised :truck-capacity="$truckCapacity"
+                                         :parent-recipe="$parentRecipe" />
         </div>
     </div>
 

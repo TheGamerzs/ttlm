@@ -7,7 +7,7 @@
         {{ $this->countCanBeMade }} {{ $parentRecipe->displayName() }}s Can Be Made
         <i class="bi bi-clipboard2-check-fill cursor-pointer {{ Session::has('craftingGoal') ? 'text-success' : 'text-info' }}" wire:click="$emit('openCraftingGoal')"></i>
     </h3>
-    <h5 class="text-center">Trailer can fit {{ $parentRecipe->howManyRecipesCanFit($truckCapacity) }}</h5>
+    <h5 class="text-center">Trailer can fit components to make {{ $parentRecipe->howManyRecipesCanFit($truckCapacity) }}</h5>
     @if($parentRecipe->craftingLocation)
         <h5 class="text-center">Crafted at {{ $parentRecipe->craftingLocation }}</h5>
     @endif

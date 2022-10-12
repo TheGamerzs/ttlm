@@ -6,7 +6,6 @@ use App\TT\Items\CraftingMaterial;
 use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
 use Illuminate\Support\Collection;
-use Livewire\Wireable;
 
 class Recipe
 {
@@ -79,12 +78,19 @@ class Recipe
         return $this->components->first();
     }
 
+    public function mostLimitedByAsRecipe(): Recipe
+    {
+        return RecipeFactory::get(
+            new Item($this->components->first()->name)
+        );
+    }
+
     public function getComponent(string $craftingMaterialName)
     {
         return $this->components->firstWhere('name', $craftingMaterialName);
     }
 
-    public function autoSetStorageBasedOnComponentsLocation(): string
+    public function autoSetStorageBasedOnLocationOfMostComponents(): string
     {
         $storageName = $this->findStorageWithMostComponents();
         $this->setInStorageForAllComponents(StorageFactory::get($storageName));

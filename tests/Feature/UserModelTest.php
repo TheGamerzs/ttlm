@@ -109,3 +109,43 @@ it('clears a game plan', function () {
     expect(Cache::has($user->id.'gamePlan'))->toBeFalse();
 
 });
+
+it('saves the users crafting goal', function () {
+
+    $user = User::factory()->create();
+    actingAs($user);
+    expect(Session::has('craftingGoal'))->toBeFalse();
+
+    $user->setCraftingGoal(1000, 'house');
+    expect(Session::has('craftingGoal'))->toBeTrue()
+        ->and(Session::get('craftingGoal')['count'])->toBe(1000)
+        ->and(Session::get('craftingGoal')['recipe'])->toBe('house');
+
+});
+
+it('gets the users crafting goal', function () {
+
+    $user = User::factory()->create();
+    actingAs($user);
+
+    Session::put('craftingGoal', [
+        'count' => 500,
+        'recipe' => 'some_recipe'
+    ]);
+
+    $goal = $user->getCraftingGoal();
+    expect($goal['count'])->toBe(500)
+        ->and($goal['recipe'])->toBe('some_recipe');
+
+});
+
+it('gives a default when no goal is set', function () {
+
+    $user = User::factory()->create();
+    actingAs($user);
+
+    $goal = $user->getCraftingGoal();
+    expect($goal['count'])->toBe(0)
+        ->and($goal['recipe'])->toBe($user->default_crafting_recipe);
+
+});

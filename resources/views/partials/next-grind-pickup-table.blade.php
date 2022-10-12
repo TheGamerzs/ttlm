@@ -12,7 +12,7 @@
         <tbody>
         @foreach($runPossibility as $materialName => $count)
             <tr>
-                <td>{{ \App\TT\Items\ItemData::getName($materialName) }}</td>
+                <td>{{ \App\TT\Items\ItemData::getName($materialName, true) }}</td>
                 <td>{{ $count }}</td>
                 <td>{{ $count * 2 }}</td>
                 <td>{{ $count * 3 }}</td>

@@ -40,9 +40,16 @@ class ItemData
         return self::getFromDataId($internalName);
     }
 
-    public static function getName(string $internalName): string
+    public static function getName(string $internalName, bool $afterPrefix = false): string
     {
-        return self::getFromDataId($internalName)?->name ?? $internalName;
+        $fetchedName = self::getFromDataId($internalName)?->name;
+        if (is_null($fetchedName)) return $internalName;
+
+        if ($afterPrefix) {
+            return str($fetchedName)->after(': ');
+        }
+
+        return $fetchedName;
     }
 
     public static function getWeight(string $internalName): int

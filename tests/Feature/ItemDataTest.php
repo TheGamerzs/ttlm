@@ -62,6 +62,14 @@ it('returns a pretty name where one exists', function () {
 
 });
 
+it('returns a pretty name without the prefix', function () {
+
+    expect(
+        ItemData::getName('refined_planks', true)
+    )->toBe('Planks');
+
+});
+
 it('returns back the internal name when it does not exist', function () {
 
     expect(

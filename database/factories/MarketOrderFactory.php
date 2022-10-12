@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\TT\Items\ItemData;
 use App\TT\Items\Weights;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -48,6 +49,6 @@ class MarketOrderFactory extends Factory
 
     protected function fakeItem()
     {
-        return collect(Weights::$weights)->keys()->random();
+        return ItemData::getAllInternalTruckingNames()->random();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\MarketOrder;
+use App\TT\Items\ItemData;
 use App\TT\Items\ItemNames;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -42,8 +43,8 @@ class MarketOrders extends Component
     {
         return MarketOrder::pluck('item_name')
             ->unique()
-            ->mapWithKeys(function ($itemName) {
-                return [$itemName => ItemNames::getName($itemName) ?? $itemName];
+            ->mapWithKeys(function ($internalName) {
+                return [$internalName => ItemData::getName($internalName)];
             })
             ->sortBy(function ($prettyName) {
                 return $prettyName;

@@ -34,6 +34,11 @@ class ItemData
         return $return;
     }
 
+    public static function getWeight(string $internalName): int
+    {
+        return (int) self::getFromDataId($internalName)?->weight ?? 0;
+    }
+
     public static function getInternalNameDisplayNamePairs()
     {
         return App::get('itemData')
@@ -54,6 +59,20 @@ class ItemData
             ->mapWithKeys(function ($itemData) {
                 return [$itemData->id => $itemData->name];
             });
+    }
+
+    public static function getAllInternalNames(): Collection
+    {
+        return App::get('itemData')->pluck('id');
+    }
+
+    public static function getAllInternalTruckingNames(): Collection
+    {
+        return self::getAllInternalNames()
+            ->filter(function ($name) {
+                return str($name)->startsWith(self::truckingItemsStartWith());
+            })
+            ->values(); // Rekey indexes.
     }
 
     public static function truckingItemsStartWith(): array

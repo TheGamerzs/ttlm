@@ -1,0 +1,46 @@
+<?php
+
+use App\TT\Items\ItemData;
+use Illuminate\Support\Collection;
+
+test('data is loaded from json file into cache from app service provider', function () {
+
+    expect(Cache::has('itemData'))->toBeFalse()
+        ->and(App::get('itemData'))->toBeInstanceOf(Collection::class)
+        ->and(App::get('itemData')->count())->toBeGreaterThan(100)
+        ->and(Cache::has('itemData'))->toBeTrue();
+
+});
+
+test('itemData in service container is a singleton', function () {
+
+    expect(App::get('itemData') === App::get('itemData'))->toBeTrue();
+
+});
+
+it('returns data for a single item', function () {
+
+    $return = ItemData::getFromDataId('refined_planks');
+
+    expect($return)->not()->toBeNull()
+        ->and($return->id)->toBe('refined_planks')
+        ->and($return->name)->toBe('Truck Cargo: Planks')
+        ->and($return->weight)->toBe('15');
+
+});
+
+it('returns a weight', function () {
+
+    $weight = ItemData::getWeight('refined_planks');
+
+    expect($weight)->toBe(15)->toBeInt();
+
+});
+
+it('returns a weight of 0 for a missing item', function () {
+
+    $weight = ItemData::getWeight('made_up');
+
+    expect($weight)->toBe(0);
+
+});

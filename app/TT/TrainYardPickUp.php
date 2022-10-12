@@ -3,7 +3,7 @@
 namespace App\TT;
 
 use App\TT\Items\InventoryItem;
-use App\TT\Items\Weights;
+use App\TT\Items\ItemData;
 
 class TrainYardPickUp
 {
@@ -54,7 +54,7 @@ class TrainYardPickUp
                                 int $trainYardStorageCapacity = 30107)
     {
         $this->pickupItemName = $pickupItemName;
-        $this->pickupItemWeight = Weights::getWeight($pickupItemName);
+        $this->pickupItemWeight = ItemData::getWeight($pickupItemName);
         $this->truckCapacity = $truckCapacity;
         $this->pocketCapacity = $pocketCapacity;
         $this->storageCapacity = $trainYardStorageCapacity;

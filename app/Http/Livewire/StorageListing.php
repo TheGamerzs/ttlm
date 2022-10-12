@@ -6,6 +6,7 @@ use App\TT\ItemFilters\NonTruckingItemsFilter;
 use App\TT\ItemFilters\TruckingItemsFilter;
 use App\TT\Items\ExportableItem;
 use App\TT\Items\InventoryItem;
+use App\TT\Items\ItemData;
 use App\TT\Items\Weights;
 use App\TT\StorageFactory;
 use Illuminate\Pipeline\Pipeline;
@@ -27,7 +28,7 @@ class StorageListing extends Component
 
     public string $sortBy = 'count';
 
-    public string $itemToAddToFullTrailerAlerts = '';
+    public array|string $itemToAddToFullTrailerAlerts = '';
 
     public array $hiddenExportableInputs = [];
 
@@ -48,7 +49,7 @@ class StorageListing extends Component
 
     public function mount()
     {
-        $this->itemToAddToFullTrailerAlerts = collect(Weights::$weights)->keys()->reject(function ($name) {
+        $this->itemToAddToFullTrailerAlerts = ItemData::getAllInternalTruckingNames()->reject(function ($name) {
             return Auth::user()->full_trailer_alerts->contains($name);
         })->first();
 

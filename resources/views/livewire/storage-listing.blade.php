@@ -124,6 +124,7 @@
                 </table>
             </x-collapsable-card>
             <x-collapsable-card title="Full Trailer Alert Settings" :open="false">
+                {{ $itemToAddToFullTrailerAlerts }}
                 <div class="text-center">
                     <x-select-choices wire:model="itemToAddToFullTrailerAlerts">
                         <x-select-options :items="\App\TT\Items\ItemData::getInternalNameDisplayNamePairsTruckingOnly()" />

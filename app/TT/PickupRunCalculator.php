@@ -3,6 +3,7 @@
 namespace App\TT;
 
 use App\TT\Items\Item;
+use App\TT\Items\ItemData;
 use App\TT\Items\Weights;
 use Illuminate\Support\Arr;
 
@@ -103,7 +104,7 @@ class PickupRunCalculator
 
     protected function easyCalculations(string $runName, array $yields, int $processingCost): int
     {
-        $baseWeight = Weights::getWeight($runName);
+        $baseWeight = ItemData::getWeight($runName);
 
         $basePickupItemsNeeded = collect($this->neededCounts)
             ->whereIn('itemName', array_keys($yields))

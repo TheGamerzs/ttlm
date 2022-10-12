@@ -14,16 +14,6 @@
                     <a target="_blank" href="https://ttapi.elfshot.xyz/items?item={{ $itemName }}">Elfshot Lookup</a>
                 </td>
                 <td>
-                    @if(array_key_exists($itemName, \App\TT\Items\Weights::$weights))
-                        <i class="bi bi-clipboard2-check-fill text-success"></i>
-                    @endif
-                </td>
-                <td>
-                    @if(array_key_exists($itemName, \App\TT\Items\ItemNames::$names))
-                        <i class="bi bi-clipboard2-check-fill text-success"></i>
-                    @endif
-                </td>
-                <td>
                     <a href="#" wire:click.prevent="addToIgnore('{{ $itemName }}')">Ignore</a> |
                     <a href="#" wire:click.prevent="deleteFromAll('{{ $itemName }}')">Delete</a>
                 </td>

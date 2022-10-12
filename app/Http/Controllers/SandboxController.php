@@ -28,7 +28,7 @@ class SandboxController extends Controller
 
     public function index()
     {
-        $dump = ItemData::getInternalNameDisplayNamePairsTruckingOnly();
+        $dump = ItemData::getAllInternalTruckingNames();
         dump($dump);
     }
 }

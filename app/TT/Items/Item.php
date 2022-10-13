@@ -9,7 +9,7 @@ class Item
 {
     public string $name;
 
-    public ?string $prettyName;
+    public ?string $prettyName = null;
 
     public int $weight = 0;
 

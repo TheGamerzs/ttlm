@@ -9,12 +9,18 @@
         TTLM {{ $titleAddon ? '-' : '' }} {{ $titleAddon ?? '' }}
     </title>
 
+
     <link rel="stylesheet" href="{{ asset('css\lux.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
     />
+
+    @if(Auth::user()?->dark_mode)
+        <link rel="stylesheet" href="{{ asset('css/dark-addon.css') }}" />
+    @endif
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('css\app.css') }}">
     <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>

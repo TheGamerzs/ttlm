@@ -71,6 +71,15 @@
                     <x-select-options :items="\App\TT\Recipes::getNamesIfComponentsExist(true)" />
                 </x-select-choices>
             </div>
+
+            <div class="mb-3">
+                <div class="form-check form-switch">
+                    <input wire:model="user.dark_mode" class="form-check-input" type="checkbox" role="switch" id="darkMode">
+                    <label class="form-check-label" for="darkMode">Dark Mode (Refresh page after saving.)</label>
+                </div>
+
+            </div>
+
             <div class="d-grid gap-2">
                 <button class="btn btn-primary" type="submit">Save</button>
             </div>

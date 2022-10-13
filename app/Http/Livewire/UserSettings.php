@@ -5,7 +5,6 @@ namespace App\Http\Livewire;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
 use Livewire\Component;
 
 class UserSettings extends Component
@@ -19,7 +18,8 @@ class UserSettings extends Component
         'user.truckCapacity' => 'integer|nullable|min:400',
         'user.pocketCapacity' => 'integer|nullable|min:10',
         'user.trainYardCapacity'=> 'integer|nullable|min:10800',
-        'user.default_crafting_recipe' => 'string|required'
+        'user.default_crafting_recipe' => 'string|required',
+        'user.dark_mode' => 'boolean|required'
     ];
 
     public function tryToGetTTId(): void

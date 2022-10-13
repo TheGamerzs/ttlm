@@ -11,7 +11,7 @@ class Item
 
     public ?string $prettyName;
 
-    public ?int $weight;
+    public int $weight = 0;
 
     public function __construct(string $internalName)
     {

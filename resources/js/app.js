@@ -16,7 +16,18 @@ Livewire.on('openGamePlan', function () {
     gamePlanModal.show();
 });
 
-const craftingGoalModal = new bootstrap.Modal(document.getElementById('craftingGoal'), {});
-Livewire.on('openCraftingGoal', function () {
-    craftingGoalModal.show();
-});
+
+if (document.body.contains(document.getElementById('marketOrder'))) {
+    const marketOrderModal = new bootstrap.Modal(document.getElementById('marketOrder'), {});
+    Livewire.on('openMarketOrderModal', function () {
+        marketOrderModal.show();
+    });
+}
+
+if (document.body.contains(document.getElementById('craftingGoal'))) {
+    const craftingGoalModal = new bootstrap.Modal(document.getElementById('craftingGoal'), {});
+    Livewire.on('openCraftingGoal', function () {
+        craftingGoalModal.show();
+    });
+}
+

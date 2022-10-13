@@ -220,4 +220,7 @@
             @endforeach
         </tbody>
     </table>
+
+    <livewire:market-order-create />
+    <button class="btn btn-success" wire:click="$emit('editMarketOrder', '21')">Open</button>
 </div>

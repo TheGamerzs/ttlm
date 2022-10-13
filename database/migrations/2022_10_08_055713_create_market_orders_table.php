@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('market_orders', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\User::class);
-            $table->enum('type', ['buy', 'sell']);
+            $table->enum('type', ['buy', 'sell', 'move']);
             $table->unsignedInteger('count');
             $table->unsignedInteger('price_each');
             $table->string('item_name');

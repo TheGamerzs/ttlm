@@ -73,7 +73,7 @@
                 </td>
                 @if($type == 'all')
                 <td class="text-center">
-                    {{ $marketOrder->type->title() }}
+                    {{ str($marketOrder->type)->title() }}
                 </td>
                 @endif
                 <td class="text-center">

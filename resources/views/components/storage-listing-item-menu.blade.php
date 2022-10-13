@@ -27,5 +27,14 @@
                 View Sell Orders
             </a>
         </li>
+        <li>
+            <a href="#"
+               class="dropdown-item"
+               type="button"
+               wire:click.prevent="$emit('newMarketOrder', '{{ $inventoryItem->name }}')">
+
+                Create Market Order
+            </a>
+        </li>
     </ul>
 </div>

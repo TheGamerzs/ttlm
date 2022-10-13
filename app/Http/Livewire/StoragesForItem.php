@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\TT\Items\Item;
-use App\TT\Items\ItemData;
 use App\TT\StorageFactory;
 use Illuminate\Support\Collection;
 use Livewire\Component;
@@ -18,9 +17,7 @@ class StoragesForItem extends Component
 
     public function getItemNames(): Collection
     {
-        return StorageFactory::get('combined')->pluck('name')->mapWithKeys(function ($internalName) {
-            return [$internalName => ItemData::getName($internalName)];
-        })->sort();
+        return StorageFactory::getAllItemNames(true);
     }
 
 

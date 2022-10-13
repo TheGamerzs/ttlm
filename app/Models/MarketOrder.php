@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\TT\Items\Item;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Casts\AsStringable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,10 +12,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class MarketOrder extends Model
 {
     use HasFactory, SoftDeletes;
-
-    protected $casts = [
-        'type' => AsStringable::class
-    ];
 
     public function scopeBuyOrders(Builder $query): Builder
     {

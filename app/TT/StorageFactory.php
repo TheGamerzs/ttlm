@@ -4,6 +4,7 @@ namespace App\TT;
 
 use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
+use App\TT\Items\ItemData;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -162,6 +163,19 @@ class StorageFactory
 //                }
 //            }
 //        }
+    }
+
+    public static function getAllItemNames(bool $mapPrettyNames = false): Collection|Storage
+    {
+        $names = self::get('combined')->pluck('name')->sort();
+
+        if ($mapPrettyNames) {
+            return $names->mapWithKeys(function ($internalName) {
+                return [$internalName => ItemData::getName($internalName)];
+            })->sort();
+        }
+
+        return $names;
     }
 
     public static function getPrettyName(string $storageName): string

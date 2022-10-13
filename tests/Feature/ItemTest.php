@@ -19,6 +19,14 @@ it('has a weight', function () {
 
 });
 
+it('has a zero weight for a missing item', function () {
+
+    expect(
+        (new Item('not_real'))->weight
+    )->toBe(0);
+
+});
+
 it('shows a pretty name if one exists', function () {
 
     $ceramicTiles = new Item('crafted_ceramictiles');

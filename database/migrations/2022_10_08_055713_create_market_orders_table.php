@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedInteger('price_each');
             $table->string('item_name');
             $table->timestamp('expires')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

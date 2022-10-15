@@ -7,10 +7,17 @@ use function Pest\Laravel\actingAs;
 
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
+afterEach(function () {
+    StorageFactory::$storages = [];
+    StorageFactory::$freshData = false;
+});
+
 it('fires when storages are synced through api', function () {
 
+    StorageFactory::$storages = [];
+    StorageFactory::$freshData = false;
     Http::preventStrayRequests();
-    $items = ['crafted_concrete' => 10];
+    $items = ['crafted_concrete' => 10, 'crafted_batteries' => 500];
     Http::fake(['v1.api.tycoon.community/main/storages/*' => Http::response( buildFakeStorageApiResponse($items) )]);
     actingAs( $user = User::factory()->create() );
     Event::fake();
@@ -24,7 +31,7 @@ it('fires when storages are synced through api', function () {
 it('does not fire when using cached response', function () {
 
     Http::preventStrayRequests();
-    $items = ['crafted_concrete' => 10];
+    $items = ['crafted_concrete' => 10, 'crafted_batteries' => 500];
     actingAs( $user = User::factory()->create() );
     Cache::put($user->id . 'tt_api_storage', buildFakeStorageApiResponse($items));
     Event::fake();
@@ -46,6 +53,8 @@ it('removes market orders on storage sync if the user can not cover it anymore',
     Http::fake(['v1.api.tycoon.community/main/storages/*' => Http::response( buildFakeStorageApiResponse($items) )]);
 
     actingAs( $user = User::factory()->create() );
+    (new \App\TT\TTApi())->getStorages();
+
     $orderWithLessInventory = MarketOrder::factory()
         ->sellOrder()
         ->for($user)

@@ -10,8 +10,7 @@ test('relationships and casts', function () {
 
     $order = MarketOrder::factory()->buyOrder()->create();
 
-    expect($order->user)->toBeInstanceOf(User::class)
-        ->and($order->type)->toBeInstanceOf(\Illuminate\Support\Stringable::class);
+    expect($order->user)->toBeInstanceOf(User::class);
 
 });
 

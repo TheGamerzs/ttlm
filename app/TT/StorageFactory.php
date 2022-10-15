@@ -15,8 +15,6 @@ class StorageFactory
 {
     public static bool      $freshData = false;
 
-    protected static object $apiData;
-
     public static array $storages = [];
 
     public static function get($name = 'combined'): Storage
@@ -136,12 +134,8 @@ class StorageFactory
 
     protected static function getData()
     {
-        if (! isset(self::$apiData)) {
-            $api           = new TTApi();
-            $data          = $api->getStorages();
-            self::$apiData = json_decode($data);
-        }
-        return self::$apiData;
+        $data          = (new TTApi())->getStorages();
+        return json_decode($data);
     }
 
     protected static function injectFakes(): void

@@ -45,6 +45,8 @@ class TTApi
 
             $this->user->increment('calls_made');
 
+            StorageFactory::$freshData = true;
+
             // Create a 10-second cool down to check against.
             Cache::put($this->user->id . 'lockedApi', now(), 10);
 

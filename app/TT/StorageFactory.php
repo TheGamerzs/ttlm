@@ -2,6 +2,7 @@
 
 namespace App\TT;
 
+use App\Providers\StorageUpdatedFromTT;
 use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
 use App\TT\Items\ItemData;
@@ -12,6 +13,8 @@ use Illuminate\Support\Str;
 
 class StorageFactory
 {
+    public static bool      $freshData = false;
+
     protected static object $apiData;
 
     public static array $storages = [];
@@ -63,6 +66,10 @@ class StorageFactory
         }
 
         self::registerNonTTStorages();
+
+        if (self::$freshData) {
+            StorageUpdatedFromTT::dispatch(Auth::user());
+        }
 
         self::injectFakes();
     }

@@ -8,3 +8,23 @@ function dataFromJson(string $file)
         )
     );
 }
+
+function buildFakeStorageApiResponse(array $items): string
+{
+    $response = [
+        'storages' => null,
+        'code' => 200,
+        'user_id' => 645753
+    ];
+
+    $response['storages'][] = [
+        'inventory' => null,
+        'name' => 'biz_yellowjack'
+    ];
+
+    foreach($items as $name => $amount) {
+        $response['storages'][0]['inventory'][$name] = ['amount' => $amount];
+    }
+
+    return json_encode($response);
+}

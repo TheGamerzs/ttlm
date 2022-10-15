@@ -77,7 +77,15 @@
                     <input wire:model="user.dark_mode" class="form-check-input" type="checkbox" role="switch" id="darkMode">
                     <label class="form-check-label" for="darkMode">Dark Mode (Refresh page after saving.)</label>
                 </div>
+            </div>
 
+            <div class="mb-3">
+                <div class="form-check form-switch">
+                    <input wire:model="user.auto_delist_market_orders" class="form-check-input" type="checkbox" role="switch" id="autoDelist">
+                    <label class="form-check-label" for="autoDelist">
+                        Auto delist market sell orders on storage sync when you don't have enough to cover.
+                    </label>
+                </div>
             </div>
 
             <div class="d-grid gap-2">

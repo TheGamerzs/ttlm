@@ -24,7 +24,7 @@ it('fires when storages are synced through api', function () {
 
     StorageFactory::get();
 
-    Event::assertDispatched(\App\Providers\StorageUpdatedFromTT::class);
+    Event::assertDispatched(\App\Events\StorageUpdatedFromTT::class);
 
 });
 
@@ -38,7 +38,7 @@ it('does not fire when using cached response', function () {
 
     StorageFactory::get();
 
-    Event::assertNotDispatched(\App\Providers\StorageUpdatedFromTT::class);
+    Event::assertNotDispatched(\App\Events\StorageUpdatedFromTT::class);
 
 });
 
@@ -84,6 +84,48 @@ it('removes market orders on storage sync if the user can not cover it anymore',
 
     expect($orderWithLessInventory->deleted_at)->not()->toBeNull()
         ->and($orderWithNoInventory->deleted_at)->not()->toBeNull()
+        ->and($orderWithMoreInventory->deleted_at)->toBeNull();
+
+});
+
+it('does not remove them when the user has auto_delist_market_orders disabled', function () {
+
+    Http::preventStrayRequests();
+    $items = ['crafted_concrete' => 10, 'crafted_batteries' => 500];
+    Http::fake(['v1.api.tycoon.community/main/storages/*' => Http::response( buildFakeStorageApiResponse($items) )]);
+
+    actingAs( $user = User::factory()->create(['auto_delist_market_orders' => false]) );
+    (new \App\TT\TTApi())->getStorages();
+
+    $orderWithLessInventory = MarketOrder::factory()
+        ->sellOrder()
+        ->for($user)
+        ->create([
+            'item_name' => 'crafted_concrete',
+            'count' => 100
+        ]);
+    $orderWithNoInventory = MarketOrder::factory()
+        ->sellOrder()
+        ->for($user)
+        ->create([
+            'item_name' => 'crafted_computer',
+            'count' => 100
+        ]);
+    $orderWithMoreInventory = MarketOrder::factory()
+        ->sellOrder()
+        ->for($user)
+        ->create([
+            'item_name' => 'crafted_batteries',
+            'count' => 100
+        ]);
+
+    StorageFactory::get();
+    $orderWithLessInventory->refresh();
+    $orderWithNoInventory->refresh();
+    $orderWithMoreInventory->refresh();
+
+    expect($orderWithLessInventory->deleted_at)->toBeNull()
+        ->and($orderWithNoInventory->deleted_at)->toBeNull()
         ->and($orderWithMoreInventory->deleted_at)->toBeNull();
 
 });

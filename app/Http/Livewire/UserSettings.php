@@ -19,7 +19,8 @@ class UserSettings extends Component
         'user.pocketCapacity' => 'integer|nullable|min:10',
         'user.trainYardCapacity'=> 'integer|nullable|min:10800',
         'user.default_crafting_recipe' => 'string|required',
-        'user.dark_mode' => 'boolean|required'
+        'user.dark_mode' => 'boolean|required',
+        'user.auto_delist_market_orders' => 'boolean|required'
     ];
 
     public function tryToGetTTId(): void

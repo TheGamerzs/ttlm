@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -30,7 +29,8 @@ class UserFactory extends Factory
             'calls_made' => 1,
             'hidden_exportable_items' => collect(),
             'custom_combined_storage' => collect(),
-            'default_crafting_recipe' => 'house'
+            'default_crafting_recipe' => 'house',
+            'auto_delist_market_orders' => true,
         ];
     }
 

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Providers;
+namespace App\Listeners;
 
+use App\Events\StorageUpdatedFromTT;
 use App\TT\Items\InventoryItem;
 use App\TT\StorageFactory;
 
@@ -20,11 +21,14 @@ class CheckMarketOrdersAreStillValid
     /**
      * Handle the event.
      *
-     * @param  \App\Providers\StorageUpdatedFromTT  $event
+     * @param  \App\Events\StorageUpdatedFromTT $event
+     *
      * @return void
      */
     public function handle(StorageUpdatedFromTT $event)
     {
+        if (! $event->user->auto_delist_market_orders) return;
+
         $combinedStorage = StorageFactory::get('combined');
 
         foreach ($event->user->sellOrders as $order) {

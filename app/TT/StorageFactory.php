@@ -2,7 +2,7 @@
 
 namespace App\TT;
 
-use App\Providers\StorageUpdatedFromTT;
+use App\Events\StorageUpdatedFromTT;
 use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
 use App\TT\Items\ItemData;

@@ -10,10 +10,7 @@
             <p class="fs-4">
                 My end goal is to make this the ultimate tool possible within the limits of the data available.
             </p>
-            <p class="fs-3 text-center">
-                Stay current on updates and report issues.<br>
-                <a href="https://discord.gg/eYtWhzHz8k">Discord <i class="bi bi-discord text-info"></i></a>
-            </p>
+
         </div>
 
         <div class="col-md-5 offset-2 text-center">
@@ -23,14 +20,11 @@
 
     </div>
 
-    <div class="row">
-        <div class="col">
-            <div>
-
-            </div>
-
-        </div>
+    <div class="d-flex justify-content-center mt-5">
+        <p class="fs-3 text-center">
+            Stay current on updates and report issues.<br>
+            <a href="https://discord.gg/eYtWhzHz8k">Discord <i class="bi bi-discord text-info"></i></a>
+        </p>
     </div>
-
 
 </x-layout>

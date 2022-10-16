@@ -22,7 +22,7 @@
                             <x-add-to-game-plan
                                     text="Take a full load of components for {{ $recipe->displayName() }} to {{ $recipe->craftingLocation }}."
                             />
-                            {{ $recipe->displayName() }}
+                            <label title="Crafted at {{ $recipe->craftingLocation }}">{{ $recipe->displayName() }}</label>
                         </h4>
                     </li>
                     <li class="list-group-item text-center border-top-0 border-bottom-0">

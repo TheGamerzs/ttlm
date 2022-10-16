@@ -134,7 +134,7 @@
             <p class="text-center">
                 {{ max( (int)ceil(($this->countNeededForParentRecipe - $parentRecipe->getComponent($nextRecipeToGrind->internalName())->inStorage) / $runPossibility[$nextRecipeToGrind->internalName()]), 0) }}
                 Runs Required
-                for {{ $parentRecipe->howManyRecipesCanFit($truckCapacity) }} {{ $parentRecipe->displayName() }}s
+                for {{ $parentRecipe->howManyRecipesCanFit($truckCapacity) }} {{ $parentRecipe->displayNamePlural() }}
             </p>
         @endforeach
     @endif

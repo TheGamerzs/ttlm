@@ -23,6 +23,6 @@
     <p class="text-center">
         {{ max( (int)ceil(($this->getParentRecipeCountForFullTrailer() - $this->getParentRecipe()->getComponent($this->getRecipe()->internalName())->inStorage) / $runPossibility[$this->getRecipe()->internalName()]), 0) }}
         Runs Required
-        for {{ $this->getParentRecipe()->howManyRecipesCanFit($truckCapacity) }} {{ $this->getParentRecipe()->displayName() }}s
+        for {{ $this->getParentRecipe()->howManyRecipesCanFit($truckCapacity) }} {{ $this->getParentRecipe()->displayNamePlural() }}
     </p>
 @endforeach

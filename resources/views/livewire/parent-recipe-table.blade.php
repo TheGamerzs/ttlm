@@ -3,7 +3,7 @@
 ?>
 <div>
     <h3 class="text-center">
-        <x-add-to-game-plan text="Make {{ $this->countCanBeMade }} {{ $parentRecipe->displayName() }}s" />
+        <x-add-to-game-plan text="Make {{ $this->countCanBeMade }} {{ $parentRecipe->displayNamePlural() }}" />
         {{ $this->countCanBeMade }} {{ $parentRecipe->displayNamePlural() }} Can Be Made
         <i class="bi bi-clipboard2-check-fill cursor-pointer {{ Session::has('craftingGoal') ? 'text-success' : 'text-info' }}" wire:click="$emit('openCraftingGoal')"></i>
     </h3>

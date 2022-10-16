@@ -107,7 +107,7 @@
                         <tr>
                             <td>
                                 <x-add-to-game-plan
-                                    text="Run a full trailer ({{ $inventoryItem->howManyCanFitInSpace($truckCapacity) }}) of {{ $inventoryItem->name() }}s "
+                                    text="Run a full trailer ({{ $inventoryItem->howManyCanFitInSpace($truckCapacity) }}) of {{ str($inventoryItem->name())->plural() }} "
                                 />
                                 {{ $inventoryItem->name() }}
                             </td>

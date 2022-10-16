@@ -32,6 +32,11 @@ class Recipe
         return $this->inventoryItem->name();
     }
 
+    public function displayNamePlural()
+    {
+        return str($this->displayName())->plural();
+    }
+
     public function internalName(): string
     {
         return $this->inventoryItem->name;

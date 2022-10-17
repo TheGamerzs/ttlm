@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use JetBrains\PhpStorm\ArrayShape;
 
 class TTApi
 {
@@ -61,6 +60,13 @@ class TTApi
     {
         $response = Http::withHeaders(['X-Tycoon-Key' => config('app.tt_api_private_key')])
             ->get('v1.api.tycoon.community/main/snowflake2user/' . $snowflake);
+        return json_decode($response->body());
+    }
+
+    public static function ttItemDataFromInternalName(string $internalName): \stdClass
+    {
+        $response = Http::withHeaders(['X-Tycoon-Key' => config('app.tt_api_private_key')])
+            ->get('v1.api.tycoon.community/main/iteminfo/' . $internalName);
         return json_decode($response->body());
     }
 }

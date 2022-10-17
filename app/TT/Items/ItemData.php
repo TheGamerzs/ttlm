@@ -37,6 +37,12 @@ class ItemData
             return $return;
         }
 
+        if ($internalName->startsWith('gut_knife_')) {
+            [$internalName, $null] = $internalName->explode('|');
+
+            return App::get('itemData')->firstWhere('id', $internalName);
+        }
+
         $return = App::get('itemData')->firstWhere('id', $internalName);
 
         if (is_null($return)) {

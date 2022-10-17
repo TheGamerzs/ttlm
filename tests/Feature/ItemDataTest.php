@@ -70,13 +70,18 @@ it('returns a pretty name without the prefix', function () {
 
 });
 
-it('returns back the internal name when it does not exist', function () {
+it('returns back the internal name when it does not exist', function (string $fakeName) {
 
     expect(
         ItemData::getName('made_up')
     )->toBe('made_up');
 
-});
+})->with(
+    [
+        'made_up',
+        'gut_knife_something_else',
+    ]
+);
 
 it('handles dynamic name cases', function (string $nameFromStorage, string $expectedInternalName, string $expectedDisplayName) {
 
@@ -86,10 +91,37 @@ it('handles dynamic name cases', function (string $nameFromStorage, string $expe
         ->and($object->id)->toBe($expectedInternalName)
         ->and($object->name)->toBe($expectedDisplayName);
 
-})->with([
+})->with(
     [
-        'money_card|1517',
-        'money_card',
-        'Gift Card: $1,517'
+        [
+            'money_card|1517',
+            'money_card',
+            'Gift Card: $1,517'
+        ],
+        [
+            'gut_knife_tiger|999',
+            'gut_knife_tiger',
+            'StatTrak™ Gut Knife | Tiger Tooth'
+        ],
+        [
+            'gut_knife_st|999',
+            'gut_knife_st',
+            'StatTrak™ Gut Knife'
+        ],
+        [
+            'gut_knife_fade|999',
+            'gut_knife_fade',
+            'StatTrak™ Gut Knife | Autotronic'
+        ],
+        [
+            'gut_knife_lore|999',
+            'gut_knife_lore',
+            'StatTrak™ Gut Knife | Weightless'
+        ],
+        [
+            'gut_knife_auto|999',
+            'gut_knife_auto',
+            'StatTrak™ Gut Knife | Grinder'
+        ],
     ]
-]);
+);

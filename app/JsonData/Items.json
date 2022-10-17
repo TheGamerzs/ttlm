@@ -2665,6 +2665,36 @@
         "weight": "0"
     },
     {
+        "id": "gut_knife",
+        "name": "Gut Knife",
+        "weight": "15"
+    },
+    {
+        "id": "gut_knife_st",
+        "name": "StatTrak™ Gut Knife",
+        "weight": "10"
+    },
+    {
+        "id": "gut_knife_tiger",
+        "name": "StatTrak™ Gut Knife | Tiger Tooth",
+        "weight": "10"
+    },
+    {
+        "id": "gut_knife_fade",
+        "name": "StatTrak™ Gut Knife | Autotronic",
+        "weight": "15"
+    },
+    {
+        "id": "gut_knife_lore",
+        "name": "StatTrak™ Gut Knife | Weightless",
+        "weight": "0"
+    },
+    {
+        "id": "gut_knife_auto",
+        "name": "StatTrak™ Gut Knife | Grinder",
+        "weight": "0"
+    },
+    {
         "id": "hazard_test",
         "name": "Hazard: Name",
         "weight": "Hazard: Name"

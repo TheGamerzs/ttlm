@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\TT\Items\ItemData;
+use App\TT\TTApi;
 
 class SandboxController extends Controller
 {
@@ -13,7 +13,13 @@ class SandboxController extends Controller
 
     public function index()
     {
-        $dump = ItemData::getAllInternalTruckingNames();
-        dump($dump);
+        $response = TTApi::ttItemDataFromInternalName('gut_knife_auto');
+
+        $dump = new \stdClass();
+        $dump->id = $response->item_id;
+        $dump->name = $response->name;
+        $dump->weight = (string) $response->weight;
+
+        dump(json_encode($dump));
     }
 }

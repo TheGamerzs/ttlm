@@ -77,3 +77,19 @@ it('returns back the internal name when it does not exist', function () {
     )->toBe('made_up');
 
 });
+
+it('handles dynamic name cases', function (string $nameFromStorage, string $expectedInternalName, string $expectedDisplayName) {
+
+    $object = ItemData::getFromInternalName($nameFromStorage);
+
+    expect(Cache::has('missingItemNames'))->toBeFalse()
+        ->and($object->id)->toBe($expectedInternalName)
+        ->and($object->name)->toBe($expectedDisplayName);
+
+})->with([
+    [
+        'money_card|1517',
+        'money_card',
+        'Gift Card: $1,517'
+    ]
+]);

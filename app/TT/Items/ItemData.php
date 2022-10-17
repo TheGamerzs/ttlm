@@ -5,6 +5,7 @@ namespace App\TT\Items;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class ItemData
 {
@@ -25,6 +26,17 @@ class ItemData
 
     public static function getFromDataId(string $internalName)
     {
+        $internalName = Str::of($internalName);
+
+        if ($internalName->startsWith('money_card|')) {
+            [$internalName, $addOn] = $internalName->explode('|');
+
+            $return = App::get('itemData')->firstWhere('id', $internalName);
+            $return->name = $return->name . '$' . number_format($addOn);
+
+            return $return;
+        }
+
         $return = App::get('itemData')->firstWhere('id', $internalName);
 
         if (is_null($return)) {

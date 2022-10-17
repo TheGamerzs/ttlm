@@ -2056,32 +2056,32 @@
     },
     {
         "id": "exp_bonus_15",
-        "name": "EXP Bonus: 50&#37; (30 Minutes)",
+        "name": "EXP Bonus: 50% (30 Minutes)",
         "weight": "0"
     },
     {
         "id": "exp_bonus_day",
-        "name": "EXP Bonus: 5&#37; (1 Day)",
+        "name": "EXP Bonus: 5% (1 Day)",
         "weight": "0"
     },
     {
         "id": "exp_bonus_ee",
-        "name": "EXP Bonus: 15&#37; (1 Hour)",
+        "name": "EXP Bonus: 15% (1 Hour)",
         "weight": "0"
     },
     {
         "id": "exp_bonus_ee2",
-        "name": "EXP Bonus: 10&#37; (90 Minutes)",
+        "name": "EXP Bonus: 10% (90 Minutes)",
         "weight": "0"
     },
     {
         "id": "exp_bonus_ee3",
-        "name": "EXP Bonus: 5&#37; (2 Hours)",
+        "name": "EXP Bonus: 5% (2 Hours)",
         "weight": "0"
     },
     {
         "id": "exp_bonus_week",
-        "name": "EXP Bonus: 5&#37; (1 Week)",
+        "name": "EXP Bonus: 5% (1 Week)",
         "weight": "0"
     },
     {
@@ -3112,6 +3112,11 @@
     {
         "id": "liberty_export_goods",
         "name": "Liberty: Export Goods",
+        "weight": "100"
+    },
+    {
+        "id": "liberty_fish_export",
+        "name": "Liberty: Liberty City Export Fish",
         "weight": "100"
     },
     {

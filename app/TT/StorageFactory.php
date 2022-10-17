@@ -50,6 +50,13 @@ class StorageFactory
     protected static function fillStoragesArray(): void
     {
         $data = self::getData();
+
+        // Inject personal inventory as a storage named 'pocket'
+        $pocket = new \stdClass();
+        $pocket->name = 'pocket';
+        $pocket->inventory = (new TTApi())->getUserInventory(false);
+        $data->storages[] = $pocket;
+
         foreach ($data->storages as $storageData) {
             self::make($storageData->name);
         }

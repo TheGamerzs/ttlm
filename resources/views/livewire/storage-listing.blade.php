@@ -9,15 +9,26 @@
         <div class="col-3">
             <div class="card">
                 <h5 class="card-header d-flex justify-content-around">
-                    Filters
+                    Sync With TT
                 </h5>
-                <div class="card-body" >
+                <div class="card-body">
                     <div class="row">
                         <div class="col d-flex justify-content-evenly">
                             <livewire:sync-storage-button />
                         </div>
                     </div>
-                    <hr>
+                    <div class="row mt-2">
+                        <div class="col d-flex justify-content-evenly">
+                            <livewire:sync-pocket-button />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <h5 class="card-header d-flex justify-content-around">
+                    Filters
+                </h5>
+                <div class="card-body" >
                     <input type="text" class="form-control" wire:model="searchStringInput" placeholder="By Name..." />
 
                     <span class="mt-2 text-center">Type</span>

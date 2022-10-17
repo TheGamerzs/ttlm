@@ -14,6 +14,11 @@ class SandboxController extends Controller
 
     public function index()
     {
+        $this->itemApiLookupWithCopyPasteJson();
+    }
+
+    public function userInventory()
+    {
         (new TTApi())->getUserInventory()
             ->mapWithKeys(function ($data, $internalName) {
                 return [
@@ -27,7 +32,7 @@ class SandboxController extends Controller
 
     public function itemApiLookupWithCopyPasteJson()
     {
-        $response = TTApi::ttItemDataFromInternalName('gut_knife_auto');
+        $response = TTApi::ttItemDataFromInternalName('liberty_fish_export');
 
         $dump = new \stdClass();
         $dump->id = $response->item_id;

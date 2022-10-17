@@ -3,6 +3,7 @@
 namespace App\TT;
 
 use App\Models\User;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -51,9 +52,43 @@ class TTApi
         });
     }
 
+    public function getUserData(): \stdClass
+    {
+        $responseBody =  Cache::rememberForever($this->userDataCacheKey(), function () {
+            $response = Http::withHeaders($this->buildHeaders())
+                ->get('v1.api.tycoon.community/main/data/' . $this->user->tt_id);
+
+            if ($response->clientError()) {
+                abort(401, 'API Call Failed');
+            }
+
+            $this->user->increment('calls_made');
+
+            // Create a 10-second cool down to check against.
+            Cache::put($this->user->id . 'lockedApi', now(), 10);
+
+            return $response->body();
+        });
+
+        return json_decode($responseBody);
+    }
+
+    public function getUserInventory(bool $asCollection = true): Collection|\stdClass
+    {
+        if ($asCollection) {
+            return collect($this->getUserData()->data->inventory);
+        }
+        return $this->getUserData()->data->inventory;
+    }
+
     public function userStorageCacheKey(): string
     {
         return $this->user->id . 'tt_api_storage';
+    }
+
+    public function userDataCacheKey(): string
+    {
+        return $this->user->id . 'tt_api_user_data';
     }
 
     public static function ttIdFromDiscordSnowflake(string $snowflake): \stdClass

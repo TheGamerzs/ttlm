@@ -29,3 +29,11 @@ it('has a total cost attribute', function () {
 
     expect($order->totalCost)->toBe($order->price_each * $order->count);
 });
+
+it('has a storage name attribute', function () {
+
+    $order = MarketOrder::factory()->sellOrder()->create(['storage' => 'bhsl']);
+
+    expect($order->storageName)->toBe('Big House Storage LSIA');
+
+});

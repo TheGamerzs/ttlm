@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\TT\Items\ItemData;
 use App\TT\TTApi;
+use Illuminate\Support\Facades\App;
 
 class SandboxController extends Controller
 {
@@ -14,7 +15,8 @@ class SandboxController extends Controller
 
     public function index()
     {
-        $this->itemApiLookupWithCopyPasteJson();
+        $dump = App::get('storageData')->random()->id;
+        dump($dump);
     }
 
     public function userInventory()

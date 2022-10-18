@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 
 class StorageFactory
 {
-    public static bool      $freshData = false;
+    public static bool $freshData = false;
 
     public static array $storages = [];
 
@@ -52,12 +52,6 @@ class StorageFactory
     protected static function fillStoragesArray(): void
     {
         $data = self::getData();
-
-        // Inject personal inventory as a storage named 'pocket'
-        $pocket = new \stdClass();
-        $pocket->name = 'pocket';
-        $pocket->inventory = (new TTApi())->getUserInventory(false);
-        $data->storages[] = $pocket;
 
         foreach ($data->storages as $storageData) {
             self::make($storageData->name);
@@ -116,13 +110,21 @@ class StorageFactory
             });
     }
 
-    public static function getRegisteredNames(bool $mapPrettyNames = false): array|Collection
+    public static function getRegisteredNames(bool $mapPrettyNames = false, bool $includeComputed = true): array|Collection
     {
-        if (! $mapPrettyNames) return array_keys(self::$storages);
+        if ($mapPrettyNames) {
+            $return = collect(self::$storages)->mapWithKeys(function ($storage, $internalName) {
+                return [$internalName => self::getPrettyName($internalName)];
+            });
+        } else {
+            $return = collect(self::$storages)->keys();
+        }
 
-        return collect(self::$storages)->mapWithKeys(function ($storage, $internalName) {
-            return [$internalName => self::getPrettyName($internalName)];
-        });
+        if (! $includeComputed) {
+            return $return->except(['combined', 'custom_combined_storage']);
+        }
+
+        return $return;
     }
 
     public static function getCountFromCombinedForItem(Item $item): int
@@ -134,8 +136,17 @@ class StorageFactory
 
     protected static function getData()
     {
-        $data          = (new TTApi())->getStorages();
-        return json_decode($data);
+        $data = json_decode(
+            (new TTApi())->getStorages()
+        );
+
+        // Inject personal inventory as a storage named 'pocket'
+        $pocket = new \stdClass();
+        $pocket->name = 'pocket';
+        $pocket->inventory = (new TTApi())->getUserInventory(false);
+        $data->storages[] = $pocket;
+
+        return $data;
     }
 
     protected static function injectFakes(): void

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedInteger('count');
             $table->unsignedInteger('price_each');
             $table->string('item_name');
+            $table->string('storage');
             $table->timestamp('expires')->nullable();
             $table->softDeletes();
             $table->timestamps();

@@ -23,6 +23,7 @@ class MarketOrderCreate extends Component
             'marketOrder.item_name' => 'required',
             'marketOrder.count' => 'required|numeric|min:1',
             'marketOrder.price_each' => 'required|numeric|min:1',
+            'marketOrder.storage' => 'required',
             'marketOrder.type' => [
                 'required',
                 Rule::in(['buy', 'sell', 'move'])

@@ -8,7 +8,7 @@ use App\TT\Items\ItemNames;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class MarketOrders extends Component
+class MarketOrderShow extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';

@@ -7,6 +7,7 @@ use App\TT\Items\ItemData;
 use App\TT\Items\Weights;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\App;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\MarketOrder>
@@ -21,11 +22,12 @@ class MarketOrderFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::factory(),
-            'item_name' =>$this->fakeItem(),
-            'expires' => Carbon::now()->addWeek(),
-            'count' => fake()->numberBetween(1,9) * 100,
-            'price_each' => fake()->numberBetween(15,800) * 1000
+            'user_id'    => User::factory(),
+            'item_name'  => $this->fakeItem(),
+            'expires'    => Carbon::now()->addWeek(),
+            'count'      => fake()->numberBetween(1, 9) * 100,
+            'price_each' => fake()->numberBetween(15, 800) * 1000,
+            'storage'    => $this->fakeStorage()
         ];
     }
 
@@ -47,8 +49,13 @@ class MarketOrderFactory extends Factory
         });
     }
 
-    protected function fakeItem()
+    protected function fakeItem(): string
     {
         return ItemData::getAllInternalTruckingNames()->random();
+    }
+
+    protected function fakeStorage(): string
+    {
+        return App::get('storageData')->random()->id;
     }
 }

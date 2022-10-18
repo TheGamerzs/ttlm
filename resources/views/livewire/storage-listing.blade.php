@@ -7,14 +7,6 @@
 
     <div class="row">
         <div class="col-3">
-            <x-card title="Filters">
-                <div class="row">
-                    <div class="col d-flex justify-content-evenly">
-                        <livewire:sync-storage-button />
-                    </div>
-                </div>
-                <hr>
-                <input type="text" class="form-control" wire:model="searchStringInput" placeholder="By Name..." />
             <div class="card">
                 <h5 class="card-header d-flex justify-content-around">
                     Sync With TT
@@ -32,6 +24,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="card mt-3">
                 <h5 class="card-header d-flex justify-content-around">
                     Filters
@@ -53,7 +46,9 @@
                     <span class="mt-2 text-center">Total Weight</span>
                     <input wire:model="minTotalWeightFilter" type="text" class="form-control" placeholder="Minimum">
                     <input wire:model="maxTotalWeightFilter" type="text" class="form-control" placeholder="Maximum">
-            </x-card>
+                </div>
+            </div>
+
             <div class="card mt-3">
                 <h5 class="card-header d-flex justify-content-around">
                     Custom Combined Storage
@@ -222,5 +217,5 @@
     </table>
 
     <livewire:market-order-create />
-    <button class="btn btn-success" wire:click="$emit('editMarketOrder', '21')">Open</button>
+    <button class="btn btn-success" wire:click="$emit('newMarketOrder', 'crafted_concrete')">Open</button>
 </div>

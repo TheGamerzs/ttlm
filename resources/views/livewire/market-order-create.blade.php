@@ -57,6 +57,13 @@
                             @error('marketOrder.price_each')<div class="text-danger">{{ $message }}</div>@enderror
                         </div>
 
+                        <div class="mb-2">
+                            <label>Storage</label>
+                            <x-select-choices wire:model="marketOrder.storage">
+                                <x-select-options :items="\App\TT\StorageFactory::getRegisteredNames(true, false)" />
+                            </x-select-choices>
+                        </div>
+
                         <hr>
 
                         <div class="d-grid">

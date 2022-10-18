@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\TT\Items\Item;
+use App\TT\StorageFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -36,5 +37,10 @@ class MarketOrder extends Model
     public function getTotalCostAttribute(): int
     {
         return $this->price_each * $this->count;
+    }
+
+    public function getStorageNameAttribute(): string
+    {
+        return StorageFactory::getPrettyName($this->storage);
     }
 }

@@ -17,6 +17,8 @@ class MarketOrderCreate extends Component
 
     public MarketOrder $marketOrder;
 
+    public bool $expand = false;
+
     public function rules(): array
     {
         return [
@@ -56,9 +58,14 @@ class MarketOrderCreate extends Component
 
     public function startWithItem(string $itemName): void
     {
+        $this->resetErrorBag();
+
         $this->marketOrder = MarketOrder::make();
         $this->marketOrder->item_name = $itemName;
         $this->marketOrder->type = 'sell';
+        $this->marketOrder->count = null;
+        $this->marketOrder->price_each = null;
+
         $this->emit('openMarketOrderModal');
     }
 
@@ -102,6 +109,11 @@ class MarketOrderCreate extends Component
 
     public function render()
     {
-        return view('livewire.market-order-create');
+        $inverseOrders = $this->marketOrder->findInverseOrders();
+        $this->expand = (bool) $inverseOrders->count();
+
+        return view('livewire.market-order-create')->with([
+            'inverseOrders' => $inverseOrders
+        ]);
     }
 }

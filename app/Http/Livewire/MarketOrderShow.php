@@ -80,7 +80,7 @@ class MarketOrderShow extends Component
             $marketOrders->where('price_each', '<=', $this->priceMaxFilter);
         }
 
-        return view('livewire.market-orders')
+        return view('livewire.market-order-show')
             ->with(['allMarketOrders' => $marketOrders->paginate()])
             ->layoutData(['titleAddon' => 'Market Orders']);
     }

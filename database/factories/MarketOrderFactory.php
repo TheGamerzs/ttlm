@@ -49,6 +49,15 @@ class MarketOrderFactory extends Factory
         });
     }
 
+    public function moveOrder()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'type' => 'move',
+            ];
+        });
+    }
+
     protected function fakeItem(): string
     {
         return ItemData::getAllInternalTruckingNames()->random();

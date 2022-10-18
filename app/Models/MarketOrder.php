@@ -5,6 +5,7 @@ namespace App\Models;
 use App\TT\Items\Item;
 use App\TT\StorageFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -42,5 +43,16 @@ class MarketOrder extends Model
     public function getStorageNameAttribute(): string
     {
         return StorageFactory::getPrettyName($this->storage);
+    }
+
+    public function findInverseOrders(): EloquentCollection
+    {
+        if ($this->type == 'move') return new EloquentCollection();
+
+        $lookupType = $this->type == 'sell'
+            ? 'buy'
+            : 'sell';
+
+        return self::whereType($lookupType)->whereItemName($this->item_name)->get();
     }
 }

@@ -51,9 +51,7 @@
                 </td>
 
                 <td class="text-center">
-                    <a href="{{ $marketOrder->user->discordProfileLink }}" target="_blank">
-                        <i class="bi bi-discord text-info"></i>
-                    </a>
+                    <x-discord-profile-link-logo :user="$marketOrder->user" />
                 </td>
 
             </tr>

@@ -26,7 +26,13 @@ class DatabaseSeeder extends Seeder
             'trainYardCapacity' => 45161,
         ]);
 
-        MarketOrder::factory()->buyOrder()->count(10)->for($user)->create();
-        MarketOrder::factory()->sellOrder()->count(10)->for($user)->create();
+//        MarketOrder::factory()->buyOrder()->count(10)->for($user)->create();
+//        MarketOrder::factory()->sellOrder()->count(10)->for($user)->create();
+
+        $otherUser = User::factory()->create();
+
+        MarketOrder::factory()->buyOrder()->count(10)->for($otherUser)->create();
+        MarketOrder::factory()->sellOrder()->count(10)->for($otherUser)->create();
+        MarketOrder::factory()->buyOrder()->for($otherUser)->create(['item_name' => 'biz_token']);
     }
 }

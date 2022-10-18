@@ -82,6 +82,13 @@ class MarketOrderCreate extends Component
         return StorageFactory::getAllItemNames(true);
     }
 
+    public function inverseType(): string
+    {
+        return $this->marketOrder->type == 'sell'
+            ? 'buy'
+            : 'sell';
+    }
+
     public function save(): void
     {
         if ($this->marketOrder->exists) {

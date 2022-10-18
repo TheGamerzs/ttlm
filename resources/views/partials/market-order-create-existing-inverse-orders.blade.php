@@ -1,10 +1,18 @@
 <?php
 /** @var \App\Models\MarketOrder $order */
+/** @var \App\Models\MarketOrder $marketOrder */
 ?>
 <div class="text-center">
     <h4>
-        {{ $inverseOrders->count() }} Existing {{ $marketOrder->type == 'sell' ? 'Buy' : 'Sell'  }}
+        {{ $inverseOrders->count() }} Existing {{ str($this->inverseType())->title()  }}
         {{ $inverseOrders->count() > 1 ? 'Orders' : 'Order' }}
+
+        <a href="{{ route('marketOrders', ['type' => $this->inverseType(), 'itemFilter' => $marketOrder->item_name]) }}"
+           class="ms-1" title="View Full Details"
+           target="_blank">
+
+            <i class="ms-1 bi bi-box-arrow-up-right"></i>
+        </a>
     </h4>
 
     <table class="table table-sm">
@@ -13,7 +21,7 @@
                 <th>Count</th>
                 <th>Price Each</th>
                 <th>
-                    {{ $marketOrder->type == 'sell' ? 'Price All' : 'Storage' }}
+                    {{ $this->inverseType() == 'sell' ? 'Storage' : 'Price All' }}
                 </th>
                 <th></th>
             </tr>

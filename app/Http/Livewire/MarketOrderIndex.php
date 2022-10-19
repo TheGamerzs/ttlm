@@ -11,10 +11,9 @@ use App\View\MarketOrder\Types\MoveOrderViewModel;
 use App\View\MarketOrder\Types\SellOrderViewModel;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Component;
 use Livewire\WithPagination;
 
-class MarketOrderIndex extends Component
+class MarketOrderIndex extends BaseComponent
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';

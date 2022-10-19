@@ -4,7 +4,8 @@ namespace App\Http\Livewire;
 
 use App\Models\MarketOrder;
 use App\TT\Items\ItemData;
-use App\TT\Items\ItemNames;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -34,12 +35,23 @@ class MarketOrderIndex extends Component
         'priceMaxFilter' => ['except' => ''],
     ];
 
-    public function updatingType()
+    public function mount()
     {
+        $this->checkAuthForType();
+    }
+
+    public function updatedType()
+    {
+        $this->checkAuthForType();
         $this->resetPage();
     }
 
-    public function getItemSelectOptions()
+    protected function checkAuthForType(): void
+    {
+        if ($this->type == 'mine' && ! Auth::check()) abort(403);
+    }
+
+    public function getItemSelectOptions(): Collection
     {
         return MarketOrder::pluck('item_name')
             ->unique()
@@ -52,11 +64,19 @@ class MarketOrderIndex extends Component
             ->prepend('All', '');
     }
 
+    public function closeOrder(MarketOrder $marketOrder): void
+    {
+        if ($marketOrder->user_id != Auth::id()) abort(403);
+
+        $marketOrder->delete();
+    }
+
     public function render()
     {
         $marketOrders = match($this->type) {
-            'buy' => MarketOrder::buyOrders(),
-            'sell' => MarketOrder::sellOrders(),
+            'buy'   => MarketOrder::buyOrders(),
+            'sell'  => MarketOrder::sellOrders(),
+            'mine'  => Auth::user()->marketOrders(),
             default => MarketOrder::query()
         };
 

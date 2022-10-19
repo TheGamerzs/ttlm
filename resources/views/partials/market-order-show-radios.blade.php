@@ -7,4 +7,9 @@
 
     <input wire:model="type" type="radio" class="btn-check" name="btnradio" id="btnradio3" value="sell" autocomplete="off" checked="">
     <label class="btn btn-outline-primary" for="btnradio3">Sell Orders</label>
+
+    @auth
+        <input wire:model="type" type="radio" class="btn-check" name="btnradio" id="btnradio4" value="mine" autocomplete="off" checked="">
+        <label class="btn btn-outline-primary" for="btnradio4">My Orders</label>
+    @endauth
 </div>

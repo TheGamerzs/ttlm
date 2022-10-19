@@ -18,7 +18,11 @@
                 <td class="text-center">Count</td>
                 <td class="text-center">Total Cost For All</td>
                 <td class="text-center">Storage</td>
-                <td class="text-center">Discord Profile</td>
+                @if($type == 'mine')
+                    <td></td>
+                @else
+                    <td class="text-center">Discord Profile</td>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -50,9 +54,21 @@
                     {{ $marketOrder->storageName }}
                 </td>
 
-                <td class="text-center">
-                    <x-discord-profile-link-logo :user="$marketOrder->user" />
-                </td>
+                @if($type == 'mine')
+                    <td class="text-end">
+                        <i wire:click="$emit('editMarketOrder', '{{ $marketOrder->id }}')"
+                           class="bi bi-pencil-fill text-warning cursor-pointer"
+                           title="Edit"></i>
+
+                        <i class="bi bi-x-circle-fill text-danger cursor-pointer"
+                           wire:click="closeOrder('{{ $marketOrder->id }}')"
+                           title="Close"></i>
+                    </td>
+                @else
+                    <td class="text-center">
+                        <x-discord-profile-link-logo :user="$marketOrder->user" />
+                    </td>
+                @endif
 
             </tr>
         @endforeach
@@ -61,4 +77,6 @@
     <div class="d-flex justify-content-center">
         {{ $allMarketOrders->links() }}
     </div>
+
+    <livewire:market-order-create-edit />
 </div>

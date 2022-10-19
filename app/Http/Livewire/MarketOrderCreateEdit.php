@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
-class MarketOrderCreate extends Component
+class MarketOrderCreateEdit extends Component
 {
     use SendsAlerts;
 
@@ -141,7 +141,7 @@ class MarketOrderCreate extends Component
             $this->expand = (bool) $inverseOrders->count();
         }
 
-        return view('livewire.market-order-create')->with([
+        return view('livewire.market-order-create-edit')->with([
             'inverseOrders' => $inverseOrders ?? new EloquentCollection()
         ]);
     }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\MarketOrderCreate;
+use App\Http\Livewire\MarketOrderCreateEdit;
 use App\Models\MarketOrder;
 use App\Models\User;
 use function Pest\Laravel\actingAs;
@@ -11,7 +11,7 @@ it('starts with defaults to create a new record', function () {
 
     actingAs(User::factory()->create());
 
-    Livewire::test(MarketOrderCreate::class)
+    Livewire::test(MarketOrderCreateEdit::class)
         ->call('startWithItem', 'refined_planks')
         ->assertSet('marketOrder.item_name', 'refined_planks')
         ->assertSet('marketOrder.type', 'sell')
@@ -23,7 +23,7 @@ it('creates a new record', function () {
 
     actingAs($user = User::factory()->create());
 
-    Livewire::test(MarketOrderCreate::class)
+    Livewire::test(MarketOrderCreateEdit::class)
         ->call('startWithItem', 'crafted_concrete')
         ->set('marketOrder.count', 100)
         ->set('marketOrder.price_each', 850000)
@@ -45,7 +45,7 @@ it('updates a record', function () {
 
 //    dd($order->count, $order->count + 100);
 
-    Livewire::test(MarketOrderCreate::class)
+    Livewire::test(MarketOrderCreateEdit::class)
         ->call('startEditing', $order->id)
         ->set('marketOrder.count', $newCount = $order->count + 100)
         ->set('marketOrder.price_each', $newPrice = $order->price_each + 100)
@@ -65,7 +65,7 @@ test('trying to edit another users order', function () {
     $order = MarketOrder::factory()->for($owningUser)->create(['type' => 'sell']);
     actingAs($invalidUser = User::factory()->create());
 
-    Livewire::test(MarketOrderCreate::class)
+    Livewire::test(MarketOrderCreateEdit::class)
         ->call('startEditing', $order->id)
         ->assertForbidden();
 

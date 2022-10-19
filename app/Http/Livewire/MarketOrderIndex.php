@@ -8,7 +8,7 @@ use App\TT\Items\ItemNames;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class MarketOrderShow extends Component
+class MarketOrderIndex extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
@@ -80,7 +80,7 @@ class MarketOrderShow extends Component
             $marketOrders->where('price_each', '<=', $this->priceMaxFilter);
         }
 
-        return view('livewire.market-order-show')
+        return view('livewire.market-order-index')
             ->with(['allMarketOrders' => $marketOrders->paginate()])
             ->layoutData(['titleAddon' => 'Market Orders']);
     }

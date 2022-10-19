@@ -216,6 +216,6 @@
         </tbody>
     </table>
 
-    <livewire:market-order-create />
+    <livewire:market-order-create-edit />
     <button class="btn btn-success" wire:click="$emit('newMarketOrder', 'crafted_concrete')">Open</button>
 </div>

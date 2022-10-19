@@ -4,6 +4,11 @@ namespace App\Http\Livewire;
 
 use App\Models\MarketOrder;
 use App\TT\Items\ItemData;
+use App\View\MarketOrder\Types\AllOrdersViewModel;
+use App\View\MarketOrder\Types\BuyOrderViewModel;
+use App\View\MarketOrder\Types\MarketOrderViewModelInterface;
+use App\View\MarketOrder\Types\MoveOrderViewModel;
+use App\View\MarketOrder\Types\SellOrderViewModel;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -14,7 +19,7 @@ class MarketOrderIndex extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
-    public string $type = 'all';
+    public string $type = 'sell';
 
     public array|string $itemFilter = '';
 
@@ -27,7 +32,7 @@ class MarketOrderIndex extends Component
     public string $priceMaxFilter = '';
 
     protected $queryString = [
-        'type' => ['except' => 'all'],
+        'type' => ['except' => ''],
         'itemFilter' => ['except' => ''],
         'countMinFilter' => ['except' => ''],
         'countMaxFilter' => ['except' => ''],
@@ -71,12 +76,23 @@ class MarketOrderIndex extends Component
         $marketOrder->delete();
     }
 
+    protected function viewModel(): MarketOrderViewModelInterface
+    {
+        return match($this->type) {
+            'buy'   => new BuyOrderViewModel(),
+            'sell'  => new SellOrderViewModel(),
+            'move'  => new MoveOrderViewModel(),
+            default => new AllOrdersViewModel()
+        };
+    }
+
     public function render()
     {
         $marketOrders = match($this->type) {
             'buy'   => MarketOrder::buyOrders(),
             'sell'  => MarketOrder::sellOrders(),
-            'mine'  => Auth::user()->marketOrders(),
+            'move'  => MarketOrder::moveOrders(),
+            'mine'  => Auth::user()->marketOrders()->orderBy('type'),
             default => MarketOrder::query()
         };
 
@@ -101,7 +117,10 @@ class MarketOrderIndex extends Component
         }
 
         return view('livewire.market-order-index')
-            ->with(['allMarketOrders' => $marketOrders->paginate()])
+            ->with([
+                'allMarketOrders' => $marketOrders->paginate(),
+                'viewModel' => $this->viewModel()
+            ])
             ->layoutData(['titleAddon' => 'Market Orders']);
     }
 }

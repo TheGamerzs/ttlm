@@ -9,34 +9,37 @@
 
     <table class="table">
         <thead>
-            <tr>
+        <tr>
+            @if($viewModel->showTypeColumn())
+                <td>Type</td>
+            @endif
+            <td></td>
+            <td class="text-center">{{ $viewModel->priceEachLabel() }}</td>
+            <td class="text-center">Count</td>
+            <td class="text-center">Total Cost For All</td>
+            <td class="text-center">{{ $viewModel->storageOneLabel() }}</td>
+            @if($viewModel->showStorageTwoColumn())
+                <td class="text-center">{{ $viewModel->storageTwoLabel() }}</td>
+            @endif
+            @if($type == 'mine')
                 <td></td>
-                @if($type == 'all')
-                    <td class="text-center">Type</td>
-                @endif
-                <td class="text-center">Price Each</td>
-                <td class="text-center">Count</td>
-                <td class="text-center">Total Cost For All</td>
-                <td class="text-center">Storage</td>
-                @if($type == 'mine')
-                    <td></td>
-                @else
-                    <td class="text-center">Discord Profile</td>
-                @endif
-            </tr>
+            @else
+                <td class="text-center">Discord Profile</td>
+            @endif
+        </tr>
         </thead>
         <tbody>
         @foreach($allMarketOrders as $marketOrder)
             <tr>
+                @if($viewModel->showTypeColumn())
+                    <td>
+                        {{ str($marketOrder->type)->title() }}
+                    </td>
+                @endif
+
                 <td>
                     {{ $marketOrder->item->name() }}
                 </td>
-
-                @if($type == 'all')
-                <td class="text-center">
-                    {{ str($marketOrder->type)->title() }}
-                </td>
-                @endif
 
                 <td class="text-center">
                     ${{ number_format($marketOrder->price_each) }}
@@ -53,6 +56,12 @@
                 <td class="text-center">
                     {{ $marketOrder->storageName }}
                 </td>
+
+                @if($viewModel->showStorageTwoColumn())
+                    <td class="text-center">
+                        {{ $marketOrder->altStorageName }}
+                    </td>
+                @endif
 
                 @if($type == 'mine')
                     <td class="text-end">

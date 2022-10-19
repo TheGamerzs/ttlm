@@ -25,6 +25,11 @@ class MarketOrder extends Model
         return $query->where('type', 'sell');
     }
 
+    public function scopeMoveOrders(Builder $query): Builder
+    {
+        return $query->where('type', 'move');
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -43,6 +48,13 @@ class MarketOrder extends Model
     public function getStorageNameAttribute(): string
     {
         return StorageFactory::getPrettyName($this->storage);
+    }
+
+    public function getAltStorageNameAttribute(): string
+    {
+        return $this->storage_additional
+            ? StorageFactory::getPrettyName($this->storage_additional)
+            : '';
     }
 
     public function findInverseOrders(): EloquentCollection

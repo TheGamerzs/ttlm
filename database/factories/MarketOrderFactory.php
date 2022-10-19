@@ -56,6 +56,7 @@ class MarketOrderFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
+                'price_each' => fake()->numberBetween(4,9) * 100,
                 'type' => 'move',
                 'storage_additional' => $this->fakeStorage()
             ];

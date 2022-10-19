@@ -27,7 +27,8 @@ class MarketOrderFactory extends Factory
             'expires'    => Carbon::now()->addWeek(),
             'count'      => fake()->numberBetween(1, 9) * 100,
             'price_each' => fake()->numberBetween(15, 800) * 1000,
-            'storage'    => $this->fakeStorage()
+            'storage'    => $this->fakeStorage(),
+            'details' => rand(0,1) == 1 ? fake()->paragraph(2) : null
         ];
     }
 
@@ -36,6 +37,7 @@ class MarketOrderFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'type' => 'buy',
+                'storage_additional' => rand(0,1) == 1 ? $this->fakeStorage() : null
             ];
         });
     }
@@ -45,6 +47,7 @@ class MarketOrderFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'type' => 'sell',
+                'storage_additional' => null
             ];
         });
     }
@@ -54,6 +57,7 @@ class MarketOrderFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'type' => 'move',
+                'storage_additional' => $this->fakeStorage()
             ];
         });
     }

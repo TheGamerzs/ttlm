@@ -4,12 +4,15 @@ namespace App\Http\Livewire;
 
 use App\Models\MarketOrder;
 use App\TT\StorageFactory;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class MarketOrderCreate extends Component
 {
+    use SendsAlerts;
+
     protected $listeners = [
         'newMarketOrder' => 'startWithItem',
         'editMarketOrder' => 'startEditing'
@@ -19,6 +22,12 @@ class MarketOrderCreate extends Component
 
     public bool $expand = false;
 
+    protected $messages = [
+        'marketOrder.storage_additional.required' => 'This is required for a move order.',
+        'marketOrder.count' => 'Required.',
+        'marketOrder.price_each' => 'Required.',
+    ];
+
     public function rules(): array
     {
         return [
@@ -26,6 +35,7 @@ class MarketOrderCreate extends Component
             'marketOrder.count' => 'required|numeric|min:1',
             'marketOrder.price_each' => 'required|numeric|min:1',
             'marketOrder.storage' => 'required',
+            'marketOrder.storage_additional' => Rule::requiredIf($this->marketOrder->type == 'move'),
             'marketOrder.type' => [
                 'required',
                 Rule::in(['buy', 'sell', 'move'])
@@ -36,6 +46,11 @@ class MarketOrderCreate extends Component
     public function mount(): void
     {
         $this->marketOrder = MarketOrder::make();
+    }
+
+    public function hydrate(): void
+    {
+        StorageFactory::get();
     }
 
     public function updatedMarketOrderCount($value)
@@ -63,6 +78,7 @@ class MarketOrderCreate extends Component
         $this->marketOrder = MarketOrder::make();
         $this->marketOrder->item_name = $itemName;
         $this->marketOrder->type = 'sell';
+        $this->marketOrder->storage = StorageFactory::getRegisteredNames(true, false)->keys()->first();
         $this->marketOrder->count = null;
         $this->marketOrder->price_each = null;
 
@@ -101,10 +117,11 @@ class MarketOrderCreate extends Component
     public function create(): void
     {
         $this->validate();
-
         $this->marketOrder->user_id = Auth::id();
         $this->marketOrder->expires = now()->addWeek();
         $this->marketOrder->save();
+
+        $this->successAlert('Order Created');
     }
 
     public function update(): void
@@ -112,15 +129,20 @@ class MarketOrderCreate extends Component
         $this->validate();
 
         $this->marketOrder->save();
+        $this->successAlert('Order Updated');
     }
 
     public function render()
     {
-        $inverseOrders = $this->marketOrder->findInverseOrders();
-        $this->expand = (bool) $inverseOrders->count();
+        if ($this->marketOrder->exists) {
+            $this->expand = false;
+        } else {
+            $inverseOrders = $this->marketOrder->findInverseOrders();
+            $this->expand = (bool) $inverseOrders->count();
+        }
 
         return view('livewire.market-order-create')->with([
-            'inverseOrders' => $inverseOrders
+            'inverseOrders' => $inverseOrders ?? new EloquentCollection()
         ]);
     }
 }

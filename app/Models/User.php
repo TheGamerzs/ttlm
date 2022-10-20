@@ -105,7 +105,11 @@ class User extends Authenticatable
             'recipe' => $recipe
         ];
 
-        Session::put('craftingGoal', $goal);
+        if ($goal['count']) {
+            Session::put('craftingGoal', $goal);
+        } else {
+            Session::forget('craftingGoal');
+        }
 
         return $this;
     }

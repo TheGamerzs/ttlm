@@ -52,10 +52,19 @@ class ShoppingListBuilder
             ->filter(function (RecipeShoppingListDecorator $item) {
                 return $item->count > 0;
             })
+            ->sortByDesc(function (RecipeShoppingListDecorator $item) {
+                return $item->count;
+            })
             ->groupBy(function (RecipeShoppingListDecorator $item) {
                 return $item->getType();
             });
 
+        // inject empty collections if needed
+        foreach (['crafted', 'refined', 'scrap'] as $type) {
+            if (! $cleaned->keys()->contains($type)) {
+                $cleaned->put($type, collect());
+            }
+        }
 
         $calculator = new PickupRunCalculator($truckCapacity, $storage);
         if (! $cleaned->keys()->contains('scrap') ) {

@@ -5,7 +5,6 @@ namespace App\TT;
 use App\TT\Items\Item;
 use App\TT\Items\ItemData;
 use App\TT\Items\Weights;
-use Illuminate\Support\Arr;
 
 class PickupRunCalculator
 {
@@ -99,6 +98,8 @@ class PickupRunCalculator
         [$final['refined_planks'], $final['tcargodust']] = $this->sawMillRun();
         $final['liquid_water_raw'] = $this->waterRun();
 
+        $this->baseItemsCounts = collect($this->baseItemsCounts)->sortDesc()->toArray();
+
         return $final;
     }
 
@@ -150,11 +151,11 @@ class PickupRunCalculator
 
         $this->baseItemsCosts['refined_planks'] = 0;
         $this->baseItemsCosts['tcargodust'] = 0;
-        $this->baseItemsCounts['logs'] = 0;
+        $this->baseItemsCounts['tcargologs'] = 0;
 
         // Find out planks
         if (array_key_exists('refined_planks', $this->neededCounts)) {
-            $this->baseItemsCounts['logs'] = $this->neededCounts['refined_planks']['needed'];
+            $this->baseItemsCounts['tcargologs'] = $this->neededCounts['refined_planks']['needed'];
             $this->baseItemsCosts['refined_planks'] = $this->neededCounts['refined_planks']['needed'] * 8000;
             $plankRuns = (int) ceil($this->neededCounts['refined_planks']['needed'] / $logsFitInTrailer);
         }
@@ -162,7 +163,7 @@ class PickupRunCalculator
         // see if plank runs cover sawdust or not
         if (array_key_exists('tcargodust', $this->neededCounts)) {
             $sawdustNeededAfterPlankRuns = $this->neededCounts['tcargodust']['needed'] - ($plankRuns * 2);
-            $this->baseItemsCounts['logs'] += (int) ceil($sawdustNeededAfterPlankRuns / 10);
+            $this->baseItemsCounts['tcargologs'] += (int) ceil($sawdustNeededAfterPlankRuns / 10);
             $this->baseItemsCosts['tcargodust'] = (int) ($sawdustNeededAfterPlankRuns / 10 * 8000);
             if ($sawdustNeededAfterPlankRuns > 0) {
                 $sawdustRuns = (int) ceil($sawdustNeededAfterPlankRuns / 10 / $logsFitInTrailer);

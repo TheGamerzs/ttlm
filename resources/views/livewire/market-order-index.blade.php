@@ -87,5 +87,7 @@
         {{ $allMarketOrders->links() }}
     </div>
 
-    <livewire:market-order-create-edit />
+    @auth
+        <livewire:market-order-create-edit />
+    @endauth
 </div>

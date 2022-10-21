@@ -6,6 +6,10 @@
     cursor: grabbing;
 }
 
+.cursor-normal {
+    cursor: default;
+}
+
 .container {
     max-width: 1800px;
 }

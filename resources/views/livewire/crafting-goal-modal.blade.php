@@ -1,5 +1,5 @@
 <div class="modal fade" id="craftingGoal" aria-modal="true" role="dialog" wire:ignore.self>
-    <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-4" id="exampleModalXlLabel">Goal</h1>
@@ -7,9 +7,15 @@
             </div>
 
             <div class="modal-body">
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="goalCount" wire:model="goalCount"/>
-                    <label for="howMany">How Many</label>
+
+                <div class="input-group">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="goalCount" wire:model="goalCount"/>
+                        <label for="goalCount">How Many</label>
+                    </div>
+                    <span class="input-group-text">
+                        <i class="bi bi-info-circle" title="Set to 0 or blank to disable."></i>
+                    </span>
                 </div>
 
                 <div class="text-center mt-2">

@@ -6,12 +6,8 @@ use App\Models\User;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Contracts\Factory as Socialite;
 use Laravel\Socialite\Two\InvalidStateException;
-use PhpParser\Node\Stmt\TryCatch;
-use Ramsey\Collection\Collection;
 
 class DiscordController
 {
@@ -62,6 +58,6 @@ class DiscordController
             return redirect()->route('userSettings');
         }
 
-        return redirect()->route('home');
+        return redirect()->intended(route('home'));
     }
 }

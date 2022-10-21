@@ -129,13 +129,15 @@ class NextGrindRevised extends Component
 
     public function updateGoal()
     {
-        Auth::user()->setCraftingGoal($this->goalCount, $this->goalRecipe);
+        Auth::user()->setCraftingGoal((int) $this->goalCount, $this->goalRecipe);
         $this->emit('refreshParentRecipeTable');
+        $this->emit('closeCraftingGoal');
     }
 
     public function usingGoal(): bool
     {
-        return (bool) $this->goalCount;
+        // Int cast required for 00 to evaluate false.
+        return (bool) (int) $this->goalCount;
     }
 
     /*

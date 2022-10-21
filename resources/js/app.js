@@ -47,6 +47,9 @@ if (document.body.contains(document.getElementById('craftingGoal'))) {
     Livewire.on('openCraftingGoal', function () {
         craftingGoalModal.show();
     });
+    Livewire.on('closeCraftingGoal', function () {
+        craftingGoalModal.hide();
+    });
 }
 
 if (document.body.contains(document.getElementById('MODetails'))) {

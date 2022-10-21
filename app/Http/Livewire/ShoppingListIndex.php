@@ -7,11 +7,11 @@ use App\TT\RecipeFactory;
 use App\TT\ShoppingListBuilder;
 use App\TT\Storage;
 use App\TT\StorageFactory;
-use Livewire\Component;
+use App\View\ShoppingList\ShoppingListViewModel;
 
-class ShoppingList extends Component
+class ShoppingListIndex extends BaseComponent
 {
-    public array|string $recipeName = 'house';
+    public string $recipeName = 'house';
 
     public int $truckCapacity;
 
@@ -24,23 +24,22 @@ class ShoppingList extends Component
 
     public function render()
     {
-        $fullList = ShoppingListBuilder::build(
+        $totalNeededList = ShoppingListBuilder::build(
             RecipeFactory::get(new Item($this->recipeName)),
             new Storage(),
             (int) $this->count,
             $this->truckCapacity
         );
 
-        $afterStorageList = ShoppingListBuilder::build(
+        $stillNeededList = ShoppingListBuilder::build(
             RecipeFactory::get(new Item($this->recipeName)),
             StorageFactory::get('combined'),
             (int) $this->count,
             $this->truckCapacity
         );
 
-        return view('livewire.shopping-list')->with([
-            'fullList' => $fullList,
-            'afterStorageList' => $afterStorageList,
+        return view('livewire.shopping-list-index')->with([
+            'viewModel' => new ShoppingListViewModel($totalNeededList, $stillNeededList)
         ]);
     }
 }

@@ -31,3 +31,10 @@ if (document.body.contains(document.getElementById('craftingGoal'))) {
     });
 }
 
+if (document.body.contains(document.getElementById('MODetails'))) {
+    const marketOrderDetailsModal = new bootstrap.Modal(document.getElementById('MODetails'), {});
+    Livewire.on('showMarketOrderDetailsModal', function () {
+        marketOrderDetailsModal.show();
+    });
+}
+

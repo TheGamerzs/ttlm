@@ -13,19 +13,21 @@
             @if($viewModel->showTypeColumn())
                 <td>Type</td>
             @endif
-            <td></td>
+            <td>Item</td>
             <td class="text-center">{{ $viewModel->priceEachLabel() }}</td>
             <td class="text-center">Count</td>
             <td class="text-center">Total Cost For All</td>
             <td class="text-center">{{ $viewModel->storageOneLabel() }}</td>
+
             @if($viewModel->showStorageTwoColumn())
                 <td class="text-center">{{ $viewModel->storageTwoLabel() }}</td>
             @endif
-            @if($type == 'mine')
-                <td></td>
-            @else
+
+            @unless($type == 'mine')
                 <td class="text-center">Discord Profile</td>
-            @endif
+            @endunless
+
+            <td>{{-- action icons --}}</td>
         </tr>
         </thead>
         <tbody>
@@ -77,6 +79,14 @@
                     <td class="text-center">
                         <x-discord-profile-link-logo :user="$marketOrder->user" />
                     </td>
+                    <td>
+                        @if($marketOrder->details)
+                        <i class="bi bi-eye text-info cursor-pointer"
+                           title="Additional Details"
+                           wire:click="$emit('openDetailsModal', '{{ $marketOrder->id }}')">
+                        </i>
+                        @endif
+                    </td>
                 @endif
 
             </tr>
@@ -89,5 +99,6 @@
 
     @auth
         <livewire:market-order-create-edit />
+        <livewire:market-order-additional-details-modal />
     @endauth
 </div>

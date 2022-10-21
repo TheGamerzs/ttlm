@@ -31,7 +31,7 @@
             <a href="#"
                class="dropdown-item"
                type="button"
-               wire:click.prevent="$emit('newMarketOrder', '{{ $inventoryItem->name }}')">
+               wire:click.prevent="$emit('newMarketOrder', '{{ $inventoryItem->name }}', '{{ $inventoryItem->count }}')">
 
                 Create Market Order
             </a>

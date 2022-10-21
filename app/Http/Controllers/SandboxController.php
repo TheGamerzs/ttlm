@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\TT\Items\ItemData;
+use App\TT\StorageFactory;
 use App\TT\TTApi;
-use Illuminate\Support\Facades\App;
 
 class SandboxController extends Controller
 {
@@ -15,7 +15,7 @@ class SandboxController extends Controller
 
     public function index()
     {
-        $dump = App::get('storageData')->random()->id;
+        $dump = StorageFactory::guessStorageForItem('crafted_oncrete');
         dump($dump);
     }
 

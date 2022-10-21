@@ -110,6 +110,16 @@ class StorageFactory
             });
     }
 
+    public static function guessStorageForItem(string $internalName)
+    {
+        return self::findStoragesForItem(new Item($internalName))
+            ->sortByDesc(function (InventoryItem $item) {
+                return $item->count;
+            })
+            ->keys()
+            ->first();
+    }
+
     public static function getRegisteredNames(bool $mapPrettyNames = false, bool $includeComputed = true): array|Collection
     {
         if ($mapPrettyNames) {
@@ -226,5 +236,7 @@ class StorageFactory
 
         return $name->headline();
     }
+
+
 
 }

@@ -175,6 +175,16 @@
         "weight": "B.A.T Crate CW"
     },
     {
+        "id": "bat_crateT2",
+        "name": "B.A.T Crate T2",
+        "weight": "91"
+    },
+    {
+        "id": "bat_crateT3",
+        "name": "B.A.T Crate T3",
+        "weight": "91"
+    },
+    {
         "id": "bat_crate4",
         "name": "B.A.T Crate 68",
         "weight": "91"
@@ -3543,6 +3553,11 @@
         "id": "po_caged_animal",
         "name": "Air Cargo: PO   Caged Animal",
         "weight": "Air Cargo: PO   Caged Animal"
+    },
+    {
+        "id": "po_metal_parts",
+        "name": "Air Cargo: PO   Metal Parts",
+        "weight": "210"
     },
     {
         "id": "poa_passengers",
@@ -8052,6 +8067,11 @@
     {
         "id": "vehicle_card|Turismo|R.T.S. Turismo R",
         "name": "Vehicle Card: R.T.S. Turismo R",
+        "weight": "0"
+    },
+    {
+        "id": "vehicle_card|typhoon|Modena Tycoon",
+        "name": "Vehicle Card: Modena Tycoon",
         "weight": "0"
     },
     {

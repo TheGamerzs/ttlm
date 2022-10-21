@@ -30,9 +30,9 @@ class SandboxController extends Controller
             })->sort()->dd();
     }
 
-    public function itemApiLookupWithCopyPasteJson()
+    public function apiItemLookup($name)
     {
-        $response = TTApi::ttItemDataFromInternalName('liberty_fish_export');
+        $response = TTApi::ttItemDataFromInternalName($name);
 
         $dump = new \stdClass();
         $dump->id = $response->item_id;

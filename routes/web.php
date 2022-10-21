@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DiscordController;
+use App\Http\Controllers\SandboxController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,11 +38,12 @@ Route::get('/logout', function () {
 Route::get('/auth/redirect', [DiscordController::class, 'redirectToDiscord'])->name('discordSend');
 Route::get('/auth/callback', [DiscordController::class, 'handleCallback'])->name('discordCallback');
 
-Route::get('/sb', [\App\Http\Controllers\SandboxController::class, 'index']);
+Route::get('/sb', [SandboxController::class, 'index']);
 
-Route::get('/dev/missing-items', \App\Http\Livewire\MissingItems::class)
-    ->name('missingItems')
-    ->middleware(['auth', 'onlyUserOne']);
+Route::middleware(['auth', 'onlyUserOne'])->group(function () {
+    Route::get('/dev/missing-items', \App\Http\Livewire\MissingItems::class)->name('missingItems');
+    Route::get('/dev/missing-items/{name}', [SandboxController::class, 'apiItemLookup'])->name('itemLookup');
+});
 
 Route::get('/dev/loginas/{id}', function (int $id) {
     if (Auth::id() != 1) abort(404);

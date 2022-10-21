@@ -15,8 +15,12 @@ use Livewire\WithPagination;
 
 class MarketOrderIndex extends BaseComponent
 {
-    use WithPagination;
+    use WithPagination, SendsAlerts;
     protected $paginationTheme = 'bootstrap';
+
+    protected $listeners = [
+        'closeMarketOrder' => 'softDeleteOrder'
+    ];
 
     public string $type = 'sell';
 
@@ -68,11 +72,16 @@ class MarketOrderIndex extends BaseComponent
             ->prepend('All', '');
     }
 
-    public function closeOrder(MarketOrder $marketOrder): void
+    public function softDeleteOrder(MarketOrder $marketOrder): void
     {
         if ($marketOrder->user_id != Auth::id()) abort(403);
 
         $marketOrder->delete();
+    }
+
+    public function closeOrder($marketOrderId): void
+    {
+        $this->askToConfirmDelete('closeMarketOrder', $marketOrderId);
     }
 
     protected function viewModel(): MarketOrderViewModelInterface

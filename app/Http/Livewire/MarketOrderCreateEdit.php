@@ -15,7 +15,8 @@ class MarketOrderCreateEdit extends Component
 
     protected $listeners = [
         'newMarketOrder' => 'startWithItem',
-        'editMarketOrder' => 'startEditing'
+        'editMarketOrder' => 'startEditing',
+        'deleteMarketOrder' => 'delete'
     ];
 
     public MarketOrder $marketOrder;
@@ -135,6 +136,19 @@ class MarketOrderCreateEdit extends Component
 
         $this->marketOrder->save();
         $this->successAlert('Order Updated');
+    }
+
+    public function confirmDelete(): void
+    {
+        $this->askToConfirmDelete('deleteMarketOrder');
+    }
+
+    public function delete(): void
+    {
+        $this->marketOrder->delete();
+        $this->marketOrder = MarketOrder::make();
+        $this->successAlert('Deleted.');
+        $this->emit('closeMarketOrderModal');
     }
 
     public function render()

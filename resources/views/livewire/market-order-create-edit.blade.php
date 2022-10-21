@@ -27,10 +27,23 @@
                     </div>
 
                     <hr>
+
+                    <div class="row">
+                        <div class="col-{{ $marketOrder->exists ? 6 : 12 }} d-grid">
+                            <button class="btn btn-success" wire:click="save">
+                                {{ $marketOrder->exists ? 'Update Listing' : 'List' }}
+                            </button>
+                        </div>
+                        @if($marketOrder->exists)
+                            <div class="col-6 d-grid">
+                                <button class="btn btn-danger" wire:click="confirmDelete">
+                                    Delete
+                                </button>
+                            </div>
+                        @endif
+                    </div>
                     <div class="d-grid">
-                        <button class="btn btn-success" wire:click="save">
-                            {{ $marketOrder->exists ? 'Update Listing' : 'List' }}
-                        </button>
+
                     </div>
 
                 </div>

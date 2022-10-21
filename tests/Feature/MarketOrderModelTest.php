@@ -26,8 +26,11 @@ it('has an item attribute', function () {
 it('has a total cost attribute', function () {
 
     $order = MarketOrder::factory()->sellOrder()->create();
+    $moveOrder = MarketOrder::factory()->moveOrder()->create();
+    $moveItem = new \App\TT\Items\Item($moveOrder->item_name);
 
-    expect($order->totalCost)->toBe($order->price_each * $order->count);
+    expect($order->totalCost)->toBe($order->price_each * $order->count)
+        ->and($moveOrder->totalCost)->toBe($moveOrder->price_each * $moveOrder->count * $moveItem->weight);
 });
 
 it('has a storage name attribute', function () {

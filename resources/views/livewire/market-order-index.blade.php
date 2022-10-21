@@ -16,7 +16,7 @@
             <td>Item</td>
             <td class="text-center">{{ $viewModel->priceEachLabel() }}</td>
             <td class="text-center">Count</td>
-            <td class="text-center">Total Cost For All</td>
+            <td class="text-center">Total Cost</td>
             <td class="text-center">{{ $viewModel->storageOneLabel() }}</td>
 
             @if($viewModel->showStorageTwoColumn())

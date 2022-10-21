@@ -42,6 +42,9 @@ class MarketOrder extends Model
 
     public function getTotalCostAttribute(): int
     {
+        if ($this->type == 'move') {
+            return $this->price_each * $this->count * $this->item->weight;
+        }
         return $this->price_each * $this->count;
     }
 

@@ -28,4 +28,14 @@ trait SendsAlerts
     {
         $this->emit('alert', $title, $message ?? '', $type);
     }
+
+    protected function ask($title, $message = null, $callback, ...$callbackData): void
+    {
+        $this->emit('ask', $title, $message ?? '', $callback, ...$callbackData);
+    }
+
+    protected function askToConfirmDelete($callback, ...$callbackData): void
+    {
+        $this->ask('Are You Sure?', null, $callback, ...$callbackData);
+    }
 }

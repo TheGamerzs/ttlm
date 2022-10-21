@@ -28,7 +28,7 @@
 
     <hr>
     <div class="form-floating">
-        <textarea class="form-control" id="additionalDetails" style="height: 100px"></textarea>
+        <textarea wire:model.defer="marketOrder.details" class="form-control" id="additionalDetails" style="height: 100px"></textarea>
         <label for="additionalDetails">Additional Details</label>
     </div>
 

@@ -36,6 +36,7 @@ class MarketOrderCreateEdit extends Component
             'marketOrder.price_each' => 'required|numeric|min:1',
             'marketOrder.storage' => 'required',
             'marketOrder.storage_additional' => Rule::requiredIf($this->marketOrder->type == 'move'),
+            'marketOrder.details' => 'nullable|string',
             'marketOrder.type' => [
                 'required',
                 Rule::in(['buy', 'sell', 'move'])

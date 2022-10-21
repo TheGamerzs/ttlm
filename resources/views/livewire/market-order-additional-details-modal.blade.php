@@ -10,7 +10,6 @@
                 </div>
 
                 <div class="modal-body">
-                    {{ $marketOrder?->item_name }}
                     {{ $marketOrder?->details }}
                 </div>
 

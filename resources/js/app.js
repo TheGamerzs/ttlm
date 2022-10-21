@@ -11,6 +11,21 @@ Livewire.on('alert', function(title, text, type = 'success') {
     });
 });
 
+Livewire.on('ask', function(title, text, callback, ...data) {
+    swal({
+        title: title,
+        text: text,
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true,
+        padding: '2em',
+    }).then(function (success) {
+        if (success) {
+            Livewire.emit(callback, ...data)
+        }
+    })
+});
+
 const gamePlanModal = new bootstrap.Modal(document.getElementById('gamePlan'), {});
 Livewire.on('openGamePlan', function () {
     gamePlanModal.show();
@@ -21,6 +36,9 @@ if (document.body.contains(document.getElementById('marketOrder'))) {
     const marketOrderModal = new bootstrap.Modal(document.getElementById('marketOrder'), {});
     Livewire.on('openMarketOrderModal', function () {
         marketOrderModal.show();
+    });
+    Livewire.on('closeMarketOrderModal', function () {
+        marketOrderModal.hide();
     });
 }
 

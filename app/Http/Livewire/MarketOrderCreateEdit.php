@@ -74,19 +74,19 @@ class MarketOrderCreateEdit extends Component
         $this->validateOnly('marketOrder.price_each');
     }
 
-    public function startWithItem(string $itemName, string $count): void
+    public function startWithItem(string $itemName = null, string $count = null): void
     {
         $this->resetErrorBag();
 
         $this->marketOrder = MarketOrder::make();
-        $this->marketOrder->item_name = $itemName;
+        $this->marketOrder->item_name = $itemName ?? StorageFactory::getAllItemNames()->first();
         $this->marketOrder->type = 'sell';
 
         $this->marketOrder->storage =
-            StorageFactory::guessStorageForItem($itemName)
+            StorageFactory::guessStorageForItem($this->marketOrder->item_name)
             ?? StorageFactory::getRegisteredNames(true, false)->keys()->first();
 
-        $this->marketOrder->count = $count;
+        $this->marketOrder->count = $count ?? 1;
         $this->marketOrder->price_each = null;
 
         $this->emit('openMarketOrderModal');
@@ -120,6 +120,8 @@ class MarketOrderCreateEdit extends Component
         } else {
             $this->create();
         }
+
+        $this->emit('refreshMarketOrderIndex');
     }
 
     public function create(): void

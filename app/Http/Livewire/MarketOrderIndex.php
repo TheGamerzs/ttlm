@@ -19,12 +19,13 @@ class MarketOrderIndex extends BaseComponent
     protected $paginationTheme = 'bootstrap';
 
     protected $listeners = [
-        'closeMarketOrder' => 'softDeleteOrder'
+        'closeMarketOrder' => 'softDeleteOrder',
+        'refreshMarketOrderIndex' => '$refresh'
     ];
 
     public string $type = 'sell';
 
-    public array|string $itemFilter = '';
+    public string $itemFilter = '';
 
     public string $countMinFilter = '';
 
@@ -33,6 +34,8 @@ class MarketOrderIndex extends BaseComponent
     public string $priceMinFilter = '';
 
     public string $priceMaxFilter = '';
+
+    public string $mineFilter = 'active';
 
     protected $queryString = [
         'type' => ['except' => ''],
@@ -122,6 +125,14 @@ class MarketOrderIndex extends BaseComponent
 
         if (! empty($this->priceMaxFilter)) {
             $marketOrders->where('price_each', '<=', $this->priceMaxFilter);
+        }
+
+        if ($this->type == 'mine') {
+            match($this->mineFilter) {
+                'expired' => $marketOrders->onlyExpired(),
+                'closed'  => $marketOrders->onlyTrashed(),
+                default   => null
+            };
         }
 
         return view('livewire.market-order-index')

@@ -3,9 +3,33 @@
 ?>
 
 <div>
+    @auth
+        <div class="d-grid mb-4">
+            <button class="btn btn-success" wire:click="$emit('newMarketOrder')">
+                New
+            </button>
+        </div>
+    @endauth
+
     @include('partials.market-order-show-radios')
 
     @include('partials.market-order-show-filters')
+
+    @if($type == 'mine')
+        <hr>
+        <h1 class="text-center">
+            <x-select-choices wire:model="mineFilter">
+                <x-select-options :items="['active' => 'Active', 'closed' => 'Closed', 'expired' => 'Expired']" />
+            </x-select-choices>
+        </h1>
+        @if($mineFilter == 'expired')
+            <p class="text-center">
+                *Click edit, then the update listing button, to reset expiration.
+            </p>
+        @endif
+
+        <hr>
+    @endif
 
     <table class="table">
         <thead>
@@ -25,9 +49,17 @@
 
             @unless($type == 'mine')
                 <td class="text-center">Discord Profile</td>
+            @else
+                @unless($mineFilter == 'closed')
+                <td class="text-center">
+                    {{ $mineFilter == 'expired' ? 'Expired' : 'Expires' }}
+                </td>
+                @endunless
             @endunless
 
+            @unless($type == 'mine' && $mineFilter == 'closed')
             <td>{{-- action icons --}}</td>
+            @endunless
         </tr>
         </thead>
         <tbody>
@@ -65,7 +97,10 @@
                     </td>
                 @endif
 
-                @if($type == 'mine')
+                @if($type == 'mine' && $mineFilter != 'closed')
+                    <td class="text-center">
+                        {{ $marketOrder->expires->diffForHumans() }}
+                    </td>
                     <td class="text-end">
                         <i wire:click="$emit('editMarketOrder', '{{ $marketOrder->id }}')"
                            class="bi bi-pencil-fill text-warning cursor-pointer"
@@ -75,7 +110,7 @@
                            wire:click="closeOrder('{{ $marketOrder->id }}')"
                            title="Close"></i>
                     </td>
-                @else
+                @elseif($mineFilter != 'closed')
                     <td class="text-center">
                         <x-discord-profile-link-logo :user="$marketOrder->user" />
                     </td>
@@ -99,6 +134,7 @@
 
     @auth
         <livewire:market-order-create-edit />
-        <livewire:market-order-additional-details-modal />
     @endauth
+
+    <livewire:market-order-additional-details-modal />
 </div>

@@ -64,3 +64,41 @@ test('findInverseOrders returns a blank eloquent collection when the type is mov
         ->and($order->findInverseOrders()->count())->toBe(0);
 
 });
+
+test('soft deletes', function () {
+
+    $order = MarketOrder::factory()->create();
+    $order->delete();
+
+    expect(MarketOrder::count())->toBe(0)
+        ->and(MarketOrder::withTrashed()->count())->toBe(1)
+        ->and($order->exists)->toBeTrue();
+
+});
+
+test('expired global scope', function () {
+
+    $order = MarketOrder::factory()->create(['expires' => now()->subDay()]);
+
+    expect(MarketOrder::all()->contains($order))->toBeFalse();
+
+});
+
+test('with expired scope', function () {
+
+    $order = MarketOrder::factory()->create(['expires' => now()->subDay()]);
+
+    expect(MarketOrder::withExpired()->get()->contains($order))->toBeTrue();
+
+});
+
+test('only expired scope', function () {
+
+    $expired = MarketOrder::factory()->create(['expires' => now()->subDay()]);
+    $notExpired = MarketOrder::factory()->create(['expires' => now()->addDay()]);
+    $results = MarketOrder::onlyExpired()->get();
+
+    expect($results->contains($expired))->toBeTrue()
+        ->and($results->contains($notExpired))->toBeFalse();
+
+});

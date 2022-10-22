@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\ExpiredScope;
 use App\TT\Items\Item;
 use App\TT\StorageFactory;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,6 +15,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class MarketOrder extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new ExpiredScope);
+    }
 
     public function scopeBuyOrders(Builder $query): Builder
     {

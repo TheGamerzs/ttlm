@@ -15,7 +15,10 @@ use App\TT\StorageFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(Tests\TestCase::class, RefreshDatabase::class)
-    ->beforeEach(fn () => Http::preventStrayRequests())
+    ->beforeEach(function () {
+        Http::preventStrayRequests();
+        resetStorageFactoryStatics();
+    })
     ->in('Feature');
 
 /*

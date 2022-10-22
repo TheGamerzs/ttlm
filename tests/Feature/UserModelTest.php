@@ -125,6 +125,17 @@ it('clears a game plan', function () {
 
 });
 
+it('gets a users game plan', function () {
+
+    $user = User::factory()->create();
+    Cache::put($user->id . 'gamePlan', collect(['Game Plan Item']));
+
+    $gamePlan = $user->getGamePlan();
+
+    expect($gamePlan->contains('Game Plan Item'))->toBeTrue();
+
+});
+
 it('saves the users crafting goal', function () {
 
     $user = User::factory()->create();

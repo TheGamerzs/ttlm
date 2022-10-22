@@ -3,11 +3,10 @@
 namespace App\Http\Livewire;
 
 use App\TT\Recipes;
-use Livewire\Component;
 
-class CraftingPageLinkSelect extends Component
+class CraftingPageLinkSelect extends BaseComponent
 {
-    public array|string $itemName = '';
+    public string $itemName = '';
 
     public function mount()
     {

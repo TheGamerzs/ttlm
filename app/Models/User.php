@@ -104,6 +104,11 @@ class User extends Authenticatable
         $this->save();
     }
 
+    public function getGamePlan(): Collection
+    {
+        return Cache::get($this->id . 'gamePlan', collect());
+    }
+
     public function updateGamePlan(Collection $gamePlan): void
     {
         Cache::put($this->id.'gamePlan', $gamePlan, $thirtyHours = 108000);

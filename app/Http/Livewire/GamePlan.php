@@ -4,10 +4,8 @@ namespace App\Http\Livewire;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
-use Livewire\Component;
 
-class GamePlan extends Component
+class GamePlan extends BaseComponent
 {
     protected $listeners = [
         'addToGamePlan' => 'setTextForNewItem'
@@ -19,7 +17,7 @@ class GamePlan extends Component
 
     public function mount(): void
     {
-        $this->listItems = Cache::get(Auth::id() . 'gamePlan', collect());
+        $this->listItems = Auth::user()->getGamePlan();
     }
 
     public function addItem(): void

@@ -3,9 +3,8 @@
 namespace App\Http\Livewire;
 
 use Illuminate\Support\Facades\Session;
-use Livewire\Component;
 
-class AlertListener extends Component
+class AlertListener extends BaseComponent
 {
     use SendsAlerts;
 

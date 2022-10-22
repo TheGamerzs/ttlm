@@ -21,4 +21,10 @@ class BaseComponent extends Component
         }
 
     }
+
+    public function getHydratedData()
+    {
+        return collect($this->preRenderedView->getData())->except(['_instance']);
+    }
+
 }

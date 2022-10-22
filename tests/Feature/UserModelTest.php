@@ -5,8 +5,6 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use function Pest\Laravel\actingAs;
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
-
 test('relationships', function () {
 
     $user = User::factory()->create();

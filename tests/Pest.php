@@ -11,7 +11,12 @@
 |
 */
 
-uses(Tests\TestCase::class)->in('Feature');
+use App\TT\StorageFactory;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+uses(Tests\TestCase::class, RefreshDatabase::class)
+    ->beforeEach(fn () => Http::preventStrayRequests())
+    ->in('Feature');
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +44,31 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function fakePersonalInventoryApiCallWithStoredJson(): void
 {
-    // ..
+    $apiReturn = file_get_contents(base_path('tests/ApiResponses/UserData.json'));
+    Http::fake(['v1.api.tycoon.community/main/data/*' => Http::response($apiReturn)]);
+}
+
+function fakeStoragesApiCallWithStoredJson(): void
+{
+    $apiReturn = file_get_contents(base_path('tests/ApiResponses/Storage.json'));
+    Http::fake(['v1.api.tycoon.community/main/storages/*' => Http::response($apiReturn)]);
+}
+
+function fakeStoragesAndPersonalInventoryCallsWithJson(): void
+{
+    fakeStoragesApiCallWithStoredJson();
+    fakePersonalInventoryApiCallWithStoredJson();
+}
+
+function fakeStoragesApiCallWithArray(array $items): void
+{
+    Http::fake(['v1.api.tycoon.community/main/storages/*' => Http::response( buildFakeStorageApiResponse($items) )]);
+}
+
+function resetStorageFactoryStatics(): void
+{
+    StorageFactory::$storages = [];
+    StorageFactory::$freshData = false;
 }

@@ -2,14 +2,11 @@
 
 use App\Models\User;
 use App\TT\TTApi;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use function Pest\Laravel\actingAs;
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
-
 it('gets the user id from discord snowflake', function () {
-
-    Http::preventStrayRequests();
 
     $object = file_get_contents(base_path('tests/ApiResponses/UserIdFromDiscordSnowflake.json'));
     Http::fake([
@@ -52,9 +49,7 @@ it('creates proper headers when a user has a public key', function () {
 
 it('creates a time expiring cache entry when making a call', function () {
 
-    $apiReturn = file_get_contents(base_path('tests/ApiResponses/Storage.json'));
-    Http::preventStrayRequests();
-    Http::fake(['v1.api.tycoon.community/main/storages/*' => Http::response($apiReturn)]);
+    fakeStoragesApiCallWithStoredJson();
 
     $user = User::factory()->create();
     actingAs($user);
@@ -66,14 +61,23 @@ it('creates a time expiring cache entry when making a call', function () {
 
 it('increments calls made on user model', function () {
 
-    $apiReturn = file_get_contents(base_path('tests/ApiResponses/Storage.json'));
-    Http::preventStrayRequests();
-    Http::fake(['v1.api.tycoon.community/main/storages/*' => Http::response($apiReturn)]);
+    fakeStoragesApiCallWithStoredJson();
 
-    $user = User::factory()->create();
-    actingAs($user);
+    actingAs($user = User::factory()->create());
     (new TTApi())->getStorages();
 
     expect($user->calls_made)->toBe(2);
+
+});
+
+it('gets a users personal inventory', function () {
+
+    fakePersonalInventoryApiCallWithStoredJson();
+
+    actingAs($user = User::factory()->create());
+    $inventory = (new TTApi())->getUserInventory();
+
+    expect($inventory)->toBeInstanceOf(Collection::class)
+        ->and($inventory->count())->toBe(32);
 
 });

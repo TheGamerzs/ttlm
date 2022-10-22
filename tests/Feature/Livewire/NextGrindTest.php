@@ -10,7 +10,6 @@ use function Pest\Laravel\actingAs;
 
 beforeEach(function () {
 
-    \Illuminate\Support\Facades\Http::preventStrayRequests();
     $storage = \App\TT\StorageFactory::$storages['fake'] = new Storage([
         new \App\TT\Items\InventoryItem('crafted_batteries', 100),
         new \App\TT\Items\InventoryItem('crafted_circuit', 150),

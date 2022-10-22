@@ -3,11 +3,10 @@
 use App\Http\Livewire\ParentRecipeTable;
 use App\Models\User;
 use App\TT\Items\Item;
-use \App\TT\Storage;
+use App\TT\Storage;
 use function Pest\Laravel\actingAs;
 
 beforeEach(function () {
-    \Illuminate\Support\Facades\Http::preventStrayRequests();
     $this->parentRecipe = \App\TT\RecipeFactory::get(new Item('house'));
     \App\TT\StorageFactory::$storages['fake'] = new Storage([
         new \App\TT\Items\InventoryItem('crafted_computer', 100),

@@ -7,15 +7,10 @@ use Laravel\Socialite\Two\User as SocialiteUser;
 use MartinBean\Laravel\Socialite\DiscordProvider;
 use function Pest\Laravel\get;
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
-
 it('creates a new user and logs them in', function () {
 
-    Http::preventStrayRequests();
     $object = file_get_contents(base_path('tests/ApiResponses/UserIdFromDiscordSnowflake.json'));
-    Http::fake([
-        'v1.api.tycoon.community/main/snowflake2user/*' => Http::response($object)
-    ]);
+    Http::fake(['v1.api.tycoon.community/main/snowflake2user/*' => Http::response($object)]);
 
     get('/auth/callback')
         ->assertRedirect();

@@ -64,7 +64,7 @@ class ItemData
         if (is_null($fetchedName)) return $internalName;
 
         $fetchedName = Str::of($fetchedName);
-        if ($afterPrefix && $fetchedName->startsWith(['Blessing:', 'EXP Bonus:', 'Job Card:'])) {
+        if ($afterPrefix && ! $fetchedName->startsWith(['Blessing:', 'EXP Bonus:', 'Job Card:'])) {
             return $fetchedName->after(': ');
         }
 

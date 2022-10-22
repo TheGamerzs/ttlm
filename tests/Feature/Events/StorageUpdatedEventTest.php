@@ -5,23 +5,28 @@ use App\Models\User;
 use App\TT\StorageFactory;
 use function Pest\Laravel\actingAs;
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+
+beforeAll(function () {
+    resetStorageFactoryStatics();
+});
+
+beforeEach(function () {
+    fakePersonalInventoryApiCallWithStoredJson();
+});
 
 afterEach(function () {
-    StorageFactory::$storages = [];
-    StorageFactory::$freshData = false;
+    resetStorageFactoryStatics();
 });
 
 it('fires when storages are synced through api', function () {
 
-    StorageFactory::$storages = [];
-    StorageFactory::$freshData = false;
-    Http::preventStrayRequests();
-    $items = ['crafted_concrete' => 10, 'crafted_batteries' => 500];
-    Http::fake(['v1.api.tycoon.community/main/storages/*' => Http::response( buildFakeStorageApiResponse($items) )]);
+    fakeStoragesApiCallWithArray([
+        'crafted_concrete' => 10,
+        'crafted_batteries' => 500
+    ]);
+
     actingAs( $user = User::factory()->create() );
     Event::fake();
-
     StorageFactory::get();
 
     Event::assertDispatched(\App\Events\StorageUpdatedFromTT::class);
@@ -30,8 +35,11 @@ it('fires when storages are synced through api', function () {
 
 it('does not fire when using cached response', function () {
 
-    Http::preventStrayRequests();
-    $items = ['crafted_concrete' => 10, 'crafted_batteries' => 500];
+    fakeStoragesApiCallWithArray($items = [
+        'crafted_concrete' => 10,
+        'crafted_batteries' => 500
+    ]);
+
     actingAs( $user = User::factory()->create() );
     Cache::put($user->id . 'tt_api_storage', buildFakeStorageApiResponse($items));
     Event::fake();
@@ -48,9 +56,10 @@ it('does not fire when using cached response', function () {
  */
 it('removes market orders on storage sync if the user can not cover it anymore', function () {
 
-    Http::preventStrayRequests();
-    $items = ['crafted_concrete' => 10, 'crafted_batteries' => 500];
-    Http::fake(['v1.api.tycoon.community/main/storages/*' => Http::response( buildFakeStorageApiResponse($items) )]);
+    fakeStoragesApiCallWithArray([
+        'crafted_concrete' => 10,
+        'crafted_batteries' => 500
+    ]);
 
     actingAs( $user = User::factory()->create() );
     (new \App\TT\TTApi())->getStorages();
@@ -90,9 +99,10 @@ it('removes market orders on storage sync if the user can not cover it anymore',
 
 it('does not remove them when the user has auto_delist_market_orders disabled', function () {
 
-    Http::preventStrayRequests();
-    $items = ['crafted_concrete' => 10, 'crafted_batteries' => 500];
-    Http::fake(['v1.api.tycoon.community/main/storages/*' => Http::response( buildFakeStorageApiResponse($items) )]);
+    fakeStoragesApiCallWithArray([
+        'crafted_concrete' => 10,
+        'crafted_batteries' => 500
+    ]);
 
     actingAs( $user = User::factory()->create(['auto_delist_market_orders' => false]) );
     (new \App\TT\TTApi())->getStorages();

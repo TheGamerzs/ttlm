@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\TT\Items\ItemData;
-use App\TT\StorageFactory;
 use App\TT\TTApi;
 
 class SandboxController extends Controller
@@ -15,7 +14,7 @@ class SandboxController extends Controller
 
     public function index()
     {
-        $dump = StorageFactory::guessStorageForItem('crafted_oncrete');
+        $dump = (new TTApi())->getUserData();
         dump($dump);
     }
 

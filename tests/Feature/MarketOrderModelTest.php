@@ -3,9 +3,6 @@
 use App\Models\MarketOrder;
 use App\Models\User;
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
-
-
 test('relationships and casts', function () {
 
     $order = MarketOrder::factory()->buyOrder()->create();

@@ -9,11 +9,13 @@ use App\TT\RecipeFactory;
 use App\TT\StorageFactory;
 use function Pest\Laravel\actingAs;
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
-
 beforeEach(function () {
-    \Illuminate\Support\Facades\Http::preventStrayRequests();
     actingAs($this->user = User::factory()->create());
+
+    resetStorageFactoryStatics();
+    fakePersonalInventoryApiCallWithStoredJson();
+    fakeStoragesApiCallWithArray(['crafted_batteries' => 5]);
+    StorageFactory::get();
 
     StorageFactory::$storages['first'] = new \App\TT\Storage([
         new InventoryItem('crafted_batteries', 10),

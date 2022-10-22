@@ -5,16 +5,20 @@ use App\Models\MarketOrder;
 use App\Models\User;
 use function Pest\Laravel\actingAs;
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+beforeEach(function () {
+    fakeStoragesAndPersonalInventoryCallsWithJson();
+});
 
 it('starts with defaults to create a new record', function () {
 
     actingAs(User::factory()->create());
 
     Livewire::test(MarketOrderCreateEdit::class)
-        ->call('startWithItem', 'refined_planks')
+        ->call('startWithItem', 'refined_planks', 200)
         ->assertSet('marketOrder.item_name', 'refined_planks')
         ->assertSet('marketOrder.type', 'sell')
+        ->assertSet('marketOrder.count', 200)
+        ->assertSet('marketOrder.storage', 'faq_522')
         ->assertEmitted('openMarketOrderModal');
 
 });
@@ -24,7 +28,7 @@ it('creates a new record', function () {
     actingAs($user = User::factory()->create());
 
     Livewire::test(MarketOrderCreateEdit::class)
-        ->call('startWithItem', 'crafted_concrete')
+        ->call('startWithItem', 'crafted_concrete', 200)
         ->set('marketOrder.count', 100)
         ->set('marketOrder.price_each', 850000)
         ->call('save');
@@ -41,21 +45,24 @@ it('creates a new record', function () {
 it('updates a record', function () {
 
     actingAs($user = User::factory()->create());
-    $order = MarketOrder::factory()->create();
+    $order = MarketOrder::factory()->for($user)->create([
+        'count' => 100,
+        'price_each' => 1000
+    ]);
 
 //    dd($order->count, $order->count + 100);
 
     Livewire::test(MarketOrderCreateEdit::class)
         ->call('startEditing', $order->id)
-        ->set('marketOrder.count', $newCount = $order->count + 100)
-        ->set('marketOrder.price_each', $newPrice = $order->price_each + 100)
+        ->set('marketOrder.count', 200)
+        ->set('marketOrder.price_each', 2000)
         ->assertHasNoErrors()
         ->call('save');
 
     $order->refresh();
 
-    expect($order->count)->toBe($newCount)
-        ->and($order->price_each)->toBe($newPrice);
+    expect($order->count)->toBe(200)
+        ->and($order->price_each)->toBe(2000);
 
 });
 

@@ -79,8 +79,11 @@ test('soft deletes', function () {
 test('expired global scope', function () {
 
     $order = MarketOrder::factory()->create(['expires' => now()->subDay()]);
+    $notExpired = MarketOrder::factory()->create(['expires' => now()->addDay()]);
+    $results = MarketOrder::all();
 
-    expect(MarketOrder::all()->contains($order))->toBeFalse();
+    expect($results->contains($order))->toBeFalse()
+        ->and($results->contains($notExpired))->toBeTrue();
 
 });
 

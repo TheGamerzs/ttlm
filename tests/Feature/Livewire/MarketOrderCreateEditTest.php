@@ -42,15 +42,14 @@ it('creates a new record', function () {
 
 });
 
-it('updates a record', function () {
+it('updates a record and resets expires to one week from now', function () {
 
     actingAs($user = User::factory()->create());
     $order = MarketOrder::factory()->for($user)->create([
         'count' => 100,
-        'price_each' => 1000
+        'price_each' => 1000,
+        'expires' => now()->addDay()
     ]);
-
-//    dd($order->count, $order->count + 100);
 
     Livewire::test(MarketOrderCreateEdit::class)
         ->call('startEditing', $order->id)
@@ -62,7 +61,8 @@ it('updates a record', function () {
     $order->refresh();
 
     expect($order->count)->toBe(200)
-        ->and($order->price_each)->toBe(2000);
+        ->and($order->price_each)->toBe(2000)
+        ->and($order->expires->isSameAs(now()->addWeek()))->toBeTrue();
 
 });
 
@@ -75,5 +75,29 @@ test('trying to edit another users order', function () {
     Livewire::test(MarketOrderCreateEdit::class)
         ->call('startEditing', $order->id)
         ->assertForbidden();
+
+});
+
+it('can edit an expired record', function () {
+
+    actingAs($user = User::factory()->create());
+    $order = MarketOrder::factory()->for($user)->create([
+        'count' => 100,
+        'price_each' => 1000,
+        'expires' => now()->subDay()
+    ]);
+
+    Livewire::test(MarketOrderCreateEdit::class)
+        ->call('startEditing', $order->id)
+        ->set('marketOrder.count', 200)
+        ->set('marketOrder.price_each', 2000)
+        ->assertHasNoErrors()
+        ->call('save');
+
+    $order->refresh();
+
+    expect($order->count)->toBe(200)
+        ->and($order->price_each)->toBe(2000)
+        ->and($order->expires->isSameAs(now()->addWeek()))->toBeTrue();
 
 });

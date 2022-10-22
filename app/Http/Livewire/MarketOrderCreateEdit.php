@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\MarketOrder;
+use App\Models\Scopes\ExpiredScope;
 use App\TT\StorageFactory;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Facades\Auth;
@@ -91,8 +92,9 @@ class MarketOrderCreateEdit extends Component
         $this->emit('openMarketOrderModal');
     }
 
-    public function startEditing(MarketOrder $marketOrder): void
+    public function startEditing(int $marketOrderId): void
     {
+        $marketOrder = MarketOrder::withoutGlobalScope(ExpiredScope::class)->find($marketOrderId);
         if ($marketOrder->user_id != Auth::id()) abort(403);
 
         $this->marketOrder = $marketOrder;
@@ -123,6 +125,7 @@ class MarketOrderCreateEdit extends Component
     public function create(): void
     {
         $this->validate();
+
         $this->marketOrder->user_id = Auth::id();
         $this->marketOrder->expires = now()->addWeek();
         $this->marketOrder->save();
@@ -134,7 +137,9 @@ class MarketOrderCreateEdit extends Component
     {
         $this->validate();
 
+        $this->marketOrder->expires = now()->addWeek();
         $this->marketOrder->save();
+
         $this->successAlert('Order Updated');
     }
 

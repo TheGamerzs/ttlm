@@ -16,6 +16,10 @@ class MarketOrder extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $casts = [
+        'expires' => 'date'
+    ];
+
     protected static function booted()
     {
         static::addGlobalScope(new ExpiredScope);

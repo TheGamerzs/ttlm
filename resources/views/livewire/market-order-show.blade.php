@@ -7,7 +7,7 @@
     <div class="row mt-5">
 
         @if($orders['buy']->count())
-            <div class="col-md-6" id="buyOrders">
+            <div class="col-md-8 offset-md-2" id="buyOrders">
                 <h2 class="text-center">Buying</h2>
                 <table class="table table-striped">
                     <thead>
@@ -37,9 +37,9 @@
         @endif
 
         @if($orders['sell']->count())
-            <div class="col-md-6" id="sellOrders">
+            <div class="col-md-8 offset-md-2 mt-2" id="sellOrders">
                 <h2 class="text-center">Selling</h2>
-                <table class="table">
+                <table class="table table-striped">
                     <thead>
                     <tr>
                         <th></th>
@@ -65,9 +65,9 @@
         @endif
 
         @if($orders['move']->count())
-            <div class="col-md-6" id="moveOrders">
-                <h2 class="text-center">Move Orders</h2>
-                <table class="table">
+            <div class="col-md-8 offset-md-2 mt-2" id="moveOrders">
+                <h2 class="text-center">Wanting Moved</h2>
+                <table class="table table-striped">
                     <thead>
                     <tr>
                         <th></th>

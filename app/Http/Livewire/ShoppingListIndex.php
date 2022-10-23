@@ -11,6 +11,10 @@ use App\View\ShoppingList\ShoppingListViewModel;
 
 class ShoppingListIndex extends BaseComponent
 {
+    protected $listeners = [
+        'refresh' => '$refresh'
+    ];
+
     public string $recipeName = 'house';
 
     public int $truckCapacity;

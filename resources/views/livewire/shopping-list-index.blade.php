@@ -19,6 +19,10 @@
         <h3>Remaining Crafting Costs: {{ $viewModel->remainingCraftingCost() }}</h3>
     </div>
 
+    <div class="d-flex justify-content-center mb-2">
+        <livewire:sync-storage-button />
+    </div>
+
     <?php
     /** @var \App\TT\RecipeShoppingListDecorator $shoppingListItem */
     ?>

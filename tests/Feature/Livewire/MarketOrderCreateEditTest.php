@@ -101,3 +101,33 @@ it('can edit an expired record', function () {
         ->and($order->expires->isSameAs(now()->addWeek()))->toBeTrue();
 
 });
+
+it('warns when the user selects storage, item, and count, that they do not have', function () {
+
+    actingAs($user = User::factory()->create());
+
+    Livewire::test(MarketOrderCreateEdit::class)
+        ->call('startWithItem', 'scrap_gold', 100)
+        ->set('marketOrder.storage', 'biz_granny')
+        ->set('marketOrder.price_each', 100)
+        ->call('save')
+        ->assertSet('warn', true);
+
+    expect(MarketOrder::count())->toBe(0);
+
+});
+
+it('can bypass the warning', function () {
+
+    actingAs($user = User::factory()->create());
+
+    Livewire::test(MarketOrderCreateEdit::class)
+        ->call('startWithItem', 'scrap_gold', 100)
+        ->set('warn', true)
+        ->set('marketOrder.storage', 'biz_granny')
+        ->set('marketOrder.price_each', 100)
+        ->call('save', true);
+
+    expect(MarketOrder::count())->toBe(1);
+
+});

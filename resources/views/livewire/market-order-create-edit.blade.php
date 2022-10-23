@@ -28,11 +28,29 @@
 
                     <hr>
 
+                    @if($warn)
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="text-center">
+                                    Warning: You currently don't have {{ $marketOrder->count }} {{ $marketOrder->item->name() }}
+                                    in your {{ $marketOrder->storage_name }} storage.
+                                    <br>Click list again to post anyway.
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
                     <div class="row">
                         <div class="col-{{ $marketOrder->exists ? 6 : 12 }} d-grid">
-                            <button class="btn btn-success" wire:click="save">
-                                {{ $marketOrder->exists ? 'Update Listing' : 'List' }}
-                            </button>
+                            @if($warn)
+                                <button class="btn btn-warning" wire:click="save(true)">
+                                    {{ $marketOrder->exists ? 'Update Listing' : 'List' }}
+                                </button>
+                            @else
+                                <button class="btn btn-success" wire:click="save">
+                                    {{ $marketOrder->exists ? 'Update Listing' : 'List' }}
+                                </button>
+                            @endif
                         </div>
                         @if($marketOrder->exists)
                             <div class="col-6 d-grid">
@@ -41,9 +59,6 @@
                                 </button>
                             </div>
                         @endif
-                    </div>
-                    <div class="d-grid">
-
                     </div>
 
                 </div>

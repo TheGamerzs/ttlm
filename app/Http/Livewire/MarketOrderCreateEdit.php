@@ -8,9 +8,8 @@ use App\TT\StorageFactory;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
-use Livewire\Component;
 
-class MarketOrderCreateEdit extends Component
+class MarketOrderCreateEdit extends BaseComponent
 {
     use SendsAlerts;
 
@@ -23,6 +22,8 @@ class MarketOrderCreateEdit extends Component
     public MarketOrder $marketOrder;
 
     public bool $expand = false;
+
+    public bool $warn = false;
 
     protected $messages = [
         'marketOrder.storage_additional.required' => 'This is required for a move order.',
@@ -63,6 +64,7 @@ class MarketOrderCreateEdit extends Component
             ->replace('m', '000000')
             ->toInteger();
         $this->validateOnly('marketOrder.count');
+        $this->warn = false;
     }
 
     public function updatedMarketOrderPriceEach($value)
@@ -74,9 +76,15 @@ class MarketOrderCreateEdit extends Component
         $this->validateOnly('marketOrder.price_each');
     }
 
+    public function updatedMarketOrderStorage()
+    {
+        $this->warn = false;
+    }
+
     public function startWithItem(string $itemName = null, string $count = null): void
     {
         $this->resetErrorBag();
+        $this->warn = false;
 
         $this->marketOrder = MarketOrder::make();
         $this->marketOrder->item_name = $itemName ?? StorageFactory::getAllItemNames()->first();
@@ -97,6 +105,7 @@ class MarketOrderCreateEdit extends Component
         $marketOrder = MarketOrder::withoutGlobalScope(ExpiredScope::class)->find($marketOrderId);
         if ($marketOrder->user_id != Auth::id()) abort(403);
 
+        $this->warn = false;
         $this->marketOrder = $marketOrder;
         $this->emit('openMarketOrderModal');
     }
@@ -113,8 +122,18 @@ class MarketOrderCreateEdit extends Component
             : 'sell';
     }
 
-    public function save(): void
+    public function save(bool $bypassWarning = false): void
     {
+        $storage = StorageFactory::get($this->marketOrder->storage);
+        $inventoryItem = $storage->firstWhere('name', $this->marketOrder->item_name);
+
+        if (! $bypassWarning) {
+            if (is_null($inventoryItem) || $inventoryItem->count < $this->marketOrder->count) {
+                $this->warn = true;
+                return;
+            }
+        }
+
         if ($this->marketOrder->exists) {
             $this->update();
         } else {
@@ -156,6 +175,7 @@ class MarketOrderCreateEdit extends Component
         $this->marketOrder = MarketOrder::make();
         $this->successAlert('Deleted.');
         $this->emit('closeMarketOrderModal');
+        $this->warn = false;
     }
 
     public function render()

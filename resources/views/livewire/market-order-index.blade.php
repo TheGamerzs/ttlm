@@ -24,7 +24,13 @@
         </h1>
         @if($mineFilter == 'expired')
             <p class="text-center">
-                *Click edit, then the update listing button, to reset expiration.
+                To relist and reset the expiration, click edit and then the update listing button.
+            </p>
+        @endif
+
+        @if($mineFilter == 'active')
+            <p class="text-end">
+                <a href="{{ route('marketOrders.show', ['user' => Auth::user()]) }}">Screenshotable View</a>
             </p>
         @endif
 

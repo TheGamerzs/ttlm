@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\ServiceProvider;
 
@@ -39,6 +40,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Model::preventLazyLoading(! $this->app->environment('production'));
+        Model::preventSilentlyDiscardingAttributes(! $this->app->environment('production'));
     }
 }

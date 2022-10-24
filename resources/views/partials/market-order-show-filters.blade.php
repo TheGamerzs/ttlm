@@ -3,7 +3,7 @@
         <div class="col-4 text-center">
             <x-card title="Item">
                 <x-select-choices wire:model="itemFilter">
-                    <x-select-options :items="$this->getItemSelectOptions()" />
+                    <x-select-options :items="$this->itemSelectOptions" />
                 </x-select-choices>
             </x-card>
         </div>

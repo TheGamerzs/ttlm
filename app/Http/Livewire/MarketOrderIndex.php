@@ -62,7 +62,7 @@ class MarketOrderIndex extends BaseComponent
         if ($this->type == 'mine' && ! Auth::check()) abort(403);
     }
 
-    public function getItemSelectOptions(): Collection
+    public function getItemSelectOptionsProperty(): Collection
     {
         return MarketOrder::pluck('item_name')
             ->unique()
@@ -106,6 +106,8 @@ class MarketOrderIndex extends BaseComponent
             'mine'  => Auth::user()->marketOrders()->orderBy('type'),
             default => MarketOrder::query()
         };
+
+        $marketOrders->with('user');
 
         if (! empty($this->itemFilter)) {
             $marketOrders->where('item_name', $this->itemFilter);

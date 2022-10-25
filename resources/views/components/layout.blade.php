@@ -17,7 +17,7 @@
     />
 
     @if(Auth::user()?->dark_mode)
-        <link rel="stylesheet" href="{{ asset('css/dark-addon.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/dark-addon-v2.css') }}" />
     @endif
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">

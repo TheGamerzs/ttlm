@@ -9,9 +9,8 @@ use App\TT\ShoppingListBuilder;
 use App\TT\Storage;
 use App\TT\StorageFactory;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Component;
 
-class ExcessItemsInStorageModal extends Component
+class ExcessItemsInStorageModal extends BaseComponent
 {
     public string $count = '0';
 
@@ -43,7 +42,7 @@ class ExcessItemsInStorageModal extends Component
         return RecipeFactory::get(new Item($this->recipe));
     }
 
-    protected function getItems(): \Illuminate\Support\Collection|Storage
+    public function getItems(): \Illuminate\Support\Collection|Storage
     {
         $needed = ShoppingListBuilder::build(
             $this->hydratedRecipe(),

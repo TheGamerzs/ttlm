@@ -18,9 +18,9 @@
             <thead>
                 <tr>
                     <td></td>
+                    <td class="text-center">Excess</td>
                     <td class="text-center">Needed</td>
                     <td class="text-center">You Have</td>
-                    <td class="text-end">Excess</td>
                 </tr>
             </thead>
             @foreach($excessItems as $itemData)
@@ -29,13 +29,13 @@
                     {{ $itemData['inventoryItem']->name() }}
                 </td>
                 <td class="text-center">
+                    {{ $itemData['inventoryItem']->count - $itemData['fromNeeded']->count }}
+                </td>
+                <td class="text-center">
                     {{ $itemData['fromNeeded']->count }}
                 </td>
                 <td class="text-center">
                     {{ $itemData['inventoryItem']->count }}
-                </td>
-                <td class="text-end">
-                    {{ $itemData['inventoryItem']->count - $itemData['fromNeeded']->count }}
                 </td>
             </tr>
             @endforeach

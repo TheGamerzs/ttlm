@@ -29,7 +29,7 @@ Route::middleware(['auth', 'ttApi', 'canCalculate'])->group(function () {
 });
 Route::get('/settings', [\App\Http\Controllers\UserSettingsController::class, 'index'])->name('userSettings')->middleware('auth');
 Route::get('/market-orders', \App\Http\Livewire\MarketOrderIndex::class)->name('marketOrders');
-Route::get('/market-orders/{user:discord_snowflake}', \App\Http\Livewire\MarketOrderShow::class)->name('marketOrders.show');
+Route::get('/market-orders/{user:tt_id}', \App\Http\Livewire\MarketOrderShow::class)->name('marketOrders.show');
 
 Route::view('login', 'discord-login-cta')->name('login');
 Route::get('/logout', function () {

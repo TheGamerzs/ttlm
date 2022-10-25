@@ -14,6 +14,10 @@ class MarketOrderShow extends Component
     {
         $orders = $this->user->load('marketOrders')->marketOrders->groupBy('type');
 
+        if (! $orders->count()) {
+            abort(404);
+        }
+
         // inject empty collections where they don't exist.
         foreach (['buy', 'sell', 'move'] as $type) {
             if (! $orders->keys()->contains($type)) {

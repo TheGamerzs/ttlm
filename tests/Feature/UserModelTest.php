@@ -151,8 +151,7 @@ it('saves the users crafting goal', function () {
 
 it('gets the users crafting goal', function () {
 
-    $user = User::factory()->create();
-    actingAs($user);
+    actingAs($user = User::factory()->create());
 
     Session::put('craftingGoal', [
         'count' => 500,
@@ -164,6 +163,27 @@ it('gets the users crafting goal', function () {
         ->and($goal['recipe'])->toBe('some_recipe');
 
 });
+
+it('checks if a crafting goal exists', function (int $count, bool $expected) {
+
+    actingAs($user = User::factory()->create());
+    Session::put('craftingGoal', [
+        'count' => $count,
+        'recipe' => 'some_recipe'
+    ]);
+
+    expect($user->hasCraftingGoal())->toBe($expected);
+
+})->with([
+    [
+        'count' => 500,
+        'expected' => true
+    ],
+    [
+        'count' => 0,
+        'expected' => false
+    ]
+]);
 
 it('gives a default when no goal is set', function () {
 

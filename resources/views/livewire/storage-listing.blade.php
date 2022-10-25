@@ -7,61 +7,50 @@
 
     <div class="row">
         <div class="col-3">
-            <div class="card">
-                <h5 class="card-header d-flex justify-content-around">
-                    Sync With TT
-                </h5>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col d-flex justify-content-evenly">
-                            <livewire:sync-storage-button />
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col d-flex justify-content-evenly">
-                            <livewire:sync-pocket-button />
-                        </div>
+            <x-card title="Sync With TT">
+                <div class="row">
+                    <div class="col d-flex justify-content-evenly">
+                        <livewire:sync-storage-button />
                     </div>
                 </div>
-            </div>
-
-            <div class="card mt-3">
-                <h5 class="card-header d-flex justify-content-around">
-                    Filters
-                </h5>
-                <div class="card-body" >
-                    <input type="text" class="form-control" wire:model="searchStringInput" placeholder="By Name..." />
-
-                    <span class="mt-2 text-center">Type</span>
-                    <div class="text-center">
-                        <x-select-choices wire:model="typeFilter">
-                            <x-select-options :items="$this->getTypeFilterOptions()" />
-                        </x-select-choices>
+                <div class="row mt-2">
+                    <div class="col d-flex justify-content-evenly">
+                        <livewire:sync-pocket-button />
                     </div>
-
-                    <span class="mt-2 text-center">Count</span>
-                    <input wire:model="minCountFilter" type="text" class="form-control" placeholder="Minimum">
-                    <input wire:model="maxCountFilter" type="text" class="form-control" placeholder="Maximum">
-
-                    <span class="mt-2 text-center">Total Weight</span>
-                    <input wire:model="minTotalWeightFilter" type="text" class="form-control" placeholder="Minimum">
-                    <input wire:model="maxTotalWeightFilter" type="text" class="form-control" placeholder="Maximum">
                 </div>
-            </div>
+            </x-card>
 
-            <div class="card mt-3">
-                <h5 class="card-header d-flex justify-content-around">
-                    Custom Combined Storage
-                </h5>
-                <div class="card-body" >
-                    @foreach($this->customStorageInput as $storageName => $null)
-                        <div class="form-check form-switch">
-                            <input wire:model="customStorageInput.{{ $storageName }}" class="form-check-input" type="checkbox" role="switch" id="{{ $storageName }}hide">
-                            <label class="form-check-label" for="{{ $storageName }}hide">{{ \App\TT\StorageFactory::getPrettyName($storageName) ?? $storageName }}</label>
-                        </div>
-                    @endforeach
+            <x-card title="Filters" class="mt-3">
+                <input type="text" class="form-control" wire:model="searchStringInput" placeholder="By Name..." />
+
+                <span class="mt-2">Type</span>
+                <div class="text-center">
+                    <x-select-choices wire:model="typeFilter">
+                        <x-select-options :items="$this->getTypeFilterOptions()" />
+                    </x-select-choices>
                 </div>
-            </div>
+
+                <span class="mt-2">Count</span>
+                <input wire:model="minCountFilter" type="text" class="form-control" placeholder="Minimum">
+                <input wire:model="maxCountFilter" type="text" class="form-control" placeholder="Maximum">
+
+                <span class="mt-2">Total Weight</span>
+                <input wire:model="minTotalWeightFilter" type="text" class="form-control" placeholder="Minimum">
+                <input wire:model="maxTotalWeightFilter" type="text" class="form-control" placeholder="Maximum">
+
+            </x-card>
+
+            <livewire:excess-items-in-storage-modal />
+
+            <x-card title="Custom Combined Storage" class="mt-3">
+                @foreach($this->customStorageInput as $storageName => $null)
+                    <div class="form-check form-switch">
+                        <input wire:model="customStorageInput.{{ $storageName }}" class="form-check-input" type="checkbox" role="switch" id="{{ $storageName }}hide">
+                        <label class="form-check-label" for="{{ $storageName }}hide">{{ \App\TT\StorageFactory::getPrettyName($storageName) ?? $storageName }}</label>
+                    </div>
+                @endforeach
+            </x-card>
+
         </div>
 
         <div class="col-9">

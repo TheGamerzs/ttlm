@@ -119,6 +119,11 @@ class User extends Authenticatable
         Cache::forget($this->id.'gamePlan');
     }
 
+    public function hasCraftingGoal(): bool
+    {
+        return (bool) $this->getCraftingGoal()['count'];
+    }
+
     public function setCraftingGoal(int $count, string $recipe): self
     {
         $goal = [

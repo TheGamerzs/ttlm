@@ -59,3 +59,11 @@ if (document.body.contains(document.getElementById('MODetails'))) {
     });
 }
 
+if (document.body.contains(document.getElementById('StorageListingExcess'))) {
+    const sorageListingExcessModal = new bootstrap.Modal(document.getElementById('StorageListingExcess'), {});
+    Livewire.on('showStorageListingExcessModal', function () {
+        sorageListingExcessModal.show();
+    });
+}
+
+

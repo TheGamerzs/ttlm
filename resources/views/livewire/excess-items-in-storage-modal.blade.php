@@ -34,11 +34,10 @@
                     {{ $excessItem->name() }}
                 </td>
                 <td class="text-center">
-                    {{ number_format($excessItem->inExcessCountOf()) }}
-                    ({{ number_format($excessItem->inExcessFactor(), 1) }}x)
+                    {{ number_format($excessItem->inExcessCount()) }}
                 </td>
                 <td class="text-center">
-                    {{ number_format($excessItem->inExcessWeightOf()) }}
+                    {{ number_format($excessItem->inExcessWeight()) }}
                 </td>
                 <td class="text-center">
                     {{ number_format($excessItem->neededCount) }}

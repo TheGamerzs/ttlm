@@ -3,6 +3,7 @@
 namespace App\TT\Items;
 
 use App\TT\Recipe;
+use App\TT\RecipeShoppingListDecorator;
 use App\TT\ShoppingListBuilder;
 use App\TT\Storage;
 use App\TT\StorageFactory;
@@ -17,16 +18,37 @@ class ExcessItem extends InventoryItem
         $this->neededCount = $neededCount;
     }
 
-    public static function makeList(int $neededRecipeCount, Recipe $recipe)
+    public static function makeList(int $neededRecipeCount, Recipe $recipe, Storage $storage)
     {
         $needed = ShoppingListBuilder::build(
+            $recipe,
+            new Storage(),
+            $neededRecipeCount,
+            1000
+        )
+            ->only(['crafted', 'refined', 'scrap'])
+            ->flatten();
+
+        $neededWithStorage = ShoppingListBuilder::build(
                     $recipe,
-                    new Storage(),
+                    $storage,
                     $neededRecipeCount,
                     1000
                 )
                 ->only(['crafted', 'refined', 'scrap'])
                 ->flatten();
+
+        $needed->each(function (RecipeShoppingListDecorator $item) use ($neededWithStorage) {
+            $item->count = $neededWithStorage->firstWhere('recipeName', $item->recipeName)?->count ?? 0;
+        });
+
+        // When the recipe is house, remove the top level components.
+        if ($recipe->inventoryItem->name == 'house') {
+            $toReject = $recipe->components->pluck('name');
+            $needed = $needed->reject(function (RecipeShoppingListDecorator $item) use ($toReject) {
+                return $toReject->contains($item->recipeName);
+            });
+        }
 
         return StorageFactory::get()
             ->filter(function (InventoryItem $item) use ($needed) {
@@ -39,10 +61,10 @@ class ExcessItem extends InventoryItem
                 );
             })
             ->filter(function (ExcessItem $excessItem) {
-                return $excessItem->hasExcessFactorOf(2);
+                return $excessItem->hasExcessFactorOfAtLeast(2);
             })
             ->values()
-            ->sortByDesc->inExcessFactor();
+            ->sortByDesc->inExcessWeight();
     }
 
     public static function makeFromInventoryItem(InventoryItem $inventoryItem, int $neededCount): ExcessItem
@@ -50,23 +72,25 @@ class ExcessItem extends InventoryItem
         return new self($inventoryItem->name, $inventoryItem->count, $neededCount);
     }
 
-    public function hasExcessFactorOf(float $factor): bool
+    public function hasExcessFactorOfAtLeast(float $factor): bool
     {
         return $this->count > $this->neededCount * $factor;
     }
 
-    public function inExcessCountOf(): int
+    public function inExcessCount(): int
     {
         return $this->count - $this->neededCount;
     }
 
-    public function inExcessWeightOf(): int|float
+    public function inExcessWeight(): int|float
     {
-        return $this->inExcessCountOf() * $this->weight;
+        return $this->inExcessCount() * $this->weight;
     }
 
     public function inExcessFactor(): float
     {
+        if ($this->neededCount == 0) return 0;
+
         return $this->count / $this->neededCount;
     }
 }

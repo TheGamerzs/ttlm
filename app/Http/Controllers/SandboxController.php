@@ -6,6 +6,7 @@ use App\TT\Items\ExcessItem;
 use App\TT\Items\Item;
 use App\TT\Items\ItemData;
 use App\TT\RecipeFactory;
+use App\TT\StorageFactory;
 use App\TT\TTApi;
 
 class SandboxController extends Controller
@@ -17,7 +18,7 @@ class SandboxController extends Controller
 
     public function index()
     {
-        $dump = ExcessItem::makeList(1000, RecipeFactory::get(new Item('house')));
+        $dump = ExcessItem::makeList(1000, RecipeFactory::get(new Item('house')), StorageFactory::get());
         dump($dump);
     }
 

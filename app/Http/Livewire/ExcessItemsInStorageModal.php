@@ -6,6 +6,7 @@ use App\TT\Items\ExcessItem;
 use App\TT\Items\Item;
 use App\TT\RecipeFactory;
 use App\TT\Storage;
+use App\TT\StorageFactory;
 use Illuminate\Support\Facades\Auth;
 
 class ExcessItemsInStorageModal extends BaseComponent
@@ -32,7 +33,7 @@ class ExcessItemsInStorageModal extends BaseComponent
 
     public function modalTitle(): string
     {
-        return "Excess Items for {$this->count} {$this->hydratedRecipe()->displayNamePlural()}";
+        return "Excess Items for {$this->count} {$this->hydratedRecipe()->displayNamePlural()} across all storages";
     }
 
     protected function hydratedRecipe(): \App\TT\Recipe
@@ -42,7 +43,11 @@ class ExcessItemsInStorageModal extends BaseComponent
 
     public function getItems(): \Illuminate\Support\Collection|Storage
     {
-        return ExcessItem::makeList($this->count, $this->hydratedRecipe());
+        return ExcessItem::makeList(
+            $this->count,
+            $this->hydratedRecipe(),
+            StorageFactory::get()
+        );
     }
 
     public function render()

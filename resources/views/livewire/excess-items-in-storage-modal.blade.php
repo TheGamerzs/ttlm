@@ -1,3 +1,7 @@
+<?php
+/** @var \App\TT\Items\ExcessItem $excessItem */
+?>
+
 <div>
     {{-- Storage Listing Display Card --}}
     <x-card title="Excess Items" class="mt-3">
@@ -13,29 +17,34 @@
     </x-card>
 
     {{-- Modal --}}
-    <x-livewire-modal id="StorageListingExcess" :title="$this->modalTitle()" class="modal-xl">
+    <x-livewire-modal id="StorageListingExcess" :heading="$this->modalTitle()" class="modal-xl">
         <table class="table table-hover">
             <thead>
                 <tr>
                     <td></td>
-                    <td class="text-center">Excess</td>
+                    <td class="text-center">Excess Count</td>
+                    <td class="text-center">Excess Weight</td>
                     <td class="text-center">Needed</td>
                     <td class="text-center">You Have</td>
                 </tr>
             </thead>
-            @foreach($excessItems as $itemData)
+            @foreach($excessItems as $excessItem)
             <tr>
                 <td>
-                    {{ $itemData['inventoryItem']->name() }}
+                    {{ $excessItem->name() }}
                 </td>
                 <td class="text-center">
-                    {{ $itemData['inventoryItem']->count - $itemData['fromNeeded']->count }}
+                    {{ number_format($excessItem->inExcessCountOf()) }}
+                    ({{ number_format($excessItem->inExcessFactor(), 1) }}x)
                 </td>
                 <td class="text-center">
-                    {{ $itemData['fromNeeded']->count }}
+                    {{ number_format($excessItem->inExcessWeightOf()) }}
                 </td>
                 <td class="text-center">
-                    {{ $itemData['inventoryItem']->count }}
+                    {{ number_format($excessItem->neededCount) }}
+                </td>
+                <td class="text-center">
+                    {{ number_format($excessItem->count) }}
                 </td>
             </tr>
             @endforeach

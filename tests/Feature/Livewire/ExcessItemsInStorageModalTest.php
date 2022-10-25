@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\ExcessItemsInStorageModal;
 use App\Models\User;
+use App\TT\Items\ExcessItem;
 use Illuminate\Support\Collection;
 use function Pest\Laravel\actingAs;
 
@@ -26,10 +27,5 @@ test('getItems method', function () {
         'refined_aluminum',
         'scrap_lead',
     ]);
-    $items->map(function ($group) {
-            return $group['inventoryItem'];
-        })
-        ->each(function ($item) use ($shouldExist) {
-            expect($shouldExist->contains($item->name));
-        });
+    $items->each(fn (ExcessItem $item) => expect($shouldExist->contains($item->name)) );
 });

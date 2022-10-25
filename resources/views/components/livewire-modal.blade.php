@@ -3,7 +3,7 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h1 class="modal-title fs-4">{{ $title }}</h1>
+                <h1 class="modal-title fs-4">{{ $heading }}</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 

@@ -2,12 +2,10 @@
 
 namespace App\Http\Livewire;
 
-use App\TT\Items\InventoryItem;
+use App\TT\Items\ExcessItem;
 use App\TT\Items\Item;
 use App\TT\RecipeFactory;
-use App\TT\ShoppingListBuilder;
 use App\TT\Storage;
-use App\TT\StorageFactory;
 use Illuminate\Support\Facades\Auth;
 
 class ExcessItemsInStorageModal extends BaseComponent
@@ -44,29 +42,7 @@ class ExcessItemsInStorageModal extends BaseComponent
 
     public function getItems(): \Illuminate\Support\Collection|Storage
     {
-        $needed = ShoppingListBuilder::build(
-            $this->hydratedRecipe(),
-            new Storage(),
-            (int) $this->count,
-            1000
-        )
-            ->only(['crafted', 'refined', 'scrap'])
-            ->flatten();
-
-        return StorageFactory::get()
-            ->filter(function (InventoryItem $item) use ($needed) {
-                return $needed->contains('recipeName', $item->name);
-            })
-            ->map(function (InventoryItem $item) use ($needed) {
-                return [
-                    'inventoryItem' => $item,
-                    'fromNeeded' => $needed->firstWhere('recipeName', $item->name)
-                ];
-            })
-            ->filter(function (array $combo) {
-                return $combo['inventoryItem']->count > $combo['fromNeeded']->count * 2;
-            })
-            ->values();
+        return ExcessItem::makeList($this->count, $this->hydratedRecipe());
     }
 
     public function render()

@@ -48,9 +48,10 @@ it('updates a record and resets expires to one week from now', function () {
     $order = MarketOrder::factory()->for($user)->create([
         'count' => 100,
         'price_each' => 1000,
-        'expires' => now()->addDay()
+        'expires' => now()->addDay(),
+        'item_name' => 'petrochem_sulfur',
+        'storage' => 'biz_yellowjack'
     ]);
-
     Livewire::test(MarketOrderCreateEdit::class)
         ->call('startEditing', $order->id)
         ->set('marketOrder.count', 200)
@@ -84,7 +85,9 @@ it('can edit an expired record', function () {
     $order = MarketOrder::factory()->for($user)->create([
         'count' => 100,
         'price_each' => 1000,
-        'expires' => now()->subDay()
+        'expires' => now()->subDay(),
+        'item_name' => 'petrochem_sulfur',
+        'storage' => 'biz_yellowjack'
     ]);
 
     Livewire::test(MarketOrderCreateEdit::class)

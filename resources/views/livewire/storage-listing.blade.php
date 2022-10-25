@@ -23,21 +23,24 @@
             <x-card title="Filters" class="mt-3">
                 <input type="text" class="form-control" wire:model="searchStringInput" placeholder="By Name..." />
 
-                <span class="mt-2 text-center">Type</span>
+                <span class="mt-2">Type</span>
                 <div class="text-center">
                     <x-select-choices wire:model="typeFilter">
                         <x-select-options :items="$this->getTypeFilterOptions()" />
                     </x-select-choices>
                 </div>
 
-                <span class="mt-2 text-center">Count</span>
+                <span class="mt-2">Count</span>
                 <input wire:model="minCountFilter" type="text" class="form-control" placeholder="Minimum">
                 <input wire:model="maxCountFilter" type="text" class="form-control" placeholder="Maximum">
 
-                <span class="mt-2 text-center">Total Weight</span>
+                <span class="mt-2">Total Weight</span>
                 <input wire:model="minTotalWeightFilter" type="text" class="form-control" placeholder="Minimum">
                 <input wire:model="maxTotalWeightFilter" type="text" class="form-control" placeholder="Maximum">
+
             </x-card>
+
+            <livewire:excess-items-in-storage-modal />
 
             <x-card title="Custom Combined Storage" class="mt-3">
                 @foreach($this->customStorageInput as $storageName => $null)

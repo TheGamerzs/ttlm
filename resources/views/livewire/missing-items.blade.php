@@ -3,15 +3,13 @@
         <tr>
             <th></th>
             <th></th>
-            <th>Weights</th>
-            <th>Names</th>
             <th></th>
         </tr>
         @foreach($items as $itemName)
             <tr>
                 <td>{{ $itemName }}</td>
                 <td>
-                    <a target="_blank" href="https://ttapi.elfshot.xyz/items?item={{ $itemName }}">Elfshot Lookup</a>
+                    <a target="_blank" href="{{ route('admin.itemLookup', ['name' => $itemName]) }}">API Lookup</a>
                 </td>
                 <td>
                     <a href="#" wire:click.prevent="addToIgnore('{{ $itemName }}')">Ignore</a> |

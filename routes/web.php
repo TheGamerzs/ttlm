@@ -44,8 +44,8 @@ Route::get('/auth/callback', [DiscordController::class, 'handleCallback'])->name
 Route::get('/sb', [SandboxController::class, 'index']);
 
 Route::middleware(['auth', 'onlyUserOne'])->group(function () {
-    Route::get('/dev/missing-items', \App\Http\Livewire\MissingItems::class)->name('missingItems');
-    Route::get('/dev/missing-items/{name}', [SandboxController::class, 'apiItemLookup'])->name('itemLookup');
+    Route::get('/dev/missing-items', \App\Http\Livewire\MissingItems::class)->name('admin.missingItems');
+    Route::get('/dev/missing-items/{name}', [SandboxController::class, 'apiItemLookup'])->name('admin.itemLookup');
     Route::get('/dev/', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/dev/users', [AdminController::class, 'users'])->name('admin.users');
 });

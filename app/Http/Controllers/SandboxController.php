@@ -39,6 +39,10 @@ class SandboxController extends Controller
     {
         $response = TTApi::ttItemDataFromInternalName($name);
 
+        if (! $response->exists) {
+            dd('Not Found');
+        }
+
         $dump = new \stdClass();
         $dump->id = $response->item_id;
         $dump->name = $response->name;

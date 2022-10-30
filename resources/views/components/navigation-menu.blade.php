@@ -33,6 +33,7 @@
                         <ul class="dropdown-menu dropdown-menu-end text-center">
                             <li><a class="dropdown-item" href="{{ route('admin.index') }}">Overview</a></li>
                             <li><a class="dropdown-item" href="{{ route('admin.users') }}">Users</a></li>
+                            <li><a class="dropdown-item" href="{{ route('admin.missingItems') }}">Missing Items</a></li>
                         </ul>
                     </li>
                 @endif

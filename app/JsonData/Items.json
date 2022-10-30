@@ -7755,6 +7755,11 @@
         "weight": "0"
     },
     {
+        "id": "vehicle_card|mower|Lawn Mower",
+        "name": "Vehicle Card: Lawn Mower",
+        "weight": "0"
+    },
+    {
         "id": "vehicle_card|Nemesis|R.T.S. Nemesis",
         "name": "Vehicle Card: R.T.S. Nemesis",
         "weight": "0"
@@ -9200,6 +9205,11 @@
         "weight": "0"
     },
     {
+        "id": "vehicle_card|terbyte|Benefactor Terrorbyte",
+        "name": "Vehicle Card: Benefactor Terrorbyte",
+        "weight": "0"
+    },
+    {
         "id": "vehicle_card|tezeract|R.T.S. Tezeract",
         "name": "Vehicle Card: R.T.S. Tezeract",
         "weight": "0"
@@ -9405,6 +9415,11 @@
         "weight": "0"
     },
     {
+        "id": "vehicle_card|youga3|Bravado Youga Classic 4x4",
+        "name": "Vehicle Card: Bravado Youga Classic 4x4",
+        "weight": "0"
+    },
+    {
         "id": "vehicle_card|z190|R.T.S. 190Z",
         "name": "Vehicle Card: R.T.S. 190Z",
         "weight": "0"
@@ -9470,6 +9485,11 @@
         "weight": "100"
     },
     {
+        "id": "vehicle_shipment|raketrailer|Farming rake trailer|trailer",
+        "name": "Vehicle Shipment: Farming rake trailer",
+        "weight": "100"
+    },
+    {
         "id": "vehicle_shipment|savanna|Coil Savanna|car",
         "name": "Vehicle Shipment: Coil Savanna",
         "weight": "100"
@@ -9487,6 +9507,11 @@
     {
         "id": "vehicle_shipment|stairtruck|Stair Truck",
         "name": "Vehicle Shipment: Stair Truck",
+        "weight": "100"
+    },
+    {
+        "id": "vehicle_shipment|stockade3|Brute Stockade",
+        "name": "Vehicle Shipment: Brute Stockade",
         "weight": "100"
     },
     {

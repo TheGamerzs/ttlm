@@ -25,6 +25,17 @@
                         </a>
                     </li>
                 @endauth
+                @if(Auth::id() == 1)
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end text-center">
+                            <li><a class="dropdown-item" href="{{ route('admin.index') }}">Overview</a></li>
+                            <li><a class="dropdown-item" href="{{ route('admin.users') }}">Users</a></li>
+                        </ul>
+                    </li>
+                @endif
             </ul>
             <ul class="navbar-nav mb-2 mb-md-0">
                 @auth

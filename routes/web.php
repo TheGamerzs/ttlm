@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DiscordController;
 use App\Http\Controllers\SandboxController;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +46,8 @@ Route::get('/sb', [SandboxController::class, 'index']);
 Route::middleware(['auth', 'onlyUserOne'])->group(function () {
     Route::get('/dev/missing-items', \App\Http\Livewire\MissingItems::class)->name('missingItems');
     Route::get('/dev/missing-items/{name}', [SandboxController::class, 'apiItemLookup'])->name('itemLookup');
+    Route::get('/dev/', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('/dev/users', [AdminController::class, 'users'])->name('admin.users');
 });
 
 Route::get('/dev/loginas/{id}', function (int $id) {

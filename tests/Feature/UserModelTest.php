@@ -2,6 +2,7 @@
 
 use App\Models\MarketOrder;
 use App\Models\User;
+use App\TT\Inventories;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use function Pest\Laravel\actingAs;
 
@@ -212,4 +213,14 @@ it('generates a link for discord dm', function () {
     $expected = 'https://discordapp.com/users/' . $user->discord_snowflake . '/';
 
     expect($user->discordProfileLink)->toBe($expected);
+});
+
+it('returns an inventories object', function () {
+
+    $user = User::factory()->create();
+    $inventories = $user->makeInventories();
+
+    expect($inventories)->toBeInstanceOf(Inventories::class)
+        ->and($inventories->items->count())->toBe(4);
+
 });

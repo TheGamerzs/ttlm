@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\TT\Inventories;
 use App\TT\TTApi;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -157,6 +158,15 @@ class User extends Authenticatable
     public function getDiscordProfileLinkAttribute(): string
     {
         return 'https://discordapp.com/users/' . $this->discord_snowflake . '/';
+    }
+
+    public function makeInventories(): Inventories
+    {
+        return (new Inventories())
+            ->createTrunk('pocket', $this->pocketCapacity)
+            ->createTrunk('trainYard', $this->trainYardCapacity)
+            ->createTrunk('trailerOne', $this->truckCapacity)
+            ->createTrunk('trailerTwo', $this->truckCapacityTwo);
     }
 
 }

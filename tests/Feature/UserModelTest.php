@@ -215,12 +215,27 @@ it('generates a link for discord dm', function () {
     expect($user->discordProfileLink)->toBe($expected);
 });
 
-it('returns an inventories object', function () {
+it('returns an inventories object with all', function () {
 
     $user = User::factory()->create();
     $inventories = $user->makeInventories();
 
     expect($inventories)->toBeInstanceOf(Inventories::class)
         ->and($inventories->trunks->count())->toBe(4);
+
+    [$trailerOne, $trailerTwo, $pocket, $train] = $inventories->trunks;
+
+    expect($trailerOne->name)->toBe($user->trailer_name)
+        ->and($trailerTwo->name)->toBe($user->trailer_two_name);
+
+});
+
+it('returns and inventories object with just trucking trailers', function () {
+
+    $user = User::factory()->create();
+    $inventories = $user->makeTruckingInventories();
+
+    expect($inventories)->toBeInstanceOf(Inventories::class)
+        ->and($inventories->trunks->count())->toBe(2);
 
 });

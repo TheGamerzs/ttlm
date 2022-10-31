@@ -49,8 +49,8 @@ test('quick calculations for item counts to fit in trunks with used capacities',
         ->set('capacityUsedTY', 20000)
         ->assertSee([
         'Train Yard: 3015',
-        'Trailer One: 318',
-        'Trailer Two: 133',
+        $user->trailer_name . ': 318',
+        $user->trailer_two_name . ': 133',
         'Pocket: 21',
     ]);
 
@@ -72,7 +72,7 @@ it('does not show a trailer two if user does not have one set', function () {
         'trainYardStorage' => $user->trainYardCapacity,
         'itemForFillTrailer' => 'scrap_ore',
     ])->assertDontSee([
-        'Trailer Two: 400',
+        $user->trailer_two_name . ': 400',
     ]);
 
 });
@@ -99,7 +99,7 @@ it('builds users inventories object', function () {
         ->instance()
         ->getHydratedData();
 
-    [$pocket, $train, $trailerOne, $trailerTwo] = $data['userInventories']->trunks;
+    [$trailerOne, $trailerTwo, $pocket, $train] = $data['userInventories']->trunks;
 
     expect($data['userInventories'])->toBeInstanceOf(\App\TT\Inventories::class)
         ->and($pocket->name)->toBe('pocket')
@@ -108,10 +108,10 @@ it('builds users inventories object', function () {
         ->and($train->name)->toBe('trainYard')
         ->and($train->capacity)->toBe(65228)
         ->and($train->capacityUsed)->toBe(20000)
-        ->and($trailerOne->name)->toBe('trailerOne')
+        ->and($trailerOne->name)->toBe($user->trailer_name)
         ->and($trailerOne->capacity)->toBe(9775)
         ->and($trailerOne->capacityUsed)->toBe(5000)
-        ->and($trailerTwo->name)->toBe('trailerTwo')
+        ->and($trailerTwo->name)->toBe($user->trailer_two_name)
         ->and($trailerTwo->capacity)->toBe(6000)
         ->and($trailerTwo->capacityUsed)->toBe(4000);
 });

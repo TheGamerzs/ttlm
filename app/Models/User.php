@@ -162,11 +162,16 @@ class User extends Authenticatable
 
     public function makeInventories(): Inventories
     {
-        return (new Inventories())
+        return $this->makeTruckingInventories()
             ->createTrunk('pocket', $this->pocketCapacity)
-            ->createTrunk('trainYard', $this->trainYardCapacity)
-            ->createTrunk('trailerOne', $this->truckCapacity)
-            ->createTrunk('trailerTwo', $this->truckCapacityTwo);
+            ->createTrunk('trainYard', $this->trainYardCapacity);
+    }
+
+    public function makeTruckingInventories(): Inventories
+    {
+        return (new Inventories())
+            ->createTrunk($this->trailer_name, $this->truckCapacity)
+            ->createTrunk($this->trailer_two_name, $this->truckCapacityTwo);
     }
 
 }

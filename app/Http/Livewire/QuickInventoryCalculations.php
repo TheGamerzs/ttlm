@@ -164,9 +164,10 @@ class QuickInventoryCalculations extends BaseComponent
 
     public function render()
     {
-        $userInventories = Auth::user()->makeInventories()
-            ->setCapacityUsed('trailerOne', (int) $this->capacityUsed)
-            ->setCapacityUsed('trailerTwo', (int) $this->capacityUsedTwo)
+        $user = Auth::user();
+        $userInventories = $user->makeInventories()
+            ->setCapacityUsed($user->trailer_name, (int) $this->capacityUsed)
+            ->setCapacityUsed($user->trailer_two_name, (int) $this->capacityUsedTwo)
             ->setCapacityUsed('trainYard' , (int) $this->capacityUsedTY);
 
 

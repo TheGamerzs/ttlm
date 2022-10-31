@@ -42,6 +42,6 @@ class Trunk
 
     public function displayName(): Stringable
     {
-        return str($this->name)->title();
+        return str($this->name)->headline();
     }
 }

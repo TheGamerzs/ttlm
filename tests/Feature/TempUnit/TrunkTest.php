@@ -48,9 +48,9 @@ test('numberOfItemsThatCanFit method', function () {
 
 it('has a display name', function () {
 
-    $trunk = new Trunk('pocket', 999);
+    $trunk = new Trunk('trailerOne', 999);
 
     expect($trunk->displayName())->toBeInstanceOf(\Illuminate\Support\Stringable::class)
-        ->and($trunk->displayName()->toString())->toBe('Pocket');
+        ->and($trunk->displayName()->toString())->toBe('Trailer One');
 
 });

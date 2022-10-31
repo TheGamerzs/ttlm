@@ -9,6 +9,7 @@ use App\TT\ShoppingListBuilder;
 use App\TT\StorageFactory;
 use App\TT\TrainYardPickUp;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class QuickInventoryCalculations extends BaseComponent
@@ -163,9 +164,16 @@ class QuickInventoryCalculations extends BaseComponent
 
     public function render()
     {
+        $userInventories = Auth::user()->makeInventories()
+            ->setCapacityUsed('trailerOne', (int) $this->capacityUsed)
+            ->setCapacityUsed('trailerTwo', (int) $this->capacityUsedTwo)
+            ->setCapacityUsed('trainYard' , (int) $this->capacityUsedTY);
+
+
         return view('livewire.quick-inventory-calculations')->with([
             'trailerLookupItem' => new Item($this->itemForFillTrailer),
-            'trainYardPickups' => $this->trainYardPickups()
+            'trainYardPickups' => $this->trainYardPickups(),
+            'userInventories' => $userInventories
         ]);
     }
 }

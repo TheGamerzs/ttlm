@@ -1,5 +1,6 @@
 <?php
 /** @var \App\TT\Items\Item $item */
+/** @var \App\TT\Trunk $trunk */
 ?>
 <div>
     <x-collapsable-card title="Quick Calculations">
@@ -34,25 +35,11 @@
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Weighs: {{ $trailerLookupItem->weight }}kg</span>
 
-                        @if(Auth::user()->hasTrainYard())
-                        <span>
-                            Train Yard: {{ $trailerLookupItem->howManyCanFitInSpace($trainYardStorage - (int)$capacityUsedTY) }}
-                        </span>
-                        @endif
-
-                        <span>
-                            Trailer: {{ $trailerLookupItem->howManyCanFitInSpace($truckCapacity - (int)$capacityUsed) }}
-                        </span>
-
-                        @if(Auth::user()->hasSecondTrailer())
+                        @foreach($userInventories->trunks as $trunk)
                             <span>
-                                Trailer Two: {{ $trailerLookupItem->howManyCanFitInSpace((int)Auth::user()->truckCapacityTwo - (int)$capacityUsedTwo) }}
+                                {{ $trunk->displayName() }}: {{ $trunk->numberOfItemsThatCanFit($trailerLookupItem) }}
                             </span>
-                        @endif
-
-                        <span>
-                            Pocket: {{ $trailerLookupItem->howManyCanFitInSpace($pocketCapacity) }}
-                        </span>
+                        @endforeach
                     </li>
                 </ul>
                 <hr>

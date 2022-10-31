@@ -221,6 +221,6 @@ it('returns an inventories object', function () {
     $inventories = $user->makeInventories();
 
     expect($inventories)->toBeInstanceOf(Inventories::class)
-        ->and($inventories->items->count())->toBe(4);
+        ->and($inventories->trunks->count())->toBe(4);
 
 });

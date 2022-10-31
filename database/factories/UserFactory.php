@@ -26,6 +26,8 @@ class UserFactory extends Factory
             'pocketCapacity' => fake()->randomNumber(3),
             'truckCapacity' => fake()->randomNumber(5),
             'truckCapacityTwo' => fake()->randomNumber(4),
+            'trailer_name' => 'Trailer One',
+            'trailer_two_name' => 'Trailer Two',
             'full_trailer_alerts' => $this->getFullTrailerAlerts(),
             'calls_made' => 1,
             'hidden_exportable_items' => collect(),

@@ -17,6 +17,8 @@ class UserSettings extends Component
         'user.api_public_key' => 'string|nullable',
         'user.truckCapacity' => 'integer|nullable|min:400',
         'user.truckCapacityTwo' => 'integer|nullable|min:400',
+        'user.trailer_name' => 'string|required',
+        'user.trailer_two_name' => 'string|nullable|required_with:user.truckCapacityTwo',
         'user.pocketCapacity' => 'integer|nullable|min:10',
         'user.trainYardCapacity'=> 'integer|nullable|min:10800',
         'user.default_crafting_recipe' => 'string|required',

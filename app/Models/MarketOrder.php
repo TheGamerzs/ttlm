@@ -17,7 +17,8 @@ class MarketOrder extends Model
     use HasFactory, SoftDeletes;
 
     protected $casts = [
-        'expires' => 'date'
+        'expires' => 'date',
+        'price_each' => 'integer'
     ];
 
     protected static function booted()

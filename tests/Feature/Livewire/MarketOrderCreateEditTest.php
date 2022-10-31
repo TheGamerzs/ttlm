@@ -134,3 +134,22 @@ it('can bypass the warning', function () {
     expect(MarketOrder::count())->toBe(1);
 
 });
+
+it('can handle large numbers for price each', function () {
+
+    actingAs($user = User::factory()->create());
+
+    Livewire::test(MarketOrderCreateEdit::class)
+        ->call('startWithItem', 'crafted_concrete', 200)
+        ->set('marketOrder.count', 100)
+        ->set('marketOrder.price_each', 8500000000000)
+        ->call('save');
+
+    expect(MarketOrder::count())->toBe(1);
+    $order = MarketOrder::first();
+    expect($order->user_id)->toBe($user->id)
+        ->and($order->count)->toBe(100)
+        ->and($order->item_name)->toBe('crafted_concrete')
+        ->and($order->price_each)->toBe(8500000000000);
+
+});

@@ -1710,6 +1710,11 @@
         "weight": "0"
     },
     {
+        "id": "candy22",
+        "name": "Halloween Candy",
+        "weight": "0"
+    },
+    {
         "id": "cargopilotvoucher",
         "name": "Cargo Pilot Voucher",
         "weight": "0"

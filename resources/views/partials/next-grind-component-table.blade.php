@@ -1,3 +1,6 @@
+<?php
+/** @var \App\TT\Trunk $trunk */
+?>
 <table class="table table-hover text-center">
     <thead>
     <tr>
@@ -24,17 +27,21 @@
             <td>{{ $craftingMaterial->inStorage }}</td>
         @endforeach
     </tr>
+
+    @foreach(Auth::user()->makeTruckingInventories()->trunks as $trunk)
     <tr>
         <th scope="row">
-            Fill Trailer
+            Fill {{ $trunk->displayName() }} Trailer
             <span title="How many full trailers worth you currently have in storage.">
-                            ({{ $this->getRecipe()->howManyFullLoadsFromStorage($truckCapacity) }})
+                            ({{ $this->getRecipe()->howManyFullLoadsFromStorage($trunk->capacity) }})
                         </span>
         </th>
         @foreach($this->getRecipe()->components as $craftingMaterial)
-            <td>{{ $craftingMaterial->howManyCanFitInSpace($truckCapacity) }}</td>
+            <td>{{ $craftingMaterial->howManyCanFitInSpace($trunk->capacity) }}</td>
         @endforeach
     </tr>
+    @endforeach
+
     @if($this->usingGoal())
         <tr>
             <th scope="row">

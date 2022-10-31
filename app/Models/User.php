@@ -169,9 +169,13 @@ class User extends Authenticatable
 
     public function makeTruckingInventories(): Inventories
     {
-        return (new Inventories())
-            ->createTrunk($this->trailer_name, $this->truckCapacity)
-            ->createTrunk($this->trailer_two_name, $this->truckCapacityTwo);
+        $inventories = (new Inventories())->createTrunk($this->trailer_name, $this->truckCapacity);
+
+        if ($this->hasSecondTrailer()) {
+            $inventories->createTrunk($this->trailer_two_name, $this->truckCapacityTwo);
+        }
+
+        return $inventories;
     }
 
 }

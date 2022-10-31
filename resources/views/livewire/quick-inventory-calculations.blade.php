@@ -103,8 +103,19 @@
                         <i class="bi bi-cart4 ms-2 fs-5 text-info" title="Full Shopping List"></i>
                     </a>
                 </h4>
+
+                <p class="text-center">
+                    Using
+                    @foreach($pickupCounts->inventories->trunks as $trunk)
+                        {{ $trunk->displayName() }}({{ $trunk->capacity }}kg)
+                        @if($loop->count == 2 && $loop->first)
+                            and
+                        @endif
+                    @endforeach
+                </p>
+
                 <ul class="list-group">
-                    @foreach($pickupCounts as $name => $count)
+                    @foreach($pickupCounts->getFormattedCountsArray() as $name => $count)
                         <li class="list-group-item d-flex justify-content-between">
                             <span>
                                 <x-add-to-game-plan text="Make {{ $count }} {{ \App\TT\Items\ItemData::getName($name) }} runs." />

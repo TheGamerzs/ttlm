@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use App\TT\Items\CraftingMaterial;
 use App\TT\Items\Item;
-use App\TT\PickupRun;
+use App\TT\Pickup\PickupRunYields;
 use App\TT\Recipe;
 use App\TT\RecipeFactory;
 use App\TT\ShoppingListBuilder;
@@ -16,7 +16,7 @@ use Livewire\Component;
 class NextGrindRevised extends Component
 {
     protected $listeners = [
-        'refresh' => '$refresh',
+        'refresh'                 => '$refresh',
         'updateNextRecipeToGrind' => 'changeRecipe',
     ];
 
@@ -48,10 +48,10 @@ class NextGrindRevised extends Component
     public function mount(Recipe $parentRecipe)
     {
         $this->parentRecipe = $parentRecipe;
-        $this->recipe = $parentRecipe->mostLimitedByAsRecipe();
+        $this->recipe       = $parentRecipe->mostLimitedByAsRecipe();
 
         $this->toHydrate['parentRecipe'] = $parentRecipe->internalName();
-        $this->toHydrate['recipe'] = $this->recipe->internalName();
+        $this->toHydrate['recipe']       = $this->recipe->internalName();
 
         $this->setStorageOnRecipeAndThis();
 
@@ -71,7 +71,7 @@ class NextGrindRevised extends Component
     protected function setStorageOnRecipeAndThis()
     {
         $this->storageName = $this->recipe->autoSetStorageBasedOnLocationOfMostComponents();
-        $this->storage = StorageFactory::get($this->storageName);
+        $this->storage     = StorageFactory::get($this->storageName);
     }
 
     public function updatedStorageName($storageName)
@@ -84,7 +84,7 @@ class NextGrindRevised extends Component
     public function changeRecipe(string $recipeName)
     {
         $this->toHydrate['recipe'] = $recipeName;
-        $this->recipe = RecipeFactory::get(new Item($recipeName));
+        $this->recipe              = RecipeFactory::get(new Item($recipeName));
         $this->setStorageOnRecipeAndThis();
     }
 
@@ -122,14 +122,14 @@ class NextGrindRevised extends Component
 
     public function mountGoal()
     {
-        $goal = Auth::user()->getCraftingGoal();
-        $this->goalCount = $goal['count'];
+        $goal             = Auth::user()->getCraftingGoal();
+        $this->goalCount  = $goal['count'];
         $this->goalRecipe = $goal['recipe'];
     }
 
     public function updateGoal()
     {
-        Auth::user()->setCraftingGoal((int) $this->goalCount, $this->goalRecipe);
+        Auth::user()->setCraftingGoal((int)$this->goalCount, $this->goalRecipe);
         $this->emit('refreshParentRecipeTable');
         $this->emit('closeCraftingGoal');
     }
@@ -137,7 +137,7 @@ class NextGrindRevised extends Component
     public function usingGoal(): bool
     {
         // Int cast required for 00 to evaluate false.
-        return (bool) (int) $this->goalCount;
+        return (bool)(int)$this->goalCount;
     }
 
     /*
@@ -149,11 +149,11 @@ class NextGrindRevised extends Component
     public function getNeededForGoal()
     {
         $shoppingList = ShoppingListBuilder::build(
-                RecipeFactory::get(new Item($this->goalRecipe)),
-                $this->storage,
-                (int) $this->goalCount,
-                $this->truckCapacity
-            )
+            RecipeFactory::get(new Item($this->goalRecipe)),
+            $this->storage,
+            (int)$this->goalCount,
+            $this->truckCapacity
+        )
             ->only(['crafted', 'refined', 'scrap'])
             ->flatten();
 
@@ -165,7 +165,7 @@ class NextGrindRevised extends Component
     public function getParentRecipeCountForFullTrailer()
     {
         return $this->parentRecipe->components->firstWhere('name', $this->recipe->internalName())->recipeCount
-        * $this->parentRecipe->howManyRecipesCanFit($this->truckCapacity);
+            * $this->parentRecipe->howManyRecipesCanFit($this->truckCapacity);
     }
 
     public function getNeededForParentTrailer()
@@ -178,13 +178,13 @@ class NextGrindRevised extends Component
     public function pickupRunYields(): array
     {
         return match ($this->getRecipe()->pickupRun) {
-            'quarry' => PickupRun::quarry($this->truckCapacity),
-            'logging camp' => PickupRun::logging($this->truckCapacity, $this->getRecipe()->internalName()),
-            'trash' => PickupRun::trash($this->truckCapacity),
-            'electronics' => PickupRun::electronics($this->truckCapacity),
-            'toxic waste' => PickupRun::toxicWaste($this->truckCapacity),
-            'crude oil' => PickupRun::crudeOil($this->truckCapacity, $this->getRecipe()->internalName()),
-            'raw gas' => PickupRun::rawGas($this->truckCapacity),
+            'quarry' => PickupRunYields::quarry($this->truckCapacity),
+            'logging camp' => PickupRunYields::logging($this->truckCapacity, $this->getRecipe()->internalName()),
+            'trash' => PickupRunYields::trash($this->truckCapacity),
+            'electronics' => PickupRunYields::electronics($this->truckCapacity),
+            'toxic waste' => PickupRunYields::toxicWaste($this->truckCapacity),
+            'crude oil' => PickupRunYields::crudeOil($this->truckCapacity, $this->getRecipe()->internalName()),
+            'raw gas' => PickupRunYields::rawGas($this->truckCapacity),
             default => []
         };
     }

@@ -41,4 +41,13 @@ class Inventories
 
         return $this;
     }
+
+    public function createCombined(): self
+    {
+        $this->createTrunk(
+            'combined',
+            $this->trunks->sum('capacity')
+        );
+        return $this;
+    }
 }

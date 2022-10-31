@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use App\TT\Items\CraftingMaterial;
 use App\TT\Items\Item;
-use App\TT\PickupRun;
+use App\TT\Pickup\PickupRunYields;
 use App\TT\Recipe;
 use App\TT\RecipeFactory;
 use App\TT\ShoppingListBuilder;
@@ -135,13 +135,13 @@ class NextGrind extends Component
     public function pickupRunYields(): array
     {
         return match ($this->nextRecipeToGrind->pickupRun) {
-            'quarry' => PickupRun::quarry($this->truckCapacity),
-            'logging camp' => PickupRun::logging($this->truckCapacity, $this->nextRecipeToGrind->internalName()),
-            'trash' => PickupRun::trash($this->truckCapacity),
-            'electronics' => PickupRun::electronics($this->truckCapacity),
-            'toxic waste' => PickupRun::toxicWaste($this->truckCapacity),
-            'crude oil' => PickupRun::crudeOil($this->truckCapacity, $this->nextRecipeToGrind->internalName()),
-            'raw gas' => PickupRun::rawGas($this->truckCapacity),
+            'quarry' => PickupRunYields::quarry($this->truckCapacity),
+            'logging camp' => PickupRunYields::logging($this->truckCapacity, $this->nextRecipeToGrind->internalName()),
+            'trash' => PickupRunYields::trash($this->truckCapacity),
+            'electronics' => PickupRunYields::electronics($this->truckCapacity),
+            'toxic waste' => PickupRunYields::toxicWaste($this->truckCapacity),
+            'crude oil' => PickupRunYields::crudeOil($this->truckCapacity, $this->nextRecipeToGrind->internalName()),
+            'raw gas' => PickupRunYields::rawGas($this->truckCapacity),
             default => []
         };
     }

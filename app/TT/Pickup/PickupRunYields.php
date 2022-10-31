@@ -1,11 +1,10 @@
 <?php
 
-namespace App\TT;
+namespace App\TT\Pickup;
 
-use App\TT\Items\Item;
 use JetBrains\PhpStorm\ArrayShape;
 
-class PickupRun
+class PickupRunYields
 {
     #[ArrayShape(['scrap_emerald' => "float", 'scrap_ore' => "float|int", 'refined_flint' => "float|int", 'refined_sand' => "float|int"])]
     public static function quarry(int $truckCapacity): array

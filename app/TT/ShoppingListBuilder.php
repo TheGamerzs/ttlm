@@ -2,6 +2,7 @@
 
 namespace App\TT;
 
+use App\TT\Pickup\PickupRunCalculator;
 use Illuminate\Support\Collection;
 
 class ShoppingListBuilder

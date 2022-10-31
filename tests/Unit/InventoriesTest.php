@@ -84,3 +84,17 @@ it('ignores call when attempting to set capacity with an invalid trunk name', fu
     // Test no exception.
     expect($inventories->count())->toBe(0);
 });
+
+it('creates a combined trunk', function () {
+
+    $inventories = new Inventories([
+        new Trunk('mk14', 10000),
+        new Trunk('mk15', 6000)
+    ]);
+
+    $inventories->createCombined();
+    expect($inventories->count())->toBe(3);
+    $combined = $inventories->trunks->firstWhere('name', 'combined');
+    expect($combined->capacity)->toBe(16000);
+
+});

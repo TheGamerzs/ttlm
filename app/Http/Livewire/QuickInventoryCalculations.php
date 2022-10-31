@@ -4,8 +4,7 @@ namespace App\Http\Livewire;
 
 use App\TT\Items\Item;
 use App\TT\Items\ItemData;
-use App\TT\RecipeFactory;
-use App\TT\ShoppingListBuilder;
+use App\TT\Pickup\PickupRunCounts;
 use App\TT\StorageFactory;
 use App\TT\TrainYardPickUp;
 use Illuminate\Support\Collection;
@@ -48,11 +47,9 @@ class QuickInventoryCalculations extends BaseComponent
 
     public string $pickupCountsYield = '300';
 
-    public array|string $itemName = 'house'; //used for pickup counts
+    public string $itemName = 'house'; //used for pickup counts
 
-    public array|string $storageName = 'combined';
-
-    public array $pickupCounts = [];
+    public string $storageName = 'combined';
 
     /*
     |--------------------------------------------------------------------------
@@ -94,22 +91,14 @@ class QuickInventoryCalculations extends BaseComponent
     |--------------------------------------------------------------------------
     */
 
-    protected function buildPickupCounts(): void
+    protected function buildPickupCounts(): PickupRunCounts
     {
-        // Livewire is doing some bullshit of assigning an array, then a string, and this is getting called both times.
-        if (! is_string($this->itemName)) return;
-
-        $this->pickupCounts = ShoppingListBuilder::build(
-            RecipeFactory::get(new Item($this->itemName)),
-            StorageFactory::get($this->storageName),
-            (int)$this->pickupCountsYield,
-            $this->truckCapacity
-        )['pickupCalculator']
-            ->getRunCalculations()
-            ->filter(function ($count, $name) {
-                return $count > 0;
-            })
-            ->toArray();
+        $counts = new PickupRunCounts(
+            Auth::user()->makeTruckingInventories(),
+            $this->itemName,
+            $this->pickupCountsYield
+        );
+        return $counts->setStorageName($this->storageName);
     }
 
     protected function trainYardPickups(): array
@@ -164,17 +153,18 @@ class QuickInventoryCalculations extends BaseComponent
 
     public function render()
     {
-        $user = Auth::user();
+        $user            = Auth::user();
         $userInventories = $user->makeInventories()
-            ->setCapacityUsed($user->trailer_name, (int) $this->capacityUsed)
-            ->setCapacityUsed($user->trailer_two_name, (int) $this->capacityUsedTwo)
-            ->setCapacityUsed('trainYard' , (int) $this->capacityUsedTY);
+            ->setCapacityUsed($user->trailer_name, (int)$this->capacityUsed)
+            ->setCapacityUsed($user->trailer_two_name, (int)$this->capacityUsedTwo)
+            ->setCapacityUsed('trainYard', (int)$this->capacityUsedTY);
 
 
         return view('livewire.quick-inventory-calculations')->with([
             'trailerLookupItem' => new Item($this->itemForFillTrailer),
-            'trainYardPickups' => $this->trainYardPickups(),
-            'userInventories' => $userInventories
+            'trainYardPickups'  => $this->trainYardPickups(),
+            'userInventories'   => $userInventories,
+            'pickupCounts' => $this->buildPickupCounts()
         ]);
     }
 }

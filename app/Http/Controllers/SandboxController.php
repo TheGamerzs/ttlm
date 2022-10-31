@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\TT\Items\ExcessItem;
-use App\TT\Items\Item;
 use App\TT\Items\ItemData;
-use App\TT\RecipeFactory;
-use App\TT\StorageFactory;
+use App\TT\Pickup\PickupRunCounts;
 use App\TT\TTApi;
+use Illuminate\Support\Facades\Auth;
 
 class SandboxController extends Controller
 {
@@ -18,8 +16,11 @@ class SandboxController extends Controller
 
     public function index()
     {
-        $dump = ExcessItem::makeList(1000, RecipeFactory::get(new Item('house')), StorageFactory::get());
-        dump($dump);
+        $inventories = Auth::user()->makeTruckingInventories();
+        $pickupRunCounts = new PickupRunCounts($inventories, 'house', 1000);
+
+        $pickupRunCounts->build();
+
     }
 
     public function userInventory()

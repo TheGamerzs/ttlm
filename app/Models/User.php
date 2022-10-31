@@ -86,6 +86,11 @@ class User extends Authenticatable
         return (bool) $this->trainYardCapacity;
     }
 
+    public function hasSecondTrailer(): bool
+    {
+        return (bool) $this->truckCapacityTwo;
+    }
+
     public function addItemToFullTrailerAlerts(string $itemName)
     {
         if ($this->full_trailer_alerts->contains($itemName)) return;

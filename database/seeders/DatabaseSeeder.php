@@ -22,8 +22,9 @@ class DatabaseSeeder extends Seeder
             'name' => 'xxdalexx',
             'tt_id' => 645753,
             'truckCapacity' => 9775,
+            'truckCapacityTwo' => 6000,
             'pocketCapacity' => 325,
-            'trainYardCapacity' => 45161,
+            'trainYardCapacity' => 65228,
         ]);
 
         MarketOrder::factory()->buyOrder()->count(2)->for($user)->create();

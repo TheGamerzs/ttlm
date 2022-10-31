@@ -52,6 +52,16 @@ it('returns if a user has attribute for train yard calculations', function () {
 
 });
 
+it('returns if a user has attribute for second truck capacity', function () {
+
+    $secondCapacityUser = User::factory()->make();
+    $noSecondCapacityUser = User::factory()->make(['truckCapacityTwo' => null]);
+
+    expect($secondCapacityUser->hasSecondTrailer())->toBeTrue()
+        ->and($noSecondCapacityUser->hasSecondTrailer())->toBeFalse();
+
+});
+
 test('user is redirected to settings page when they cant use api', function () {
 
     $noIdUser = User::factory()->create(['tt_id' => null]);

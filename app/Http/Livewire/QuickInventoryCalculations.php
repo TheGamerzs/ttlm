@@ -10,9 +10,8 @@ use App\TT\StorageFactory;
 use App\TT\TrainYardPickUp;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
-use Livewire\Component;
 
-class QuickInventoryCalculations extends Component
+class QuickInventoryCalculations extends BaseComponent
 {
     protected $listeners = [
         'refresh' => '$refresh'
@@ -32,9 +31,11 @@ class QuickInventoryCalculations extends Component
 
     public string $capacityUsed = '';
 
+    public string $capacityUsedTwo = '';
+
     public string $capacityUsedTY = '';
 
-    public array|string $itemForFillTrailer = 'scrap_ore';
+    public string $itemForFillTrailer = 'scrap_ore';
 
     public bool $leaveRoomForProcessed = true;
 

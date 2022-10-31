@@ -18,7 +18,7 @@ test('getItems method', function () {
         ->instance()
         ->getItems();
 
-    expect($items->count())->toBe(5);
+    expect($items->count())->toBe(14);
 
     $shouldExist = collect([
         'scrap_ore',

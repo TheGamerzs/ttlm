@@ -143,8 +143,10 @@ class Recipe
 
     public function howManyFullLoadsFromStorage(int $truckCapacity): string
     {
+        if ($this->howManyItemsCanFit($truckCapacity) == 0) return '0';
+
         return number_format(
-            $this->craftableItemsFromStorage() / ($this->howManyItemsCanFit($truckCapacity)),
+            $this->craftableItemsFromStorage() / $this->howManyItemsCanFit($truckCapacity),
             1
         );
     }

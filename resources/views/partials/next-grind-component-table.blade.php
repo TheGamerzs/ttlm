@@ -4,6 +4,8 @@
 /** @var \App\TT\Items\CraftingMaterial $craftingMaterial */
 /** @var \App\TT\Items\InventoryItem $inventoryItem */
 ?>
+<h4 class="text-center mt-4">{{ $viewModel->recipe->craftableItemsFromStorage() }} Currently Craftable</h4>
+
 <table class="table table-hover text-center">
     <thead>
     <tr>
@@ -46,16 +48,16 @@
     @endforeach
 
     @if($this->usingGoal())
-        <tr>
+        <tr @class(['table-warning' => $viewModel->recipe->craftableItemsFromStorage() < $this->goalCount ])>
             <th scope="row">
-                Needed For Goal ({{ $this->goalCount }})
+                Still Needed For Goal ({{ $this->goalCount }})
             </th>
             @foreach($this->getNeededForGoal() as $count)
                 <td>{{ $count }}</td>
             @endforeach
         </tr>
     @endif
-    <tr>
+    <tr @class(['table-warning' => $this->getParentRecipeCountForFullTrailer() > $viewModel->recipe->craftableItemsFromStorage()])>
         <th scope="row">
             One Trailer Run of {{ $this->getParentRecipe()->displayName() }}
             ({{ $this->getParentRecipeCountForFullTrailer() }})
@@ -64,7 +66,7 @@
             <td>{{ $count }}</td>
         @endforeach
     </tr>
-    <tr>
+    <tr @class(['table-warning' => $customCount > $viewModel->recipe->craftableItemsFromStorage()])>
         <th scope="row">
             <div class="form-floating">
                 <input type="text" class="form-control text-end" id="customCount" wire:model="customCount" />

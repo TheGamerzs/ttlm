@@ -1,11 +1,14 @@
 <?php
 /** @var \App\TT\Trunk $trunk */
+/** @var \App\View\NextGrindViewModel $viewModel */
+/** @var \App\TT\Items\CraftingMaterial $craftingMaterial */
+/** @var \App\TT\Items\InventoryItem $inventoryItem */
 ?>
 <table class="table table-hover text-center">
     <thead>
     <tr>
         <th scope="col" style="width: 15rem;"></th>
-        @foreach($this->getRecipe()->components as $craftingMaterial)
+        @foreach($viewModel->recipe->components as $craftingMaterial)
             <th>{{ $craftingMaterial->name() }}</th>
         @endforeach
     </tr>
@@ -15,7 +18,7 @@
         <th scope="row">
             Recipe
         </th>
-        @foreach($this->getRecipe()->components as $craftingMaterial)
+        @foreach($viewModel->recipe->components as $craftingMaterial)
             <td>{{ $craftingMaterial->recipeCount }}</td>
         @endforeach
     </tr>
@@ -23,21 +26,21 @@
         <th scope="row">
             In Storage
         </th>
-        @foreach($this->getRecipe()->components as $craftingMaterial)
+        @foreach($viewModel->recipe->components as $craftingMaterial)
             <td>{{ $craftingMaterial->inStorage }}</td>
         @endforeach
     </tr>
 
-    @foreach(Auth::user()->makeTruckingInventories()->trunks as $trunk)
+    @foreach($viewModel->inventories as $trunk)
     <tr>
         <th scope="row">
             Fill {{ $trunk->displayName() }} Trailer
             <span title="How many full trailers worth you currently have in storage.">
-                            ({{ $this->getRecipe()->howManyFullLoadsFromStorage($trunk->capacity) }})
-                        </span>
+                ({{ $viewModel->recipe->howManyFullLoadsFromStorage($trunk->capacity) }})
+            </span>
         </th>
-        @foreach($this->getRecipe()->components as $craftingMaterial)
-            <td>{{ $craftingMaterial->howManyCanFitInSpace($trunk->capacity) }}</td>
+        @foreach($trunk->load as $inventoryItem)
+            <td>{{ $inventoryItem->count }}</td>
         @endforeach
     </tr>
     @endforeach
@@ -68,7 +71,7 @@
                 <label for="customCount">Custom Count</label>
             </div>
         </th>
-        @foreach($this->getRecipe()->components as $craftingMaterial)
+        @foreach($viewModel->recipe->components as $craftingMaterial)
             <td>{{ (int)$customCount * $craftingMaterial->recipeCount / $craftingMaterial->recipe->makes }}</td>
         @endforeach
     </tr>

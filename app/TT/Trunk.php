@@ -3,6 +3,7 @@
 namespace App\TT;
 
 use App\TT\Items\Item;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Stringable;
 
 class Trunk
@@ -13,10 +14,13 @@ class Trunk
 
     public int    $capacityUsed = 0;
 
-    public function __construct(string $name, int $capacity)
+    public Collection $load;
+
+    public function __construct(string $name, int $capacity, array $load = [])
     {
         $this->name = $name;
         $this->capacity = $capacity;
+        $this->load = collect($load);
     }
 
     public function setCapacityUsed(int $int): self
@@ -43,5 +47,12 @@ class Trunk
     public function displayName(): Stringable
     {
         return str($this->name)->headline();
+    }
+
+    public function fillLoadWithComponentsForRecipe(Recipe $recipe): self
+    {
+        $this->load = $recipe->componentsThatCanFitAsInventoryItems($this->getAvailableCapacity());
+
+        return $this;
     }
 }

@@ -4,14 +4,25 @@ namespace App\TT;
 
 
 use Illuminate\Support\Collection;
+use Traversable;
 
-class Inventories
+class Inventories implements \IteratorAggregate, \Countable
 {
     public Collection $trunks;
 
     public function __construct(array $trunks = [])
     {
         $this->trunks = collect($trunks);
+    }
+
+    public function getIterator(): Traversable
+    {
+        return $this->trunks->getIterator();
+    }
+
+    public function count(): int
+    {
+        return $this->trunks->count();
     }
 
     public function createTrunk(string $name, ?int $capacity): self
@@ -26,11 +37,6 @@ class Inventories
     {
         $this->trunks->push($trunk);
         return $this;
-    }
-
-    public function count(): int
-    {
-        return $this->trunks->count();
     }
 
     public function setCapacityUsed(string $trunkName, int $capacityUsed): self
@@ -50,4 +56,5 @@ class Inventories
         );
         return $this;
     }
+
 }

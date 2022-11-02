@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\TT\Items\ItemData;
-use App\TT\Pickup\PickupRunCounts;
 use App\TT\TTApi;
+use App\View\NextGrindViewModel;
 use Illuminate\Support\Facades\Auth;
 
 class SandboxController extends Controller
@@ -17,10 +17,9 @@ class SandboxController extends Controller
     public function index()
     {
         $inventories = Auth::user()->makeTruckingInventories();
-        $pickupRunCounts = new PickupRunCounts($inventories, 'house', 1000);
-
-        $pickupRunCounts->build();
-
+        $viewModel = new NextGrindViewModel($inventories);
+        $viewModel->setRecipeFromString('crafted_rebar');
+        dd($viewModel->itemsThatCanBeCraftedFromAFullLoadOfComponents());
     }
 
     public function userInventory()

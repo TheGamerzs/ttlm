@@ -10,10 +10,10 @@ use App\TT\RecipeFactory;
 use App\TT\ShoppingListBuilder;
 use App\TT\Storage;
 use App\TT\StorageFactory;
+use App\View\NextGrindViewModel;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Component;
 
-class NextGrindRevised extends Component
+class NextGrindRevised extends BaseComponent
 {
     protected $listeners = [
         'refresh'                 => '$refresh',
@@ -32,7 +32,7 @@ class NextGrindRevised extends Component
 
     public array $toHydrate = [];
 
-    public array|string $storageName = '';
+    public string $storageName = '';
 
     // Properties for Goal Modal
     public string $goalCount;
@@ -78,6 +78,7 @@ class NextGrindRevised extends Component
     {
         if (is_string($storageName)) {
             $this->storage = StorageFactory::get($storageName);
+            $this->recipe->setInStorageForAllComponents($this->storage);
         }
     }
 
@@ -88,9 +89,18 @@ class NextGrindRevised extends Component
         $this->setStorageOnRecipeAndThis();
     }
 
+    public function makeViewModel(): NextGrindViewModel
+    {
+        return (new NextGrindViewModel( Auth::user()->makeTruckingInventories() ))
+           ->setRecipe($this->recipe);
+    }
+
     public function render()
     {
-        return view('livewire.next-grind-revised');
+        return view('livewire.next-grind-revised')
+            ->with([
+                'viewModel' => $this->makeViewModel()
+            ]);
     }
 
     /*

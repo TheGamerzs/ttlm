@@ -98,3 +98,17 @@ it('creates a combined trunk', function () {
     expect($combined->capacity)->toBe(16000);
 
 });
+
+it('uses a collection iterator', function () {
+
+    $inventories = new Inventories([
+        new Trunk('first', 1000),
+        new Trunk('second', 1000),
+        new Trunk('third', 1000),
+    ]);
+
+    foreach ($inventories as $trunk) {
+        expect($trunk)->toBeInstanceOf(Trunk::class);
+    }
+
+});

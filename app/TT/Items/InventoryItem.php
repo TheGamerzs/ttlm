@@ -12,6 +12,11 @@ class InventoryItem extends Item
         $this->count = $count;
     }
 
+    public static function fromCraftingMaterial(CraftingMaterial $craftingMaterial, int $count): self
+    {
+        return new self($craftingMaterial->name, $count);
+    }
+
     public function getTotalWeight(): int
     {
         return $this->weight * $this->count;

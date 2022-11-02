@@ -1,5 +1,6 @@
 <?php
 
+use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
 use App\TT\Trunk;
 use Illuminate\Support\Collection;
@@ -12,8 +13,8 @@ test('constructor', function () {
         ->and($trunk->capacity)->toBe(1000);
 
     $load = [
-        new \App\TT\Items\InventoryItem('crafted_rebar', 2),
-        new \App\TT\Items\InventoryItem('crafted_copperwire', 2)
+        new InventoryItem('crafted_rebar', 2),
+        new InventoryItem('crafted_copperwire', 2)
     ];
     $trunkWithLoad = new Trunk('with load', 1000, $load);
 
@@ -32,12 +33,29 @@ test('numberOfItemsThatCanFitFromWeight method', function () {
 
 });
 
-test('getAvailableCapacity method', function () {
+test('getAvailableCapacity method with only manual', function () {
 
     $trunk = new Trunk('name', 1000);
     $trunk->capacityUsed = 600;
 
     expect($trunk->getAvailableCapacity())->toBe(400);
+});
+
+test('getAvailableCapacity method with only load', function () {
+
+    $trunk = new Trunk('name', 10000, [new InventoryItem('crafted_rebar', 100)]); // 4500 weight
+
+    expect($trunk->getAvailableCapacity())->toBe(10000-4500);
+
+});
+
+test('getAvailableCapacity method with load and manual', function () {
+
+    $trunk = new Trunk('name', 10000, [new InventoryItem('crafted_rebar', 100)]); // 4500 weight
+    $trunk->capacityUsed = 1000;
+
+    expect($trunk->getAvailableCapacity())->toBe(10000-4500-1000);
+
 });
 
 test('numberOfItemsThatCanFitFromWeight method after setting capacity used', function () {
@@ -83,5 +101,30 @@ it('populates load with components given a recipe', function () {
 
     expect($amalgam->count)->toBe(390)
         ->and($bronze->count)->toBe(390);
+
+});
+
+it('populates load given an item name', function () {
+
+    $trunk = new Trunk('mk13', 9775);
+    $trunk->fillLoadWithItem('recycled_waste');
+    /** @var InventoryItem $waste */
+    $waste = $trunk->load->first();
+
+    expect($waste)->toBeInstanceOf(InventoryItem::class)
+        ->and($waste->name)->toBe('recycled_waste')
+        ->and($waste->count)->toBe(88);
+});
+
+it('calculates the total weight of items in load', function () {
+
+    $load = [
+        new InventoryItem('crafted_rebar', 100),
+        new InventoryItem('crafted_computer', 100),
+        new InventoryItem('crafted_copperwire', 100),
+    ];
+    $trunk = new Trunk('mk13', 9775, $load);
+
+    expect($trunk->loadWeight())->toBe(10000);
 
 });

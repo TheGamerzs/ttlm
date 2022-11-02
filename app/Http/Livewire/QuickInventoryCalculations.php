@@ -101,40 +101,25 @@ class QuickInventoryCalculations extends BaseComponent
         return $counts->setStorageName($this->storageName);
     }
 
-    protected function trainYardPickups(): array
+    protected function trainYardPickups(): Collection
     {
-        return [
-            new TrainYardPickUp('recycled_electronics',
-                $this->truckCapacity,
-                $this->leaveRoomForProcessed,
-                $this->pocketCapacity,
-                $this->trainYardStorage - (int)$this->capacityUsedTY
-            ),
-            new TrainYardPickUp('recycled_waste',
-                $this->truckCapacity,
-                $this->leaveRoomForProcessed,
-                $this->pocketCapacity,
-                $this->trainYardStorage - (int)$this->capacityUsedTY
-            ),
-            new TrainYardPickUp('recycled_trash',
-                $this->truckCapacity,
-                $this->leaveRoomForProcessed,
-                $this->pocketCapacity,
-                $this->trainYardStorage - (int)$this->capacityUsedTY
-            ),
-            new TrainYardPickUp('petrochem_gas',
-                $this->truckCapacity,
-                $this->leaveRoomForProcessed,
-                $this->pocketCapacity,
-                $this->trainYardStorage - (int)$this->capacityUsedTY
-            ),
-            new TrainYardPickUp('petrochem_oil',
-                $this->truckCapacity,
-                $this->leaveRoomForProcessed,
-                $this->pocketCapacity,
-                $this->trainYardStorage - (int)$this->capacityUsedTY
-            ),
-        ];
+        $baseTrunks = Auth::user()->makeInventories()
+            ->setCapacityUsed('trainYard', (int) $this->capacityUsedTY);
+
+        return collect([
+                'recycled_electronics',
+                'recycled_waste',
+                'recycled_trash',
+                'petrochem_gas',
+                'petrochem_oil',
+            ])
+            ->map(function ($runName) use ($baseTrunks) {
+                return new TrainYardPickUp(
+                    $runName,
+                    Auth::user()->makeInventories()->setCapacityUsed('trainYard', (int) $this->capacityUsedTY),
+                    $this->leaveRoomForProcessed
+                );
+            });
     }
 
     public function getItemNamesThatExistInStorage(): Collection

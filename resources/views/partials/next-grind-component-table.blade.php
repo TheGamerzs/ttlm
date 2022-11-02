@@ -42,7 +42,9 @@
             </span>
         </th>
         @foreach($trunk->load as $inventoryItem)
-            <td title="{{ $inventoryItem->name() }}">{{ $inventoryItem->count }}</td>
+            <td title="{{ $inventoryItem->name() }}">
+                {{ $inventoryItem->count }}
+            </td>
         @endforeach
     </tr>
     @endforeach

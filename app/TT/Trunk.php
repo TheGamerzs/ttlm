@@ -2,6 +2,7 @@
 
 namespace App\TT;
 
+use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Stringable;
@@ -31,7 +32,7 @@ class Trunk
 
     public function getAvailableCapacity(): int
     {
-        return $this->capacity - $this->capacityUsed;
+        return $this->capacity - $this->capacityUsed - $this->loadWeight();
     }
 
     public function numberOfItemsThatCanFitFromWeight(int $itemWeight): int
@@ -54,5 +55,23 @@ class Trunk
         $this->load = $recipe->componentsThatCanFitAsInventoryItems($this->getAvailableCapacity());
 
         return $this;
+    }
+
+    public function fillLoadWithItem(string $itemName): self
+    {
+        $item = new InventoryItem($itemName, 0);
+
+        $item->count = floor($this->getAvailableCapacity() / $item->weight);
+
+        $this->load->push($item);
+
+        return $this;
+    }
+
+    public function loadWeight(): int
+    {
+        return $this->load->sum(function (InventoryItem $item) {
+            return $item->getTotalWeight();
+        });
     }
 }

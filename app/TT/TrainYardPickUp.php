@@ -3,17 +3,18 @@
 namespace App\TT;
 
 use App\TT\Items\InventoryItem;
-use App\TT\Items\ItemData;
+use App\TT\Items\Item;
+use Illuminate\Support\Collection;
 
 class TrainYardPickUp
 {
     protected static array $yields = [
-        'recycled_waste' => [
-            'scrap_acid' => 4,
-            'scrap_lead' => 2,
+        'recycled_waste'       => [
+            'scrap_acid'    => 4,
+            'scrap_lead'    => 2,
             'scrap_mercury' => 2,
         ],
-        'recycled_trash' => [
+        'recycled_trash'       => [
             'scrap_aluminum' => 4,
             'scrap_plastic'  => 8,
             'scrap_tin'      => 4,
@@ -23,89 +24,77 @@ class TrainYardPickUp
             'scrap_gold'    => 1,
             'scrap_plastic' => 12,
         ],
-        'petrochem_gas' => [
+        'petrochem_gas'        => [
             'military_chemicals' => 2,
-            'petrochem_propane' => 2,
-            'petrochem_waste' => 1,
+            'petrochem_propane'  => 2,
+            'petrochem_waste'    => 1,
         ],
-        'petrochem_oil' => [
-            'petrochem_diesel' => 1,
+        'petrochem_oil'        => [
+            'petrochem_diesel'   => 1,
             'petrochem_kerosene' => 1,
-            'petrochem_petrol' => 2,
+            'petrochem_petrol'   => 2,
         ]
     ];
 
-    public string $pickupItemName;
+    public string $pickupName;
 
-    public int $pickupItemWeight;
+    public Item $pickupItem;
 
-    public int $truckCapacity;
+    public Inventories $inventories;
 
-    public int $pocketCapacity;
-
-    public int $storageCapacity;
-
-    public bool $leaveRoom;
-
-    public function __construct(string $pickupItemName,
-                                int $truckCapacity,
-                                bool $leaveRoom,
-                                int $pocketCapacity = 600,
-                                int $trainYardStorageCapacity = 30107)
+    public function __construct(string $pickupName, Inventories $inventories, bool $leaveRoom)
     {
-        $this->pickupItemName = $pickupItemName;
-        $this->pickupItemWeight = ItemData::getWeight($pickupItemName);
-        $this->truckCapacity = $truckCapacity;
-        $this->pocketCapacity = $pocketCapacity;
-        $this->storageCapacity = $trainYardStorageCapacity;
-        $this->leaveRoom = $leaveRoom;
+        $this->pickupName  = $pickupName;
+        $this->pickupItem = new Item($pickupName);
+        $this->inventories = $inventories;
+        $this->fillTrunksWithItem();
+
+        if ($leaveRoom) {
+            $this->fillTrainYardWithProcessedItems();
+        }
     }
 
-    public function pickupItemsCountTrailer(): int
+    protected function fillTrainYardWithProcessedItems(): void
     {
-        return (int) floor($this->truckCapacity / $this->pickupItemWeight);
+        /** @var Trunk $trainYard */
+        $trainYard = $this->inventories->trunks->firstWhere('name', 'trainYard');
+
+        foreach (self::$yields[$this->pickupName] as $itemName => $count) {
+            $trainYard->load->push(new InventoryItem($itemName, $this->fullLoadCount() * $count) );
+        }
     }
 
-    public function pickupItemsCountPocket(): int
+    public function getTrunksExceptTrainYard(): Collection
     {
-        return (int) floor($this->pocketCapacity / $this->pickupItemWeight);
-    }
-
-    public function pickupItemRefinedWeight(): int
-    {
-        return collect(self::$yields[$this->pickupItemName])
-            ->map(function (int $itemCount, string $itemName) {
-                return new InventoryItem($itemName, $itemCount);
-            })
-            ->sum(function (InventoryItem $item) {
-                return $item->getTotalWeight();
+        return $this->inventories->trunks
+            ->reject(function (Trunk $trunk) {
+                return $trunk->name == 'trainYard';
             });
     }
 
-    public function leftoverWeightNeededForFirstRefine(): int
+    protected function fillTrunksWithItem(): void
     {
-        return ( $this->pickupItemsCountTrailer() + $this->pickupItemsCountPocket() )
-            * $this->pickupItemRefinedWeight();
+        /** @var Trunk $trunk */
+        $this->getTrunksExceptTrainYard()
+            ->each(function (Trunk $trunk) {
+                $trunk->fillLoadWithItem($this->pickupName);
+            });
     }
 
-    public function usableStorageCapacity(): int
+    public function fullLoadCount(): int
     {
-        if ($this->leaveRoom) {
-            return $this->storageCapacity - $this->leftoverWeightNeededForFirstRefine();
-        }
-        return $this->storageCapacity;
+        return $this->inventories->trunks
+            ->sum(function (Trunk $trunk) {
+                return $trunk->load->firstWhere('name', $this->pickupName)?->count ?? 0;
+            });
     }
 
-    public function oneRunTotalWeight(): int
+    public function runsThatCanFitInTrainYard(): int
     {
-        return ( $this->pickupItemsCountTrailer() + $this->pickupItemsCountPocket() )
-            * $this->pickupItemWeight;
-    }
+        /** @var Trunk $trainYardStorage */
+        $trainYardStorage = $this->inventories->trunks->firstWhere('name', 'trainYard');
+        $fullLoadWeight   = $this->fullLoadCount() * $this->pickupItem->weight;
 
-    public function howManyTimesTrainYardCanBeUsed(): int
-    {
-        if ($this->oneRunTotalWeight() < 1) return 0;
-
-        return (int) floor($this->usableStorageCapacity() / $this->oneRunTotalWeight());
+        return floor( $trainYardStorage->getAvailableCapacity() / $fullLoadWeight );
     }
 }

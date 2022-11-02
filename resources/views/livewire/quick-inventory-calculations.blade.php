@@ -1,6 +1,7 @@
 <?php
 /** @var \App\TT\Items\Item $item */
 /** @var \App\TT\Trunk $trunk */
+/** @var \App\TT\TrainYardPickUp $trainYardPickup */
 ?>
 <div>
     <x-collapsable-card title="Quick Calculations">
@@ -59,10 +60,13 @@
                 <table class="table table-sm border">
                     @foreach($trainYardPickups as $trainYardPickup)
                     <tr>
-                        <td class="fw-bold">{{ \App\TT\Items\ItemData::getName($trainYardPickup->pickupItemName) }}</td>
-                        <td>Trailer: {{ $trainYardPickup->pickupItemsCountTrailer() }}</td>
-                        <td>Pocket: {{ $trainYardPickup->pickupItemsCountPocket() }}</td>
-                        <td>Runs Stored: {{ $trainYardPickup->howManyTimesTrainYardCanBeUsed() }}</td>
+                        <td class="fw-bold">{{ \App\TT\Items\ItemData::getName($trainYardPickup->pickupName) }}</td>
+
+                        @foreach($trainYardPickup->getTrunksExceptTrainYard() as $trunk)
+                            <td>{{ $trunk->displayName() }}: {{ $trunk->load->first()->count }}</td>
+                        @endforeach
+
+                        <td class="border-start text-center">Runs: {{ $trainYardPickup->runsThatCanFitInTrainYard() }}</td>
                     </tr>
                     @endforeach
                 </table>

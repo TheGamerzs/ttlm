@@ -6,13 +6,14 @@ use App\TT\Items\CraftingMaterial;
 use App\TT\Recipe;
 use App\TT\Storage;
 use App\TT\StorageFactory;
-use Livewire\Component;
+use App\TT\Trunk;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * @property Storage $storage
  * @property int     $countCanBeMade
  */
-class ParentRecipeTable extends Component
+class ParentRecipeTable extends BaseComponent
 {
     use ParentRecipeLivewireCast;
 
@@ -23,7 +24,7 @@ class ParentRecipeTable extends Component
 
     public int $truckCapacity;
 
-    public array|string $storageName = 'combined';
+    public string $storageName = 'combined';
 
     public string|Recipe $parentRecipe = '';
 
@@ -78,6 +79,14 @@ class ParentRecipeTable extends Component
             return 'Transfer';
         }
         return 'Fill Trailer';
+    }
+
+    public function recipesThatCanFitInFullLoad()
+    {
+        return Auth::user()->makeTruckingInventories()->trunks
+            ->sum(function (Trunk $trunk) {
+                return $this->parentRecipe->howManyItemsCanFit($trunk->capacity);
+            });
     }
 
     public function render()

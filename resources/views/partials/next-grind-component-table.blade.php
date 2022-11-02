@@ -34,7 +34,7 @@
     @foreach($viewModel->inventories as $trunk)
     <tr>
         <th scope="row">
-            Fill {{ $trunk->displayName() }} Trailer
+            Fill {{ $trunk->displayName() }} Trunk
             <span title="How many full trailers worth you currently have in storage.">
                 ({{ $viewModel->recipe->howManyFullLoadsFromStorage($trunk->capacity) }})
             </span>

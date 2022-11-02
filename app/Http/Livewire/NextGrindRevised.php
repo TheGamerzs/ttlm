@@ -10,6 +10,7 @@ use App\TT\RecipeFactory;
 use App\TT\ShoppingListBuilder;
 use App\TT\Storage;
 use App\TT\StorageFactory;
+use App\TT\Trunk;
 use App\View\NextGrindViewModel;
 use Illuminate\Support\Facades\Auth;
 
@@ -174,8 +175,11 @@ class NextGrindRevised extends BaseComponent
 
     public function getParentRecipeCountForFullTrailer()
     {
-        return $this->parentRecipe->components->firstWhere('name', $this->recipe->internalName())->recipeCount
-            * $this->parentRecipe->howManyRecipesCanFit($this->truckCapacity);
+        return Auth::user()->makeTruckingInventories()->trunks
+            ->sum(function (Trunk $trunk) {
+                return $this->parentRecipe->components->firstWhere('name', $this->recipe->internalName())->recipeCount
+                    * $this->parentRecipe->howManyRecipesCanFit($trunk->capacity);
+            });
     }
 
     public function getNeededForParentTrailer()

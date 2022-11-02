@@ -128,7 +128,7 @@ it('returns a component by name', function () {
 it('returns inventory items of components ratioed to recipe to fill a trunk load', function () {
 
     $recipe = RecipeFactory::get(new Item('crafted_rebar'));
-    $items = $recipe->componentsThatCanFitAsInventoryItems(9775);
+    $items = $recipe->componentsThatCanFitAsInventoryItems(9775, false);
 
     expect($items)->toBeInstanceOf(Collection::class)
         ->and($items->count())->toBe(2);

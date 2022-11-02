@@ -90,7 +90,7 @@ it('populates load with components given a recipe', function () {
     $trunk = new Trunk('mk13', 9775);
     $recipe = \App\TT\RecipeFactory::get(new Item('refined_solder'));
 
-    $trunk->fillLoadWithComponentsForRecipe($recipe);
+    $trunk->fillLoadWithComponentsForRecipe($recipe, false);
 
     expect($trunk->load->contains('name', 'refined_aluminum'))->toBeTrue()
         ->and($trunk->load->contains('name', 'scrap_lead'))->toBeTrue();

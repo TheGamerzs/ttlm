@@ -1,6 +1,7 @@
 <?php
 
 use App\TT\Items\InventoryItem;
+use App\TT\Items\Item;
 use App\TT\Recipe;
 use App\View\NextGrindViewModel;
 
@@ -33,7 +34,14 @@ it('sets trunk loads when a recipe is set', function () {
         'truckCapacity' => 9775,
     ]);
 
-    $viewModel = (new NextGrindViewModel($user->makeTruckingInventories()))->setRecipeFromString('crafted_rebar');
+    $recipe = \App\TT\RecipeFactory::get(new Item('crafted_rebar'))
+        ->setInStorageForAllComponents(new \App\TT\Storage([
+            new InventoryItem('refined_amalgam', 1000),
+            new InventoryItem('refined_bronze', 1000),
+        ]));
+
+    $viewModel = (new NextGrindViewModel($user->makeTruckingInventories()))
+        ->setRecipe($recipe);
 
     $trunk = $viewModel->inventories->trunks->first();
     $amalgam = $trunk->load->firstWhere('name', 'refined_amalgam');

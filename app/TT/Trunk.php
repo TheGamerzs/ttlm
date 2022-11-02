@@ -50,9 +50,9 @@ class Trunk
         return str($this->name)->headline();
     }
 
-    public function fillLoadWithComponentsForRecipe(Recipe $recipe): self
+    public function fillLoadWithComponentsForRecipe(Recipe $recipe, bool $limitToStorage = true): self
     {
-        $this->load = $recipe->componentsThatCanFitAsInventoryItems($this->getAvailableCapacity());
+        $this->load = $recipe->componentsThatCanFitAsInventoryItems($this->getAvailableCapacity(), $limitToStorage);
 
         return $this;
     }

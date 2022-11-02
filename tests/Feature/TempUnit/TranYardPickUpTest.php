@@ -33,7 +33,7 @@ it('constructs', function () {
 
 it('calculates the total count of pickup items that can be carried', function () {
 
-    $trainYardPickUp = new \App\TT\TrainYardPickUp('recycled_waste', $this->truckingInventories, true);
+    $trainYardPickUp = new \App\TT\TrainYardPickUp('recycled_waste', $this->truckingInventories, false);
 
     expect($trainYardPickUp->fullLoadCount())->toBe(144)
         ->and($trainYardPickUp->runsThatCanFitInTrainYard())->toBe(4);

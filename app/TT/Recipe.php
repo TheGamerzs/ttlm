@@ -157,8 +157,18 @@ class Recipe
         );
     }
 
-    public function componentsThatCanFitAsInventoryItems(int $truckCapacity): Collection
+    public function componentsThatCanFitAsInventoryItems(int $truckCapacity, $limitFromStorage = true): Collection
     {
+        if ($limitFromStorage && (float) $this->howManyFullLoadsFromStorage($truckCapacity) < 1) {
+            return $this->components
+                ->map(function (CraftingMaterial $craftingMaterial) use ($truckCapacity) {
+                    return InventoryItem::fromCraftingMaterial(
+                        $craftingMaterial,
+                        $craftingMaterial->recipeCount * $this->craftableRecipesFromStorage()
+                    );
+                });
+        }
+
         return $this->components->map(function (CraftingMaterial $craftingMaterial) use ($truckCapacity) {
             return InventoryItem::fromCraftingMaterial(
                 $craftingMaterial,
@@ -166,6 +176,5 @@ class Recipe
             );
         });
     }
-
 
 }

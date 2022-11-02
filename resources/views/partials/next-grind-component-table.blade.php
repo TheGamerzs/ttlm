@@ -32,7 +32,7 @@
     </tr>
 
     @foreach($viewModel->inventories as $trunk)
-    <tr>
+    <tr @class(['table-warning' => $viewModel->recipe->howManyFullLoadsFromStorage($trunk->capacity) < 1])>
         <th scope="row">
             Fill {{ $trunk->displayName() }} Trunk
             <span title="How many full trailers worth you currently have in storage.">
@@ -40,7 +40,7 @@
             </span>
         </th>
         @foreach($trunk->load as $inventoryItem)
-            <td>{{ $inventoryItem->count }}</td>
+            <td title="{{ $inventoryItem->name() }}">{{ $inventoryItem->count }}</td>
         @endforeach
     </tr>
     @endforeach

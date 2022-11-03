@@ -8,7 +8,13 @@
                 </th>
                 @foreach($viewModel->itemNameColumnHeaders($type) as $columnHeader)
                     <td @class(['text-center', 'table-success' => ! $columnHeader->isStillNeeded]) >
-                        {{ $columnHeader->displayName }}
+                        @if(App\TT\Recipes::getNamesIfComponentsExist()->contains($columnHeader->internalName ?? ''))
+                        <a href="#" wire:click.prevent="setRecipe('{{ $columnHeader->internalName }}', {{ $columnHeader->totalNeeded }})">
+                            {{ $columnHeader->displayName }}
+                        </a>
+                        @else
+                            {{ $columnHeader->displayName }}
+                        @endif
                     </td>
                 @endforeach
             </tr>

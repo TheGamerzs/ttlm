@@ -50,6 +50,15 @@ class ShoppingListViewModel
         return $this->flatStillNeededCounts[$internalName];
     }
 
+    public function getTotalNeededCount(string $internalName): int
+    {
+        return $this->totalNeededList
+                ->only(['scrap', 'crafted', 'refined'])
+                ->flatten()
+                ->firstWhere('recipeName', $internalName)
+                ->count ?? 0;
+    }
+
     public function itemNameColumnHeaders(string $type): Collection
     {
         if ($type == 'pickup') return $this->itemNameColumnHeadersForPickups();
@@ -58,6 +67,8 @@ class ShoppingListViewModel
             $columnHeader = new \stdClass();
             $columnHeader->displayName = $recipeListItem->recipe->displayName();
             $columnHeader->isStillNeeded = (bool) $this->getStillNeededCount($recipeListItem->recipeName);
+            $columnHeader->internalName = $recipeListItem->recipeName;
+            $columnHeader->totalNeeded = $this->getTotalNeededCount($recipeListItem->recipeName);
             return $columnHeader;
         });
     }

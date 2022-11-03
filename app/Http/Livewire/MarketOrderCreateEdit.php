@@ -127,7 +127,7 @@ class MarketOrderCreateEdit extends BaseComponent
         $storage = StorageFactory::get($this->marketOrder->storage);
         $inventoryItem = $storage->firstWhere('name', $this->marketOrder->item_name);
 
-        if (! $bypassWarning) {
+        if (! $bypassWarning && $this->marketOrder->type == 'sell') {
             if (is_null($inventoryItem) || $inventoryItem->count < $this->marketOrder->count) {
                 $this->warn = true;
                 return;

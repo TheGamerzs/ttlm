@@ -57,4 +57,11 @@ class Inventories implements \IteratorAggregate, \Countable
         return $this;
     }
 
+    public function totalAvailableCapacity(): int
+    {
+        return $this->trunks->sum(function (Trunk $trunk) {
+            return $trunk->getAvailableCapacity();
+        });
+    }
+
 }

@@ -1,0 +1,74 @@
+{
+    "crafted_cement": {
+        "item": {
+            "name": "crafted_cement",
+            "prettyName": "Truck Cargo: Cement Mix",
+            "weight": 25
+        },
+        "totalNeeded": 5000,
+        "stillNeeded": 3774
+    },
+    "crafted_ceramictiles": {
+        "item": {
+            "name": "crafted_ceramictiles",
+            "prettyName": "Truck Cargo: Ceramic Tiles",
+            "weight": 10
+        },
+        "totalNeeded": 4000,
+        "stillNeeded": 3206
+    },
+    "crafted_computer": {
+        "item": {
+            "name": "crafted_computer",
+            "prettyName": "Truck Cargo: Computers",
+            "weight": 35
+        },
+        "totalNeeded": 1000,
+        "stillNeeded": 720
+    },
+    "crafted_concrete": {
+        "item": {
+            "name": "crafted_concrete",
+            "prettyName": "Truck Cargo: Concrete",
+            "weight": 160
+        },
+        "totalNeeded": 1000,
+        "stillNeeded": 779
+    },
+    "crafted_copperwire": {
+        "item": {
+            "name": "crafted_copperwire",
+            "prettyName": "Truck Cargo: Copper Wire Spool",
+            "weight": 20
+        },
+        "totalNeeded": 1250,
+        "stillNeeded": 643
+    },
+    "crafted_rebar": {
+        "item": {
+            "name": "crafted_rebar",
+            "prettyName": "Truck Cargo: Rebar",
+            "weight": 45
+        },
+        "totalNeeded": 1000,
+        "stillNeeded": 810
+    },
+    "crafted_batteries": {
+        "item": {
+            "name": "crafted_batteries",
+            "prettyName": "Truck Cargo: Batteries",
+            "weight": 30
+        },
+        "totalNeeded": 500,
+        "stillNeeded": 208
+    },
+    "crafted_circuit": {
+        "item": {
+            "name": "crafted_circuit",
+            "prettyName": "Truck Cargo: Circuit Boards",
+            "weight": 20
+        },
+        "totalNeeded": 500,
+        "stillNeeded": 246
+    }
+}

@@ -1,0 +1,128 @@
+{
+    "refined_sand": {
+        "item": {
+            "name": "refined_sand",
+            "prettyName": "Truck Cargo: Sand",
+            "weight": 5
+        },
+        "totalNeeded": 29000,
+        "stillNeeded": 21578
+    },
+    "refined_flint": {
+        "item": {
+            "name": "refined_flint",
+            "prettyName": "Truck Cargo: Flint",
+            "weight": 5
+        },
+        "totalNeeded": 20000,
+        "stillNeeded": 15390
+    },
+    "tcargodust": {
+        "item": {
+            "name": "tcargodust",
+            "prettyName": "Truck Cargo: Sawdust",
+            "weight": 3
+        },
+        "totalNeeded": 10000,
+        "stillNeeded": 5440
+    },
+    "scrap_tin": {
+        "item": {
+            "name": "scrap_tin",
+            "prettyName": "Truck Cargo: Scrap Tin",
+            "weight": 5
+        },
+        "totalNeeded": 6500,
+        "stillNeeded": 2910
+    },
+    "scrap_copper": {
+        "item": {
+            "name": "scrap_copper",
+            "prettyName": "Truck Cargo: Scrap Copper",
+            "weight": 5
+        },
+        "totalNeeded": 6000,
+        "stillNeeded": 280
+    },
+    "scrap_mercury": {
+        "item": {
+            "name": "scrap_mercury",
+            "prettyName": "Truck Cargo: Scrap Mercury",
+            "weight": 15
+        },
+        "totalNeeded": 3000,
+        "stillNeeded": 2410
+    },
+    "scrap_plastic": {
+        "item": {
+            "name": "scrap_plastic",
+            "prettyName": "Truck Cargo: Scrap Plastic",
+            "weight": 5
+        },
+        "totalNeeded": 2500,
+        "stillNeeded": 0
+    },
+    "scrap_acid": {
+        "item": {
+            "name": "scrap_acid",
+            "prettyName": "Truck Cargo: Acid",
+            "weight": 5
+        },
+        "totalNeeded": 3000,
+        "stillNeeded": 896
+    },
+    "refined_planks": {
+        "item": {
+            "name": "refined_planks",
+            "prettyName": "Truck Cargo: Planks",
+            "weight": 15
+        },
+        "totalNeeded": 2625,
+        "stillNeeded": 1674
+    },
+    "scrap_ore": {
+        "item": {
+            "name": "scrap_ore",
+            "prettyName": "Truck Cargo: Raw Ore Mix",
+            "weight": 15
+        },
+        "totalNeeded": 1000,
+        "stillNeeded": 0
+    },
+    "scrap_gold": {
+        "item": {
+            "name": "scrap_gold",
+            "prettyName": "Truck Cargo: Scrap Gold",
+            "weight": 10
+        },
+        "totalNeeded": 1000,
+        "stillNeeded": 685
+    },
+    "liquid_water_raw": {
+        "item": {
+            "name": "liquid_water_raw",
+            "prettyName": "Truck Cargo: Unfiltered Water (100L)",
+            "weight": 100
+        },
+        "totalNeeded": 1000,
+        "stillNeeded": 644
+    },
+    "scrap_aluminum": {
+        "item": {
+            "name": "scrap_aluminum",
+            "prettyName": "Truck Cargo: Scrap Aluminum",
+            "weight": 5
+        },
+        "totalNeeded": 1252,
+        "stillNeeded": 0
+    },
+    "scrap_lead": {
+        "item": {
+            "name": "scrap_lead",
+            "prettyName": "Truck Cargo: Scrap Lead",
+            "weight": 15
+        },
+        "totalNeeded": 376,
+        "stillNeeded": 0
+    }
+}

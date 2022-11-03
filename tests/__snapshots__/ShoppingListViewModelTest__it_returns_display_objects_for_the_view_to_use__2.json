@@ -6,7 +6,8 @@
             "weight": 10
         },
         "totalNeeded": 3000,
-        "stillNeeded": 1894
+        "stillNeeded": 1894,
+        "runCount": 0
     },
     "refined_amalgam": {
         "item": {
@@ -15,7 +16,8 @@
             "weight": 15
         },
         "totalNeeded": 3000,
-        "stillNeeded": 2422
+        "stillNeeded": 2422,
+        "runCount": 0
     },
     "refined_copper": {
         "item": {
@@ -24,7 +26,8 @@
             "weight": 10
         },
         "totalNeeded": 2500,
-        "stillNeeded": 253
+        "stillNeeded": 253,
+        "runCount": 0
     },
     "refined_solder": {
         "item": {
@@ -33,7 +36,8 @@
             "weight": 5
         },
         "totalNeeded": 1500,
-        "stillNeeded": 0
+        "stillNeeded": 0,
+        "runCount": 0
     },
     "liquid_water": {
         "item": {
@@ -42,7 +46,8 @@
             "weight": 100
         },
         "totalNeeded": 1000,
-        "stillNeeded": 644
+        "stillNeeded": 644,
+        "runCount": 0
     },
     "refined_bronze": {
         "item": {
@@ -51,7 +56,8 @@
             "weight": 10
         },
         "totalNeeded": 1000,
-        "stillNeeded": 790
+        "stillNeeded": 790,
+        "runCount": 0
     },
     "refined_zinc": {
         "item": {
@@ -60,7 +66,8 @@
             "weight": 10
         },
         "totalNeeded": 500,
-        "stillNeeded": 0
+        "stillNeeded": 0,
+        "runCount": 0
     },
     "refined_aluminum": {
         "item": {
@@ -69,6 +76,7 @@
             "weight": 10
         },
         "totalNeeded": 376,
-        "stillNeeded": 0
+        "stillNeeded": 0,
+        "runCount": 0
     }
 }

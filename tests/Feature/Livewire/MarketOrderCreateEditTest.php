@@ -120,6 +120,22 @@ it('warns when the user selects storage, item, and count, that they do not have'
 
 });
 
+it('does not warn when the user for types other than sell', function () {
+
+    actingAs($user = User::factory()->create());
+
+    Livewire::test(MarketOrderCreateEdit::class)
+        ->call('startWithItem', 'scrap_gold', 100)
+        ->set('marketOrder.storage', 'biz_granny')
+        ->set('marketOrder.price_each', 100)
+        ->set('marketOrder.type', 'buy')
+        ->call('save')
+        ->assertSet('warn', false);
+
+    expect(MarketOrder::count())->toBe(1);
+
+});
+
 it('can bypass the warning', function () {
 
     actingAs($user = User::factory()->create());

@@ -2,19 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\TT\Items\Item;
-use App\TT\RecipeFactory;
-use App\TT\ShoppingListBuilder;
-use App\TT\Storage;
-use App\TT\StorageFactory;
-use Illuminate\Support\Facades\Auth;
-
 class ShoppingListController
 {
     public function index()
     {
-        return view('shopping-list')->with([
-            'truckCapacity' => Auth::user()->truckCapacity
-        ]);
+        return view('shopping-list');
     }
 }

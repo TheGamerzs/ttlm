@@ -8,6 +8,7 @@ use App\TT\ShoppingListBuilder;
 use App\TT\Storage;
 use App\TT\StorageFactory;
 use App\View\ShoppingList\ShoppingListViewModel;
+use Illuminate\Support\Facades\Auth;
 
 class ShoppingListIndex extends BaseComponent
 {
@@ -16,8 +17,6 @@ class ShoppingListIndex extends BaseComponent
     ];
 
     public string $recipeName = 'house';
-
-    public int $truckCapacity;
 
     public string $count = '300';
 
@@ -33,18 +32,20 @@ class ShoppingListIndex extends BaseComponent
 
     public function render()
     {
+        $trunkCapacity = Auth::user()->makeTruckingInventories()->totalAvailableCapacity();
+
         $totalNeededList = ShoppingListBuilder::build(
             RecipeFactory::get(new Item($this->recipeName)),
             new Storage(),
             (int) $this->count,
-            $this->truckCapacity
+            $trunkCapacity
         );
 
         $stillNeededList = ShoppingListBuilder::build(
             RecipeFactory::get(new Item($this->recipeName)),
             StorageFactory::get('combined'),
             (int) $this->count,
-            $this->truckCapacity
+            $trunkCapacity
         );
 
         return view('livewire.shopping-list-index')->with([

@@ -151,6 +151,8 @@ class Recipe
 
     public function howManyFullLoadsFromCount(int $truckCapacity, int $count): string
     {
+        if ($this->howManyItemsCanFit($truckCapacity) == 0) return '0';
+
         return number_format(
             $count / $this->howManyItemsCanFit($truckCapacity),
             1

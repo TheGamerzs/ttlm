@@ -14,10 +14,13 @@ class ShoppingListViewModel
 
     protected array $flatStillNeededCounts;
 
+    protected array $neededRunCalculations;
+
     public function __construct(Collection $totalNeededList, Collection $stillNeededList)
     {
         $this->stillNeededList = $stillNeededList;
         $this->totalNeededList = $totalNeededList;
+        $this->neededRunCalculations = $stillNeededList['pickupCalculator']->getRunCalculations()->toArray();
 
         $stillNeededCounts = $stillNeededList->only(['crafted', 'refined', 'scrap'])
             ->flatten()
@@ -93,7 +96,8 @@ class ShoppingListViewModel
                     return new ShoppingListDisplayItem(
                         new Item($internalName),
                         $totalNeeded ?? 0,
-                        $this->getStillNeededCount($internalName)
+                        $this->getStillNeededCount($internalName),
+                        $this->neededRunCalculations[$internalName] ?? 0
                     );
                 })
                 ->filter(function (ShoppingListDisplayItem $displayItem) {
@@ -102,10 +106,17 @@ class ShoppingListViewModel
         }
 
         return $this->totalNeededList[$type]->map(function (RecipeShoppingListDecorator $recipeListItem) {
+            $runCount = 0;
+
+            if(collect(['refined_planks', 'tcargodust'])->contains($recipeListItem->recipeName)) {
+                $runCount = $this->neededRunCalculations[$recipeListItem->recipeName] ?? 0;
+            }
+
             return new ShoppingListDisplayItem(
                 new Item($recipeListItem->recipeName),
                 $this->getTotalNeededCount($recipeListItem->recipeName),
-                $this->getStillNeededCount($recipeListItem->recipeName)
+                $this->getStillNeededCount($recipeListItem->recipeName),
+                $runCount
             );
         });
     }

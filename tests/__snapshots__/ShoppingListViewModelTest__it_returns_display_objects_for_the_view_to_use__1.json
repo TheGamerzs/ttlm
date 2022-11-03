@@ -6,7 +6,8 @@
             "weight": 25
         },
         "totalNeeded": 5000,
-        "stillNeeded": 3774
+        "stillNeeded": 3774,
+        "runCount": 0
     },
     "crafted_ceramictiles": {
         "item": {
@@ -15,7 +16,8 @@
             "weight": 10
         },
         "totalNeeded": 4000,
-        "stillNeeded": 3206
+        "stillNeeded": 3206,
+        "runCount": 0
     },
     "crafted_computer": {
         "item": {
@@ -24,7 +26,8 @@
             "weight": 35
         },
         "totalNeeded": 1000,
-        "stillNeeded": 720
+        "stillNeeded": 720,
+        "runCount": 0
     },
     "crafted_concrete": {
         "item": {
@@ -33,7 +36,8 @@
             "weight": 160
         },
         "totalNeeded": 1000,
-        "stillNeeded": 779
+        "stillNeeded": 779,
+        "runCount": 0
     },
     "crafted_copperwire": {
         "item": {
@@ -42,7 +46,8 @@
             "weight": 20
         },
         "totalNeeded": 1250,
-        "stillNeeded": 643
+        "stillNeeded": 643,
+        "runCount": 0
     },
     "crafted_rebar": {
         "item": {
@@ -51,7 +56,8 @@
             "weight": 45
         },
         "totalNeeded": 1000,
-        "stillNeeded": 810
+        "stillNeeded": 810,
+        "runCount": 0
     },
     "crafted_batteries": {
         "item": {
@@ -60,7 +66,8 @@
             "weight": 30
         },
         "totalNeeded": 500,
-        "stillNeeded": 208
+        "stillNeeded": 208,
+        "runCount": 0
     },
     "crafted_circuit": {
         "item": {
@@ -69,6 +76,7 @@
             "weight": 20
         },
         "totalNeeded": 500,
-        "stillNeeded": 246
+        "stillNeeded": 246,
+        "runCount": 0
     }
 }

@@ -6,7 +6,8 @@
             "weight": 150
         },
         "totalNeeded": 4167,
-        "stillNeeded": 3207
+        "stillNeeded": 3207,
+        "runCount": 50
     },
     "tcargologs": {
         "item": {
@@ -15,7 +16,8 @@
             "weight": 60
         },
         "totalNeeded": 3622,
-        "stillNeeded": 2216
+        "stillNeeded": 2216,
+        "runCount": 0
     },
     "recycled_trash": {
         "item": {
@@ -24,7 +26,8 @@
             "weight": 90
         },
         "totalNeeded": 1625,
-        "stillNeeded": 728
+        "stillNeeded": 728,
+        "runCount": 7
     },
     "recycled_waste": {
         "item": {
@@ -33,7 +36,8 @@
             "weight": 110
         },
         "totalNeeded": 1500,
-        "stillNeeded": 1205
+        "stillNeeded": 1205,
+        "runCount": 14
     },
     "recycled_electronics": {
         "item": {
@@ -42,7 +46,8 @@
             "weight": 130
         },
         "totalNeeded": 1000,
-        "stillNeeded": 684
+        "stillNeeded": 684,
+        "runCount": 10
     },
     "liquid_water_raw": {
         "item": {
@@ -51,6 +56,7 @@
             "weight": 100
         },
         "totalNeeded": 1000,
-        "stillNeeded": 644
+        "stillNeeded": 644,
+        "runCount": 7
     }
 }

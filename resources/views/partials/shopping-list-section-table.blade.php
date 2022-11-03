@@ -1,3 +1,7 @@
+<?php
+/** @var \App\View\ShoppingList\ShoppingListViewModel $viewModel */
+/** @var \App\View\ShoppingList\ShoppingListDisplayItem $displayItem */
+?>
 <div class="row">
     <div class="col-12">
         <table class="table">
@@ -6,14 +10,14 @@
                 <th class="fs-4">
                     {{ str($type)->title() }}
                 </th>
-                @foreach($viewModel->itemNameColumnHeaders($type) as $columnHeader)
-                    <td @class(['text-center', 'table-success' => ! $columnHeader->isStillNeeded]) >
-                        @if(App\TT\Recipes::getNamesIfComponentsExist()->contains($columnHeader->internalName ?? ''))
-                        <a href="#" wire:click.prevent="setRecipe('{{ $columnHeader->internalName }}', {{ $columnHeader->totalNeeded }})">
-                            {{ $columnHeader->displayName }}
+                @foreach($viewModel->getDisplayItems($type) as $displayItem)
+                    <td @class(['text-center', 'table-success' => ! $displayItem->stillNeeded]) >
+                        @if(App\TT\Recipes::getNamesIfComponentsExist()->contains($displayItem->internalName() ?? ''))
+                        <a href="#" wire:click.prevent="setRecipe('{{ $displayItem->internalName() }}', {{ $displayItem->totalNeeded }})">
+                            {{ $displayItem->displayName() }}
                         </a>
                         @else
-                            {{ $columnHeader->displayName }}
+                            {{ $displayItem->displayName() }}
                         @endif
                     </td>
                 @endforeach
@@ -23,18 +27,18 @@
 
             <tr>
                 <td>Total Needed</td>
-                @foreach($viewModel->totalNeededColumns($type) as $count)
+                @foreach($viewModel->getDisplayItems($type) as $displayItem)
                     <td class="text-center cursor-normal">
-                        {{ $count }}
+                        {{ $displayItem->totalNeeded }}
                     </td>
                 @endforeach
             </tr>
 
             <tr>
                 <td>Still Needed</td>
-                @foreach($viewModel->stillNeededColumns($type) as $count)
+                @foreach($viewModel->getDisplayItems($type) as $displayItem)
                     <td class="text-center cursor-normal">
-                        {{ $count }}
+                        {{ $displayItem->stillNeeded }}
                     </td>
                 @endforeach
             </tr>

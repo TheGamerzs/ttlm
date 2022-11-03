@@ -2,7 +2,7 @@
 
 namespace App\View\ShoppingList;
 
-use App\TT\Items\ItemData;
+use App\TT\Items\Item;
 use App\TT\RecipeShoppingListDecorator;
 use Illuminate\Support\Collection;
 
@@ -35,8 +35,34 @@ class ShoppingListViewModel
 
                 return [$item->recipeName => $count];
             })
-            ->merge($this->stillNeededColumnsForPickups())
+            ->merge($this->stillNeededCountsForPickups())
             ->toArray();
+    }
+
+    protected function stillNeededCountsForPickups(): Collection
+    {
+        return collect($this->totalNeededList['pickupCalculator']->baseItemsCounts)
+            ->map(function ($count, $internalName) {
+                return (int) max(
+                    $this->stillNeededList['pickupCalculator']->baseItemsCounts[$internalName],
+                    0);
+            });
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Yes
+    |--------------------------------------------------------------------------
+    */
+
+    public function totalCraftingCost(): string
+    {
+        return '~$' . number_format($this->totalNeededList['totalCost']);
+    }
+
+    public function remainingCraftingCost(): string
+    {
+        return '~$' . number_format($this->stillNeededList['totalCost']);
     }
 
     public function showType(string $type): bool
@@ -59,76 +85,28 @@ class ShoppingListViewModel
                 ->count ?? 0;
     }
 
-    public function itemNameColumnHeaders(string $type): Collection
+    public function getDisplayItems(string $type): Collection
     {
-        if ($type == 'pickup') return $this->itemNameColumnHeadersForPickups();
+        if ($type == 'pickup') {
+            return collect($this->totalNeededList['pickupCalculator']->baseItemsCounts)
+                ->map(function ($totalNeeded, $internalName) {
+                    return new ShoppingListDisplayItem(
+                        new Item($internalName),
+                        $totalNeeded ?? 0,
+                        $this->getStillNeededCount($internalName)
+                    );
+                })
+                ->filter(function (ShoppingListDisplayItem $displayItem) {
+                    return $displayItem->totalNeeded;
+                });
+        }
 
         return $this->totalNeededList[$type]->map(function (RecipeShoppingListDecorator $recipeListItem) {
-            $columnHeader = new \stdClass();
-            $columnHeader->displayName = $recipeListItem->recipe->displayName();
-            $columnHeader->isStillNeeded = (bool) $this->getStillNeededCount($recipeListItem->recipeName);
-            $columnHeader->internalName = $recipeListItem->recipeName;
-            $columnHeader->totalNeeded = $this->getTotalNeededCount($recipeListItem->recipeName);
-            return $columnHeader;
+            return new ShoppingListDisplayItem(
+                new Item($recipeListItem->recipeName),
+                $this->getTotalNeededCount($recipeListItem->recipeName),
+                $this->getStillNeededCount($recipeListItem->recipeName)
+            );
         });
-    }
-
-    protected function itemNameColumnHeadersForPickups(): Collection
-    {
-        return collect($this->totalNeededList['pickupCalculator']->baseItemsCounts)
-            ->keys()
-            ->map(function ($internalName) {
-                $columnHeader = new \stdClass();
-                $columnHeader->displayName = ItemData::getName($internalName, true);
-                $columnHeader->isStillNeeded = (bool) $this->getStillNeededCount($internalName);
-                return $columnHeader;
-            });
-    }
-
-    public function totalNeededColumns(string $type): Collection
-    {
-        if ($type == 'pickup') return $this->totalNeededColumnsForPickups();
-
-        return $this->totalNeededList[$type]->pluck('count');
-    }
-
-    protected function totalNeededColumnsForPickups(): Collection
-    {
-        return collect($this->totalNeededList['pickupCalculator']->baseItemsCounts)
-            ->map(function ($count) {
-                return (int) max($count, 0);
-            });
-    }
-
-    public function stillNeededColumns(string $type): Collection
-    {
-        if ($type == 'pickup') return $this->stillNeededColumnsForPickups();
-
-        return $this->totalNeededList[$type]->map(function (RecipeShoppingListDecorator $recipeListItem) use ($type) {
-            return $this->stillNeededList[$type]
-                ->firstWhere('recipeName', $recipeListItem->recipeName)
-                ->count
-                ?? 0;
-        });
-    }
-
-    protected function stillNeededColumnsForPickups(): Collection
-    {
-        return collect($this->totalNeededList['pickupCalculator']->baseItemsCounts)
-            ->map(function ($count, $internalName) {
-                return (int) max(
-                    $this->stillNeededList['pickupCalculator']->baseItemsCounts[$internalName],
-                    0);
-            });
-    }
-
-    public function totalCraftingCost(): string
-    {
-        return '~$' . number_format($this->totalNeededList['totalCost']);
-    }
-
-    public function remainingCraftingCost(): string
-    {
-        return '~$' . number_format($this->stillNeededList['totalCost']);
     }
 }

@@ -1,0 +1,56 @@
+{
+    "recycled_rubble": {
+        "item": {
+            "name": "recycled_rubble",
+            "prettyName": "Truck Cargo: Quarry Rubble",
+            "weight": 150
+        },
+        "totalNeeded": 4167,
+        "stillNeeded": 3207
+    },
+    "tcargologs": {
+        "item": {
+            "name": "tcargologs",
+            "prettyName": "Truck Cargo: Logs",
+            "weight": 60
+        },
+        "totalNeeded": 3622,
+        "stillNeeded": 2216
+    },
+    "recycled_trash": {
+        "item": {
+            "name": "recycled_trash",
+            "prettyName": "Truck Cargo: Recycled Trash",
+            "weight": 90
+        },
+        "totalNeeded": 1625,
+        "stillNeeded": 728
+    },
+    "recycled_waste": {
+        "item": {
+            "name": "recycled_waste",
+            "prettyName": "Truck Cargo: Toxic Waste",
+            "weight": 110
+        },
+        "totalNeeded": 1500,
+        "stillNeeded": 1205
+    },
+    "recycled_electronics": {
+        "item": {
+            "name": "recycled_electronics",
+            "prettyName": "Truck Cargo: Recycled Electronics",
+            "weight": 130
+        },
+        "totalNeeded": 1000,
+        "stillNeeded": 684
+    },
+    "liquid_water_raw": {
+        "item": {
+            "name": "liquid_water_raw",
+            "prettyName": "Truck Cargo: Unfiltered Water (100L)",
+            "weight": 100
+        },
+        "totalNeeded": 1000,
+        "stillNeeded": 644
+    }
+}

@@ -27,7 +27,7 @@
     /** @var \App\TT\RecipeShoppingListDecorator $shoppingListItem */
     ?>
 
-    @foreach(['pickup', 'scrap', 'refined', 'crafted' ] as $type)
+    @foreach(['pickup', 'scrap', 'refined', 'crafted'] as $type)
         @includeWhen($viewModel->showType($type), 'partials.shopping-list-section-table', ['type' => $type])
     @endforeach
 

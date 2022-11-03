@@ -1,0 +1,74 @@
+{
+    "refined_tin": {
+        "item": {
+            "name": "refined_tin",
+            "prettyName": "Truck Cargo: Refined Tin",
+            "weight": 10
+        },
+        "totalNeeded": 3000,
+        "stillNeeded": 1894
+    },
+    "refined_amalgam": {
+        "item": {
+            "name": "refined_amalgam",
+            "prettyName": "Truck Cargo: Refined Amalgam",
+            "weight": 15
+        },
+        "totalNeeded": 3000,
+        "stillNeeded": 2422
+    },
+    "refined_copper": {
+        "item": {
+            "name": "refined_copper",
+            "prettyName": "Truck Cargo: Refined Copper",
+            "weight": 10
+        },
+        "totalNeeded": 2500,
+        "stillNeeded": 253
+    },
+    "refined_solder": {
+        "item": {
+            "name": "refined_solder",
+            "prettyName": "Truck Cargo: Refined Solder",
+            "weight": 5
+        },
+        "totalNeeded": 1500,
+        "stillNeeded": 0
+    },
+    "liquid_water": {
+        "item": {
+            "name": "liquid_water",
+            "prettyName": "Truck Cargo: Treated Water (100L)",
+            "weight": 100
+        },
+        "totalNeeded": 1000,
+        "stillNeeded": 644
+    },
+    "refined_bronze": {
+        "item": {
+            "name": "refined_bronze",
+            "prettyName": "Truck Cargo: Refined Bronze Alloy",
+            "weight": 10
+        },
+        "totalNeeded": 1000,
+        "stillNeeded": 790
+    },
+    "refined_zinc": {
+        "item": {
+            "name": "refined_zinc",
+            "prettyName": "Truck Cargo: Refined Zinc",
+            "weight": 10
+        },
+        "totalNeeded": 500,
+        "stillNeeded": 0
+    },
+    "refined_aluminum": {
+        "item": {
+            "name": "refined_aluminum",
+            "prettyName": "Truck Cargo: Refined Aluminum",
+            "weight": 10
+        },
+        "totalNeeded": 376,
+        "stillNeeded": 0
+    }
+}

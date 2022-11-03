@@ -26,6 +26,11 @@ class ShoppingListIndex extends BaseComponent
         'count' => ['except' => 1],
     ];
 
+    public function setRecipe(string $internalName, int $count)
+    {
+        return redirect()->route('shoppingList', ['recipeName' => $internalName, 'count' => $count]);
+    }
+
     public function render()
     {
         $totalNeededList = ShoppingListBuilder::build(

@@ -87,7 +87,7 @@ class MarketOrderCreateEdit extends BaseComponent
         $this->warn = false;
 
         $this->marketOrder = MarketOrder::make();
-        $this->marketOrder->item_name = $itemName ?? StorageFactory::getAllItemNames()->first();
+        $this->marketOrder->item_name = $itemName ?? StorageFactory::getAllItemNamesInCombinedStorage()->first();
         $this->marketOrder->type = 'sell';
 
         $this->marketOrder->storage =
@@ -112,7 +112,7 @@ class MarketOrderCreateEdit extends BaseComponent
 
     public function getItemOptionsList(): \Illuminate\Support\Collection|\App\TT\Storage
     {
-        return StorageFactory::getAllItemNames(true);
+        return StorageFactory::getAllItemNamesInCombinedStorage(true, true);
     }
 
     public function inverseType(): string

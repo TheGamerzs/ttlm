@@ -187,9 +187,13 @@ class StorageFactory
 //        }
     }
 
-    public static function getAllItemNames(bool $mapPrettyNames = false): Collection|Storage
+    public static function getAllItemNamesInCombinedStorage(bool $mapPrettyNames = false, $includeAllTrucking = false): Collection|Storage
     {
         $names = self::get('combined')->pluck('name')->sort();
+
+        if ($includeAllTrucking) {
+            $names = $names->merge(ItemData::getAllInternalTruckingNames())->unique();
+        }
 
         if ($mapPrettyNames) {
             return $names->mapWithKeys(function ($internalName) {

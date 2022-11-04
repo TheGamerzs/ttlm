@@ -17,7 +17,7 @@ class StoragesForItem extends Component
 
     public function getItemNames(): Collection
     {
-        return StorageFactory::getAllItemNames(true);
+        return StorageFactory::getAllItemNamesInCombinedStorage(true);
     }
 
 

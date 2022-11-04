@@ -2,25 +2,27 @@
 
 namespace App\Http\Livewire;
 
+use App\TT\Inventories;
 use App\TT\Items\Item;
 use App\TT\Recipe;
 use App\TT\RecipeFactory;
 use App\TT\Recipes;
 use App\TT\StorageFactory;
+use App\TT\Trunk;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use Livewire\Component;
 
-class RecipesWithFullLoads extends Component
+class RecipesWithFullLoads extends BaseComponent
 {
     protected $listeners = [
         'refresh' => '$refresh'
     ];
 
-    public int $truckCapacity;
+    public string $trunkOneCapacityUsed = '';
 
-    public array|string $storageName = 'combined';
+    public string $trunkTwoCapacityUsed = '';
 
-    public string $capacityUsed = '';
+    public string $storageName = 'combined';
 
     public function get()
     {
@@ -35,6 +37,17 @@ class RecipesWithFullLoads extends Component
             'sd_zinc_alloy'
         ];
 
+        /** @var Inventories $inventories */
+        $inventories = Auth::user()->makeTruckingInventories();
+        $inventories->trunks->first()->setCapacityUsed((int) $this->trunkOneCapacityUsed);
+        if ($inventories->trunks->count() > 1) {
+            $inventories->trunks->offsetGet(1)->setCapacityUsed((int) $this->trunkTwoCapacityUsed);
+        }
+
+        $availableCapacity = $inventories->trunks->sum(function (Trunk $trunk) {
+                return $trunk->getAvailableCapacity();
+            });
+
         return $allRecipes->filter(function ($item, $key) use ($otherThanCrafted) {
             $recipeName = Str::of($key);
             return
@@ -42,8 +55,10 @@ class RecipesWithFullLoads extends Component
                 $recipeName->is($otherThanCrafted);
         })->map(function ($item, $key) use ($storage) {
             return RecipeFactory::get(new Item($key))->setInStorageForAllComponents($storage);
-        })->filter(function (Recipe $recipe) {
-            return $recipe->craftableRecipesFromStorage() >= $recipe->howManyRecipesCanFit($this->truckCapacity - (int)$this->capacityUsed);
+        })->filter(function (Recipe $recipe) use ($availableCapacity) {
+            return $recipe->craftableRecipesFromStorage() >= $recipe->howManyRecipesCanFit($availableCapacity);
+        })->sortBy(function (Recipe $recipe) {
+            return StorageFactory::getCountFromCombinedForItem($recipe->inventoryItem);
         });
     }
 
@@ -51,7 +66,8 @@ class RecipesWithFullLoads extends Component
     {
         $this->get();
         return view('livewire.recipes-with-full-loads')->with([
-            'craftableRecipes' => $this->get()
+            'craftableRecipes' => $this->get(),
+            'inventories' => Auth::user()->makeTruckingInventories()
         ]);
     }
 }

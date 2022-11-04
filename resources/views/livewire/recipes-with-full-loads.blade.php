@@ -25,7 +25,7 @@
 
         <hr>
         @if($craftableRecipes->count())
-            <ul class="list-group">
+            <ul class="list-group border-bottom">
                 @foreach($craftableRecipes as $recipe)
                     <x-recipe-with-full-load-details :recipe="$recipe"
                                                      :trunk-one-capacity-used="$trunkOneCapacityUsed"

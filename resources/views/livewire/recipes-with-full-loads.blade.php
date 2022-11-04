@@ -1,6 +1,7 @@
 <?php
 /** @var \App\TT\Recipe $recipe */
 /** @var \App\TT\Items\CraftingMaterial $craftingMaterial */
+/** @var \App\TT\Inventories $inventories */
 ?>
 <div>
     <x-collapsable-card title="Full Loads Ready">
@@ -9,37 +10,26 @@
                 <x-select-options :items="\App\TT\StorageFactory::getRegisteredNames(true)"/>
             </x-select-choices>
         </div>
+
         <div class="form-floating mt-1">
-            <input type="text" class="form-control" id="capacityUsed" wire:model="capacityUsed" />
-            <label for="capacityUsed">Current Trailer Capacity Used</label>
+            <input type="text" class="form-control" id="capacityUsed" wire:model="trunkOneCapacityUsed" />
+            <label for="capacityUsed">Current Capacity Used In {{ $inventories->trunks->first()->displayName() }}</label>
         </div>
+
+        @if($inventories->count() > 1)
+        <div class="form-floating mt-1">
+            <input type="text" class="form-control" id="capacityUsed" wire:model="trunkTwoCapacityUsed" />
+            <label for="capacityUsed">Current Capacity Used In {{ $inventories->trunks->offsetGet(1)->displayName() }}</label>
+        </div>
+        @endif
+
         <hr>
         @if($craftableRecipes->count())
             <ul class="list-group">
                 @foreach($craftableRecipes as $recipe)
-                    <li class="list-group-item d-flex justify-content-center border-bottom-0">
-                        <h4>
-                            <x-add-to-game-plan
-                                    text="Take a full load of components for {{ $recipe->displayName() }} to {{ $recipe->craftingLocation }}."
-                            />
-                            <label title="Crafted at {{ $recipe->craftingLocation }}">
-                                {{ $recipe->displayName() }}
-                                @if($recipe->howManyFullLoadsFromStorage($truckCapacity) >= 2 && ! $capacityUsed)
-                                    ({{ floor($recipe->howManyFullLoadsFromStorage($truckCapacity)) }}x)
-                                @endif
-                            </label>
-                        </h4>
-                    </li>
-                    <li class="list-group-item text-center border-top-0 border-bottom-0">
-                        Makes: {{ $recipe->howManyItemsCanFit($truckCapacity - (int) $capacityUsed) }}
-                        <br>
-                        In Storage: {{ \App\TT\StorageFactory::getCountFromCombinedForItem($recipe->inventoryItem) }}
-                    </li>
-                    <li class="list-group-item d-flex justify-content-around border-top-0">
-                        @foreach($recipe->components as $craftingMaterial)
-                            <span>{{ $craftingMaterial->name() }}: {{ $recipe->howManyRecipesCanFit($truckCapacity - (int) $capacityUsed) * $craftingMaterial->recipeCount }}</span>
-                        @endforeach
-                    </li>
+                    <x-recipe-with-full-load-details :recipe="$recipe"
+                                                     :trunk-one-capacity-used="$trunkOneCapacityUsed"
+                                                     :trunk-two-capacity-used="$trunkTwoCapacityUsed"/>
                 @endforeach
             </ul>
         @endif

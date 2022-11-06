@@ -38,7 +38,7 @@ class NextGrindRevised extends BaseComponent
     // Properties for Goal Modal
     public string $goalCount;
 
-    public array|string $goalRecipe;
+    public string $goalRecipe;
 
     /*
     |--------------------------------------------------------------------------
@@ -92,8 +92,8 @@ class NextGrindRevised extends BaseComponent
 
     public function makeViewModel(): NextGrindViewModel
     {
-        return (new NextGrindViewModel( Auth::user()->makeTruckingInventories() ))
-           ->setRecipe($this->recipe);
+        return (new NextGrindViewModel(Auth::user()->makeTruckingInventories()))
+            ->setRecipe($this->recipe);
     }
 
     public function render()
@@ -199,6 +199,8 @@ class NextGrindRevised extends BaseComponent
             'toxic waste' => PickupRunYields::toxicWaste($this->truckCapacity),
             'crude oil' => PickupRunYields::crudeOil($this->truckCapacity, $this->getRecipe()->internalName()),
             'raw gas' => PickupRunYields::rawGas($this->truckCapacity),
+            'veggies' => PickupRunYields::veggies($this->truckCapacity),
+            'dairy' => PickupRunYields::dairy($this->truckCapacity),
             default => []
         };
     }

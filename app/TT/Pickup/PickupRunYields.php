@@ -129,4 +129,28 @@ class PickupRunYields
             ]
         ];
     }
+
+    public static function veggies($truckCapacity): array
+    {
+        $vegWeight = 15;
+        $pickupCount = floor($truckCapacity / $vegWeight);
+
+        return [
+            [
+                'fridge_veggies' => (int) $pickupCount
+            ]
+        ];
+    }
+
+    public static function dairy($truckCapacity): array
+    {
+        $dairyWeight = 15;
+        $pickupCount = floor($truckCapacity / $dairyWeight);
+
+        return [
+            [
+                'fridge_dairy' => (int) $pickupCount
+            ]
+        ];
+    }
 }

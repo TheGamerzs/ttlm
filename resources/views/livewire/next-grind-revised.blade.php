@@ -35,6 +35,7 @@
     <div>
         @includeWhen($viewModel->showComponentTable(), 'partials.next-grind-component-table')
         @includeWhen($this->getRecipe()->pickupRun, 'partials.next-grind-pickup-table')
+        @includeIf($viewModel->customViewName())
     </div>
 
     @include('livewire.crafting-goal-modal')

@@ -53,3 +53,13 @@ it('sets trunk loads when a recipe is set', function () {
         ->and($bronze->count)->toBe(176);
 
 });
+
+test('custom view name', function () {
+
+    $recipe = \App\TT\RecipeFactory::get(new Item('liberty_goods'));
+    $viewModel = new NextGrindViewModel(new \App\TT\Inventories());
+    $viewModel->setRecipe($recipe);
+
+    expect($viewModel->customViewName())->toBe('next-grind-custom.liberty-goods');
+
+});

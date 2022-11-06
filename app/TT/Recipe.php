@@ -42,6 +42,11 @@ class Recipe
         return $this->inventoryItem->name;
     }
 
+    public function kebabName(): string
+    {
+        return str($this->internalName())->camel()->kebab();
+    }
+
     public function howManyRecipesCanFit(int $capacityKG): int
     {
         if ($this->totalWeightOfComponentsToCraft()) {

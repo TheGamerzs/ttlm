@@ -142,3 +142,10 @@ it('returns inventory items of components ratioed to recipe to fill a trunk load
         ->and($bronze->count)->toBe(176);
 
 });
+
+it('has a kebab of the recipe internal name', function () {
+
+    $recipe = RecipeFactory::get(new Item('liberty_goods'));
+
+    expect($recipe->kebabName())->toBe('liberty-goods');
+});

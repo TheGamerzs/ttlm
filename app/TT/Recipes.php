@@ -409,7 +409,23 @@ class Recipes
             ]
         ];
 
-        // HVY Nightshark
+        $recipes['vehicle_shipment|nightshark|HVY Nightshark|car'] = [
+            'craftingLocation' => 'Vehicle Factory',
+            'cost' => 320000,
+            'components' => [
+                'crafted_circuit' => 12,
+                'crafted_fiberglass' => 25,
+                'liberty_goods' => 4,
+                'liquid_water' => 1,
+                'mechanicals_battery' => 2,
+                'mechanicals_chassis' => 2,
+                'mechanicals_vehicle_framework' => 2,
+                'mechanicals_wheels' => 4,
+                'military_titanium' => 60,
+                'refined_amalgam' => 40,
+                'refined_glass' => 15,
+            ]
+        ];
 
         $recipes['vehicle_shipment|vertice|Hijak Vertice|car'] = [
             'craftingLocation' => 'Vehicle Factory',
@@ -483,6 +499,18 @@ class Recipes
             ]
         ];
 
+        /*
+        |--------------------------------------------------------------------------
+        | Custom Pages
+        |--------------------------------------------------------------------------
+        */
+
+        $recipes['liberty_goods'] = [
+            'cost' => 0,
+            'wikiSlug' => 'Liberty_Goods',
+            'components' => [
+            ]
+        ];
 
         /*
         |--------------------------------------------------------------------------

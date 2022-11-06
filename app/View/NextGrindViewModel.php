@@ -66,4 +66,9 @@ class NextGrindViewModel
     {
         return \App\TT\StorageFactory::getRegisteredNames(true);
     }
+
+    public function customViewName(): string
+    {
+        return 'next-grind-custom.' . $this->recipe->kebabName();
+    }
 }

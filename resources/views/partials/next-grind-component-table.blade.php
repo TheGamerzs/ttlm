@@ -9,7 +9,7 @@
 <table class="table table-hover text-center">
     <thead>
     <tr>
-        <th scope="col" style="width: 15rem;"></th>
+        <th scope="col" style="width: 33%;"></th>
         @foreach($viewModel->recipe->components as $craftingMaterial)
             <th>{{ $craftingMaterial->name() }}</th>
         @endforeach
@@ -52,7 +52,7 @@
     @if($this->usingGoal())
         <tr @class(['table-warning' => $viewModel->recipe->craftableItemsFromStorage() < $this->goalCount ])>
             <th scope="row">
-                Still Needed For Goal ({{ $this->goalCount }})
+                Still Needed For Goal of {{ $this->goalCount }} {{ $this->getGoalRecipePluralName() }}
             </th>
             @foreach($this->getNeededForGoal() as $count)
                 <td>{{ $count }}</td>
@@ -61,7 +61,7 @@
     @endif
     <tr @class(['table-warning' => $this->getParentRecipeCountForFullTrailer() > $viewModel->recipe->craftableItemsFromStorage()])>
         <th scope="row">
-            One Trailer Run of {{ $this->getParentRecipe()->displayName() }}
+            One Trailer Run of {{ $this->getParentRecipe()->displayNamePlural() }}
             ({{ $this->getParentRecipeCountForFullTrailer() }})
         </th>
         @foreach($this->getNeededForParentTrailer() as $count)

@@ -151,6 +151,11 @@ class NextGrindRevised extends BaseComponent
         return (bool)(int)$this->goalCount;
     }
 
+    public function getGoalRecipePluralName(): string
+    {
+        return RecipeFactory::get(new Item($this->goalRecipe))?->displayNamePlural() ?? '';
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Business

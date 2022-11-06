@@ -171,3 +171,52 @@ it('updates the storage', function () {
     expect($component->getStorage()->contains('name', 'refined_planks'))->toBeTrue();
 
 });
+
+test('pickup runs', function (string $recipeName, string $runName) {
+
+    $componentClass = new NextGrindRevised();
+    $componentClass->truckCapacity = 15775;
+    $componentClass->changeRecipe($recipeName);
+    $yields = $componentClass->pickupRunYields();
+
+    \Spatie\Snapshots\assertMatchesSnapshot($yields);
+
+})
+    ->with([
+    [
+        'scrap_emerald',
+        'quarry'
+    ],
+    [
+        'refined_planks',
+        'logging camp'
+    ],
+    [
+        'scrap_aluminum',
+        'trash'
+    ],
+    [
+        'scrap_copper',
+        'electronics'
+    ],
+    [
+        'scrap_acid',
+        'toxic waste'
+    ],
+    [
+        'petrochem_kerosene',
+        'crude oil'
+    ],
+    [
+        'military_chemicals',
+        'raw gas'
+    ],
+    [
+        'fridge_veggies',
+        'veggies'
+    ],
+    [
+        'fridge_dairy',
+        'dairy'
+    ],
+]);

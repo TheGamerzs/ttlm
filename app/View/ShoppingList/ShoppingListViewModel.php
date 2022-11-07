@@ -2,7 +2,7 @@
 
 namespace App\View\ShoppingList;
 
-use App\TT\Items\Item;
+use App\TT\Factories\ItemFactory;
 use App\TT\RecipeShoppingListDecorator;
 use Illuminate\Support\Collection;
 
@@ -94,7 +94,7 @@ class ShoppingListViewModel
             return collect($this->totalNeededList['pickupCalculator']->baseItemsCounts)
                 ->map(function ($totalNeeded, $internalName) {
                     return new ShoppingListDisplayItem(
-                        new Item($internalName),
+                        ItemFactory::make($internalName),
                         $totalNeeded ?? 0,
                         $this->getStillNeededCount($internalName),
                         $this->neededRunCalculations[$internalName] ?? 0
@@ -113,7 +113,7 @@ class ShoppingListViewModel
             }
 
             return new ShoppingListDisplayItem(
-                new Item($recipeListItem->recipeName),
+                ItemFactory::make($recipeListItem->recipeName),
                 $this->getTotalNeededCount($recipeListItem->recipeName),
                 $this->getStillNeededCount($recipeListItem->recipeName),
                 $runCount

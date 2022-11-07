@@ -181,8 +181,8 @@ test('pickup runs', function (string $recipeName, string $runName) {
     $componentClass->truckCapacity = 15775;
     $componentClass->changeRecipe($recipeName);
     $yields = $componentClass->pickupRunYields();
-    
-    \Spatie\Snapshots\assertMatchesSnapshot($yields);
+
+    \Spatie\Snapshots\assertMatchesJsonSnapshot(json_encode($yields));
 
 })
     ->with([

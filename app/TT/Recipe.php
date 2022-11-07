@@ -27,6 +27,11 @@ class Recipe
         $this->components    = collect();
     }
 
+    public static function make(Item|string $item): Recipe
+    {
+        return RecipeFactory::get($item);
+    }
+
     public function displayName(): string
     {
         return $this->inventoryItem->name();

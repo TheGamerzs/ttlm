@@ -65,9 +65,9 @@ function fakeStoragesAndPersonalInventoryCallsWithJson(): void
     fakePersonalInventoryApiCallWithStoredJson();
 }
 
-function fakeStoragesApiCallWithArray(array $items): void
+function fakeStoragesApiCallWithArray(array $items, string $storageName = 'biz_yellowjack'): void
 {
-    Http::fake(['v1.api.tycoon.community/main/storages/*' => Http::response( buildFakeStorageApiResponse($items) )]);
+    Http::fake(['v1.api.tycoon.community/main/storages/*' => Http::response( buildFakeStorageApiResponse($items, $storageName) )]);
 }
 
 function resetStorageFactoryStatics(): void

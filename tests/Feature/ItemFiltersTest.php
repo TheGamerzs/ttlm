@@ -1,7 +1,7 @@
 <?php
 
-use App\TT\Items\InventoryItem;
-use \App\TT\Storage;
+use App\TT\Factories\ItemFactory;
+use App\TT\Storage;
 use Illuminate\Pipeline\Pipeline;
 
 test('Name By String Filter', function () {
@@ -11,8 +11,8 @@ test('Name By String Filter', function () {
     ];
 
     $storage = new Storage([
-        new InventoryItem('scrap_ore', 3),
-        new InventoryItem('refined_planks', 4)
+        ItemFactory::makeInventoryItem('scrap_ore', 3),
+        ItemFactory::makeInventoryItem('refined_planks', 4)
     ]);
 
     /** @var Storage $result */
@@ -34,8 +34,8 @@ test('Min Count Filter', function () {
     ];
 
     $storage = new Storage([
-        new InventoryItem('scrap_ore', 1),
-        new InventoryItem('refined_planks', 100)
+        ItemFactory::makeInventoryItem('scrap_ore', 1),
+        ItemFactory::makeInventoryItem('refined_planks', 100)
     ]);
 
     /** @var Storage $result */
@@ -57,8 +57,8 @@ test('Max Count Filter', function () {
     ];
 
     $storage = new Storage([
-        new InventoryItem('scrap_ore', 1),
-        new InventoryItem('refined_planks', 100)
+        ItemFactory::makeInventoryItem('scrap_ore', 1),
+        ItemFactory::makeInventoryItem('refined_planks', 100)
     ]);
 
     /** @var Storage $result */
@@ -82,8 +82,8 @@ test('Min Total Weight Filter', function () {
     ];
 
     $storage = new Storage([
-        new InventoryItem('scrap_ore', 20),      // Total Weight: 300
-        new InventoryItem('refined_planks', 100) // Total Weight: 1500
+        ItemFactory::makeInventoryItem('scrap_ore', 20),      // Total Weight: 300
+        ItemFactory::makeInventoryItem('refined_planks', 100) // Total Weight: 1500
     ]);
 
 
@@ -106,8 +106,8 @@ test('Max Total Weight Filter', function () {
     ];
 
     $storage = new Storage([
-        new InventoryItem('scrap_ore', 20),      // Total Weight: 300
-        new InventoryItem('refined_planks', 100) // Total Weight: 1500
+        ItemFactory::makeInventoryItem('scrap_ore', 20),      // Total Weight: 300
+        ItemFactory::makeInventoryItem('refined_planks', 100) // Total Weight: 1500
     ]);
 
     /** @var Storage $result */

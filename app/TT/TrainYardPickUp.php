@@ -2,6 +2,7 @@
 
 namespace App\TT;
 
+use App\TT\Factories\ItemFactory;
 use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
 use Illuminate\Support\Collection;
@@ -45,7 +46,7 @@ class TrainYardPickUp
     public function __construct(string $pickupName, Inventories $inventories, bool $leaveRoom)
     {
         $this->pickupName  = $pickupName;
-        $this->pickupItem = new Item($pickupName);
+        $this->pickupItem = ItemFactory::make($pickupName);
         $this->inventories = $inventories;
         $this->fillTrunksWithItem();
 

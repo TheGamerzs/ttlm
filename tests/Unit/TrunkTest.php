@@ -2,6 +2,7 @@
 
 use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
+use App\TT\Recipe;
 use App\TT\Trunk;
 use Illuminate\Support\Collection;
 
@@ -43,7 +44,7 @@ test('getAvailableCapacity method with only manual', function () {
 
 test('getAvailableCapacity method with only load', function () {
 
-    $trunk = new Trunk('name', 10000, [new InventoryItem('crafted_rebar', 100)]); // 4500 weight
+    $trunk = new Trunk('name', 10000, [new InventoryItem('crafted_rebar', 100, 45)]); // 4500 weight
 
     expect($trunk->getAvailableCapacity())->toBe(10000-4500);
 
@@ -51,7 +52,7 @@ test('getAvailableCapacity method with only load', function () {
 
 test('getAvailableCapacity method with load and manual', function () {
 
-    $trunk = new Trunk('name', 10000, [new InventoryItem('crafted_rebar', 100)]); // 4500 weight
+    $trunk = new Trunk('name', 10000, [new InventoryItem('crafted_rebar', 100, 45)]); // 4500 weight
     $trunk->capacityUsed = 1000;
 
     expect($trunk->getAvailableCapacity())->toBe(10000-4500-1000);
@@ -69,7 +70,7 @@ test('numberOfItemsThatCanFitFromWeight method after setting capacity used', fun
 
 test('numberOfItemsThatCanFit method', function () {
 
-    $item = new Item('scrap_ore'); // 15kg weight
+    $item = new Item('scrap_ore', 15);
     $trunk = new Trunk('name', 1000);
 
     expect($trunk->numberOfItemsThatCanFit($item))->toBe(66);
@@ -88,7 +89,12 @@ it('has a display name', function () {
 it('populates load with components given a recipe', function () {
 
     $trunk = new Trunk('mk13', 9775);
-    $recipe = \App\TT\RecipeFactory::get(new Item('refined_solder'));
+    $recipe = new Recipe(new Item('refined_solder'));
+    $recipe->components = collect([
+        new \App\TT\Items\CraftingMaterial('refined_aluminum', $recipe, 2, 10),
+        new \App\TT\Items\CraftingMaterial('scrap_lead', $recipe, 2, 15)
+    ]);
+
 
     $trunk->fillLoadWithComponentsForRecipe($recipe, false);
 
@@ -104,24 +110,12 @@ it('populates load with components given a recipe', function () {
 
 });
 
-it('populates load given an item name', function () {
-
-    $trunk = new Trunk('mk13', 9775);
-    $trunk->fillLoadWithItem('recycled_waste');
-    /** @var InventoryItem $waste */
-    $waste = $trunk->load->first();
-
-    expect($waste)->toBeInstanceOf(InventoryItem::class)
-        ->and($waste->name)->toBe('recycled_waste')
-        ->and($waste->count)->toBe(88);
-});
-
 it('calculates the total weight of items in load', function () {
 
     $load = [
-        new InventoryItem('crafted_rebar', 100),
-        new InventoryItem('crafted_computer', 100),
-        new InventoryItem('crafted_copperwire', 100),
+        new InventoryItem('crafted_rebar', 100, 45),
+        new InventoryItem('crafted_computer', 100, 35),
+        new InventoryItem('crafted_copperwire', 100, 20),
     ];
     $trunk = new Trunk('mk13', 9775, $load);
 

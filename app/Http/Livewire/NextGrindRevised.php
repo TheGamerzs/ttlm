@@ -62,7 +62,7 @@ class NextGrindRevised extends BaseComponent
     public function hydrate()
     {
         foreach ($this->toHydrate as $property => $recipeName) {
-            $this->{$property} = RecipeFactory::get(new Item($recipeName));
+            $this->{$property} = RecipeFactory::get($recipeName);
         }
 
         $this->parentRecipe->autoSetStorageBasedOnLocationOfMostComponents();

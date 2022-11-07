@@ -2,6 +2,7 @@
 
 namespace App\TT;
 
+use App\TT\Factories\ItemFactory;
 use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
 use Illuminate\Support\Collection;
@@ -37,7 +38,7 @@ class Trunk
 
     public function numberOfItemsThatCanFitFromWeight(int $itemWeight): int
     {
-        return $this->getAvailableCapacity() / $itemWeight;
+        return (int) floor($this->getAvailableCapacity() / $itemWeight);
     }
 
     public function numberOfItemsThatCanFit(Item $item): int
@@ -59,7 +60,7 @@ class Trunk
 
     public function fillLoadWithItem(string $itemName): self
     {
-        $item = new InventoryItem($itemName, 0);
+        $item = ItemFactory::makeInventoryItem($itemName, 0);
 
         $item->count = floor($this->getAvailableCapacity() / $item->weight);
 

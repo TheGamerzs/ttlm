@@ -3,6 +3,7 @@
 namespace App\TT;
 
 use App\Events\StorageUpdatedFromTT;
+use App\TT\Factories\ItemFactory;
 use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
 use App\TT\Items\ItemData;
@@ -36,7 +37,7 @@ class StorageFactory
 
         $items = collect(self::getData()->storages)->firstWhere('name', $name)?->inventory;
         foreach ($items as $inventoryItemName => $item) {
-            $storage->push(new InventoryItem($inventoryItemName, $item->amount));
+            $storage->push(ItemFactory::makeInventoryItem($inventoryItemName, $item->amount));
         }
 
         self::registerStorage($name, $storage);

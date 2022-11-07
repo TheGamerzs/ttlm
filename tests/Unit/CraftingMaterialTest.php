@@ -4,16 +4,16 @@ use App\TT\Items\CraftingMaterial;
 use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
 use App\TT\Recipe;
-use App\TT\RecipeFactory;
 use App\TT\Storage;
 
 it('calculates total weight needed', function () {
 
-    $recipe = RecipeFactory::get(new Item('crafted_ceramictiles'));
-    $ceramicTiles = new CraftingMaterial('crafted_ceramictiles', $recipe);
+    $recipe = new Recipe(new Item('crafted_ceramictiles'));
+
+    $ceramicTiles = new CraftingMaterial('crafted_ceramictiles', $recipe, 1, 10);
     expect($ceramicTiles->getTotalWeightNeeded())->toBe(10);
 
-    $multipleTiles = new CraftingMaterial('crafted_ceramictiles', $recipe, 2);
+    $multipleTiles = new CraftingMaterial('crafted_ceramictiles', $recipe, 2, 10);
     expect($multipleTiles->getTotalWeightNeeded())->toBe(20);
 
 });

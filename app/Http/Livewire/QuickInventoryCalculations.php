@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\TT\Items\Item;
+use App\TT\Factories\ItemFactory;
 use App\TT\Items\ItemData;
 use App\TT\Pickup\PickupRunCounts;
 use App\TT\StorageFactory;
@@ -146,7 +146,7 @@ class QuickInventoryCalculations extends BaseComponent
 
 
         return view('livewire.quick-inventory-calculations')->with([
-            'trailerLookupItem' => new Item($this->itemForFillTrailer),
+            'trailerLookupItem' => ItemFactory::make($this->itemForFillTrailer),
             'trainYardPickups'  => $this->trainYardPickups(),
             'userInventories'   => $userInventories,
             'pickupCounts' => $this->buildPickupCounts()

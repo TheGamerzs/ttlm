@@ -2,7 +2,6 @@
 
 namespace App\TT\Pickup;
 
-use App\TT\Items\Item;
 use App\TT\Items\ItemData;
 use App\TT\Items\Weights;
 use App\TT\RecipeFactory;
@@ -139,7 +138,7 @@ class PickupRunCalculator
             $this->baseItemsCounts['liquid_water_raw'] = $this->neededCounts['liquid_water_raw']['needed'];
             $this->baseItemsCosts['liquid_water_raw'] = $this->neededCounts['liquid_water_raw']['needed'] * 5000;
 
-            $waterRecipe = RecipeFactory::get(new Item('liquid_water'));
+            $waterRecipe = RecipeFactory::get('liquid_water');
             $runs = $this->neededCounts['liquid_water_raw']['needed'] / $waterRecipe->howManyRecipesCanFit($this->truckCapacity);
         }
         return (int) ceil($runs);

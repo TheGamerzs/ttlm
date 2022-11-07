@@ -6,9 +6,9 @@ class InventoryItem extends Item
 {
     public int $count;
 
-    public function __construct(string $name, int $count)
+    public function __construct(string $name, int $count, int $weight = 0, ?string $prettyName = null)
     {
-        parent::__construct($name);
+        parent::__construct($name, $weight, $prettyName);
         $this->count = $count;
     }
 

@@ -9,7 +9,7 @@ function dataFromJson(string $file)
     );
 }
 
-function buildFakeStorageApiResponse(array $items): string
+function buildFakeStorageApiResponse(array $items, string $storageName = 'biz_yellowjack'): string
 {
     $response = [
         'storages' => null,
@@ -19,7 +19,7 @@ function buildFakeStorageApiResponse(array $items): string
 
     $response['storages'][] = [
         'inventory' => null,
-        'name' => 'biz_yellowjack'
+        'name' => $storageName
     ];
 
     foreach($items as $name => $amount) {

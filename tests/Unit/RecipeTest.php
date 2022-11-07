@@ -3,21 +3,17 @@
 use App\TT\Items\CraftingMaterial;
 use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
-use App\TT\RecipeFactory;
+use App\TT\Recipe;
 use Illuminate\Support\Collection;
 
 test('totalWeightOfComponentsToCraft method', function () {
 
-//      Recipe:
-//        'components'       => [
-//            'refined_copper' => 4,
-//            'refined_planks' => 1
-//        ]
-//
-//    Weights
-//    'refined_copper' => 10,
-//    'refined_planks' => 15,
-    $recipe = RecipeFactory::get(new Item('crafted_copperwire'));
+    $recipe = new Recipe(new Item('crafted_copperwire', 20));
+    $recipe->components = collect([
+        new CraftingMaterial('refined_copper', $recipe, 4, 10),
+        new CraftingMaterial('refined_planks', $recipe, 1, 15)
+    ]);
+
 
     expect($recipe->totalWeightOfComponentsToCraft())->toBe(55)
         ->and($recipe->totalWeightOfComponentsToCraft(2))->toBe(110);
@@ -26,7 +22,11 @@ test('totalWeightOfComponentsToCraft method', function () {
 
 test('howManyCanFit method', function () {
 
-    $recipe = RecipeFactory::get(new Item('crafted_copperwire'));
+    $recipe = new Recipe(new Item('crafted_copperwire', 20));
+    $recipe->components = collect([
+        new CraftingMaterial('refined_copper', $recipe, 4, 10),
+        new CraftingMaterial('refined_planks', $recipe, 1, 15)
+    ]);
 
     expect($recipe->howManyRecipesCanFit(200))->toBe(3);
 
@@ -34,7 +34,9 @@ test('howManyCanFit method', function () {
 
 test('costPerItem method', function () {
 
-    $recipe = RecipeFactory::get(new Item('crafted_batteries'));
+    $recipe = new Recipe(new Item('crafted_batteries'));
+    $recipe->makes = 2;
+    $recipe->cost = 5000;
 
     expect($recipe->costPerItem())->toBe(2500);
 
@@ -42,10 +44,15 @@ test('costPerItem method', function () {
 
 test('setInStorageForAllComponents method', function () {
 
-    $recipe = RecipeFactory::get(new Item('crafted_copperwire'));
+    $recipe = new Recipe(new Item('crafted_copperwire', 20));
+    $recipe->components = collect([
+        new CraftingMaterial('refined_copper', $recipe, 4, 10),
+        new CraftingMaterial('refined_planks', $recipe, 1, 15)
+    ]);
+
     $storage = new \App\TT\Storage([
-        new InventoryItem('refined_copper', 50),
-        new InventoryItem('refined_planks', 50)
+        new InventoryItem('refined_copper', 50, 10),
+        new InventoryItem('refined_planks', 50, 15)
     ]);
 
     $recipe->setInStorageForAllComponents($storage);
@@ -59,11 +66,17 @@ test('setInStorageForAllComponents method', function () {
 
 test('craftableRecipesFromStorage method', function () {
 
-    $recipe = RecipeFactory::get(new Item('crafted_copperwire'));
-    $storage = new \App\TT\Storage([
-        new InventoryItem('refined_copper', 50),
-        new InventoryItem('refined_planks', 50)
+    $recipe = new Recipe(new Item('crafted_copperwire', 20));
+    $recipe->components = collect([
+        new CraftingMaterial('refined_copper', $recipe, 4, 10),
+        new CraftingMaterial('refined_planks', $recipe, 1, 15)
     ]);
+
+    $storage = new \App\TT\Storage([
+        new InventoryItem('refined_copper', 50, 10),
+        new InventoryItem('refined_planks', 50, 15)
+    ]);
+
     $recipe->setInStorageForAllComponents($storage);
 
     // Recipe is limited by copper, having 50 and needing 4 each. 50/4=12.5 expect 12.
@@ -82,10 +95,15 @@ test('craftableItemsFromStorage method', function () {
 //        ]
 //    ];
 
-    $recipe = RecipeFactory::get(new Item('crafted_ceramictiles'));
+    $recipe = new Recipe(new Item('crafted_ceramictiles', 10));
+    $recipe->makes = 2;
+    $recipe->components = collect([
+        new CraftingMaterial('refined_flint', $recipe, 10, 5),
+        new CraftingMaterial('refined_sand', $recipe, 2, 5)
+    ]);
     $storage = new \App\TT\Storage([
-        new InventoryItem('refined_flint', 10),
-        new InventoryItem('refined_sand', 2)
+        new InventoryItem('refined_flint', 10, 5),
+        new InventoryItem('refined_sand', 2, 5)
     ]);
     $recipe->setInStorageForAllComponents($storage);
 
@@ -97,10 +115,16 @@ test('craftableItemsFromStorage method', function () {
 it('returns the item that is limiting the number of recipes that can be crafted the most', function () {
         // AKA The item that needs to be focused on next in order to be able to craft more.
 
-    $recipe = RecipeFactory::get(new Item('crafted_ceramictiles'));
+    $recipe = new Recipe(new Item('crafted_ceramictiles', 10));
+    $recipe->makes = 2;
+    $recipe->components = collect([
+        new CraftingMaterial('refined_flint', $recipe, 10, 5),
+        new CraftingMaterial('refined_sand', $recipe, 2, 5)
+    ]);
+
     $storage = new \App\TT\Storage([
-        new InventoryItem('refined_flint', 30),
-        new InventoryItem('refined_sand', 30)
+        new InventoryItem('refined_flint', 30, 5),
+        new InventoryItem('refined_sand', 30, 5)
     ]);
     $recipe->setInStorageForAllComponents($storage);
 
@@ -110,7 +134,7 @@ it('returns the item that is limiting the number of recipes that can be crafted 
 
 it('returns a name', function () {
 
-    $recipe = RecipeFactory::get($item = new Item('crafted_ceramictiles'));
+    $recipe = new Recipe($item = new Item('crafted_ceramictiles'));
 
     expect($recipe->displayName())->toBe($item->name());
 
@@ -118,7 +142,11 @@ it('returns a name', function () {
 
 it('returns a component by name', function () {
 
-    $recipe = RecipeFactory::get(new Item('crafted_ceramictiles'));
+    $recipe = new Recipe(new Item('crafted_ceramictiles'));
+    $recipe->components = collect([
+        new CraftingMaterial('refined_flint', $recipe, 10, 5),
+        new CraftingMaterial('refined_sand', $recipe, 2, 5)
+    ]);
 
     expect($recipe->getComponent('refined_flint'))->toBeInstanceOf(CraftingMaterial::class)
         ->and($recipe->getComponent('refined_flint')->name)->toBe('refined_flint');
@@ -127,7 +155,13 @@ it('returns a component by name', function () {
 
 it('returns inventory items of components ratioed to recipe to fill a trunk load', function () {
 
-    $recipe = RecipeFactory::get(new Item('crafted_rebar'));
+    $recipe = new Recipe(new Item('crafted_rebar'));
+    $recipe->components = collect([
+        new CraftingMaterial('refined_amalgam', $recipe, 6, 15),
+        new CraftingMaterial('refined_bronze', $recipe, 2, 10)
+    ]);
+
+
     $items = $recipe->componentsThatCanFitAsInventoryItems(9775, false);
 
     expect($items)->toBeInstanceOf(Collection::class)
@@ -145,7 +179,7 @@ it('returns inventory items of components ratioed to recipe to fill a trunk load
 
 it('has a kebab of the recipe internal name', function () {
 
-    $recipe = RecipeFactory::get(new Item('liberty_goods'));
+    $recipe = new Recipe(new Item('liberty_goods'));
 
     expect($recipe->kebabName())->toBe('liberty-goods');
 });

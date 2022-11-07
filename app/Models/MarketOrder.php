@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Scopes\ExpiredScope;
+use App\TT\Factories\ItemFactory;
 use App\TT\Items\Item;
 use App\TT\StorageFactory;
 use Illuminate\Database\Eloquent\Builder;
@@ -48,7 +49,7 @@ class MarketOrder extends Model
 
     public function getItemAttribute(): Item
     {
-        return new Item($this->item_name);
+        return ItemFactory::make($this->item_name);
     }
 
     public function getTotalCostAttribute(): int

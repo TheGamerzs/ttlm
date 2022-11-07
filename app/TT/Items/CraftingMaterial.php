@@ -13,12 +13,11 @@ class CraftingMaterial extends Item
 
     public Recipe $recipe;
 
-    public function __construct(string $name, Recipe $recipe, int $recipeCount = 1)
+    public function __construct(string $name, Recipe $recipe, $recipeCount = 1, int $weight = 0, ?string $prettyName = null)
     {
-        parent::__construct($name);
-
+        parent::__construct($name, $weight, $prettyName);
+        $this->recipe = $recipe;
         $this->recipeCount = $recipeCount;
-        $this->recipe      = $recipe;
     }
 
     public function getTotalWeightNeeded(): int

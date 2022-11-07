@@ -2,6 +2,7 @@
 
 use App\Models\MarketOrder;
 use App\Models\User;
+use App\TT\Factories\ItemFactory;
 
 test('relationships and casts', function () {
 
@@ -24,7 +25,7 @@ it('has a total cost attribute', function () {
 
     $order = MarketOrder::factory()->sellOrder()->create();
     $moveOrder = MarketOrder::factory()->moveOrder()->create();
-    $moveItem = new \App\TT\Items\Item($moveOrder->item_name);
+    $moveItem = ItemFactory::make($moveOrder->item_name);
 
     expect($order->totalCost)->toBe($order->price_each * $order->count)
         ->and($moveOrder->totalCost)->toBe($moveOrder->price_each * $moveOrder->count * $moveItem->weight);

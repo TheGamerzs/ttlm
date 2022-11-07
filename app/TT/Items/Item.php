@@ -2,6 +2,7 @@
 
 namespace App\TT\Items;
 
+use App\TT\Factories\ItemFactory;
 use App\TT\Recipe;
 use App\TT\RecipeFactory;
 use Illuminate\Support\Str;
@@ -10,18 +11,20 @@ class Item
 {
     public string $name;
 
-    public ?string $prettyName = null;
-
     public int $weight = 0;
 
-    public function __construct(string $internalName)
+    public ?string $prettyName = null;
+
+    public function __construct(string $name, int $weight = 0, ?string $prettyName = null)
     {
-        $data = ItemData::getFromInternalName($internalName);
-        $this->name   = $internalName;
-        if ($data) {
-            $this->weight = (int) $data->weight;
-            $this->prettyName = $data->name;
-        }
+        $this->name = $name;
+        $this->weight = $weight;
+        $this->prettyName = $prettyName;
+    }
+
+    public static function make(string $internalName): self
+    {
+        return ItemFactory::make($internalName);
     }
 
     public function name(): string
@@ -54,4 +57,5 @@ class Item
         }
         return 0;
     }
+
 }

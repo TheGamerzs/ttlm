@@ -196,16 +196,18 @@ class NextGrindRevised extends BaseComponent
 
     public function pickupRunYields(): array
     {
+        $runYields = new PickupRunYields(Auth::user()->makeTruckingInventories());
+
         return match ($this->getRecipe()->pickupRun) {
-            'quarry' => PickupRunYields::quarry($this->truckCapacity),
-            'logging camp' => PickupRunYields::logging($this->truckCapacity, $this->getRecipe()->internalName()),
-            'trash' => PickupRunYields::trash($this->truckCapacity),
-            'electronics' => PickupRunYields::electronics($this->truckCapacity),
-            'toxic waste' => PickupRunYields::toxicWaste($this->truckCapacity),
-            'crude oil' => PickupRunYields::crudeOil($this->truckCapacity, $this->getRecipe()->internalName()),
-            'raw gas' => PickupRunYields::rawGas($this->truckCapacity),
-            'veggies' => PickupRunYields::veggies($this->truckCapacity),
-            'dairy' => PickupRunYields::dairy($this->truckCapacity),
+            'quarry' => $runYields->quarry(),
+            'logging camp' => $runYields->logging($this->getRecipe()->internalName()),
+            'trash' => $runYields->trash(),
+            'electronics' => $runYields->electronics(),
+            'toxic waste' => $runYields->toxicWaste(),
+            'crude oil' => $runYields->crudeOil($this->getRecipe()->internalName()),
+            'raw gas' => $runYields->rawGas(),
+            'veggies' => $runYields->veggies(),
+            'dairy' => $runYields->dairy(),
             default => []
         };
     }

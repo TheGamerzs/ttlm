@@ -10,7 +10,10 @@ use App\TT\StorageFactory;
 use function Pest\Laravel\actingAs;
 
 beforeEach(function () {
-    actingAs($this->user = User::factory()->create());
+    actingAs($this->user = User::factory()->create([
+        'truckCapacity' => 9775,
+        'truckCapacityTwo' => 6000
+    ]));
 
     resetStorageFactoryStatics();
     fakePersonalInventoryApiCallWithStoredJson();
@@ -178,7 +181,7 @@ test('pickup runs', function (string $recipeName, string $runName) {
     $componentClass->truckCapacity = 15775;
     $componentClass->changeRecipe($recipeName);
     $yields = $componentClass->pickupRunYields();
-
+    
     \Spatie\Snapshots\assertMatchesSnapshot($yields);
 
 })

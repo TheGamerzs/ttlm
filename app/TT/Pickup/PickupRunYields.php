@@ -2,15 +2,26 @@
 
 namespace App\TT\Pickup;
 
-use JetBrains\PhpStorm\ArrayShape;
+use App\TT\Inventories;
+use App\TT\Trunk;
 
 class PickupRunYields
 {
-    #[ArrayShape(['scrap_emerald' => "float", 'scrap_ore' => "float|int", 'refined_flint' => "float|int", 'refined_sand' => "float|int"])]
-    public static function quarry(int $truckCapacity): array
+    public int $capacity;
+
+    public function __construct(Inventories $inventories)
+    {
+        $this->capacity = $inventories
+            ->trunks
+            ->sum(function (Trunk $trunk) {
+                return $trunk->getAvailableCapacity();
+            });
+    }
+
+    public function quarry(): array
     {
         $rubbleWeight = 150;
-        $pickupCount  = floor($truckCapacity / $rubbleWeight);
+        $pickupCount  = floor($this->capacity / $rubbleWeight);
 
         // 10 gravel = 4 Flint and 6 Sand
         $gravel                 = $pickupCount * 12;
@@ -24,10 +35,10 @@ class PickupRunYields
                 ]];
     }
 
-    public static function logging(int $truckCapacity, string $craftingMaterialName): array
+    public function logging(string $craftingMaterialName): array
     {
         $logWeight   = 60;
-        $pickupCount = floor($truckCapacity / $logWeight);
+        $pickupCount = floor($this->capacity / $logWeight);
 
         if ($craftingMaterialName == 'refined_planks') {
             return [[
@@ -47,10 +58,10 @@ class PickupRunYields
 
     }
 
-    public static function trash(int $truckCapacity): array
+    public function trash(): array
     {
         $trashWeight = 90;
-        $pickupCount = floor($truckCapacity / $trashWeight);
+        $pickupCount = floor($this->capacity / $trashWeight);
 
         return [
             [
@@ -61,10 +72,10 @@ class PickupRunYields
         ];
     }
 
-    public static function electronics(int $truckCapacity): array
+    public function electronics(): array
     {
         $electronicsWeight = 130;
-        $pickupCount       = floor($truckCapacity / $electronicsWeight);
+        $pickupCount       = floor($this->capacity / $electronicsWeight);
 
         return [
             [
@@ -75,10 +86,10 @@ class PickupRunYields
         ];
     }
 
-    public static function toxicWaste(int $truckCapacity): array
+    public function toxicWaste(): array
     {
         $wasteWeight = 110;
-        $pickupCount = floor($truckCapacity / $wasteWeight);
+        $pickupCount = floor($this->capacity / $wasteWeight);
 
         return [
             [
@@ -89,11 +100,11 @@ class PickupRunYields
         ];
     }
 
-    public static function crudeOil(int $truckCapacity, string $craftingMaterialName): array
+    public function crudeOil(string $craftingMaterialName): array
     {
         if ($craftingMaterialName == 'mechanicals_rubber') {
             $oilWeight = 150 * 4;
-            $pickupCount = floor($truckCapacity / $oilWeight);
+            $pickupCount = floor($this->capacity / $oilWeight);
             return [
                 [
                     'mechanicals_rubber' => (int)($pickupCount * 4),
@@ -105,7 +116,7 @@ class PickupRunYields
         }
 
         $oilWeight = 150;
-        $pickupCount = floor($truckCapacity / $oilWeight);
+        $pickupCount = floor($this->capacity / $oilWeight);
 
         return [
             [
@@ -116,10 +127,10 @@ class PickupRunYields
         ];
     }
 
-    public static function rawGas(int $truckCapacity): array
+    public function rawGas(): array
     {
         $gasWeight = 150;
-        $pickupCount = floor($truckCapacity / $gasWeight);
+        $pickupCount = floor($this->capacity / $gasWeight);
 
         return [
             [
@@ -130,10 +141,10 @@ class PickupRunYields
         ];
     }
 
-    public static function veggies($truckCapacity): array
+    public function veggies(): array
     {
         $vegWeight = 15;
-        $pickupCount = floor($truckCapacity / $vegWeight);
+        $pickupCount = floor($this->capacity / $vegWeight);
 
         return [
             [
@@ -142,10 +153,10 @@ class PickupRunYields
         ];
     }
 
-    public static function dairy($truckCapacity): array
+    public function dairy(): array
     {
         $dairyWeight = 15;
-        $pickupCount = floor($truckCapacity / $dairyWeight);
+        $pickupCount = floor($this->capacity / $dairyWeight);
 
         return [
             [

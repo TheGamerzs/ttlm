@@ -3,9 +3,7 @@
 namespace App\View;
 
 use App\TT\Inventories;
-use App\TT\Items\Item;
 use App\TT\Recipe;
-use App\TT\RecipeFactory;
 use App\TT\Trunk;
 use Illuminate\Support\Collection;
 
@@ -20,23 +18,10 @@ class NextGrindViewModel
         $this->inventories = $inventories;
     }
 
-    public function setRecipeFromString(string $internalName): self
-    {
-        $this->setRecipe(
-            RecipeFactory::get(new Item($internalName))
-        );
-
-        return $this;
-    }
-
     public function setRecipe(Recipe $recipe): NextGrindViewModel
     {
         $this->recipe = $recipe;
-
-        foreach($this->inventories as $trunk) {
-            /** @var Trunk $trunk */
-            $trunk->fillLoadWithComponentsForRecipe($recipe);
-        }
+        $this->inventories->fillTrunksWithRecipeComponents($recipe);
 
         return $this;
     }
@@ -65,6 +50,39 @@ class NextGrindViewModel
     public function storageDropdownOptions(): Collection
     {
         return \App\TT\StorageFactory::getRegisteredNames(true);
+    }
+
+    public function runsThatCanBeMade(): int|float
+    {
+        $this->recipe->mostLimitedBy();
+        $temp = new Inventories();
+        foreach ($this->inventories as $trunk) {
+            $temp->createTrunk($trunk->name, $trunk->capacity);
+        }
+        foreach ($temp->trunks as $trunk) {
+            $trunk->fillLoadWithComponentsForRecipe($this->recipe, false);
+        }
+
+        $fullLoadCarries = $temp->trunks->sum(function (Trunk $trunk) {
+            return $trunk->load->firstWhere('name', $this->recipe->mostLimitedBy()->name)->count;
+        });
+
+        return $this->recipe->mostLimitedBy()->inStorage / $fullLoadCarries;
+    }
+
+    public function runsThatCanBeMadeDisplayString(): string
+    {
+        $runCount = $this->runsThatCanBeMade();
+
+        // Don't show decimal if a whole number.
+        $runs = (floor($runCount) == $runCount)
+            ? number_format($runCount)
+            : number_format($runCount, 1);
+
+        // Plural or not
+        return (float) $runs > 1
+            ? $runs . ' Runs'
+            : $runs . ' Run';
     }
 
     public function customViewName(): string

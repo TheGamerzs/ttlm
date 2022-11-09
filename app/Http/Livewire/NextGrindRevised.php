@@ -86,7 +86,7 @@ class NextGrindRevised extends BaseComponent
     public function changeRecipe(string $recipeName)
     {
         $this->toHydrate['recipe'] = $recipeName;
-        $this->recipe              = RecipeFactory::get(new Item($recipeName));
+        $this->recipe              = RecipeFactory::get($recipeName);
         $this->setStorageOnRecipeAndThis();
     }
 

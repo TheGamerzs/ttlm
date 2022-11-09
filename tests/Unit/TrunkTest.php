@@ -59,6 +59,15 @@ test('getAvailableCapacity method with load and manual', function () {
 
 });
 
+test('capacityUsedPercent method', function () {
+
+    $trunk = new Trunk('name', 10000, [new InventoryItem('crafted_rebar', 100, 45)]); // 4500 weight
+    $trunk->capacityUsed = 500;
+
+    expect($trunk->capacityUsedPercent())->toBe(.5);
+
+});
+
 test('numberOfItemsThatCanFitFromWeight method after setting capacity used', function () {
 
     $trunk = new Trunk('name', 1000);

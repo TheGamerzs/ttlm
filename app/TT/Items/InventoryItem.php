@@ -2,6 +2,8 @@
 
 namespace App\TT\Items;
 
+use App\TT\Factories\ItemFactory;
+
 class InventoryItem extends Item
 {
     public int $count;
@@ -14,7 +16,7 @@ class InventoryItem extends Item
 
     public static function fromCraftingMaterial(CraftingMaterial $craftingMaterial, int $count): self
     {
-        return new self($craftingMaterial->name, $count);
+        return ItemFactory::makeInventoryItem($craftingMaterial->name, $count);
     }
 
     public function getTotalWeight(): int

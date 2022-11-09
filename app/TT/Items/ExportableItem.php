@@ -3,6 +3,7 @@
 namespace App\TT\Items;
 
 use App\Models\User;
+use App\TT\Factories\ItemFactory;
 use App\TT\Storage;
 
 class ExportableItem extends Item
@@ -111,7 +112,7 @@ class ExportableItem extends Item
         }
 
         return $exportable->map(function ($item) {
-            return new self($item->name, $item->count);
+            return ItemFactory::makeExportableItem($item->name, $item->count);
         });
     }
 
@@ -121,9 +122,9 @@ class ExportableItem extends Item
 
     public string $location;
 
-    public function __construct(string $name, int $count)
+    public function __construct(string $name, int $count, int $weight = 0, ?string $prettyName = null)
     {
-        parent::__construct($name);
+        parent::__construct($name, $weight, $prettyName);
         $this->count = $count;
         $this->valueEach = self::$data[$name]['each'];
         $this->location = self::$data[$name]['location'];

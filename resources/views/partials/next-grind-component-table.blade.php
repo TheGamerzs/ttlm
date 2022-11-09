@@ -4,7 +4,10 @@
 /** @var \App\TT\Items\CraftingMaterial $craftingMaterial */
 /** @var \App\TT\Items\InventoryItem $inventoryItem */
 ?>
-<h4 class="text-center mt-4">{{ $viewModel->recipe->craftableItemsFromStorage() }} Currently Craftable</h4>
+<h4 class="text-center mt-4">
+    {{ $viewModel->recipe->craftableItemsFromStorage() }} Currently Craftable
+    / {{ $viewModel->runsThatCanBeMadeDisplayString() }}
+</h4>
 
 <table class="table table-hover text-center">
     <thead>
@@ -34,12 +37,16 @@
     </tr>
 
     @foreach($viewModel->inventories as $trunk)
-    <tr @class(['table-warning' => $viewModel->recipe->howManyFullLoadsFromStorage($trunk->capacity) < 1])>
+    <tr @class(['table-warning' => $trunk->capacityUsedPercent() < .99])>
         <th scope="row">
             Fill {{ $trunk->displayName() }} Trunk
+
+            @if($viewModel->runsThatCanBeMade() < 1 && $trunk->loadWeight() > 0)
             <span title="How many full trailers worth you currently have in storage.">
-                ({{ $viewModel->recipe->howManyFullLoadsFromStorage($trunk->capacity) }})
+                ({{ number_format($trunk->capacityUsedPercent(), 1) }})
             </span>
+            @endif
+
         </th>
         @foreach($trunk->load as $inventoryItem)
             <td title="{{ $inventoryItem->name() }}">

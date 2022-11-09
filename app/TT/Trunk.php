@@ -36,6 +36,11 @@ class Trunk
         return $this->capacity - $this->capacityUsed - $this->loadWeight();
     }
 
+    public function capacityUsedPercent(): float
+    {
+        return ($this->loadWeight() + $this->capacityUsed) / $this->capacity;
+    }
+
     public function numberOfItemsThatCanFitFromWeight(int $itemWeight): int
     {
         return (int) floor($this->getAvailableCapacity() / $itemWeight);
@@ -51,9 +56,15 @@ class Trunk
         return str($this->name)->headline();
     }
 
-    public function fillLoadWithComponentsForRecipe(Recipe $recipe, bool $limitToStorage = true): self
+    public function fillLoadWithComponentsForRecipe(Recipe $recipe, bool $limitToStorage = true, bool $diminishComponentInStorage = false): self
     {
         $this->load = $recipe->componentsThatCanFitAsInventoryItems($this->getAvailableCapacity(), $limitToStorage);
+
+        if ($diminishComponentInStorage) {
+            foreach ($recipe->components as $item) {
+                $item->inStorage -= $this->load->firstWhere('name', $item->name)->count;
+            }
+        }
 
         return $this;
     }

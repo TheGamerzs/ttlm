@@ -1,23 +1,14 @@
 <?php
 
+use App\Models\User;
 use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
-use App\TT\Recipe;
+use App\TT\RecipeFactory;
 use App\View\NextGrindViewModel;
-
-it('sets a recipe from a string', function () {
-
-    $viewModel = new NextGrindViewModel(new \App\TT\Inventories());
-    $viewModel->setRecipeFromString('house');
-
-    expect($viewModel->recipe)->toBeInstanceOf(Recipe::class)
-        ->and($viewModel->recipe->internalName())->toBe('house');
-
-});
 
 test('items that can be crafted from a full load of components', function () {
 
-    $user = \App\Models\User::factory()->create([
+    $user = User::factory()->create([
         'truckCapacity' => 9775,
         'truckCapacityTwo' => 6000
     ]);
@@ -30,11 +21,11 @@ test('items that can be crafted from a full load of components', function () {
 
 it('sets trunk loads when a recipe is set', function () {
 
-    $user = \App\Models\User::factory()->create([
+    $user = User::factory()->create([
         'truckCapacity' => 9775,
     ]);
 
-    $recipe = \App\TT\RecipeFactory::get(new Item('crafted_rebar'))
+    $recipe = RecipeFactory::get(new Item('crafted_rebar'))
         ->setInStorageForAllComponents(new \App\TT\Storage([
             new InventoryItem('refined_amalgam', 1000),
             new InventoryItem('refined_bronze', 1000),
@@ -56,10 +47,72 @@ it('sets trunk loads when a recipe is set', function () {
 
 test('custom view name', function () {
 
-    $recipe = \App\TT\RecipeFactory::get(new Item('liberty_goods'));
+    $recipe = RecipeFactory::get('liberty_goods');
     $viewModel = new NextGrindViewModel(new \App\TT\Inventories());
     $viewModel->setRecipe($recipe);
 
     expect($viewModel->customViewName())->toBe('next-grind-custom.liberty-goods');
 
 });
+
+it('shows number of runs that can be made based on storage', function (int $copperInStorage, int $planksInStorage, string $expectedString) {
+
+    \Pest\Laravel\actingAs($user = User::factory()->create([
+        'truckCapacity' => 9775,
+        'truckCapacityTwo' => 6000
+    ]));
+    fakePersonalInventoryApiCallWithStoredJson();
+    fakeStoragesApiCallWithArray([
+        'refined_copper' => $copperInStorage,
+        'refined_planks' => $planksInStorage,
+    ]);
+
+    $recipe = RecipeFactory::get('crafted_copperwire');
+    $recipe->autoSetStorageBasedOnLocationOfMostComponents();
+    $viewModel = (new NextGrindViewModel($user->makeTruckingInventories()))->setRecipe($recipe);
+
+    expect($viewModel->runsThatCanBeMadeDisplayString())->toBe($expectedString);
+})
+    ->with([
+        /**
+         * Refined Copper
+         * 9775 => 708
+         * 6000 => 436
+         * Run =>  1144
+         *
+         * Planks
+         * 9775 => 177
+         * 6000 => 109
+         * Run =>  286
+         */
+        [
+            $baseCopper = 1144,
+            $basePlanks = 286,
+            '1 Run'
+        ],
+        [
+            $baseCopper * .5,
+            $basePlanks * .5,
+            '0.5 Run'
+        ],
+        [
+            $baseCopper * 2,
+            $basePlanks * 2,
+            '2 Runs'
+        ],
+        [
+            $baseCopper * 3.5,
+            $basePlanks * 3.5,
+            '3.5 Runs'
+        ],
+        [
+            $baseCopper * 2,
+            $basePlanks * 6,
+            '2 Runs'
+        ],
+        [
+            $baseCopper * 6,
+            $basePlanks * 3.2,
+            '3.2 Runs'
+        ],
+    ]);

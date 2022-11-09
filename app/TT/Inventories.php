@@ -3,12 +3,18 @@
 namespace App\TT;
 
 
+use App\TT\Items\CraftingMaterial;
+use App\TT\Items\InventoryItem;
 use Illuminate\Support\Collection;
 use Traversable;
 
 class Inventories implements \IteratorAggregate, \Countable
 {
-    public Collection $trunks;
+    /**
+     * @var Collection|Trunk[]
+     *
+     */
+    public Collection|array $trunks;
 
     public function __construct(array $trunks = [])
     {
@@ -62,6 +68,19 @@ class Inventories implements \IteratorAggregate, \Countable
         return $this->trunks->sum(function (Trunk $trunk) {
             return $trunk->getAvailableCapacity();
         });
+    }
+
+    public function fillTrunksWithRecipeComponents(Recipe $recipe)
+    {
+        // Clone recipe to mutate storage numbers
+        $inStorage = $recipe->components->map(function (CraftingMaterial $item) {
+            return InventoryItem::fromCraftingMaterial($item, $item->inStorage);
+        });
+        $recipe = RecipeFactory::get($recipe->internalName())->setInStorageForAllComponents(new Storage($inStorage));
+
+        foreach($this->trunks as $trunk) {
+            $trunk->fillLoadWithComponentsForRecipe($recipe, true, true);
+        }
     }
 
 }

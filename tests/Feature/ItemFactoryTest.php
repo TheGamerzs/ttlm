@@ -59,3 +59,15 @@ it('makes a crafting material', function () {
         ->recipeCount->toBeInt()->toBe(1);
 
 });
+
+it('makes an exportable item', function () {
+
+    $item = ItemFactory::makeExportableItem('refined_zinc', 100);
+
+    expect($item)
+        ->toBeInstanceOf(\App\TT\Items\ExportableItem::class)
+        ->name->toBeString()->toBe('refined_zinc')
+        ->weight->toBeInt()->toBe(10)
+        ->count->toBeInt()->toBe(100);
+
+});

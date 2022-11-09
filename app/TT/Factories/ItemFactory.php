@@ -3,6 +3,7 @@
 namespace App\TT\Factories;
 
 use App\TT\Items\CraftingMaterial;
+use App\TT\Items\ExportableItem;
 use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
 use App\TT\Items\ItemData;
@@ -41,6 +42,18 @@ class ItemFactory
             $internalName,
             $recipe,
             $recipeCount,
+            $data ? (int) $data->weight : 0,
+            $data ? $data->name : null,
+        );
+    }
+
+    public static function makeExportableItem(string $internalName, int $count): ExportableItem
+    {
+        $data = ItemData::getFromInternalName($internalName);
+
+        return new ExportableItem(
+            $internalName,
+            $count,
             $data ? (int) $data->weight : 0,
             $data ? $data->name : null,
         );

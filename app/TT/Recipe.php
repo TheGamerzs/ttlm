@@ -11,6 +11,9 @@ class Recipe
 {
     public Item $inventoryItem;
 
+    /**
+     * @var Collection|CraftingMaterial[]
+     */
     public Collection $components;
 
     public ?string $craftingLocation;

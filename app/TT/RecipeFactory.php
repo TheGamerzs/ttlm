@@ -12,7 +12,7 @@ class RecipeFactory
         //Make Item if string is passed in.
         $item = $item instanceof Item
             ? $item
-            : new Item($item);
+            : ItemFactory::make($item);
 
         $recipe           = new Recipe($item);
         $recipeDefinition = Recipes::getRecipe($item->name);

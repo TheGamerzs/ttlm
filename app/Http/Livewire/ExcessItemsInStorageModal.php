@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\TT\Items\ExcessItem;
-use App\TT\Items\Item;
 use App\TT\RecipeFactory;
 use App\TT\Storage;
 use App\TT\StorageFactory;
@@ -38,7 +37,7 @@ class ExcessItemsInStorageModal extends BaseComponent
 
     protected function hydratedRecipe(): \App\TT\Recipe
     {
-        return RecipeFactory::get(new Item($this->recipe));
+        return RecipeFactory::get($this->recipe);
     }
 
     public function getItems(): \Illuminate\Support\Collection|Storage

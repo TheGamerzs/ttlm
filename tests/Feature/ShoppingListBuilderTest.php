@@ -1,15 +1,14 @@
 <?php
 
-use App\TT\Items\Item;
 use App\TT\RecipeFactory;
 use App\TT\ShoppingListBuilder;
-use \App\TT\Storage;
+use App\TT\Storage;
 use Illuminate\Support\Collection;
 
 test('simple recipe', function () {
 
     $list = ShoppingListBuilder::build(
-        RecipeFactory::get(new Item('refined_bronze')),
+        RecipeFactory::get('refined_bronze'),
         new Storage(),
         2,
         1000
@@ -36,7 +35,7 @@ test('a simple recipe with a storage that contains components', function () {
         new \App\TT\Items\InventoryItem('scrap_tin', 1),
     ]);
     $list = ShoppingListBuilder::build(
-        RecipeFactory::get(new Item('refined_bronze')),
+        RecipeFactory::get('refined_bronze'),
         $storage,
         4,
         1000
@@ -62,7 +61,7 @@ test('a simple recipe with a storage that contains initial requested item', func
         new \App\TT\Items\InventoryItem('refined_bronze', 4),
     ]);
     $list = ShoppingListBuilder::build(
-        RecipeFactory::get(new Item('refined_bronze')),
+        RecipeFactory::get('refined_bronze'),
         $storage,
         8,
         1000
@@ -103,7 +102,7 @@ test('a less simple recipe', function () {
      *    liquid_water     => 1
      * */
     $list = ShoppingListBuilder::build(
-        RecipeFactory::get(new Item('crafted_concrete')),
+        RecipeFactory::get('crafted_concrete'),
         new Storage(),
         1,
         1000
@@ -154,7 +153,7 @@ test('a less simple recipe with storage', function () {
      * */
     $storage = new Storage([new \App\TT\Items\InventoryItem('crafted_cement', 5)]);
     $list = ShoppingListBuilder::build(
-        RecipeFactory::get(new Item('crafted_concrete')),
+        RecipeFactory::get('crafted_concrete'),
         $storage,
         1,
         1000
@@ -197,7 +196,7 @@ it('handles a refined recipe with a refined component', function () {
      * */
 
     $list = ShoppingListBuilder::build(
-        RecipeFactory::get(new Item('refined_amalgam')),
+        RecipeFactory::get('refined_amalgam'),
         new Storage(),
         1,
         1000
@@ -240,7 +239,7 @@ it('handles a refined recipe with a refined component and storage', function () 
     $storage = new Storage([new \App\TT\Items\InventoryItem('refined_tin', 1)]);
 
     $list = ShoppingListBuilder::build(
-        RecipeFactory::get(new Item('refined_amalgam')),
+        RecipeFactory::get('refined_amalgam'),
         $storage,
         1,
         1000
@@ -307,7 +306,7 @@ test('bug fix for recipe yields not being accounted for', function () {
     $storage = new Storage();
 
     $list = ShoppingListBuilder::build(
-        RecipeFactory::get(new Item('crafted_rebar')),
+        RecipeFactory::get('crafted_rebar'),
         $storage,
         2,
         1000

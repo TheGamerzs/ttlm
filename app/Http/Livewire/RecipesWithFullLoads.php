@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\TT\Inventories;
-use App\TT\Items\Item;
 use App\TT\Recipe;
 use App\TT\RecipeFactory;
 use App\TT\Recipes;
@@ -54,7 +53,7 @@ class RecipesWithFullLoads extends BaseComponent
                 $recipeName->startsWith('crafted') ||
                 $recipeName->is($otherThanCrafted);
         })->map(function ($item, $key) use ($storage) {
-            return RecipeFactory::get(new Item($key))->setInStorageForAllComponents($storage);
+            return RecipeFactory::get($key)->setInStorageForAllComponents($storage);
         })->filter(function (Recipe $recipe) use ($availableCapacity) {
             return $recipe->craftableRecipesFromStorage() >= $recipe->howManyRecipesCanFit($availableCapacity);
         })->sortBy(function (Recipe $recipe) {

@@ -3,7 +3,6 @@
 namespace App\TT\Pickup;
 
 use App\TT\Inventories;
-use App\TT\Items\Item;
 use App\TT\RecipeFactory;
 use App\TT\ShoppingListBuilder;
 use App\TT\StorageFactory;
@@ -36,7 +35,7 @@ class PickupRunCounts
         $combinedCapacity = $this->inventories->trunks->sum('capacity');
 
         return ShoppingListBuilder::build(
-            RecipeFactory::get(new Item($this->forRecipe)),
+            RecipeFactory::get($this->forRecipe),
             StorageFactory::get($this->storageName),
             $this->recipeCount,
             $combinedCapacity

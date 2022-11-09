@@ -2,7 +2,6 @@
 
 use App\Models\User;
 use App\TT\Items\InventoryItem;
-use App\TT\Items\Item;
 use App\TT\RecipeFactory;
 use App\View\NextGrindViewModel;
 
@@ -25,7 +24,7 @@ it('sets trunk loads when a recipe is set', function () {
         'truckCapacity' => 9775,
     ]);
 
-    $recipe = RecipeFactory::get(new Item('crafted_rebar'))
+    $recipe = RecipeFactory::get('crafted_rebar')
         ->setInStorageForAllComponents(new \App\TT\Storage([
             new InventoryItem('refined_amalgam', 1000),
             new InventoryItem('refined_bronze', 1000),

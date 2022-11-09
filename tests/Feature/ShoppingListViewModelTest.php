@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\User;
-use App\TT\Items\Item;
 use App\TT\RecipeFactory;
 use App\TT\ShoppingListBuilder;
 use App\TT\Storage;
@@ -17,14 +16,14 @@ beforeEach(function () {
 it('returns display objects for the view to use', function () {
 
     $totalNeededList = ShoppingListBuilder::build(
-        RecipeFactory::get(new Item('house')),
+        RecipeFactory::get('house'),
         new Storage(),
         1000,
         9775
     );
 
     $stillNeededList = ShoppingListBuilder::build(
-        RecipeFactory::get(new Item('house')),
+        RecipeFactory::get('house'),
         StorageFactory::get('combined'),
         1000,
         9775

@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\TT\Items\CraftingMaterial;
-use App\TT\Items\Item;
 use App\TT\Pickup\PickupRunYields;
 use App\TT\Recipe;
 use App\TT\RecipeFactory;
@@ -84,7 +83,7 @@ class NextGrind extends Component
 
     public function hydrateNextRecipeToGrind($value): void
     {
-        $this->nextRecipeToGrind = RecipeFactory::get(new Item($value));
+        $this->nextRecipeToGrind = RecipeFactory::get($value);
     }
 
     public function dehydrateNextRecipeToGrind(Recipe $nextRecipeToGrind): void
@@ -94,7 +93,7 @@ class NextGrind extends Component
 
     public function setNextRecipeToGrind(string $value)
     {
-        $this->nextRecipeToGrind = RecipeFactory::get(new Item($value));
+        $this->nextRecipeToGrind = RecipeFactory::get($value);
         $this->setStorageBasedOnLocationOfMostComponents();
         $this->setIWantFromGoal();
     }
@@ -159,7 +158,7 @@ class NextGrind extends Component
     public function iWantToolTip(): string
     {
         return $this->iWantFromGoal
-            ? 'Default based on your set goal of ' . $this->goalCount . ' ' . RecipeFactory::get(new Item($this->goalRecipe))->displayName()
+            ? 'Default based on your set goal of ' . $this->goalCount . ' ' . RecipeFactory::get($this->goalRecipe)->displayName()
             : 'Default based on how many are needed to fill a trailer of components for ' . $this->parentRecipe->displayName();
     }
 
@@ -223,7 +222,7 @@ class NextGrind extends Component
     public function setIWantFromGoal()
     {
         $shoppingList = ShoppingListBuilder::build(
-            RecipeFactory::get(new Item($this->goalRecipe)),
+            RecipeFactory::get($this->goalRecipe),
             $this->storage,
             (int) $this->goalCount,
             $this->truckCapacity

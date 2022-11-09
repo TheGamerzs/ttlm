@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\TT\Items\CraftingMaterial;
-use App\TT\Items\Item;
 use App\TT\Pickup\PickupRunYields;
 use App\TT\Recipe;
 use App\TT\RecipeFactory;
@@ -153,7 +152,7 @@ class NextGrindRevised extends BaseComponent
 
     public function getGoalRecipePluralName(): string
     {
-        return RecipeFactory::get(new Item($this->goalRecipe))?->displayNamePlural() ?? '';
+        return RecipeFactory::get($this->goalRecipe)?->displayNamePlural() ?? '';
     }
 
     /*
@@ -165,7 +164,7 @@ class NextGrindRevised extends BaseComponent
     public function getNeededForGoal()
     {
         $shoppingList = ShoppingListBuilder::build(
-            RecipeFactory::get(new Item($this->goalRecipe)),
+            RecipeFactory::get($this->goalRecipe),
             $this->storage,
             (int)$this->goalCount,
             $this->truckCapacity

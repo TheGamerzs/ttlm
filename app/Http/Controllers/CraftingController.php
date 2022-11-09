@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\TT\Items\CraftingMaterial;
-use App\TT\Items\Item;
 use App\TT\RecipeFactory;
-use App\TT\StorageFactory;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 
 class CraftingController extends Controller
 {
@@ -21,7 +17,7 @@ class CraftingController extends Controller
         $trainYardStorage = (int) Auth::user()->trainYardCapacity ?? 0;
         $pocketCapacity = (int) Auth::user()->pocketCapacity ?? 0;
 
-        $parentRecipe = RecipeFactory::get(new Item($name));
+        $parentRecipe = RecipeFactory::get($name);
 
         return view('crafting')->with([
             'recipeName' => $name,

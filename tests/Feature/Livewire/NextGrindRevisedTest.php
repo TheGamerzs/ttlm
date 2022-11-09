@@ -3,7 +3,6 @@
 use App\Http\Livewire\NextGrindRevised;
 use App\Models\User;
 use App\TT\Items\InventoryItem;
-use App\TT\Items\Item;
 use App\TT\Recipe;
 use App\TT\RecipeFactory;
 use App\TT\StorageFactory;
@@ -27,7 +26,7 @@ beforeEach(function () {
     $this->testableComponent = Livewire::test(NextGrindRevised::class,
         [
             'truckCapacity' => 9775,
-            'parentRecipe' => RecipeFactory::get(new Item('house'))
+            'parentRecipe' => RecipeFactory::get('house')
         ]);
 });
 
@@ -74,7 +73,7 @@ it('assigns goal count and recipe from user and knows it is using a goal', funct
     $component = Livewire::test(NextGrindRevised::class,
         [
             'truckCapacity' => 9775,
-            'parentRecipe' => RecipeFactory::get(new Item('house'))
+            'parentRecipe' => RecipeFactory::get('house')
         ])
         ->assertSet('goalCount', 1000)
         ->assertSet('goalRecipe', 'house')
@@ -100,7 +99,7 @@ it('updates a users crafting goal', function () {
     $component = Livewire::test(NextGrindRevised::class,
         [
             'truckCapacity' => 9775,
-            'parentRecipe' => RecipeFactory::get(new Item('house'))
+            'parentRecipe' => RecipeFactory::get('house')
         ])
         ->set('goalCount', 750)
         ->set('goalRecipe', 'crafted_computer')

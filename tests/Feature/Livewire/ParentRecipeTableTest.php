@@ -2,12 +2,11 @@
 
 use App\Http\Livewire\ParentRecipeTable;
 use App\Models\User;
-use App\TT\Items\Item;
 use App\TT\Storage;
 use function Pest\Laravel\actingAs;
 
 beforeEach(function () {
-    $this->parentRecipe = \App\TT\RecipeFactory::get(new Item('house'));
+    $this->parentRecipe = \App\TT\RecipeFactory::get('house');
     \App\TT\StorageFactory::$storages['fake'] = new Storage([
         new \App\TT\Items\InventoryItem('crafted_computer', 100),
         new \App\TT\Items\InventoryItem('crafted_concrete', 100),

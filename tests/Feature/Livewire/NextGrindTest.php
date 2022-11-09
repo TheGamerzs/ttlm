@@ -21,7 +21,7 @@ beforeEach(function () {
         new \App\TT\Items\InventoryItem('refined_solder', 200),
         new \App\TT\Items\InventoryItem('scrap_plastic', 200),
     ]);
-    $this->parentRecipe = \App\TT\RecipeFactory::get(new \App\TT\Items\Item('crafted_computer'));
+    $this->parentRecipe = \App\TT\RecipeFactory::get('crafted_computer');
     $this->parentRecipe->setInStorageForAllComponents($storage);
 });
 

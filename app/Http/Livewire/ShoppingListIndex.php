@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\TT\Items\Item;
 use App\TT\RecipeFactory;
 use App\TT\ShoppingListBuilder;
 use App\TT\Storage;
@@ -35,14 +34,14 @@ class ShoppingListIndex extends BaseComponent
         $trunkCapacity = Auth::user()->makeTruckingInventories()->totalAvailableCapacity();
 
         $totalNeededList = ShoppingListBuilder::build(
-            RecipeFactory::get(new Item($this->recipeName)),
+            RecipeFactory::get($this->recipeName),
             new Storage(),
             (int) $this->count,
             $trunkCapacity
         );
 
         $stillNeededList = ShoppingListBuilder::build(
-            RecipeFactory::get(new Item($this->recipeName)),
+            RecipeFactory::get($this->recipeName),
             StorageFactory::get('combined'),
             (int) $this->count,
             $trunkCapacity

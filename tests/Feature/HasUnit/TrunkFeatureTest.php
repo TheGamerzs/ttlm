@@ -34,3 +34,28 @@ it('fills a load and diminishes the recipe components in storage number', functi
         ->and($bronze->inStorage)->toBe(100);
 
 });
+
+
+it('populates load with components given a recipe', function () {
+
+    $trunk = new Trunk('mk13', 9775);
+    $recipe = RecipeFactory::get('refined_solder');
+    $recipe->components = collect([
+        new \App\TT\Items\CraftingMaterial('refined_aluminum', $recipe, 2, 10),
+        new \App\TT\Items\CraftingMaterial('scrap_lead', $recipe, 2, 15)
+    ]);
+
+
+    $trunk->fillLoadWithComponentsForRecipe($recipe, false);
+
+    expect($trunk->load->contains('name', 'refined_aluminum'))->toBeTrue()
+        ->and($trunk->load->contains('name', 'scrap_lead'))->toBeTrue();
+
+    $amalgam = $trunk->load->firstWhere('name', 'refined_aluminum');
+    $bronze = $trunk->load->firstWhere('name', 'scrap_lead');
+
+
+    expect($amalgam->count)->toBe(390)
+        ->and($bronze->count)->toBe(390);
+
+});

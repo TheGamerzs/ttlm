@@ -7,12 +7,17 @@ use App\View\NextGrindViewModel;
 
 test('items that can be crafted from a full load of components', function () {
 
-    $user = User::factory()->create([
-        'truckCapacity' => 9775,
+    \Pest\Laravel\actingAs($user = User::factory()->create([
+        'truckCapacity'    => 9775,
         'truckCapacityTwo' => 6000
-    ]);
+    ]));
 
-    $viewModel = (new NextGrindViewModel($user->makeTruckingInventories()))->setRecipeFromString('crafted_rebar');
+    fakeStoragesAndPersonalInventoryCallsWithJson();
+
+    $recipe = RecipeFactory::get('crafted_rebar');
+    $recipe->autoSetStorageBasedOnLocationOfMostComponents();
+    $viewModel = (new NextGrindViewModel($user->makeTruckingInventories()))
+        ->setRecipe($recipe);
 
     expect($viewModel->itemsThatCanBeCraftedFromAFullLoadOfComponents())->toBe(284);
 
@@ -33,9 +38,9 @@ it('sets trunk loads when a recipe is set', function () {
     $viewModel = (new NextGrindViewModel($user->makeTruckingInventories()))
         ->setRecipe($recipe);
 
-    $trunk = $viewModel->inventories->trunks->first();
+    $trunk   = $viewModel->inventories->trunks->first();
     $amalgam = $trunk->load->firstWhere('name', 'refined_amalgam');
-    $bronze = $trunk->load->firstWhere('name', 'refined_bronze');
+    $bronze  = $trunk->load->firstWhere('name', 'refined_bronze');
 
     expect($amalgam)->toBeInstanceOf(InventoryItem::class)
         ->and($amalgam->count)->toBe(528)
@@ -46,7 +51,7 @@ it('sets trunk loads when a recipe is set', function () {
 
 test('custom view name', function () {
 
-    $recipe = RecipeFactory::get('liberty_goods');
+    $recipe    = RecipeFactory::get('liberty_goods');
     $viewModel = new NextGrindViewModel(new \App\TT\Inventories());
     $viewModel->setRecipe($recipe);
 
@@ -57,7 +62,7 @@ test('custom view name', function () {
 it('shows number of runs that can be made based on storage', function (int $copperInStorage, int $planksInStorage, string $expectedString) {
 
     \Pest\Laravel\actingAs($user = User::factory()->create([
-        'truckCapacity' => 9775,
+        'truckCapacity'    => 9775,
         'truckCapacityTwo' => 6000
     ]));
     fakePersonalInventoryApiCallWithStoredJson();

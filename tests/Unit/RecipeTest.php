@@ -4,7 +4,6 @@ use App\TT\Items\CraftingMaterial;
 use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
 use App\TT\Recipe;
-use Illuminate\Support\Collection;
 
 test('totalWeightOfComponentsToCraft method', function () {
 
@@ -150,30 +149,6 @@ it('returns a component by name', function () {
 
     expect($recipe->getComponent('refined_flint'))->toBeInstanceOf(CraftingMaterial::class)
         ->and($recipe->getComponent('refined_flint')->name)->toBe('refined_flint');
-
-});
-
-it('returns inventory items of components ratioed to recipe to fill a trunk load', function () {
-
-    $recipe = new Recipe(new Item('crafted_rebar'));
-    $recipe->components = collect([
-        new CraftingMaterial('refined_amalgam', $recipe, 6, 15),
-        new CraftingMaterial('refined_bronze', $recipe, 2, 10)
-    ]);
-
-
-    $items = $recipe->componentsThatCanFitAsInventoryItems(9775, false);
-
-    expect($items)->toBeInstanceOf(Collection::class)
-        ->and($items->count())->toBe(2);
-
-    $amalgam = $items->firstWhere('name', 'refined_amalgam');
-    expect($amalgam)->toBeInstanceOf(InventoryItem::class)
-        ->and($amalgam->count)->toBe(528);
-
-    $bronze = $items->firstWhere('name', 'refined_bronze');
-    expect($bronze)->toBeInstanceOf(InventoryItem::class)
-        ->and($bronze->count)->toBe(176);
 
 });
 

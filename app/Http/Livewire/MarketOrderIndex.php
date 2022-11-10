@@ -122,11 +122,11 @@ class MarketOrderIndex extends BaseComponent
         }
 
         if (! empty($this->priceMinFilter)) {
-            $marketOrders->where('price_each', '>=', $this->priceMinFilter);
+            $marketOrders->whereRaw('CAST(price_each as UNSIGNED) >= ?', [(int) $this->priceMinFilter]);
         }
 
         if (! empty($this->priceMaxFilter)) {
-            $marketOrders->where('price_each', '<=', $this->priceMaxFilter);
+            $marketOrders->whereRaw('CAST(price_each as UNSIGNED) <= ?', [(int) $this->priceMaxFilter]);
         }
 
         if ($this->type == 'mine') {

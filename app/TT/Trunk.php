@@ -16,6 +16,9 @@ class Trunk
 
     public int    $capacityUsed = 0;
 
+    /**
+     * @var Collection<InventoryItem>
+     */
     public Collection $load;
 
     public function __construct(string $name, int $capacity, array $load = [])

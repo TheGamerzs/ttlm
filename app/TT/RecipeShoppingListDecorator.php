@@ -2,7 +2,6 @@
 
 namespace App\TT;
 
-use App\TT\Items\CraftingMaterial;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -10,6 +9,9 @@ class RecipeShoppingListDecorator
 {
     public Recipe $recipe;
 
+    /**
+     * @var Collection<RecipeShoppingListDecorator>
+     */
     public Collection $componentRecipes;
 
     public int $count;
@@ -30,7 +32,6 @@ class RecipeShoppingListDecorator
 
     protected function loadComponentRecipes(): void
     {
-        /** @var CraftingMaterial $craftingMaterial */
         foreach ($this->recipe->components as $craftingMaterial)
         {
             // Account for recipes that yield more than one item. Round up .5s

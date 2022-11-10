@@ -12,7 +12,7 @@ class Recipe
     public Item $inventoryItem;
 
     /**
-     * @var Collection|CraftingMaterial[]
+     * @var Collection<CraftingMaterial>
      */
     public Collection $components;
 

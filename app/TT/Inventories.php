@@ -11,10 +11,9 @@ use Traversable;
 class Inventories implements \IteratorAggregate, \Countable
 {
     /**
-     * @var Collection|Trunk[]
-     *
+     * @var Collection<Trunk>
      */
-    public Collection|array $trunks;
+    public Collection $trunks;
 
     public function __construct(array $trunks = [])
     {

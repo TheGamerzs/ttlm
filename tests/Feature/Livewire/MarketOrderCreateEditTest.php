@@ -169,3 +169,20 @@ it('can handle large numbers for price each', function () {
         ->and($order->price_each)->toBe(8500000000000);
 
 });
+
+it('deletes an order', function () {
+
+    actingAs($user = User::factory()->hasBuyOrders(2)->create());
+    expect($user->buyOrders->count())->toBe(2);
+    $marketOrder = $user->marketOrders()->first();
+    Livewire::test(MarketOrderCreateEdit::class)
+        ->call('startEditing', $marketOrder->id)
+        ->call('confirmDelete')
+        ->assertEmitted('ask')
+        ->call('delete')
+        ->assertEmitted('closeMarketOrderModal');
+
+    expect($marketOrder->refresh())
+        ->deleted_at->not->toBeNull();
+
+});

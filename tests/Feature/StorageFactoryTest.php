@@ -1,12 +1,14 @@
 <?php
 
 use App\Models\User;
+use App\TT\Factories\ItemFactory;
 use App\TT\Items\InventoryItem;
 use App\TT\StorageFactory;
+use function Pest\Laravel\actingAs;
 
 it('returns a storage object full of inventory items', function () {
 
-    \Pest\Laravel\actingAs(User::factory()->create());
+    actingAs(User::factory()->create());
     fakePersonalInventoryApiCallWithStoredJson();
     fakeStoragesApiCallWithArray([
         'crafted_concrete' => 10,
@@ -40,7 +42,7 @@ it('returns a pretty name for faction storages', function () {
 
 it('gets all item names from a combined storage with trucking names', function () {
 
-    \Pest\Laravel\actingAs(User::factory()->create());
+    actingAs(User::factory()->create());
     fakePersonalInventoryApiCallWithStoredJson();
     fakeStoragesApiCallWithArray([
         'crafted_concrete' => 1
@@ -52,5 +54,49 @@ it('gets all item names from a combined storage with trucking names', function (
     $withInjected = StorageFactory::getAllItemNamesInCombinedStorage(false, true);
     expect($withInjected->contains('crafted_rebar'))->toBeTrue();
 
+});
+
+it('finds storages that an item exists in', function () {
+
+    actingAs(User::factory()->create());
+    fakePersonalInventoryApiCallWithStoredJson();
+    fakeStoragesApiCallWithStoredJson();
+    $item = ItemFactory::make('scrap_gold');
+
+    expect(StorageFactory::findStoragesForItem($item)->keys())
+        ->contains('biz_granny')->toBeTrue()
+        ->contains('faq_522')->toBeTrue();
+});
+
+it('finds the storage that contains the highest count for an item', function () {
+
+    actingAs(User::factory()->create());
+    fakePersonalInventoryApiCallWithStoredJson();
+    fakeStoragesApiCallWithStoredJson();
+
+    expect(StorageFactory::guessStorageForItem('scrap_gold'))->toBe('faq_522');
+
+});
+
+test('getRegisteredNames static function', function () {
+
+    actingAs(User::factory()->create());
+    fakeStoragesAndPersonalInventoryCallsWithJson();
+    \Spatie\Snapshots\assertMatchesJsonSnapshot(StorageFactory::getRegisteredNames());
+    \Spatie\Snapshots\assertMatchesJsonSnapshot(StorageFactory::getRegisteredNames(true));
+    \Spatie\Snapshots\assertMatchesJsonSnapshot(StorageFactory::getRegisteredNames(true, false));
+    \Spatie\Snapshots\assertMatchesJsonSnapshot(StorageFactory::getRegisteredNames(false, false));
+
+});
+
+test('getCountFromCombinedForItem static method', function () {
+
+    actingAs(User::factory()->create());
+    fakeStoragesAndPersonalInventoryCallsWithJson();
+    $randomItems = StorageFactory::get()->shuffle()->take(5);
+
+    foreach ($randomItems as $item) {
+        expect(StorageFactory::getCountFromCombinedForItem($item))->toBe($item->count);
+    }
 
 });

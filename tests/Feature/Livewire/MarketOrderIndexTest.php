@@ -3,11 +3,12 @@
 use App\Http\Livewire\MarketOrderIndex;
 use App\Models\MarketOrder;
 use App\Models\User;
+use function Pest\Laravel\actingAs;
 
 test('ok response', function () {
 
     fakeStoragesAndPersonalInventoryCallsWithJson();
-    \Pest\Laravel\actingAs(User::factory()->create());
+    actingAs(User::factory()->create());
     \Pest\Laravel\get(route('marketOrders'))->assertOk();
 
 });
@@ -84,5 +85,32 @@ test('Price Each Filter Max', function () {
 
     expect($component['allMarketOrders']->contains('item_name', 'should_see'))->toBeTrue()
         ->and($component['allMarketOrders']->contains('item_name', 'should_not_see'))->toBeFalse();
+
+});
+
+it('deletes a market order', function () {
+
+    $marketOrder = MarketOrder::factory()->buyOrder()->create();
+    actingAs($marketOrder->user);
+    fakeStoragesAndPersonalInventoryCallsWithJson();
+    Livewire::test(MarketOrderIndex::class)
+        ->call('closeOrder', $marketOrder->id)
+        ->assertEmitted('ask')
+        ->call('softDeleteOrder', $marketOrder->id);
+
+    expect($marketOrder->refresh()->deleted_at)->not->toBeNull();
+
+});
+
+test('user owns market order to delete', function () {
+
+    $marketOrder = MarketOrder::factory()->buyOrder()->create();
+    actingAs($user = User::factory()->create());
+    fakeStoragesAndPersonalInventoryCallsWithJson();
+    Livewire::test(MarketOrderIndex::class)
+        ->call('softDeleteOrder', $marketOrder->id)
+        ->assertForbidden();
+
+    expect($marketOrder->refresh()->deleted_at)->toBeNull();
 
 });

@@ -39,3 +39,34 @@ it('returns display objects for the view to use', function () {
     expect($viewModel->totalCraftingCost())->toBe('~$300,671,300')
         ->and($viewModel->remainingCraftingCost())->toBe('~$203,010,650');
 });
+
+test('showType method', function () {
+    $totalNeededList = ShoppingListBuilder::build(
+        RecipeFactory::get('house'),
+        new Storage(),
+        1000,
+        9775
+    );
+    $stillNeededList = ShoppingListBuilder::build(
+        RecipeFactory::get('house'),
+        StorageFactory::get('combined'),
+        1000,
+        9775
+    );
+
+    $viewModel = new ShoppingListViewModel($totalNeededList, $stillNeededList);
+    expect($viewModel)
+        ->showType('scrap')->toBeTrue()
+        ->showType('refined')->toBeTrue()
+        ->showType('crafted')->toBeTrue();
+
+    $totalNeededList['scrap'] = collect();
+    $totalNeededList['refined'] = collect();
+    $totalNeededList['crafted'] = collect();
+
+    $viewModel = new ShoppingListViewModel($totalNeededList, $stillNeededList);
+    expect($viewModel)
+        ->showType('scrap')->toBeFalse()
+        ->showType('refined')->toBeFalse()
+        ->showType('crafted')->toBeFalse();
+});

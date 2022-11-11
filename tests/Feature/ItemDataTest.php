@@ -125,3 +125,64 @@ it('handles dynamic name cases', function (string $nameFromStorage, string $expe
         ],
     ]
 );
+
+it('resets cached json data', function () {
+
+    Cache::put('itemData', collect());
+    expect(Cache::has('itemData'))->toBeTrue();
+    ItemData::resetCachedData();
+    expect(Cache::has('itemData'))->toBeFalse();
+
+});
+
+test('getInternalNameDisplayNamePairs static method', function () {
+
+    $namePairs = ItemData::getInternalNameDisplayNamePairs();
+    $randomItems = App::make('itemData')->shuffle()->take(5);
+
+    foreach ($randomItems as $item) {
+        expect($namePairs)
+            ->keys()->contains($item->id)->toBeTrue()
+            ->contains($item->name)->toBeTrue();
+    }
+
+});
+
+test('getInternalNameDisplayNamePairsTruckingOnly static method', function () {
+
+    $namePairs = ItemData::getInternalNameDisplayNamePairsTruckingOnly();
+    $randomTruckingItems = App::make('itemData')
+        ->filter(function ($item) {
+            return str($item->id)->startsWith(['crafted', 'refined', 'scrap']);
+        })
+        ->shuffle()
+        ->take(5);
+    $internalNames = $namePairs->keys();
+
+    expect($internalNames)
+        ->contains('crafted_concrete')->toBeTrue()
+        ->contains('IA_1_1')->toBeFalse();
+
+    foreach ($randomTruckingItems as $item) {
+        expect($namePairs)
+            ->keys()->contains($item->id)->toBeTrue()
+            ->contains($item->name)->toBeTrue();
+    }
+});
+
+test('getAllInternalNames static method', function () {
+
+    $return = ItemData::getAllInternalNames();
+    expect($return)
+        ->toBeInstanceOf(Collection::class)
+        ->count()->not->toBeEmpty();
+
+});
+
+test('truckingItemsStartWith static method', function () {
+    \Spatie\Snapshots\assertMatchesJsonSnapshot(json_encode(ItemData::truckingItemsStartWith()));
+});
+
+test('getAllInternalTruckingNames static method', function () {
+    \Spatie\Snapshots\assertMatchesJsonSnapshot(ItemData::getAllInternalTruckingNames()->toJson());
+});

@@ -4,10 +4,11 @@ use App\Models\User;
 use App\TT\Items\InventoryItem;
 use App\TT\RecipeFactory;
 use App\View\NextGrindViewModel;
+use function Pest\Laravel\actingAs as actingAsAlias;
 
 test('items that can be crafted from a full load of components', function () {
 
-    \Pest\Laravel\actingAs($user = User::factory()->create([
+    actingAsAlias($user = User::factory()->create([
         'truckCapacity'    => 9775,
         'truckCapacityTwo' => 6000
     ]));
@@ -22,6 +23,69 @@ test('items that can be crafted from a full load of components', function () {
     expect($viewModel->itemsThatCanBeCraftedFromAFullLoadOfComponents())->toBe(284);
 
 });
+
+test('showComponentTable method', function () {
+
+    actingAsAlias($user = User::factory()->create([
+        'truckCapacity'    => 9775,
+        'truckCapacityTwo' => 6000
+    ]));
+    fakeStoragesAndPersonalInventoryCallsWithJson();
+    $recipeWithComponents = RecipeFactory::get('crafted_rebar');
+    $recipeWithComponents->autoSetStorageBasedOnLocationOfMostComponents();
+
+    $shouldBeTrue = (new NextGrindViewModel($user->makeTruckingInventories()))
+        ->setRecipe($recipeWithComponents);
+
+    expect($shouldBeTrue->showComponentTable())->toBeTrue();
+
+    $recipeWithoutComponents = RecipeFactory::get('petrochem_waste');
+    $recipeWithoutComponents->autoSetStorageBasedOnLocationOfMostComponents();
+
+    $shouldBeFalse = (new NextGrindViewModel($user->makeTruckingInventories()))
+        ->setRecipe($recipeWithoutComponents);
+
+    expect($shouldBeFalse->showComponentTable())->toBeFalse();
+});
+
+test('recipesThatCanBeCraftedFromAFullLoadOfComponents method', function () {
+
+    actingAsAlias($user = User::factory()->create([
+        'truckCapacity'    => 9775,
+        'truckCapacityTwo' => 6000
+    ]));
+    fakeStoragesAndPersonalInventoryCallsWithJson();
+    $recipe = RecipeFactory::get('crafted_rebar');
+    $recipe->autoSetStorageBasedOnLocationOfMostComponents();
+
+    $viewModel = (new NextGrindViewModel($user->makeTruckingInventories()))
+        ->setRecipe($recipe);
+
+    expect(
+        $viewModel->recipesThatCanBeCraftedFromAFullLoadOfComponents()
+    )->toBe(142);
+
+});
+
+test('storageDropdownOptions method', function () {
+
+    actingAsAlias($user = User::factory()->create([
+        'truckCapacity'    => 9775,
+        'truckCapacityTwo' => 6000
+    ]));
+    fakeStoragesAndPersonalInventoryCallsWithJson();
+    $recipe = RecipeFactory::get('crafted_rebar');
+    $recipe->autoSetStorageBasedOnLocationOfMostComponents();
+
+    $viewModel = (new NextGrindViewModel($user->makeTruckingInventories()))
+        ->setRecipe($recipe);
+
+    expect($viewModel->storageDropdownOptions())
+        ->toBeInstanceOf(\Illuminate\Support\Collection::class)
+        ->count()->not->toBeEmpty();
+
+});
+
 
 it('sets trunk loads when a recipe is set', function () {
 
@@ -61,7 +125,7 @@ test('custom view name', function () {
 
 it('shows number of runs that can be made based on storage', function (int $copperInStorage, int $planksInStorage, string $expectedString) {
 
-    \Pest\Laravel\actingAs($user = User::factory()->create([
+    actingAsAlias($user = User::factory()->create([
         'truckCapacity'    => 9775,
         'truckCapacityTwo' => 6000
     ]));

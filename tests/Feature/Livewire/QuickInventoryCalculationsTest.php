@@ -115,3 +115,42 @@ it('builds users inventories object', function () {
         ->and($trailerTwo->capacity)->toBe(6000)
         ->and($trailerTwo->capacityUsed)->toBe(4000);
 });
+
+test('updatedItemName method', function () {
+
+    $component = mock(QuickInventoryCalculations::class)
+        ->makePartial()
+        ->shouldAllowMockingProtectedMethods()
+        ->expects()->buildPickupCounts()
+        ->getMock();
+
+    $component->updatedItemName('something');
+    expect(Session::get('pickUpCountsItem'))->toBe('something');
+
+});
+
+test('updatedPickupCountsYield method', function () {
+
+    $component = mock(QuickInventoryCalculations::class)
+        ->makePartial()
+        ->shouldAllowMockingProtectedMethods()
+        ->expects()->buildPickupCounts()
+        ->getMock();
+
+    $component->updatedPickupCountsYield('something');
+    expect(Session::get('pickUpCountsYield'))->toBe('something');
+
+});
+
+test('updatedStorageName method', function () {
+
+    $component = mock(QuickInventoryCalculations::class)
+        ->makePartial()
+        ->shouldAllowMockingProtectedMethods()
+        ->expects()->buildPickupCounts()
+        ->getMock();
+
+    $component->updatedStorageName('something');
+    expect(Session::get('pickUpCountsStorage'))->toBe('something');
+
+});

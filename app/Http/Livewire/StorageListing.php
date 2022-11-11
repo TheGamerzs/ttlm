@@ -5,30 +5,25 @@ namespace App\Http\Livewire;
 use App\TT\ItemFilters\NonTruckingItemsFilter;
 use App\TT\ItemFilters\TruckingItemsFilter;
 use App\TT\Items\ExportableItem;
-use App\TT\Items\InventoryItem;
 use App\TT\Items\ItemData;
-use App\TT\Items\Weights;
 use App\TT\StorageFactory;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
-use Livewire\Component;
 
-class StorageListing extends Component
+class StorageListing extends BaseComponent
 {
     protected $listeners = [
         'refresh' => '$refresh'
     ];
 
-    public array|string $storageName = 'combined';
+    public string $storageName = 'combined';
 
     public int $truckCapacity;
 
     public string $sortBy = 'count';
 
-    public array|string $itemToAddToFullTrailerAlerts = '';
+    public string $itemToAddToFullTrailerAlerts = '';
 
     public array $hiddenExportableInputs = [];
 
@@ -37,7 +32,7 @@ class StorageListing extends Component
     // Filter Inputs
     public string $searchStringInput = '';
 
-    public array|string $typeFilter = 'all';
+    public string $typeFilter = 'all';
 
     public string $minCountFilter = '';
 
@@ -77,7 +72,6 @@ class StorageListing extends Component
     {
         Auth::user()->custom_combined_storage = collect($this->customStorageInput)->filter()->keys();
         Auth::user()->save();
-
     }
 
     public function addItemToFullTrailerAlerts()

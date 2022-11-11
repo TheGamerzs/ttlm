@@ -243,6 +243,4 @@ class StorageFactory
         return $name->headline();
     }
 
-
-
 }

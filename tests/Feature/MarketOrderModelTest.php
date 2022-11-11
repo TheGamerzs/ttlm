@@ -39,6 +39,14 @@ it('has a storage name attribute', function () {
 
 });
 
+it('has an alt storage name attribute', function () {
+
+    $order = MarketOrder::factory()->sellOrder()->create(['storage' => 'bhsl', 'storage_additional' => 'tsu']);
+
+    expect($order->altStorageName)->toBe('The Secure Unit');
+
+});
+
 // Example: Order is a buy order for an item, find sell orders for the same item.
 it('finds the inverse of buy and sell orders', function () {
 
@@ -104,5 +112,53 @@ test('only expired scope', function () {
 
     expect($results->contains($expired))->toBeTrue()
         ->and($results->contains($notExpired))->toBeFalse();
+
+});
+
+function createOneOfEachType(): array
+{
+    $buy = MarketOrder::factory()->buyOrder()->create();
+    $sell = MarketOrder::factory()->sellOrder()->create();
+    $move = MarketOrder::factory()->moveOrder()->create();
+
+    return [$buy, $sell, $move];
+}
+
+test('buy order scope', function () {
+
+    [$buy, $sell, $move] = createOneOfEachType();
+
+    $queryResults = MarketOrder::buyOrders()->get();
+
+    expect($queryResults)
+        ->contains($buy)->toBeTrue()
+        ->contains($sell)->toBeFalse()
+        ->contains($move)->toBeFalse();
+
+});
+
+test('sell order scope', function () {
+
+    [$buy, $sell, $move] = createOneOfEachType();
+
+    $queryResults = MarketOrder::sellOrders()->get();
+
+    expect($queryResults)
+        ->contains($buy)->toBeFalse()
+        ->contains($sell)->toBeTrue()
+        ->contains($move)->toBeFalse();
+
+});
+
+test('move order scope', function () {
+
+    [$buy, $sell, $move] = createOneOfEachType();
+
+    $queryResults = MarketOrder::moveOrders()->get();
+
+    expect($queryResults)
+        ->contains($buy)->toBeFalse()
+        ->contains($sell)->toBeFalse()
+        ->contains($move)->toBeTrue();
 
 });

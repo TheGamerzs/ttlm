@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\ParentRecipeTable;
 use App\Models\User;
+use App\TT\Factories\ItemFactory;
 use App\TT\Storage;
 use function Pest\Laravel\actingAs;
 
@@ -21,8 +22,7 @@ it('mounts with required parameters set', function () {
 
     actingAs($user = User::factory()->create());
 
-    /** @var ParentRecipeTableExtended $instance */
-    $data = Livewire::test(ParentRecipeTableExtended::class, ['parentRecipe' => $this->parentRecipe, 'truckCapacity' => 9775])
+    $data = Livewire::test(ParentRecipeTable::class, ['parentRecipe' => $this->parentRecipe, 'truckCapacity' => 9775])
         ->instance()->getHydratedData();
 
     expect($data['storageName'])->toBe('fake')
@@ -45,7 +45,7 @@ it('updates the storage', function () {
 
     actingAs($user = User::factory()->create());
 
-    $data = Livewire::test(ParentRecipeTableExtended::class, ['parentRecipe' => $this->parentRecipe, 'truckCapacity' => 9775])
+    $data = Livewire::test(ParentRecipeTable::class, ['parentRecipe' => $this->parentRecipe, 'truckCapacity' => 9775])
         ->updateProperty('storageName', 'fake-2')
         ->instance()->getHydratedData();
 
@@ -55,11 +55,29 @@ it('updates the storage', function () {
 
 });
 
+test('getFillTruckString method', function () {
 
-class ParentRecipeTableExtended extends ParentRecipeTable
-{
-    public function getHydratedData()
-    {
-        return collect($this->preRenderedView->getData())->except(['_instance']);
-    }
-}
+    $component = new ParentRecipeTable;
+    $component->parentRecipe = \App\TT\RecipeFactory::get('house');
+    expect($component->getFillTruckString())->toBe('Transfer');
+
+    $component->parentRecipe = \App\TT\RecipeFactory::get('crafted_rebar');
+    expect($component->getFillTruckString())->toBe('Fill Trailer');
+
+});
+
+test('getFillTruckCount method', function () {
+
+    actingAs($user = User::factory()->create());
+    fakeStoragesAndPersonalInventoryCallsWithJson();
+
+    $component = new ParentRecipeTable;
+    $component->parentRecipe = \App\TT\RecipeFactory::get('house');
+    $component->parentRecipe->autoSetStorageBasedOnLocationOfMostComponents();
+
+    $value = $component->getFillTruckCount(
+        ItemFactory::makeCraftingMaterial('crafted_rebar', $component->parentRecipe, 1)
+    );
+    expect($value)->toBe(25);
+
+});

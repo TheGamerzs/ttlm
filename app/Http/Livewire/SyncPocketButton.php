@@ -18,6 +18,7 @@ class SyncPocketButton extends Component
             return;
         }
         Cache::forget(Auth::id() . 'tt_api_user_data');
+        Cache::forget(Auth::id() . 'tt_backpack');
         StorageFactory::get();
         $this->successAlert('Personal Inventory Synced.');
         $this->emit('refresh');

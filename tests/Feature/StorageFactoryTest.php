@@ -3,6 +3,7 @@
 use App\Models\User;
 use App\TT\Factories\ItemFactory;
 use App\TT\Items\InventoryItem;
+use App\TT\Storage;
 use App\TT\StorageFactory;
 use function Pest\Laravel\actingAs;
 
@@ -98,5 +99,41 @@ test('getCountFromCombinedForItem static method', function () {
     foreach ($randomItems as $item) {
         expect(StorageFactory::getCountFromCombinedForItem($item))->toBe($item->count);
     }
+
+});
+
+it('has a users backpack storage when one exists', function () {
+
+    actingAs($user = User::factory()->backpackTrue()->create());
+    fakeStoragesAndPersonalInventoryCallsWithJson();
+    fakeFullBackpackCallWithStoredJson();
+    $backpack = StorageFactory::get('backpack');
+
+    expect($backpack)
+        ->toBeInstanceOf(Storage::class)
+        ->count()->toBe(61)
+        ->first()->toBeInstanceOf(InventoryItem::class)
+        ->and(StorageFactory::$storages)->toHaveCount(8);
+});
+
+it('does not include a backpack storage for a user that does not have one', function () {
+
+    actingAs($user = User::factory()->create());
+    fakeStoragesAndPersonalInventoryCallsWithJson();
+    StorageFactory::get();
+
+    expect(array_key_exists('backpack', StorageFactory::$storages))->toBeFalse();
+
+});
+
+test('when user has backpack enabled but does not have one in game', function () {
+
+    actingAs($user = User::factory()->backpackTrue()->create());
+    fakeStoragesAndPersonalInventoryCallsWithJson();
+    fakeEmptyBackpackCallWithStoredJson();
+    StorageFactory::get();
+
+    expect(array_key_exists('backpack', StorageFactory::$storages))->toBeFalse()
+        ->and(StorageFactory::$storages)->toHaveCount(7);
 
 });

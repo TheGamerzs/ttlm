@@ -23,7 +23,8 @@ class UserSettings extends Component
         'user.trainYardCapacity'=> 'integer|nullable|min:10800',
         'user.default_crafting_recipe' => 'string|required',
         'user.dark_mode' => 'boolean|required',
-        'user.auto_delist_market_orders' => 'boolean|required'
+        'user.auto_delist_market_orders' => 'boolean|required',
+        'user.has_backpack' => 'boolean|required'
     ];
 
     public function tryToGetTTId(): void

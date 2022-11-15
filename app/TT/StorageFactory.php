@@ -157,6 +157,20 @@ class StorageFactory
         $pocket->inventory = (new TTApi())->getUserInventory(false);
         $data->storages[] = $pocket;
 
+        if (Auth::user()->has_backpack) {
+            // Inject personal inventory as a storage named 'backpack'
+            $apiResponse = (new TTApi())->getUserBackpack();
+            if (property_exists($apiResponse, 'data')) {
+                $backpack = new \stdClass();
+                $backpack->name = 'backpack';
+                $backpack->inventory = $apiResponse->data;
+                $data->storages[] = $backpack;
+            } else {
+                // User lied, set to false to stop needless api calls.
+                Auth::user()->update(['has_backpack' => false]);
+            }
+        }
+
         return $data;
     }
 

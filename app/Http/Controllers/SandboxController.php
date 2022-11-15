@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\TT\Items\ItemData;
+use App\TT\StorageFactory;
 use App\TT\TTApi;
-use App\View\NextGrindViewModel;
-use Illuminate\Support\Facades\Auth;
 
 class SandboxController extends Controller
 {
@@ -16,10 +15,12 @@ class SandboxController extends Controller
 
     public function index()
     {
-        $inventories = Auth::user()->makeTruckingInventories();
-        $viewModel = new NextGrindViewModel($inventories);
-        $viewModel->setRecipeFromString('crafted_rebar');
-        dd($viewModel->itemsThatCanBeCraftedFromAFullLoadOfComponents());
+        $empty = apiResponseDataFromTestJson('BackpackEmpty');
+        $full = apiResponseDataFromTestJson('BackpackFull');
+        dd(
+            $empty, collect($full->data),
+            StorageFactory::get('pocket')
+        );
     }
 
     public function userInventory()

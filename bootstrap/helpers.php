@@ -1,10 +1,19 @@
 <?php
 
-function dataFromJson(string $file)
+function dataFromJson(string $filename)
 {
     return json_decode(
         file_get_contents(
-            base_path('app/JsonData/') . $file
+            base_path('app/JsonData/') . $filename
+        )
+    );
+}
+
+function apiResponseDataFromTestJson(string $fileName)
+{
+    return json_decode(
+        file_get_contents(
+            base_path('tests/ApiResponses/') . $fileName . '.json'
         )
     );
 }

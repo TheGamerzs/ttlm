@@ -53,6 +53,18 @@ function fakePersonalInventoryApiCallWithStoredJson(): void
     Http::fake(['v1.api.tycoon.community/main/data/*' => Http::response($apiReturn)]);
 }
 
+function fakeFullBackpackCallWithStoredJson()
+{
+    $apiReturn = file_get_contents(base_path('tests/ApiResponses/BackpackFull.json'));
+    Http::fake(['v1.api.tycoon.community/main/chest/*' => Http::response($apiReturn)]);
+}
+
+function fakeEmptyBackpackCallWithStoredJson()
+{
+    $apiReturn = file_get_contents(base_path('tests/ApiResponses/BackpackEmpty.json'));
+    Http::fake(['v1.api.tycoon.community/main/chest/*' => Http::response($apiReturn)]);
+}
+
 function fakeStoragesApiCallWithStoredJson(): void
 {
     $apiReturn = file_get_contents(base_path('tests/ApiResponses/Storage.json'));

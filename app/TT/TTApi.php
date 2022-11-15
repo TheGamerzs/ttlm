@@ -83,6 +83,27 @@ class TTApi
         return $this->getUserData()->data->inventory;
     }
 
+    public function getUserBackpack()
+    {
+        $responseBody =  Cache::rememberForever($this->userBackpackCacheKey(), function () {
+            $response = Http::withHeaders($this->buildHeaders())
+                ->get('v1.api.tycoon.community/main/chest/u' . $this->user->tt_id . 'backpack');
+
+            if ($response->clientError()) {
+                abort(401, 'API Call Failed');
+            }
+
+            $this->user->increment('calls_made');
+
+            // Create a 10-second cool down to check against.
+            Cache::put($this->user->id . 'lockedApi', now(), 10);
+
+            return $response->body();
+        });
+
+        return json_decode($responseBody);
+    }
+
     public function userStorageCacheKey(): string
     {
         return $this->user->id . 'tt_api_storage';
@@ -91,6 +112,11 @@ class TTApi
     public function userDataCacheKey(): string
     {
         return $this->user->id . 'tt_api_user_data';
+    }
+
+    public function userBackpackCacheKey(): string
+    {
+        return $this->user->id . 'tt_backpack';
     }
 
     public static function ttIdFromDiscordSnowflake(string $snowflake): \stdClass

@@ -125,6 +125,13 @@
 
             <div class="mb-3">
                 <div class="form-check form-switch">
+                    <input wire:model="user.has_backpack" class="form-check-input" type="checkbox" role="switch" id="hasBackpack">
+                    <label class="form-check-label" for="hasBackpack">I Have A Backpack In Game.</label>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="form-check form-switch">
                     <input wire:model="user.dark_mode" class="form-check-input" type="checkbox" role="switch" id="darkMode">
                     <label class="form-check-label" for="darkMode">Dark Mode (Refresh page after saving.)</label>
                 </div>

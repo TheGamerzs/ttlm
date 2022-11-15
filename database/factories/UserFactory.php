@@ -67,4 +67,11 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    public function backpackTrue()
+    {
+        return $this->state(fn (array $attributes) => [
+            'has_backpack' => true
+        ]);
+    }
 }

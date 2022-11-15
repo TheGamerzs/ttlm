@@ -81,3 +81,15 @@ it('gets a users personal inventory', function () {
         ->and($inventory->count())->toBe(32);
 
 });
+
+it('gets a users backpack inventory', function () {
+
+    fakeFullBackpackCallWithStoredJson();
+
+    actingAs($user = User::factory()->create());
+    $backpack = (new TTApi())->getUserBackpack();
+
+    expect(property_exists($backpack, 'data'))->toBeTrue()
+        ->and(collect($backpack->data)->count())->toBe(61)
+        ->and(collect($backpack->data)->keys()->contains('exp_bonus_ee2'))->toBeTrue();
+});

@@ -239,3 +239,15 @@ it('returns and inventories object with just trucking trailers', function () {
         ->and($inventories->trunks->count())->toBe(2);
 
 });
+
+it('sets backpack to false when api does not have one', function () {
+
+    actingAs($user = User::factory()->backpackTrue()->create());
+    fakeStoragesAndPersonalInventoryCallsWithJson();
+    fakeEmptyBackpackCallWithStoredJson();
+
+    \App\TT\StorageFactory::get();
+
+    expect($user->refresh())->has_backpack->toBeFalsy();
+
+});

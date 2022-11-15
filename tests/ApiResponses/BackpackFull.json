@@ -1,0 +1,190 @@
+{
+    "chest": "u187966backpack",
+    "data_type": "chest",
+    "code": "200",
+    "data": {
+        "exp_bonus_ee2": {
+            "amount": 8
+        },
+        "fishing_tackle_rare": {
+            "amount": 5015
+        },
+        "exp_token_a|farming|fishing": {
+            "amount": 209681
+        },
+        "prefix_pack_2": {
+            "amount": 41
+        },
+        "faction_money_card|50000": {
+            "amount": 4
+        },
+        "exp_bonus_week": {
+            "amount": 1
+        },
+        "exp_token_a|player|racing": {
+            "amount": 60000
+        },
+        "prosp_junk_9": {
+            "amount": 218
+        },
+        "job_card|emergency": {
+            "amount": 98
+        },
+        "exp_token_a|ems|fire": {
+            "amount": 454868
+        },
+        "fishing_tackle_uncommon": {
+            "amount": 5237
+        },
+        "license_card|transfer": {
+            "amount": 48
+        },
+        "exp_token_a|business|business": {
+            "amount": 40060
+        },
+        "exp_token_a|piloting|cargos": {
+            "amount": 37872
+        },
+        "spook_stick": {
+            "amount": 25
+        },
+        "card_charzard": {
+            "amount": 6
+        },
+        "gut_knife_auto|296": {
+            "amount": 1
+        },
+        "job_card|helicopterpilot": {
+            "amount": 96
+        },
+        "level_token": {
+            "amount": 3736
+        },
+        "rotten_potato": {
+            "amount": 2
+        },
+        "complete_meal": {
+            "amount": 16746
+        },
+        "exp_token_a|trucking|trucking": {
+            "amount": 3134
+        },
+        "exp_token_a|trucking|postop": {
+            "amount": 161100
+        },
+        "fishing_tackle_epic": {
+            "amount": 4134
+        },
+        "blessing_card|rp1.scorpion|Scorpion": {
+            "amount": 1
+        },
+        "weather_stick": {
+            "amount": 33
+        },
+        "mining_token_iron": {
+            "amount": 19
+        },
+        "storage_card": {
+            "amount": 69
+        },
+        "job_card|hunter": {
+            "amount": 30
+        },
+        "exp_token_a|train|train": {
+            "amount": 27341
+        },
+        "job_card|cargopilot": {
+            "amount": 64
+        },
+        "job_card|trucker": {
+            "amount": 83
+        },
+        "fishing_tackle_legenday": {
+            "amount": 2873
+        },
+        "chest_key_master": {
+            "amount": 1
+        },
+        "exp_token_a|trucking|mechanic": {
+            "amount": 153000
+        },
+        "exp_token_a|farming|farming": {
+            "amount": 49821
+        },
+        "card_blastoid": {
+            "amount": 5
+        },
+        "job_card|pilot": {
+            "amount": 44
+        },
+        "prefix_pack_1_reset": {
+            "amount": 35
+        },
+        "repair_shop": {
+            "amount": 15
+        },
+        "exp_bonus_ee3": {
+            "amount": 9
+        },
+        "exp_token_a|ems|ems": {
+            "amount": 5540
+        },
+        "exp_token_a|farming|mining": {
+            "amount": 493598
+        },
+        "exp_token_a|piloting|piloting": {
+            "amount": 16879
+        },
+        "exp_token_a|train|bus": {
+            "amount": 23229
+        },
+        "mining_token_copper": {
+            "amount": 521
+        },
+        "job_card|mechanic": {
+            "amount": 98
+        },
+        "card_venusaur": {
+            "amount": 7
+        },
+        "job_card|fisher": {
+            "amount": 62
+        },
+        "chest_key": {
+            "amount": 397
+        },
+        "exp_token_a|physical|strength": {
+            "amount": 4776
+        },
+        "exp_bonus_ee": {
+            "amount": 143
+        },
+        "prefix_pack_1": {
+            "amount": 34
+        },
+        "exp_token|business|business": {
+            "amount": 29520
+        },
+        "exp_token_a|trucking|garbage": {
+            "amount": 225974
+        },
+        "faction_money_card|250000": {
+            "amount": 335
+        },
+        "exp_token_a|player|player": {
+            "amount": 28329
+        },
+        "prefix_pack_3": {
+            "amount": 32
+        },
+        "exp_bonus_day": {
+            "amount": 5
+        },
+        "exp_token_a|piloting|heli": {
+            "amount": 10385
+        },
+        "sd_decrypted|trucking.cardboard": {
+            "amount": 1
+        }
+    }
+}

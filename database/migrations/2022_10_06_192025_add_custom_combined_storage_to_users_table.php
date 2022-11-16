@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +18,7 @@ return new class extends Migration
             $table->json('custom_combined_storage')->nullable();
         });
 
-        foreach (\App\Models\User::all() as $user) {
+        foreach (User::all() as $user) {
             $user->custom_combined_storage = collect();
             $user->save();
         }

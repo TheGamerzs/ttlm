@@ -2,23 +2,30 @@
 
 namespace App\TT\Items;
 
+use App\TT\Factories\ItemFactory;
 use App\TT\Recipe;
 use App\TT\RecipeShoppingListDecorator;
 use App\TT\ShoppingListBuilder;
 use App\TT\Storage;
 use App\TT\StorageFactory;
+use Exception;
+use Illuminate\Support\Collection;
 
 class ExcessItem extends InventoryItem
 {
     public int $neededCount;
 
-    public function __construct(string $name, int $count, int $neededCount)
+    public function __construct(string $name, int $count, int $neededCount, int $weight = 0, ?string $prettyName = null)
     {
-        parent::__construct($name, $count);
+        parent::__construct($name, $count, $weight, $prettyName);
         $this->neededCount = $neededCount;
     }
 
-    public static function makeList(int $neededRecipeCount, Recipe $recipe, Storage $storage)
+    /**
+     * @return Collection<ExcessItem>|Storage<ExcessItem>
+     * @throws Exception
+     */
+    public static function makeList(int $neededRecipeCount, Recipe $recipe, Storage $storage): Collection|Storage
     {
         $needed = ShoppingListBuilder::build(
             $recipe,
@@ -69,7 +76,7 @@ class ExcessItem extends InventoryItem
 
     public static function makeFromInventoryItem(InventoryItem $inventoryItem, int $neededCount): ExcessItem
     {
-        return new self($inventoryItem->name, $inventoryItem->count, $neededCount);
+        return ItemFactory::makeExcessItem($inventoryItem->name, $inventoryItem->count, $neededCount);
     }
 
     public function hasExcessFactorOfAtLeast(float $factor): bool
@@ -85,12 +92,5 @@ class ExcessItem extends InventoryItem
     public function inExcessWeight(): int|float
     {
         return $this->inExcessCount() * $this->weight;
-    }
-
-    public function inExcessFactor(): float
-    {
-        if ($this->neededCount == 0) return 0;
-
-        return $this->count / $this->neededCount;
     }
 }

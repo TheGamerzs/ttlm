@@ -3,6 +3,7 @@
 namespace App\TT\Factories;
 
 use App\TT\Items\CraftingMaterial;
+use App\TT\Items\ExcessItem;
 use App\TT\Items\ExportableItem;
 use App\TT\Items\InventoryItem;
 use App\TT\Items\Item;
@@ -54,6 +55,19 @@ class ItemFactory
         return new ExportableItem(
             $internalName,
             $count,
+            $data ? (int) $data->weight : 0,
+            $data ? $data->name : null,
+        );
+    }
+
+    public static function makeExcessItem(string $internalName, int $count, int $neededCount): ExcessItem
+    {
+        $data = ItemData::getFromInternalName($internalName);
+
+        return new ExcessItem(
+            $internalName,
+            $count,
+            $neededCount,
             $data ? (int) $data->weight : 0,
             $data ? $data->name : null,
         );

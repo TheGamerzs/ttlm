@@ -37,7 +37,7 @@ class RecipeShoppingListDecorator
             // Account for recipes that yield more than one item. Round up .5s
             $count = (int) ceil($this->count / $this->recipe->makes);
 
-            $recipe = RecipeFactory::get($craftingMaterial, $this->count);
+            $recipe = RecipeFactory::get($craftingMaterial);
             $decoratedRecipe = new self($recipe, $craftingMaterial->recipeCount * $count);
 
             $this->componentRecipes->push($decoratedRecipe);
@@ -45,7 +45,7 @@ class RecipeShoppingListDecorator
         }
     }
 
-    protected function checkStorage()
+    protected function checkStorage(): void
     {
         if (!array_key_exists($this->recipeName, ShoppingListBuilder::$diminishingStorage)) return;
 

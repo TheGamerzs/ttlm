@@ -4,8 +4,9 @@ namespace App\Models\Scopes;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Scope;
 
-class ExpiredScope implements \Illuminate\Database\Eloquent\Scope
+class ExpiredScope implements Scope
 {
     protected $extensions = ['WithExpired', 'OnlyExpired'];
 

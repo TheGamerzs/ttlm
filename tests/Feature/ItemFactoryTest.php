@@ -1,6 +1,7 @@
 <?php
 
 use App\TT\Factories\ItemFactory;
+use App\TT\Items\ExcessItem;
 
 it('makes an item from stored json', function () {
 
@@ -56,7 +57,8 @@ it('makes a crafting material', function () {
         ->name->toBeString()->toBe('crafted_rebar')
         ->weight->toBeInt()->toBe(45)
         ->recipe->toBeInstanceOf(\App\TT\Recipe::class)
-        ->recipeCount->toBeInt()->toBe(1);
+        ->recipeCount->toBeInt()->toBe(1)
+        ->prettyName->not->toBeEmpty();
 
 });
 
@@ -68,6 +70,21 @@ it('makes an exportable item', function () {
         ->toBeInstanceOf(\App\TT\Items\ExportableItem::class)
         ->name->toBeString()->toBe('refined_zinc')
         ->weight->toBeInt()->toBe(10)
-        ->count->toBeInt()->toBe(100);
+        ->count->toBeInt()->toBe(100)
+        ->prettyName->not->toBeEmpty();
+
+});
+
+it('makes an excess item', function () {
+
+    $item = ItemFactory::makeExcessItem('refined_zinc', 100, 200);
+
+    expect($item)
+        ->toBeInstanceOf(ExcessItem::class)
+        ->name->toBe('refined_zinc')
+        ->count->toBe(100)
+        ->neededCount->toBe(200)
+        ->weight->not->toBeEmpty()
+        ->prettyName->not->toBeEmpty();
 
 });

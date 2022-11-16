@@ -24,7 +24,7 @@
                     <td></td>
                     <td class="text-center">Excess Count</td>
                     <td class="text-center">Excess Weight</td>
-                    <td class="text-center">Needed</td>
+                    <td class="text-center">Still Needed</td>
                     <td class="text-center">You Have</td>
                 </tr>
             </thead>

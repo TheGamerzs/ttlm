@@ -3,13 +3,14 @@
 use App\Models\MarketOrder;
 use App\Models\User;
 use App\TT\Inventories;
+use App\TT\StorageFactory;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use function Pest\Laravel\actingAs;
 
 test('relationships', function () {
 
     $user = User::factory()->create();
-    $d = MarketOrder::factory()->buyOrder()->for($user)->count(3)->create();
+    MarketOrder::factory()->buyOrder()->for($user)->count(3)->create();
     MarketOrder::factory()->sellOrder()->for($user)->count(2)->create();
     $user->load(['marketOrders', 'buyOrders', 'sellOrders']);
 
@@ -246,7 +247,7 @@ it('sets backpack to false when api does not have one', function () {
     fakeStoragesAndPersonalInventoryCallsWithJson();
     fakeEmptyBackpackCallWithStoredJson();
 
-    \App\TT\StorageFactory::get();
+    StorageFactory::get();
 
     expect($user->refresh())->has_backpack->toBeFalsy();
 

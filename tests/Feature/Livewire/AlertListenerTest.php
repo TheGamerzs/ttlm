@@ -1,6 +1,9 @@
 <?php
 
-function assertAlertSet(\Illuminate\Support\Collection $component): void
+use App\Http\Livewire\AlertListener;
+use Illuminate\Support\Collection;
+
+function assertAlertSet(Collection $component): void
 {
     $alert = $component['alert'];
     expect($alert)->toBeArray()
@@ -12,7 +15,7 @@ function assertAlertSet(\Illuminate\Support\Collection $component): void
 test('defaults', function (string $trigger) {
 
     Session::put($trigger, true);
-    $component = Livewire::test(\App\Http\Livewire\AlertListener::class)->instance()->getHydratedData();
+    $component = Livewire::test(AlertListener::class)->instance()->getHydratedData();
 
     assertAlertSet($component);
 
@@ -24,7 +27,7 @@ test('defaults', function (string $trigger) {
 
 test('nothing happens without a default', function () {
 
-    $component = Livewire::test(\App\Http\Livewire\AlertListener::class)->instance()->getHydratedData();
+    $component = Livewire::test(AlertListener::class)->instance()->getHydratedData();
 
     expect($component['alert'])->toBe([]);
 

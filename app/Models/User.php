@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Session;
 use JetBrains\PhpStorm\ArrayShape;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @property int|null truckCapacity
+ * @property int|null pocketCapacity
+ * @property int|null trainYardCapacity
+ */
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -56,7 +61,7 @@ class User extends Authenticatable
         } else {
             Log::debug(json_encode($apiResponse) . ' - User: ' . $this->id);
             Cache::decrement($this->id . 'apiIdAttempts');
-            Session::flash('cantGetTTApiAlert', true);
+            Session::flash('cantGetTTApiAlert');
             return false;
         }
     }
@@ -146,7 +151,7 @@ class User extends Authenticatable
         return $this;
     }
 
-    #[ArrayShape(['count' => 'int', 'recipe' => 'string'])]
+    #[ArrayShape(['count' => 'int', 'recipe' => 'string'])] // @phpstan-ignore-line
     public function getCraftingGoal(): array
     {
         return Session::get('craftingGoal', [

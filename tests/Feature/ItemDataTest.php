@@ -2,6 +2,7 @@
 
 use App\TT\Items\ItemData;
 use Illuminate\Support\Collection;
+use function Spatie\Snapshots\assertMatchesJsonSnapshot;
 
 test('data is loaded from json file into cache from app service provider', function () {
 
@@ -73,8 +74,8 @@ it('returns a pretty name without the prefix', function () {
 it('returns back the internal name when it does not exist', function (string $fakeName) {
 
     expect(
-        ItemData::getName('made_up')
-    )->toBe('made_up');
+        ItemData::getName($fakeName)
+    )->toBe($fakeName);
 
 })->with(
     [
@@ -180,9 +181,9 @@ test('getAllInternalNames static method', function () {
 });
 
 test('truckingItemsStartWith static method', function () {
-    \Spatie\Snapshots\assertMatchesJsonSnapshot(json_encode(ItemData::truckingItemsStartWith()));
+    assertMatchesJsonSnapshot(json_encode(ItemData::truckingItemsStartWith()));
 });
 
 test('getAllInternalTruckingNames static method', function () {
-    \Spatie\Snapshots\assertMatchesJsonSnapshot(ItemData::getAllInternalTruckingNames()->toJson());
+    assertMatchesJsonSnapshot(ItemData::getAllInternalTruckingNames()->toJson());
 });

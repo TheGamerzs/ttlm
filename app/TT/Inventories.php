@@ -5,10 +5,12 @@ namespace App\TT;
 
 use App\TT\Items\CraftingMaterial;
 use App\TT\Items\InventoryItem;
+use Countable;
 use Illuminate\Support\Collection;
+use IteratorAggregate;
 use Traversable;
 
-class Inventories implements \IteratorAggregate, \Countable
+class Inventories implements IteratorAggregate, Countable
 {
     /**
      * @var Collection<Trunk>

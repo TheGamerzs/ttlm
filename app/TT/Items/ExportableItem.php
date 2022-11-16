@@ -5,6 +5,7 @@ namespace App\TT\Items;
 use App\Models\User;
 use App\TT\Factories\ItemFactory;
 use App\TT\Storage;
+use Illuminate\Support\Collection;
 
 class ExportableItem extends Item
 {
@@ -103,7 +104,7 @@ class ExportableItem extends Item
         ],
     ];
 
-    public static function getAllForStorage(Storage $storage, User $user = null): \Illuminate\Support\Collection|Storage
+    public static function getAllForStorage(Storage $storage, User $user = null): Collection|Storage
     {
         $exportable = $storage->whereIn('name', array_keys(self::$data));
 

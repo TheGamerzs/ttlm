@@ -3,9 +3,11 @@
 namespace App\Http\Livewire;
 
 use App\TT\Items\ExcessItem;
+use App\TT\Recipe;
 use App\TT\RecipeFactory;
 use App\TT\Storage;
 use App\TT\StorageFactory;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class ExcessItemsInStorageModal extends BaseComponent
@@ -35,21 +37,21 @@ class ExcessItemsInStorageModal extends BaseComponent
         return "Excess Items for {$this->count} {$this->hydratedRecipe()->displayNamePlural()} across all storages";
     }
 
-    protected function hydratedRecipe(): \App\TT\Recipe
+    protected function hydratedRecipe(): Recipe
     {
         return RecipeFactory::get($this->recipe);
     }
 
-    public function getItems(): \Illuminate\Support\Collection|Storage
+    public function getItems(): Collection|Storage
     {
         return ExcessItem::makeList(
-            $this->count,
+            (int) $this->count,
             $this->hydratedRecipe(),
             StorageFactory::get()
         );
     }
 
-    public function render()
+    public function render(): \Illuminate\Contracts\View\View
     {
         return view('livewire.excess-items-in-storage-modal')
             ->with([

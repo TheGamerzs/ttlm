@@ -1,0 +1,24 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+
+    paths:
+        - app/
+
+    # Level 9 is the highest level
+    level: 5
+
+    ignoreErrors:
+        - '#^Function fakeStoragesAndPersonalInventoryCallsWithJson not found\.$#'
+        - '#^Function fakeEmptyBackpackCallWithStoredJson not found\.$#'
+        - '#^Access to an undefined property Pest\\Expectation\|Pest\\Support\\Extendable\:\:\$[a-zA-Z0-9\\_]+\.$#'
+        - '#^Call to an undefined method Pest\\Expectation\|Pest\\Support\\Extendable\:\:[a-zA-Z0-9\\_]+\(\)\.$#'
+        - '#^Call to an undefined method Pest\\Expectation\:\:[a-zA-Z0-9\\_]+\(\)\.$#'
+        - '#^Access to an undefined property Pest\\Expectation\:\:\$[a-zA-Z0-9\\_]+\.$#'
+#        - '#PHPDoc tag @var#'
+
+    excludePaths:
+        - tests
+#
+#    checkMissingIterableValueType: false

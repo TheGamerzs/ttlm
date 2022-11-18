@@ -96,7 +96,7 @@ class QuickInventoryCalculations extends BaseComponent
         $counts = new PickupRunCounts(
             Auth::user()->makeTruckingInventories(),
             $this->itemName,
-            $this->pickupCountsYield
+            (int) $this->pickupCountsYield
         );
         return $counts->setStorageName($this->storageName);
     }

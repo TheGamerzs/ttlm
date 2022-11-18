@@ -51,7 +51,7 @@ class UserFactory extends Factory
         ]);
     }
 
-    protected function fakeDiscordSnowflake()
+    protected function fakeDiscordSnowflake(): string
     {
         return (string) fake()->randomNumber(9) . fake()->randomNumber(9);
     }

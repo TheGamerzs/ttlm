@@ -103,6 +103,10 @@ class QuickInventoryCalculations extends BaseComponent
 
     protected function trainYardPickups(): Collection
     {
+        if (empty(Auth::user()->trainYardCapacity)) {
+            return collect();
+        }
+
         $baseTrunks = Auth::user()->makeInventories()
             ->setCapacityUsed('trainYard', (int) $this->capacityUsedTY);
 

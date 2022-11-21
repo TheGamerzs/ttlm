@@ -46,6 +46,7 @@ class Trunk
 
     public function numberOfItemsThatCanFitFromWeight(int $itemWeight): int
     {
+        if (empty($itemWeight)) return 0;
         return (int) floor($this->getAvailableCapacity() / $itemWeight);
     }
 

@@ -9,6 +9,7 @@
         TTLM {{ $titleAddon ? '-' : '' }} {{ $titleAddon ?? '' }}
     </title>
 
+    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
 
     <link rel="stylesheet" href="{{ asset('css\lux.css') }}">
     <link

@@ -24,7 +24,9 @@
     <link rel="stylesheet" href="{{ asset('css\app.css') }}">
     <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    @vite('resources/js/app.js')
+    @if(!App::environment('production'))
+        @vite('resources/js/app.js')
+    @endif
     @livewireStyles
 </head>
 

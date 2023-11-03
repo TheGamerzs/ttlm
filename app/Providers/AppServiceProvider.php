@@ -42,5 +42,9 @@ class AppServiceProvider extends ServiceProvider
     {
         Model::preventLazyLoading(! $this->app->environment('production'));
         Model::preventSilentlyDiscardingAttributes(! $this->app->environment('production'));
+
+        if($this->app->environment('production')) {
+            \URL::forceScheme('https');
+        }
     }
 }

@@ -15,6 +15,14 @@ $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 
+if (env('APP_ENV') === 'production') {
+    if (!file_exists('/tmp/storage')) {
+        mkdir('/tmp/storage', 0777, true);
+    }
+
+    $app->useStoragePath('/tmp/storage');
+}
+
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces

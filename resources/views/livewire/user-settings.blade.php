@@ -17,7 +17,7 @@
                             <span class="fs-4">{{ $user->tt_id }}</span>
                         @else
                             @if(Cache::get($user->id . 'apiIdAttempts') < 1 || ! Cache::has($user->id . 'apiIdAttempts'))
-                                Attempts to retrieve your TT account have been exhausted, contact me on discord (xxdalexx#9783)
+                                Attempts to retrieve your TT account have been exhausted, contact me on discord (thegamerzs)
                                 to get this resolved.
                             @else
                                 Could not retrieve your TT ID. Try again after linking your Discord/TT accounts in the TT Discord.<br>
@@ -25,7 +25,7 @@
                                     Try Again (Attempts Remaining: {{ Cache::get($user->id . 'apiIdAttempts') }})
                                 </button>
                                 <br>
-                                If you think this is in error, reach out to me on discord xxdalexx#9783
+                                If you think this is in error, reach out to me on discord thegamerzs
                             @endif
                         @endif
 

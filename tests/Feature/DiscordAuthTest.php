@@ -15,7 +15,7 @@ it('creates a new user and logs them in', function () {
     get('/auth/callback')
         ->assertRedirect();
 
-    expect(User::firstWhere('discord_snowflake', 324060102770556933))->toBeInstanceOf(User::class)
+    expect(User::firstWhere('discord_snowflake', 730142125181894657))->toBeInstanceOf(User::class)
         ->and(Auth::check())->toBeTrue()
         ->and(Auth::user()->tt_id)->toBe(645753)
         ->and(Auth::user()->full_trailer_alerts)->toBeInstanceOf(Collection::class)
@@ -30,7 +30,7 @@ it('logs in an existing user', function () {
     Http::preventStrayRequests();
 
     User::create([
-        'discord_snowflake' => 324060102770556933,
+        'discord_snowflake' => 730142125181894657,
         'name' => 'name'
     ]);
 
@@ -46,13 +46,13 @@ it('logs in an existing user', function () {
 beforeEach(function () {
 
     $socialiteUser                 = mock(SocialiteUser::class)->expect(
-        getId: fn () => 324060102770556933,
-        getName: fn () => 'xxdalexx',
+        getId: fn () => 730142125181894657,
+        getName: fn () => 'thegamerzs',
     );
-    $socialiteUser->id             = 324060102770556933;
+    $socialiteUser->id             = 730142125181894657;
     $socialiteUser->nickname       = null;
     $socialiteUser->email          = 'xthedalex@gmail.com';
-    $socialiteUser->avatar         = 'https://cdn.discordapp.com/avatars/324060102770556933/a_d3d4e253a2d4340cb17a0d138b9d8abd.png';
+    $socialiteUser->avatar         = 'https://cdn.discordapp.com/avatars/730142125181894657/a_d3d4e253a2d4340cb17a0d138b9d8abd.png';
     $socialiteUser->token          = "r7LKBZBo39rIbLIjKYHxJBHscZ7M3j";
     $socialiteUser->refreshToken   = "IKLBRim1RYZ2PihB7uP0JkedN8a63I";
     $socialiteUser->expiresIn      = 604800;
@@ -62,8 +62,8 @@ beforeEach(function () {
         2 => "guilds"
     ];
     $socialiteUser->user           = [
-        "id"                => "324060102770556933",
-        "username"          => "xxdalexx",
+        "id"                => "730142125181894657",
+        "username"          => "thegamerzs",
         "avatar"            => "a_d3d4e253a2d4340cb17a0d138b9d8abd",
         "avatar_decoration" => null,
         "discriminator"     => "9783",

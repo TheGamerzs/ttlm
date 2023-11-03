@@ -18,9 +18,9 @@ class DatabaseSeeder extends Seeder
     {
         // Use factory for default full trailer alerts.
         $user = User::factory()->create([
-            'discord_snowflake' => 324060102770556933,
-            'name' => 'xxdalexx',
-            'tt_id' => 645753,
+            'discord_snowflake' => 730142125181894657,
+            'name' => 'thegamerzs',
+            'tt_id' => 56112,
             'truckCapacity' => 9775,
             'truckCapacityTwo' => 6000,
             'pocketCapacity' => 325,
@@ -30,12 +30,5 @@ class DatabaseSeeder extends Seeder
         MarketOrder::factory()->buyOrder()->count(2)->for($user)->create();
         MarketOrder::factory()->sellOrder()->count(2)->for($user)->create();
         MarketOrder::factory()->moveOrder()->count(1)->for($user)->create();
-
-        $otherUser = User::factory()->create();
-
-        MarketOrder::factory()->buyOrder()->count(10)->for($otherUser)->create();
-        MarketOrder::factory()->sellOrder()->count(10)->for($otherUser)->create();
-        MarketOrder::factory()->moveOrder()->count(5)->for($otherUser)->create();
-        MarketOrder::factory()->buyOrder()->for($otherUser)->create(['item_name' => 'biz_token']);
     }
 }
